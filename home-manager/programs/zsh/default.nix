@@ -7,10 +7,6 @@
   programs = {
     zsh = {
       enable = true;
-      #initExtra = ''
-      #  source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      #  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-      #''; 
       oh-my-zsh = {
         enable = true;
         plugins = [
@@ -29,12 +25,32 @@
       enable = true;
       enableZshIntegration = true;
       settings = {
+        format = "$directory$character$git_branch$git_status";
+        right_format = "$status$cmd_duration";
+        character = {
+          success_symbol = "[❯](blue)";
+          error_symbol = "[❯](red)";
+        };
+        status = {
+          disabled = false;
+          format = "[$symbol]($style)";
+          symbol = "[✘ ](red)";
+          success_symbol = "[✔ ](green)";
+        };
+        git_branch = {
+          format = "[$branch]($style) ";
+          style = "bold green";
+        };
+        directory = {
+          style = "blue";
+          truncation_length = 1;
+          truncation_symbol = "";
+          fish_style_pwd_dir_length = 1;
+        };
+        cmd_duration = {
+          min_time = 0;        
+        };
       };
     };
-  };
-  xdg.configFile."powerlevel10k" = {
-    enable = true;
-    source = ./.p10k.zsh;
-    target = "../.p10k.zsh";
   };
 }
