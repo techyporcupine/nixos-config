@@ -16,7 +16,7 @@
       };
       style = ''
 * {
-    font-family: "FontAwesome", "iosevka";
+    font-family: iosevka, "Font Awesome 6 Free";
     font-size: 16px;
 }
 
