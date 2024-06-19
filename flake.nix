@@ -53,7 +53,7 @@
             ]; })
             disko.nixosModules.disko
             ./machines/frankentop.nix 
-            ./disko/frankendisko.nix
+            ./disko/disko.nix
             ./nixos
             home-manager.nixosModules.home-manager
             {

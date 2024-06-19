@@ -6,6 +6,7 @@
   system.stateVersion = "24.11";
 
   # BOOT AND DISKS CONFIG
+  disko.devices.disk.vdb.device = "/dev/disk/by-id/ata-JAJMS300M120G_AB202200000210001291";
   tp.disks = {
     enable = true;
   };

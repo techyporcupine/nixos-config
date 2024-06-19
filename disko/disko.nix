@@ -3,7 +3,6 @@
     disk = {
       vdb = {
         type = "disk";
-        device = "/dev/disk/by-id/ata-JAJMS300M120G_AB202200000210001291";
         content = {
           type = "gpt";
           partitions = {
