@@ -26,10 +26,4 @@ Repo that has the configuration for a nice NixOS setup using [nixos-unstable](ht
 
 10. Change password with `passwd`
 
-11. Connect to internet ([WiFi](https://nixos.org/manual/nixos/stable/#sec-installation-manual-networking) or Ethernet)
-
-12. Copy flake onto new NixOS install and enter it's directory.
-
-13. Run `nix-shell -p gitMinimal` (to get Git for HM) and then `home-manager switch --flake .#techyporcupine`
-
-14. After that completes, reboot for good measure and then log in through GDM! All done!!
+11. Log in through GDM, and you should be good! All done!!
