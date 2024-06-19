@@ -55,24 +55,30 @@
             ./machines/frankentop.nix 
             ./disko/frankendisko.nix
             ./nixos
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.techyporcupine = import ./home-manager/home.nix;
+              home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            }
           ];
         };
       };
 
       # Standalone home-manager configuration entrypoint
       # To switch to new home-manager setup 'home-manager switch --flake .#techyporcupine'
-      homeConfigurations = {
-        "techyporcupine" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {inherit inputs outputs;};
-          # Path to home-manager configuration
-          modules = [ 
-            ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
-            hyprland.homeManagerModules.default
-            {wayland.windowManager.hyprland.enable = true;}
-            ./home-manager/home.nix
-          ];
-        };
-      };
+      #homeConfigurations = {
+      #  "techyporcupine" = home-manager.lib.homeManagerConfiguration {
+      #    pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+      #    extraSpecialArgs = {inherit inputs outputs;};
+      #    # Path to home-manager configuration
+      #    modules = [ 
+      #      ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
+      #      hyprland.homeManagerModules.default
+      #      ./home-manager/home.nix
+      #    ];
+      #  };
+      #};
     };
 }

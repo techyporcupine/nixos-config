@@ -33,6 +33,7 @@
     target = "hypr/wallpapers";
   };
   wayland.windowManager.hyprland = {
+    enable = true;
     settings = {
       # Configuration for monitors
       monitor = [
@@ -53,8 +54,6 @@
         "hyprctl setcursor catppuccin-mocha-green-cursors 24"
         "firefox"
       ];
-      # Disable hardware cursors
-      cursor.no_hardware_cursors = true;
       # Input devices configuration
       input = {
         kb_layout = "us";
