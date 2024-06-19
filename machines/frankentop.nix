@@ -34,14 +34,17 @@
     hwaccel.enable = true;
   };
 
+  # GAMING CONFIG
   tp.gaming = {
     enable = true;
   };
 
+  # USER CONFIG
   tp.user = {
     enable = true;
   };
 
+  # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
     yt-dlp
     blisp

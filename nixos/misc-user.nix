@@ -12,6 +12,7 @@
       shell = pkgs.zsh;
       initialPassword = "initialPassword";
     };
+    # Enable Zsh, THIS IS NESSECERY to get nix directories in zsh's path.
     programs.zsh.enable = true;
   };
 }

@@ -9,11 +9,13 @@
     networking = {
       networkmanager.enable = true; # Enable networking via networkmanager
     };
+    # Enable tailscale mesh network
     services.tailscale = lib.mkIf cfg.tailscale.client.enable {
       enable = true;
       useRoutingFeatures = "client";
       extraUpFlags = "--accept-routes --exit-node=nixserve";
     };
+    # Enable avahi for mdns reflection
     services.avahi = lib.mkIf cfg.avahi.enable {
       enable = true;
       nssmdns4 = true;

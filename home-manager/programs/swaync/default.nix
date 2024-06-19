@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
-    home.file.".config/swaync/config.json".text = ''
+  # Sway Notification Center configuration
+  home.file.".config/swaync/config.json".text = ''
 {
   "$schema": "/etc/xdg/swaync/configSchema.json",
   "positionX": "right",
@@ -76,8 +77,8 @@
     }
   }
 }
-    '';
-    home.file.".config/swaync/style.css".text = ''
+  '';
+  home.file.".config/swaync/style.css".text = ''
 /*
  * vim: ft=less
  */
@@ -416,6 +417,5 @@
    margin: 12px;
    font-size: 1.5rem;
  }
-    '';
-
+  '';
 }

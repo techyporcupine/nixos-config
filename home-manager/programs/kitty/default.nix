@@ -1,4 +1,5 @@
 {pkgs, ...}: {
+  # Config for the kitty terminal emulator
   programs.kitty = {
     enable = true;
     font = {

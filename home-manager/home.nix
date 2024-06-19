@@ -6,6 +6,7 @@
     ./programs
   ];
 
+  # HM Nixpkgs config 
   nixpkgs = {
     # Configure your nixpkgs instance
     config = {
@@ -20,13 +21,14 @@
     };
   };
 
+  # Define user
   home = {
     username = "techyporcupine";
     homeDirectory = "/home/techyporcupine";
   };
 
+  # Packages just for techyporcupine
   home.packages = with pkgs; [ 
-    dolphin-emu
     webcord
     cava
     scrcpy
@@ -50,21 +52,23 @@
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
-  
   programs.git = {
     enable = true;
     userName  = "techyporcupine";
     userEmail = "git@cb-tech.me";
   };
 
+  # Enable SSH agest
   services = {
     ssh-agent.enable = true;
   };
 
   programs = {
+    # SSH home config
     ssh = {
       enable = true;
       addKeysToAgent = "yes";
+      # Config for clients you can ssh to without all their info.
       matchBlocks = {
         "helium" = {
           forwardAgent = true;
@@ -89,7 +93,6 @@
       };
     };
   };
-
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

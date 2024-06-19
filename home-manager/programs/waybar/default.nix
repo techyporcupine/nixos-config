@@ -6,7 +6,7 @@
         brightnessctl
         playerctl
     ];
-
+    # Config for waybar
     programs.waybar = {
       package = inputs.waybar.packages.${pkgs.system}.waybar;
       enable = true;
@@ -14,6 +14,7 @@
         enable = false;
         target = "graphical-session.target";
       };
+      # CSS style for waybar
       style = ''
 * {
     font-family: iosevka, "Font Awesome 6 Free";
@@ -241,6 +242,7 @@ label:focus {
 @define-color flamingo  #f2cdcd;
 @define-color rosewater #f5e0dc;
       '';
+      # Normal config for waybar
       settings = [{
         "layer"= "top"; 
         "height"= 34; 

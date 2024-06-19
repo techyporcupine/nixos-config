@@ -16,6 +16,7 @@
       mangohud
       jre17_minimal
       prismlauncher
+      dolphin-emu
     ];
   };
 }

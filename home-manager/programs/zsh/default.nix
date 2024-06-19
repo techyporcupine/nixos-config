@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ 
-    zsh-powerlevel10k
-  ];
   programs = {
+    # Zsh configuration
     zsh = {
       enable = true;
       oh-my-zsh = {
@@ -14,6 +12,7 @@
           "sudo"
         ];
       };
+      # Defined aliases to be used inside of the shell 
       shellAliases = {
         c = "clear";
       };
@@ -21,6 +20,7 @@
       enableCompletion = true;
       syntaxHighlighting.enable = true;
     };
+    # Configuration for starship, my zsh theme
     starship = {
       enable = true;
       enableZshIntegration = true;

@@ -11,7 +11,7 @@
     pkgs.cliphist
     pkgs.wl-clipboard
   ];
-
+  # Files to copy to a location in the home directory
   xdg.configFile."hyprpaper" = {
     enable = true;
     source = ./hyprpaper.conf;
@@ -32,6 +32,7 @@
     source = ./wallpapers;
     target = "hypr/wallpapers";
   };
+  # Hyprland configuration
   wayland.windowManager.hyprland = {
     enable = true;
     settings = {
@@ -109,24 +110,30 @@
         pseudotile = "yes";
         preserve_split = "yes";
       };
+      # What gestures to enable
       gestures = {
         workspace_swipe = "yes";
       };
       misc = {
+        # Get rid of logo and hyprchan
         disable_hyprland_logo = true;
         vfr = true;
       };
+      # State mainMod as the super key
       "$mainMod" = "SUPER";
+      # Mouse binds
       bindm = [
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
+      # Binds that can be held and will continue going
       binde = [
         ", XF86MonBrightnessUp, exec, brightnessctl -s s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl -s s 5%-"
         ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1"
         ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1"   
       ];
+      # Traditional binds
       bind = [
         "$mainMod, C, killactive," 
         "$mainMod, M, exit, "

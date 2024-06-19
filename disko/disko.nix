@@ -1,6 +1,7 @@
 {
   disko.devices = {
     disk = {
+      # Set up disk called "vdb"
       vdb = {
         type = "disk";
         content = {
@@ -23,24 +24,24 @@
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ]; # Override existing partition
-                # Subvolumes must set a mountpoint in order to be mounted,
-                # unless their parent is mounted
+                # BTRFS Subvolumes and where they are mounted
                 subvolumes = {
-                  # Subvolume name is different from mountpoint
+                  # The rootfs, mounted at / on the disk
                   "/rootfs" = {
                     mountpoint = "/";
                   };
-                  # Subvolume name is the same as the mountpoint
+                  # the home dir, mounted at /home on the disk with some nice zstd compression
                   "/home" = {
                     mountOptions = [ "compress=zstd" ];
                     mountpoint = "/home";
                   };
-                  # Parent is not mounted so the mountpoint must be set
+                  # the nix dir, mounted at /nix on the disk, also with some nice zstd compression
                   "/nix" = {
                     mountOptions = [ "compress=zstd" "noatime" ];
                     mountpoint = "/nix";
                   };
-                  # Subvolume for the swapfile
+                  # Subvolume for the swapfile, mounted at /.swapvol 
+                  # 4GB should be good for 16GB of RAM w/o hibernation
                   "/swap" = {
                     mountpoint = "/.swapvol";
                     swap = {

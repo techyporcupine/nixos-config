@@ -1,6 +1,6 @@
 {config, lib, pkgs, ... }:
 {
-  # set gnome applications to use dark mode for gtk4
+  # set some options in dconf cus they didnt take effect otherwise
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
@@ -8,6 +8,7 @@
     };
   };
 
+  # Other GTK settings
   gtk = {
     enable = true;
     theme = {
