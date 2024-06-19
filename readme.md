@@ -20,10 +20,10 @@ Repo that has the configuration for a nice NixOS setup using [nixos-unstable](ht
 
 7. Proceed to install NixOS with `sudo nixos-install --flake .#frankentop`
 
-8. After completion of install, reboot into the SSD you installed to, and enter TTY2 (ctrl+alt+f2). 
+8. After completion of install, reboot into the SSD you installed to. 
 
-9. Log in using username and initialPassword set in configuration.
+9. Log in using username and initialPassword set in configuration through GDM.
 
 10. Change password with `passwd`
 
-11. Log in through GDM, and you should be good! All done!!
+11. You should be good! All done!!
