@@ -125,8 +125,8 @@
       binde = [
         ", XF86MonBrightnessUp, exec, brightnessctl -s s +5%"
         ", XF86MonBrightnessDown, exec, brightnessctl -s s 5%-"
-        ", XF86AudioRaiseVolume, exec, amixer sset Master 5%+"
-        ", XF86AudioLowerVolume, exec, amixer sset Master 5%-"   
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1"   
       ];
       bind = [
         "$mainMod, C, killactive," 
