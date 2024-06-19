@@ -7,10 +7,10 @@
   programs = {
     zsh = {
       enable = true;
-      initExtra = ''
-        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-      ''; 
+      #initExtra = ''
+      #  source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      #  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+      #''; 
       oh-my-zsh = {
         enable = true;
         plugins = [
@@ -24,6 +24,12 @@
       autosuggestion.enable = true;
       enableCompletion = true;
       syntaxHighlighting.enable = true;
+    };
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = {
+      };
     };
   };
   xdg.configFile."powerlevel10k" = {
