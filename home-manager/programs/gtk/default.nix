@@ -23,7 +23,7 @@
       package = pkgs.papirus-icon-theme;
     };
     font = {
-      name = "Fira Code Medium";
+      name = "FiraCode Nerd Font";
       size = 10;
     };
   };

@@ -111,7 +111,7 @@
       iosevka
       inconsolata
       roboto-mono
-      fira-code
+      fira-code-nerdfont
     ];
 
     # Enable blueman for bluetooth managment
