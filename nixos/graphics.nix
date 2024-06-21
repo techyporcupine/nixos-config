@@ -74,6 +74,7 @@
       obs-studio
       gimp
       slack
+      blender
       (vscode-with-extensions.override {
         vscode = vscodium;
         vscodeExtensions = with vscode-extensions; [
