@@ -3,6 +3,7 @@
     disk = {
       # Set up disk called "vdb"
       vdb = {
+        device = "/dev/disk/by-id/ata-LITEON_LCT-128M3S_TW0K11MF550852B15053";
         type = "disk";
         content = {
           type = "gpt";
