@@ -6,7 +6,7 @@
   system.stateVersion = "24.11";
 
   # BOOT AND DISKS CONFIG
-  disko.devices.disk.vdb.device = "/dev/disk/by-id/ata-JAJMS300M120G_AB202200000210001291";
+  disko.devices.disk.vdb.device = "/dev/disk/by-id/ata-LITEON_LCT-128M3S_TW0K11MF550852B15053";
   tp.disks = {
     enable = true;
   };
