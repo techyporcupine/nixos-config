@@ -10,10 +10,9 @@
   config = lib.mkIf cfg.enable {
     # HARDWARE ACCELERATION CONFIGURATION
     hardware = {
-      opengl = lib.mkIf cfg.hwaccel.enable {
+      graphics = lib.mkIf cfg.hwaccel.enable {
         enable = true;
-        driSupport = true;
-        driSupport32Bit = true;
+        enable32Bit = true;
         # Packages for hardware acceleration
         extraPackages = with pkgs; [
           intel-media-driver # LIBVA_DRIVER_NAME=iHD

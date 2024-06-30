@@ -64,6 +64,27 @@
             }
           ];
         };
+        lithium = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {inherit inputs outputs;};
+          # Path to NixOS configuration
+          modules = [ 
+            ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
+              overlay-stable
+            ]; })
+            disko.nixosModules.disko
+            ./machines/frankentop.nix 
+            ./disko/disko.nix
+            ./nixos
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.techyporcupine = import ./home-manager/home.nix;
+              home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            }
+          ];
+        };
       };
 
       # Standalone home-manager configuration entrypoint
