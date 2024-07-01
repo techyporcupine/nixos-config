@@ -9,6 +9,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
+    nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -25,11 +26,17 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ... }@inputs:
     let
       inherit (self) outputs;
       overlay-stable = final: prev: {
         stable = import nixpkgs-stable {
+          system = final.system;
+          config.allowUnfree = true;
+        };
+      };
+      overlay-tp = final: prev: {
+        tp = import nixpkgs-tp {
           system = final.system;
           config.allowUnfree = true;
         };
@@ -50,6 +57,7 @@
           modules = [ 
             ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
               overlay-stable
+              overlay-tp
             ]; })
             disko.nixosModules.disko
             ./machines/frankentop.nix 

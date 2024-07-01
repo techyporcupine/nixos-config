@@ -324,6 +324,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-tp": {
+      "locked": {
+        "lastModified": 1719848983,
+        "narHash": "sha256-rW7tPJVkNov+tSTWoFeQ3bUVCGVz/khmlBdwfsNjhvg=",
+        "owner": "techyporcupine",
+        "repo": "nixpkgs",
+        "rev": "59d42de213473b538e4a8d0278ef9a5d9dda6f07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "techyporcupine",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1719075281,
@@ -382,6 +397,7 @@
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-staging": "nixpkgs-staging",
+        "nixpkgs-tp": "nixpkgs-tp",
         "waybar": "waybar"
       }
     },
