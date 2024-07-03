@@ -8,6 +8,9 @@
   config = lib.mkIf cfg.enable {
     networking = {
       networkmanager.enable = true; # Enable networking via networkmanager
+      firewall = {
+        extraCommands = "iptables -I nixos-fw -s 10.0.0.148 -p udp -j nixos-fw-accept"; # hdhomerun
+      };
     };
     # Enable tailscale mesh network
     services.tailscale = lib.mkIf cfg.tailscale.client.enable {
