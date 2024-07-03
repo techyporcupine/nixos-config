@@ -20,13 +20,14 @@
     # Packages I just want the latest of
     waybar.url = "github:Alexays/Waybar/master";
     hypridle.url = "github:hyprwm/hypridle/main";
+    ladybird.url = "github:LadybirdBrowser/ladybird";
 
     # Home manager config
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, ... }@inputs:
     let
       inherit (self) outputs;
       overlay-stable = final: prev: {
