@@ -50,6 +50,8 @@
     nodejs
     nodePackages_latest.pnpm
     hugo
+    libhdhomerun
+    hdhomerun-config-gui
   ];
 
   ################################################################################
