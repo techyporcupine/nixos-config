@@ -80,6 +80,12 @@
           hostname = "10.0.0.5";
           setEnv = { TERM = "kitty"; };
         };
+        "printerpi" = {
+          forwardAgent = true;
+          user = "printerpi";
+          hostname = "10.0.0.30";
+          setEnv = { TERM = "kitty"; };
+        };
         "switch" = {
           hostname = "10.0.0.4";
           user = "admin";
