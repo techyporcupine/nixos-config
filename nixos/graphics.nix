@@ -73,7 +73,7 @@
       obs-studio
       gimp
       slack
-      blender
+      pkgsCuda.blender
       gnome.cheese
       (vscode-with-extensions.override {
         vscode = vscodium;

@@ -42,6 +42,15 @@
           config.allowUnfree = true;
         };
       };
+      overlay-cuda = final: prev: {
+        # change from nixpkgs to nixpkgs-cuda if needed, also change the hash at nixpkgs-cuda
+        pkgsCuda = import nixpkgs {
+          system = final.system;
+          config.cudaSupport = true; 
+          # config.cudaCapabilities = [ "5.0" ]; 
+          config.allowUnfree = true; 
+        };
+      };
       systems = [
         "aarch64-linux"
         "x86_64-linux"
@@ -59,6 +68,7 @@
             ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
               overlay-stable
               overlay-tp
+              overlay-cuda
             ]; })
             disko.nixosModules.disko
             ./machines/frankentop.nix 
