@@ -8,5 +8,6 @@
     ./misc-system.nix
     ./rtl-sdr.nix
     ./user.nix
+    ./graphics
   ];
 }
