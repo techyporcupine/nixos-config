@@ -6,7 +6,7 @@
     ./graphics.nix
     ./misc-nix.nix
     ./misc-system.nix
-    ./misc-user.nix
     ./rtl-sdr.nix
+    ./user.nix
   ];
 }

@@ -38,10 +38,8 @@
     enable = true;
   };
 
-  # USER CONFIG
-  tp.user = {
-    enable = true;
-  };
+  tp.username = "techyporcupine";
+  tp.fullName = "Caleb";
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
