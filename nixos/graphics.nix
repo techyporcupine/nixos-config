@@ -3,14 +3,15 @@
   options.tp.graphics = {
     enable = lib.mkEnableOption "TP's graphics stack";
     nvidia.enable = lib.mkEnableOption "enable nVidia driver stuff";
-    nvidia.prime.enable = lib.mkEnableOption "enable nVidia prime config";
-    hwaccel.enable = lib.mkEnableOption "hardware acceleration";
+    nvidia.prime = lib.mkEnableOption "enable nVidia prime config";
+    hwaccel = lib.mkEnableOption "hardware acceleration";
+    kitty = lib.mkEnableOption "Enable Kitty and theming for it";
   };
 
   config = lib.mkIf cfg.enable {
     # HARDWARE ACCELERATION CONFIGURATION
     hardware = {
-      graphics = lib.mkIf cfg.hwaccel.enable {
+      graphics = lib.mkIf cfg.hwaccel {
         enable = true;
         enable32Bit = true;
         # Packages for hardware acceleration
@@ -22,17 +23,16 @@
         ];
       };
     };
-    nixpkgs.config = lib.mkIf cfg.hwaccel.enable {
+    nixpkgs.config = lib.mkIf cfg.hwaccel {
       packageOverrides = pkgs: {
         vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
       };
     };
-    boot = lib.mkIf cfg.hwaccel.enable {
+    boot = lib.mkIf cfg.hwaccel {
       extraModulePackages = with config.boot.kernelPackages; [
         v4l2loopback
       ];
     };
-
 
     # nVidia Settings
     hardware.nvidia = lib.mkIf cfg.nvidia.enable {
@@ -73,7 +73,7 @@
         patches = [ rcu_patch ];
       };
       
-      prime = lib.mkIf cfg.nvidia.prime.enable {
+      prime = lib.mkIf cfg.nvidia.prime {
         sync.enable = true;
         # Make sure to use the correct Bus ID values for your system!
         intelBusId = "PCI:0:2:0";
@@ -179,5 +179,14 @@
       };
     };
 
+    tp.hm.programs.kitty = lib.mkIf cfg.kitty {
+      enable = true;
+      font = {
+          name = "Fira-Code";
+          size = 11;
+      };
+      theme = "Catppuccin-Mocha";
+      shellIntegration.enableZshIntegration = true;
+    };
   };
 }

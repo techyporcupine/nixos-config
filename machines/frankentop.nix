@@ -19,8 +19,8 @@
   networking.hostName = "frankentop";
   tp.networking = {
     enable = true;
-    tailscale.client.enable = true;
-    avahi.enable = true;
+    tailscale.client = true;
+    avahi = true;
   };
 
   # GRAPHICS CONFIG
@@ -28,9 +28,10 @@
     enable = true;
     nvidia = {
       enable = true;
-      prime.enable = true;
+      prime = true;
     };
-    hwaccel.enable = true;
+    hwaccel = true;
+    kitty = true;
   };
 
   # GAMING CONFIG

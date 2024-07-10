@@ -7,7 +7,7 @@
     ./zsh
     ./gtk
     ./mangohud
-    ./kitty
+    #./kitty
     ./qt
   ];
 }
