@@ -106,6 +106,7 @@
           catppuccin.catppuccin-vsc-icons
         ];
       })
+      zed-editor
 
       # needed for hyprland
       gnome.nautilus
