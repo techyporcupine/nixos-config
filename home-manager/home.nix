@@ -58,7 +58,7 @@
     userEmail = "git@cb-tech.me";
     signing = {
       signByDefault = true;
-      key = "~/.ssh/id_ed25519.pub";
+      key = "~/.ssh/id_ed25519";
     };
     extraConfig = {
       gpg = {
