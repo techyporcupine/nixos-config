@@ -17,6 +17,7 @@
       jre17_minimal
       prismlauncher
       dolphin-emu
+      heroic
     ];
   };
 }
