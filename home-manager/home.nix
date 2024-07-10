@@ -57,8 +57,13 @@
     userName  = "techyporcupine";
     userEmail = "git@cb-tech.me";
     signing = {
-      key = null;
       signByDefault = true;
+      key = "~/.ssh/id_ed25519.pub";
+    };
+    extraConfig = {
+      gpg = {
+        format = "ssh";
+      };
     };
   };
 
