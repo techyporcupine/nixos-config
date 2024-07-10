@@ -56,6 +56,10 @@
     enable = true;
     userName  = "techyporcupine";
     userEmail = "git@cb-tech.me";
+    signing = {
+      key = null;
+      signByDefault = true;
+    };
   };
 
   # Enable SSH agest
