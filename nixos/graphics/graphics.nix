@@ -107,6 +107,7 @@
         ];
       })
       zed-editor
+      lapce
 
       # needed for hyprland
       gnome.nautilus
