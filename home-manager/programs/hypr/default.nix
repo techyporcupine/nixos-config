@@ -139,7 +139,7 @@
         "$mainMod, M, exit, "
         "$mainMod, E, exec, nautilus"
         "$mainMod, W, togglefloating, "
-        "$mainMod, R, exec, rofi -show drun"
+        "$mainMod, R, exec, zsh -c 'rofi -show drun'"
         "$mainMod, J, togglesplit," # dwindle
         "$mainMod, N, exec, swaync-client -t -sw"
         "$mainMod, L, exec, loginctl lock-session"
