@@ -5,7 +5,6 @@
     nvidia.enable = lib.mkEnableOption "enable nVidia driver stuff";
     nvidia.prime = lib.mkEnableOption "enable nVidia prime config";
     hwaccel = lib.mkEnableOption "hardware acceleration";
-    kitty = lib.mkEnableOption "Enable Kitty and theming for it";
   };
 
   config = lib.mkIf cfg.enable {
@@ -179,16 +178,6 @@
           TimeoutStopSec = 10;
         };
       };
-    };
-
-    tp.hm.programs.kitty = lib.mkIf cfg.kitty {
-      enable = true;
-      font = {
-          name = "Fira-Code";
-          size = 11;
-      };
-      theme = "Catppuccin-Mocha";
-      shellIntegration.enableZshIntegration = true;
     };
   };
 }
