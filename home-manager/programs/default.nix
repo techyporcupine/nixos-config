@@ -1,6 +1,5 @@
 {
   imports = [
-    ./hypr
     ./waybar
     ./rofi
     ./swaync

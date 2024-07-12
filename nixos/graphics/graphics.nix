@@ -87,14 +87,12 @@
       firefox
       spotify
       xorg.xeyes
-      gnome-connections
       vlc
       helvum
       obs-studio
       gimp
       slack
       pkgsCuda.blender
-      gnome.cheese
       (vscode-with-extensions.override {
         vscode = vscodium;
         vscodeExtensions = with vscode-extensions; [
@@ -107,22 +105,6 @@
       })
       zed-editor
       lapce
-
-      # needed for hyprland
-      gnome.nautilus
-      gnome.gnome-disk-utility
-      gnome.gnome-tweaks
-      udiskie
-      baobab
-      gnome.adwaita-icon-theme
-      catppuccin-papirus-folders
-      polkit_gnome
-      gnome.gnome-logs
-      gnome.gnome-system-monitor
-      gnome.gnome-font-viewer
-      grim
-      slurp
-      catppuccin-cursors.mochaGreen
     ];
 
     # Globally enable Wayland in electron apps
@@ -137,47 +119,17 @@
       fira-code-nerdfont
     ];
 
-    # Enable blueman for bluetooth managment
-    services.blueman.enable = true;
-    # Enable gnome-keyring
-    services.gnome.gnome-keyring.enable = true;
     # X11/Wayland Configuration
     services.xserver = {
       enable = true;
-      displayManager.gdm.enable = true;
       videoDrivers = lib.mkIf cfg.nvidia.enable [ "nvidia" "modesetting" ];
     };
+    
     # Enable CUPS to print docs
     services.printing.enable = true;
-    # Enable udisks for drive utils
-    services.udisks2.enable = true;
 
-    programs.hyprland = {
-      enable = true;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    };
-    
+    # TODO: Move to GTK
     # Enable dconf
     programs.dconf.enable = true; 
-
-    # Enable seahorse key and password managment
-    programs.seahorse.enable = true;
-      
-    systemd = {
-      # Add config for starting polkit via systemD
-      user.services.polkit-gnome-authentication-agent-1 = {
-        description = "polkit-gnome-authentication-agent-1";
-        wantedBy = [ "graphical-session.target" ];
-        wants = [ "graphical-session.target" ];
-        after = [ "graphical-session.target" ];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          Restart = "on-failure";
-          RestartSec = 1;
-          TimeoutStopSec = 10;
-        };
-      };
-    };
   };
 }

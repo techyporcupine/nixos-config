@@ -32,6 +32,7 @@
     };
     hwaccel = true;
     kitty = true;
+    hyprland = true;
   };
 
   # GAMING CONFIG
