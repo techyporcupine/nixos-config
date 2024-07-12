@@ -58,6 +58,12 @@
       sshfs
       nmap
       btop
+      ffmpeg_6
+      python3
+      android-tools
+      lshw
+      usbutils
+      cava
     ];
   };
 }

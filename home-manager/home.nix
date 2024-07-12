@@ -6,49 +6,11 @@
     ./programs
   ];
 
-  # HM Nixpkgs config 
-  nixpkgs = {
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
-      permittedInsecurePackages = [
-        "electron-19.1.9"
-        "electron-25.9.0"
-      ];
-    };
-  };
-
   # Define user
   home = {
     username = "techyporcupine";
     homeDirectory = "/home/techyporcupine";
   };
-
-  # Packages just for techyporcupine
-  home.packages = with pkgs; [ 
-    webcord
-    cava
-    scrcpy
-    yubikey-manager-qt
-    yubikey-personalization-gui
-    lshw
-    usbutils
-    libreoffice-fresh
-    audacity
-    pavucontrol
-    ffmpeg_6
-    python3
-    android-tools
-    rpi-imager
-    chromium
-    calibre
-    gthumb
-    annotator
-    super-slicer-beta
-  ];
 
   # Enable home-manager and git
   programs.home-manager.enable = true;

@@ -105,6 +105,16 @@
       })
       zed-editor
       lapce
+      chromium
+      calibre
+      super-slicer-beta
+      libreoffice-fresh
+      audacity
+      pavucontrol
+      scrcpy
+      yubikey-manager-qt
+      yubikey-personalization-gui
+      webcord
     ];
 
     # Globally enable Wayland in electron apps
