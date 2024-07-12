@@ -40,6 +40,7 @@
     hyprland = true;
     swaync = true;
     gtk = true;
+    rofi = true;
   };
 
   # GAMING CONFIG

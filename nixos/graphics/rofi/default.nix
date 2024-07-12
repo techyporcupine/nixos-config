@@ -1,6 +1,11 @@
-{pkgs, ...}: {
-  # Configuration for Rofi, a way to run applications installed on the system
-  programs.rofi = {
+{pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
+  options.tp.graphics = {
+    rofi = lib.mkEnableOption "Enable Rofi and theming for it";
+  };
+
+  config = lib.mkIf cfg.rofi {
+    # Configuration for Rofi, a way to run applications installed on the system
+    tp.hm.programs.rofi = {
     package = pkgs.rofi-wayland;
     enable = true;
     theme = ./theme.rasi;
@@ -15,5 +20,6 @@
       display-drun = "   Apps ";
       sidebar-mode = true;
     };
+  };
   };
 }

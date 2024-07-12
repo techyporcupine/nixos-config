@@ -1,8 +1,9 @@
 {
   imports = [
+    ./hypr
+    ./rofi
     ./graphics.nix
     ./kitty.nix
-    ./hypr
     ./swaync.nix
     ./gtk.nix
   ];
