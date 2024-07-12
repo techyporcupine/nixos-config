@@ -6,29 +6,6 @@
     ./programs
   ];
 
-  # Define user
-  home = {
-    username = "techyporcupine";
-    homeDirectory = "/home/techyporcupine";
-  };
-
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git = {
-    enable = true;
-    userName  = "techyporcupine";
-    userEmail = "git@cb-tech.me";
-    signing = {
-      signByDefault = true;
-      key = "~/.ssh/id_ed25519";
-    };
-    extraConfig = {
-      gpg = {
-        format = "ssh";
-      };
-    };
-  };
-
   # Enable SSH agest
   services = {
     ssh-agent.enable = true;
@@ -70,10 +47,4 @@
       };
     };
   };
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.05";
 }

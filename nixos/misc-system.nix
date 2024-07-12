@@ -22,6 +22,10 @@
       bluetooth.enable = true;
     };
 
+    # Enable HomeManager
+    tp.hm.programs.home-manager.enable = true;
+    tp.hm.systemd.user.startServices = "sd-switch";
+
     # Enable FWUPD for firmware updating
     services.fwupd.enable = true;
 

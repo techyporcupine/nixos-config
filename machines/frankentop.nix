@@ -4,6 +4,7 @@
   # NIX CONFIGURATION
   tp.nix.enable = true;
   system.stateVersion = "24.11";
+  tp.hm.home.stateVersion = "23.05";
 
   # BOOT AND DISKS CONFIG
   tp.disks = {
@@ -40,8 +41,13 @@
     enable = true;
   };
 
+  # User Config
   tp.username = "techyporcupine";
   tp.fullName = "Caleb";
+
+  # Git config
+  tp.hm.programs.git.userName = "techyporcupine";
+  tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [

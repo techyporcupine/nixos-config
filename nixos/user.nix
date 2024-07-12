@@ -15,7 +15,6 @@
     # default = null;
     description = "The full name of the primary user";
   };
-
   config = lib.mkIf (config.tp.username != null) {
     users.users.${config.tp.username} = {
       isNormalUser = true;
@@ -24,11 +23,31 @@
       shell = pkgs.zsh;
       initialPassword = "initialPassword";
     };
+
     # Enable Zsh, THIS IS NESSECERY to get nix directories in zsh's path.
     programs.zsh.enable = true;
+    
     # Allow other users to do fuse mounts
     programs.fuse.userAllowOther = true;
     
     home-manager.users.${config.tp.username}.imports = options.tp.hm.definitions;
+
+    tp.hm.home = {
+      username = "${config.tp.username}";
+      homeDirectory = "/home/${config.tp.username}";
+    };
+
+    tp.hm.programs.git = lib.mkIf (config.tp.hm.programs.git.userName != null) {
+      enable = true;
+      signing = {
+        signByDefault = true;
+        key = "~/.ssh/id_ed25519";
+      };
+      extraConfig = {
+        gpg = {
+          format = "ssh";
+        };
+      };
+    };
   };
 }
