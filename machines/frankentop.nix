@@ -41,6 +41,7 @@
     swaync = true;
     gtk = true;
     rofi = true;
+    waybar = true;
   };
 
   # GAMING CONFIG

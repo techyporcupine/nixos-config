@@ -6,5 +6,6 @@
     ./kitty.nix
     ./swaync.nix
     ./gtk.nix
+    ./waybar.nix
   ];
 }
