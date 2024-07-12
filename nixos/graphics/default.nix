@@ -4,5 +4,6 @@
     ./kitty.nix
     ./hypr
     ./swaync.nix
+    ./gtk.nix
   ];
 }

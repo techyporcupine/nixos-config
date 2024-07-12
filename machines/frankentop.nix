@@ -6,6 +6,10 @@
   system.stateVersion = "24.11";
   tp.hm.home.stateVersion = "23.05";
 
+  # USER CONFIG
+  tp.username = "techyporcupine";
+  tp.fullName = "Caleb";
+
   # BOOT AND DISKS CONFIG
   tp.disks = {
     enable = true;
@@ -35,16 +39,13 @@
     kitty = true;
     hyprland = true;
     swaync = true;
+    gtk = true;
   };
 
   # GAMING CONFIG
   tp.gaming = {
     enable = true;
   };
-
-  # User Config
-  tp.username = "techyporcupine";
-  tp.fullName = "Caleb";
 
   # Git config
   tp.hm.programs.git.userName = "techyporcupine";
