@@ -3,8 +3,8 @@
     kitty = lib.mkEnableOption "Enable Kitty and theming for it";
   };
 
-  config = lib.mkIf cfg.enable {
-    tp.hm.programs.kitty = lib.mkIf cfg.kitty {
+  config = lib.mkIf cfg.kitty {
+    tp.hm.programs.kitty = {
       enable = true;
       font = {
           name = "Fira-Code";
