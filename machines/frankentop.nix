@@ -43,6 +43,7 @@
     rofi = true;
     waybar = true;
     mangohud = true;
+    qt = true;
   };
 
   # GAMING CONFIG

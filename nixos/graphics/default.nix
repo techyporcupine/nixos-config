@@ -8,5 +8,6 @@
     ./swaync.nix
     ./gtk.nix
     ./waybar.nix
+    ./qt.nix
   ];
 }
