@@ -56,6 +56,7 @@
 
     # Enable blueman for bluetooth managment
     services.blueman.enable = true;
+    
     # Enable gnome-keyring
     services.gnome.gnome-keyring.enable = true;
 
