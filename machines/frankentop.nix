@@ -42,6 +42,7 @@
     gtk = true;
     rofi = true;
     waybar = true;
+    mangohud = true;
   };
 
   # GAMING CONFIG

@@ -2,6 +2,7 @@
   imports = [
     ./hypr
     ./rofi
+    ./mangohud
     ./graphics.nix
     ./kitty.nix
     ./swaync.nix
