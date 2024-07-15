@@ -92,6 +92,8 @@
         # Defined aliases to be used inside of the shell 
         shellAliases = {
           c = "clear";
+          tsu = "sudo tailscale up --accept-routes";
+          tsd = "sudo tailscale down";
         };
         autosuggestion.enable = true;
         enableCompletion = true;
