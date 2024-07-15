@@ -20,8 +20,6 @@
         trusted-users = [ "root" ];
         auto-optimise-store = true;
 
-        nix-path = "nixpkgs=${inputs.nixpkgs}";
-
         experimental-features = [ "nix-command" "flakes" ];
 
         trusted-substituters = ["https://hyprland.cachix.org" "https://ai.cachix.org"];
