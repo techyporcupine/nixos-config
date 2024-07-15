@@ -33,7 +33,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, nix-minecraft, ... }@inputs:
     let
       inherit (self) outputs;
       overlay-stable = final: prev: {
