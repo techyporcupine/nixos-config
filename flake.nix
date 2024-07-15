@@ -2,15 +2,21 @@
   description = "techyporcupine's NixOS Config!";
 
   inputs = {
+    # Hyprland (weird config cus they said to)
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     };
+
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
 
+    # Nix-minecraft
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+
+    # Disko
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
