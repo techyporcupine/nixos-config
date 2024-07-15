@@ -49,6 +49,10 @@
   # GAMING CONFIG
   tp.gaming = {
     enable = true;
+    minecraft-server = {
+      enable = true;
+      broccoli-bloc = true;
+    };
   };
 
   # Git config
