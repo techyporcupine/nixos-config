@@ -26,6 +26,11 @@
           motd = "Broccoli-Bloc Minecraft Server";
           white-list = true;
         };
+        #symlinks = {
+        #  "plugins" = pkgs.linkFarmFromDrvs "plugins" (builtins.attrValues {
+        #    BlueMap = pkgs.fetchurl { url = "https://hangarcdn.papermc.io/plugins/Blue/BlueMap/versions/5.2/PAPER/BlueMap-5.2-paper.jar"; sha512 = "hOn3qsJEExsh1UtYqoiXEpbd25/LEW4NO8hiWD4H5k+qNgkFbqHEozPY8olskDt7K0jHGVKsZv5cZZT3O82xeg=="; };
+        #  });
+        #};
       };
     };
   };
