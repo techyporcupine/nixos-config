@@ -1,4 +1,4 @@
-{pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
+{ pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
   options.tp.graphics = {
     gtk = lib.mkEnableOption "Enable gtk theming";
   };
@@ -20,13 +20,12 @@
       # Other GTK settings
       gtk = {
         enable = true;
-        theme = {
-          name = "Catppuccin-Mocha-Standard-Green-Dark";
-          package = pkgs.stable.catppuccin-gtk.override {
-            accents = [ "green" ];
-            size = "standard";
-            variant = "mocha";
-          };
+        catppuccin = {
+          enable = true;
+          flavor = "mocha";
+          accent = "green";
+          size = "standard";
+          tweaks = [ "normal" ];
         };
         iconTheme = {
           name = "Papirus-Dark";

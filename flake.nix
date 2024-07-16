@@ -16,6 +16,9 @@
     # Nix-minecraft
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
+    # Catppuccin
+    catppuccin.url = "github:catppuccin/nix";
+
     # Disko
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +36,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, nix-minecraft, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, nix-minecraft, catppuccin, ... }@inputs:
     let
       inherit (self) outputs;
       overlay-stable = final: prev: {
@@ -81,10 +84,13 @@
             ./disko/frankentop-disko.nix
             ./nixos
             home-manager.nixosModules.home-manager
+            catppuccin.nixosModules.catppuccin
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit inputs outputs;};
+              # FIXME: Change username here if you changed the HM username
+              home-manager.users.techyporcupine.imports = [ catppuccin.homeManagerModules.catppuccin ];
             }
           ];
         };
