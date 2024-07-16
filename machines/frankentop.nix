@@ -60,6 +60,8 @@
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
+  networking.firewall.allowedTCPPorts = [ 19132 ];
+
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
     yt-dlp
