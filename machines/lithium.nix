@@ -7,8 +7,8 @@
   tp.hm.home.stateVersion = "23.05";
 
   # USER CONFIG
-  tp.username = "techyporcupine";
-  tp.fullName = "Caleb";
+  tp.username = "lithium";
+  tp.fullName = "lithium";
 
   # BOOT AND DISKS CONFIG
   tp.disks = {
@@ -21,16 +21,16 @@
   };
 
   # NETWORKING CONFIG
-  networking.hostName = "frankentop";
+  networking.hostName = "lithium";
   tp.networking = {
     enable = true;
-    tailscale.client = true;
-    avahi = true;
+    tailscale.client = false;
+    avahi = false;
   };
 
   # GRAPHICS CONFIG
   tp.graphics = {
-    enable = true;
+    enable = false;
     nvidia = {
       enable = true;
       prime = true;
@@ -49,7 +49,7 @@
   # GAMING CONFIG
   tp.gaming = {
     enable = true;
-    graphical = true;
+    graphical = false;
     minecraft-server = {
       enable = true;
       broccoli-bloc = true;
@@ -62,13 +62,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-    yt-dlp
-    blisp
-    nodejs
-    nodePackages_latest.pnpm
-    hugo
-    libhdhomerun
-    hdhomerun-config-gui
+    
   ];
 
   ################################################################################
