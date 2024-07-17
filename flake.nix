@@ -94,6 +94,31 @@
             }
           ];
         };
+        lithium = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = {inherit inputs outputs;};
+          # Path to NixOS configuration
+          modules = [ 
+            ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
+              overlay-stable
+              overlay-tp
+              overlay-cuda
+            ]; })
+            disko.nixosModules.disko
+            ./machines/lithium.nix 
+            ./disko/lithium-disko.nix
+            ./nixos
+            home-manager.nixosModules.home-manager
+            catppuccin.nixosModules.catppuccin
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {inherit inputs outputs;};
+              # FIXME: Change username here if you changed the HM username
+              home-manager.users.lithium.imports = [ catppuccin.homeManagerModules.catppuccin ];
+            }
+          ];
+        };
       };
 
       # Standalone home-manager configuration entrypoint

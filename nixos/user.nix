@@ -22,6 +22,9 @@
       extraGroups = [ "networkmanager" "wheel" "plugdev" "video" "audio" "dialout" "fuse" ];
       shell = pkgs.zsh;
       initialPassword = "initialPassword";
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHWH6pEu0TpKviWyn/MaUF5dHdX9CE0K3LUTRHFWCqWb"
+      ];
     };
 
     # Enable Zsh, THIS IS NESSECERY to get nix directories in zsh's path.

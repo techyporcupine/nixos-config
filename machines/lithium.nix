@@ -3,8 +3,8 @@
 {
   # NIX CONFIGURATION
   tp.nix.enable = true;
-  system.stateVersion = "24.11";
-  tp.hm.home.stateVersion = "23.05";
+  system.stateVersion = "24.05";
+  tp.hm.home.stateVersion = "24.05";
 
   # USER CONFIG
   tp.username = "lithium";
