@@ -51,7 +51,7 @@
     enable = true;
     graphical = true;
     minecraft-server = {
-      enable = true;
+      enable = false;
       broccoli-bloc = true;
     };
   };
