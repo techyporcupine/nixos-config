@@ -25,6 +25,8 @@
           max-players = 20;
           motd = "Broccoli-Bloc Minecraft Server";
           white-list = true;
+          enforce-secure-profile = false;
+          spawn-protection = 0;
         };
       };
     };
