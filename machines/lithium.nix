@@ -64,6 +64,18 @@
   environment.systemPackages = with pkgs; [
     
   ];
+  
+  # SOPS CONFIG
+  #sops = {
+  #  # FIXME: If you are using this repo, make sure that you change this to the actual path to this repo
+  #  defaultSopsFile = "/home/${config.tp.username}/nixos-config/secrets/secrets.yaml";
+  #  defaultSopsFormat = "yaml";
+  #  validateSopsFiles = false;
+
+  #  age.keyFile = "/home/${config.tp.username}/.config/sops/age/keys.txt";
+
+  #  secrets."hello" = {};
+  #};
 
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
