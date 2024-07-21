@@ -94,7 +94,7 @@
             }
           ];
         };
-        lithium = nixpkgs.lib.nixosSystem {
+        lithium = nixpkgs-stable.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {inherit inputs outputs;};
           # Path to NixOS configuration
@@ -104,6 +104,9 @@
               overlay-tp
               overlay-cuda
             ]; })
+            {
+              nixpkgs.config.pkgs = import nixpkgs-stable { inherit system; };
+            }
             disko.nixosModules.disko
             ./machines/lithium.nix 
             ./disko/lithium-disko.nix
