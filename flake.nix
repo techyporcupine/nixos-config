@@ -13,7 +13,7 @@
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
 
-    # Nix-minecraft
+    # Nix-minecraft for mc server
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     # Catppuccin
@@ -26,6 +26,9 @@
     # Nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     
+    # Sops-nix for secrets
+    sops-nix.url = "github:Mic92/sops-nix";
+
     # Packages I just want the latest of
     waybar.url = "github:Alexays/Waybar/master";
     hypridle.url = "github:hyprwm/hypridle/main";
@@ -36,7 +39,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, nix-minecraft, catppuccin, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, nix-minecraft, catppuccin, sops-nix, ... }@inputs:
     let
       inherit (self) outputs;
       overlay-stable = final: prev: {
@@ -80,6 +83,7 @@
               overlay-cuda
             ]; })
             disko.nixosModules.disko
+            sops-nix.nixosModules.sops
             ./machines/frankentop.nix 
             ./disko/frankentop-disko.nix
             ./nixos
@@ -105,9 +109,10 @@
               overlay-cuda
             ]; })
             {
-              nixpkgs.config.pkgs = import nixpkgs-stable { inherit system; };
+              nixpkgs.config.pkgs = import nixpkgs-stable { inherit systems; };
             }
             disko.nixosModules.disko
+            sops-nix.nixosModules.sops
             ./machines/lithium.nix 
             ./disko/lithium-disko.nix
             ./nixos
@@ -124,7 +129,7 @@
         };
       };
 
-      # Standalone home-manager configuration entrypoint
+      # Standalone home-manager configuration entrypoint (VERY OLD)
       # To switch to new home-manager setup 'home-manager switch --flake .#techyporcupine'
       #homeConfigurations = {
       #  "techyporcupine" = home-manager.lib.homeManagerConfiguration {
