@@ -39,24 +39,24 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, nixpkgs-tp, nixos-hardware, home-manager, hyprland, nixpkgs-staging, disko, waybar, hypridle, ladybird, nix-minecraft, catppuccin, sops-nix, ... }@inputs:
+  outputs = { self, ... }@inputs:
     let
       inherit (self) outputs;
       overlay-stable = final: prev: {
-        stable = import nixpkgs-stable {
+        stable = import inputs.nixpkgs-stable {
           system = final.system;
           config.allowUnfree = true;
         };
       };
       overlay-tp = final: prev: {
-        tp = import nixpkgs-tp {
+        tp = import inputs.nixpkgs-tp {
           system = final.system;
           config.allowUnfree = true;
         };
       };
       overlay-cuda = final: prev: {
         # change from nixpkgs to nixpkgs-cuda if needed, also change the hash at nixpkgs-cuda
-        pkgsCuda = import nixpkgs {
+        pkgsCuda = import inputs.nixpkgs {
           system = final.system;
           config.cudaSupport = true; 
           # config.cudaCapabilities = [ "5.0" ]; 
@@ -67,12 +67,12 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      forAllSystems = inputs.nixpkgs.lib.genAttrs systems;
     # NixOS configuration entrypoint
     # To switch to new NixOS config 'sudo nixos-rebuild switch --flake .#frankentop'
     in {
       nixosConfigurations = {
-        frankentop = nixpkgs.lib.nixosSystem {
+        frankentop = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {inherit inputs outputs;};
           # Path to NixOS configuration
@@ -82,23 +82,23 @@
               overlay-tp
               overlay-cuda
             ]; })
-            disko.nixosModules.disko
-            sops-nix.nixosModules.sops
+            inputs.disko.nixosModules.disko
+            inputs.sops-nix.nixosModules.sops
             ./machines/frankentop.nix 
             ./disko/frankentop-disko.nix
             ./nixos
-            home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
+            inputs.home-manager.nixosModules.home-manager
+            inputs.catppuccin.nixosModules.catppuccin
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit inputs outputs;};
               # FIXME: Change username here if you changed the HM username
-              home-manager.users.techyporcupine.imports = [ catppuccin.homeManagerModules.catppuccin ];
+              home-manager.users.techyporcupine.imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
             }
           ];
         };
-        lithium = nixpkgs-stable.lib.nixosSystem {
+        lithium = inputs.nixpkgs-stable.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {inherit inputs outputs;};
           # Path to NixOS configuration
@@ -109,21 +109,21 @@
               overlay-cuda
             ]; })
             {
-              nixpkgs.config.pkgs = import nixpkgs-stable { inherit systems; };
+              nixpkgs.config.pkgs = import inputs.nixpkgs-stable { inherit systems; };
             }
-            disko.nixosModules.disko
-            sops-nix.nixosModules.sops
+            inputs.disko.nixosModules.disko
+            inputs.sops-nix.nixosModules.sops
             ./machines/lithium.nix 
             ./disko/lithium-disko.nix
             ./nixos
-            home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
+            inputs.home-manager.nixosModules.home-manager
+            inputs.catppuccin.nixosModules.catppuccin
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {inherit inputs outputs;};
               # FIXME: Change username here if you changed the HM username
-              home-manager.users.lithium.imports = [ catppuccin.homeManagerModules.catppuccin ];
+              home-manager.users.lithium.imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
             }
           ];
         };
