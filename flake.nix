@@ -17,7 +17,7 @@
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     # Catppuccin
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin.url = "github:techyporcupine/ctp-nix";
 
     # Disko
     disko.url = "github:nix-community/disko";

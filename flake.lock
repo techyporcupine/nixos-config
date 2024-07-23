@@ -2,16 +2,16 @@
   "nodes": {
     "catppuccin": {
       "locked": {
-        "lastModified": 1720472194,
-        "narHash": "sha256-CYscFEts6tyvosc1T29nxhzIYJAj/1CCEkV3ZMzSN/c=",
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "d75d5803852fb0833767dc969a4581ac13204e22",
+        "lastModified": 1721766468,
+        "narHash": "sha256-QP6ieeGxzvF1d2mMNN6zZ1PfCH/5c+lyUe8yL0GNcd0=",
+        "owner": "techyporcupine",
+        "repo": "ctp-nix",
+        "rev": "e9041c8051a132456402800fde2121f431f793e7",
         "type": "github"
       },
       "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
+        "owner": "techyporcupine",
+        "repo": "ctp-nix",
         "type": "github"
       }
     },
