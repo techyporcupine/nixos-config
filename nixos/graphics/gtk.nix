@@ -6,7 +6,7 @@
   config = lib.mkIf cfg.gtk {
     environment.systemPackages = with pkgs; [
       catppuccin-cursors.mochaGreen
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
     ];
     tp.hm = {
       # set some options in dconf cus they didnt take effect otherwise

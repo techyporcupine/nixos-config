@@ -6,16 +6,16 @@
   config = lib.mkIf cfg.hyprland {
     # Packages that are not needed if you're not using Hyprland
     environment.systemPackages = with pkgs; [
-      gnome.nautilus
-      gnome.gnome-disk-utility
-      gnome.gnome-tweaks
+      nautilus
+      gnome-disk-utility
+      gnome-tweaks
       udiskie
       baobab
       polkit_gnome
       gnome.gnome-logs
-      gnome.gnome-system-monitor
-      gnome.gnome-font-viewer
-      gnome.cheese
+      gnome-system-monitor
+      gnome-font-viewer
+      cheese
       grim
       slurp
       gnome-connections
