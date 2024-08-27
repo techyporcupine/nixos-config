@@ -4,7 +4,7 @@
   # NIX CONFIGURATION
   tp.nix.enable = true;
   system.stateVersion = "24.11";
-  tp.hm.home.stateVersion = "23.05";
+  tp.hm.home.stateVersion = "24.11";
 
   # USER CONFIG
   tp.username = "techyporcupine";
@@ -21,7 +21,7 @@
   };
 
   # NETWORKING CONFIG
-  networking.hostName = "frankentop";
+  networking.hostName = "carbon";
   tp.networking = {
     enable = true;
     tailscale.client = true;
@@ -31,11 +31,6 @@
   # GRAPHICS CONFIG
   tp.graphics = {
     enable = true;
-    nvidia = {
-      enable = true;
-      prime = true;
-    };
-    hwaccel = true;
     kitty = true;
     hyprland = true;
     swaync = true;
@@ -50,16 +45,13 @@
   tp.gaming = {
     enable = true;
     graphical = true;
-    minecraft-server = {
-      enable = false;
-      broccoli-bloc = true;
-    };
   };
 
   # Git config
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
+  # TCP Ports out of firewall
   networking.firewall.allowedTCPPorts = [ 19132 ];
 
   # PACKAGES JUST FOR THIS MACHINE
@@ -72,18 +64,6 @@
     libhdhomerun
     hdhomerun-config-gui
   ];
-
-  # SOPS CONFIG
-  sops = {
-    # FIXME: If you are using this repo, make sure that you change this to the actual path to this repo
-    defaultSopsFile = "/home/${config.tp.username}/nixos-config/secrets/secrets.yaml";
-    defaultSopsFormat = "yaml";
-    validateSopsFiles = false;
-
-    age.keyFile = "/home/${config.tp.username}/.config/sops/age/keys.txt";
-
-    secrets."hello" = {};
-  };
 
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######

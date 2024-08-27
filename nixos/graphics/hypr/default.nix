@@ -100,8 +100,7 @@
           # Configuration for monitors
           monitor = [
             # https://wiki.hyprland.org/Configuring/Monitors/
-            "eDP-1,1920x1080@60,0x0,1"
-            "HDMI-A-1,1920x1080@120,1920x0,1" # 1080 high refresh conf
+            "eDP-1,preferred,0x0,1"
             #"monitor=,preferred,auto,1" # Everything config
           ];
           # Commands to exec on launch
@@ -119,7 +118,6 @@
           # Input devices configuration
           input = {
             kb_layout = "us";
-            kb_model = "latitude";
             follow_mouse = 1;
             touchpad = {
               natural_scroll = "no";

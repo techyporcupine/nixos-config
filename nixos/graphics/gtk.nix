@@ -8,6 +8,9 @@
       catppuccin-cursors.mochaGreen
       adwaita-icon-theme
     ];
+    # Enable dconf
+    programs.dconf.enable = true; 
+    
     tp.hm = {
       # set some options in dconf cus they didnt take effect otherwise
       dconf.settings = {

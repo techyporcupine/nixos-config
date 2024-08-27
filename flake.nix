@@ -26,9 +26,6 @@
     # Nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     
-    # Sops-nix for secrets
-    sops-nix.url = "github:Mic92/sops-nix";
-
     # Packages I just want the latest of
     waybar.url = "github:Alexays/Waybar/master";
     hypridle.url = "github:hyprwm/hypridle/main";
@@ -54,15 +51,6 @@
           config.allowUnfree = true;
         };
       };
-      overlay-cuda = final: prev: {
-        # change from nixpkgs to nixpkgs-cuda if needed, also change the hash at nixpkgs-cuda
-        pkgsCuda = import inputs.nixpkgs {
-          system = final.system;
-          config.cudaSupport = true; 
-          # config.cudaCapabilities = [ "5.0" ]; 
-          config.allowUnfree = true; 
-        };
-      };
       systems = [
         "aarch64-linux"
         "x86_64-linux"
@@ -72,7 +60,7 @@
     # To switch to new NixOS config 'sudo nixos-rebuild switch --flake .#frankentop'
     in {
       nixosConfigurations = {
-        frankentop = inputs.nixpkgs.lib.nixosSystem {
+        carbon = inputs.nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {inherit inputs outputs;};
           # Path to NixOS configuration
@@ -80,15 +68,14 @@
             ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
               overlay-stable
               overlay-tp
-              overlay-cuda
             ]; })
             inputs.disko.nixosModules.disko
-            inputs.sops-nix.nixosModules.sops
-            ./machines/frankentop.nix 
-            ./disko/frankentop-disko.nix
+            ./machines/carbon.nix 
+            ./disko/carbon-disko.nix
             ./nixos
             inputs.home-manager.nixosModules.home-manager
             inputs.catppuccin.nixosModules.catppuccin
+            inputs.nixos-hardware.nixosModules.framework-13-7040-amd
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -106,13 +93,11 @@
             ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
               overlay-stable
               overlay-tp
-              overlay-cuda
             ]; })
             {
               nixpkgs.config.pkgs = import inputs.nixpkgs-stable { inherit systems; };
             }
             inputs.disko.nixosModules.disko
-            inputs.sops-nix.nixosModules.sops
             ./machines/lithium.nix 
             ./disko/lithium-disko.nix
             ./nixos

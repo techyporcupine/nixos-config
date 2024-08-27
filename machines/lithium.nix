@@ -31,11 +31,6 @@
   # GRAPHICS CONFIG
   tp.graphics = {
     enable = false;
-    nvidia = {
-      enable = true;
-      prime = true;
-    };
-    hwaccel = true;
     kitty = true;
     hyprland = true;
     swaync = true;
