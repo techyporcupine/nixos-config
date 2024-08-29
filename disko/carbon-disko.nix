@@ -3,7 +3,7 @@
     disk = {
       # Set up disk called "vdb"
       vdb = {
-        device = "/dev/disk/sda";
+        device = "/dev/nvme0n1";
         type = "disk";
         content = {
           type = "gpt";
