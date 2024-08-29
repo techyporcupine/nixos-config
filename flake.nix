@@ -57,7 +57,7 @@
       ];
       forAllSystems = inputs.nixpkgs.lib.genAttrs systems;
     # NixOS configuration entrypoint
-    # To switch to new NixOS config 'sudo nixos-rebuild switch --flake .#frankentop'
+    # To switch to new NixOS config 'sudo nixos-rebuild switch --flake .#carbon'
     in {
       nixosConfigurations = {
         carbon = inputs.nixpkgs.lib.nixosSystem {

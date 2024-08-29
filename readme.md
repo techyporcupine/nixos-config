@@ -16,9 +16,9 @@ Repo that has the configuration for a nice NixOS setup using [nixos-unstable](ht
 
 5. Examine the configuration file for your machine, and add in proper device path for the drive you would like to install to, along with setting what size you want the swapfile in the disko configuration file (if you want a swap size other than 4GB, which should be optimal for 16GB of RAM).
 
-6. **!!THIS WILL ERASE YOUR DRIVE!!** Run the following command to partition disk using the disko configuration: `sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko disko/frankendisko.nix`
+6. **!!THIS WILL ERASE YOUR DRIVE!!** Run the following command to partition disk using the disko configuration: `sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko disko/carbon-disko.nix`
 
-7. Proceed to install NixOS with `sudo nixos-install --flake .#frankentop`
+7. Proceed to install NixOS with `sudo nixos-install --flake .#carbon`
 
 8. After completion of install, reboot into the SSD you installed to. 
 
