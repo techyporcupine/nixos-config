@@ -12,7 +12,7 @@
       udiskie
       baobab
       polkit_gnome
-      gnome.gnome-logs
+      gnome-logs
       gnome-system-monitor
       gnome-font-viewer
       cheese
