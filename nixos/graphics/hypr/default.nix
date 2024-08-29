@@ -123,7 +123,7 @@
               natural_scroll = "no";
               disable_while_typing = false;
             };
-            sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
+            sensitivity = .25; # -1.0 - 1.0, 0 means no modification.
           };
           # Config under the general section
           general = {
