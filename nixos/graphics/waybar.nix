@@ -315,8 +315,8 @@
         };
         "battery"= {
             "states"= {
-                "warning"= 40;
-                "critical"= 15;
+                "warning"= 25;
+                "critical"= 10;
             };
             "format"= "{capacity}% {icon}";
             "format-charging"= "{capacity}% ";
