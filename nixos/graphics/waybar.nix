@@ -250,7 +250,7 @@
         "layer"= "top"; 
         "height"= 34; 
         "spacing"= 2; 
-        "modules-left"= ["hyprland/workspaces" "mpris" "cava"];
+        "modules-left"= ["hyprland/workspaces" "mpris" ];
         "modules-center"= ["clock"];
         "modules-right"= ["idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "cpu" "memory" "battery"];
         "margin"= "6px 6px 0px 6px";
