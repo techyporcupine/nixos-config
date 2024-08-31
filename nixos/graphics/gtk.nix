@@ -8,8 +8,15 @@
       catppuccin-cursors.mochaGreen
       adwaita-icon-theme
     ];
-    # Enable dconf
+    # Enable dconf and turn off GDM auto brightness
     programs.dconf.enable = true; 
+    programs.dconf.profiles.gdm.databases = [
+      {
+        settings."org/gnome/settings-daemon/plugins/power" = {
+            ambient-enabled = false;
+        };
+      }
+    ];
     
     tp.hm = {
       # set some options in dconf cus they didnt take effect otherwise

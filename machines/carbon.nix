@@ -52,7 +52,7 @@
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # TCP Ports out of firewall
-  networking.firewall.allowedTCPPorts = [ 19132 ];
+  networking.firewall.allowedTCPPorts = [ 19132 3000 ];
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
@@ -64,6 +64,15 @@
     libhdhomerun
     hdhomerun-config-gui
   ];
+
+  # Turn off AMD ABM
+  boot.kernelParams = [ "amdgpu.abmlevel=0" ];
+  
+  # Enable 6GHz
+  hardware.wirelessRegulatoryDatabase = true;
+  boot.extraModprobeConfig = ''
+    options cfg80211 ieee80211_regdom=US
+  '';
 
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######

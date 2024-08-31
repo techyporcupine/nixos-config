@@ -11,6 +11,8 @@
       gamescope.enable = true;
 
       gamemode.enable = true;
+      
+      steam.enable = true;
     };
 
     environment.systemPackages = with pkgs; lib.mkIf cfg.graphical [

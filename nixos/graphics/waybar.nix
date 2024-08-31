@@ -252,7 +252,7 @@
         "spacing"= 2; 
         "modules-left"= ["hyprland/workspaces" "mpris" "cava"];
         "modules-center"= ["clock"];
-        "modules-right"= ["idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "custom/cputemp" "custom/fan" "cpu" "memory" "battery"];
+        "modules-right"= ["idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "cpu" "memory" "battery"];
         "margin"= "6px 6px 0px 6px";
         "idle_inhibitor"= {
             "format"= "{icon}";
