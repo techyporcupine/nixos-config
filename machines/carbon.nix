@@ -63,7 +63,30 @@
     hugo
     libhdhomerun
     hdhomerun-config-gui
+    fw-ectool
+    blender-hip
   ];
+
+  # Enable fw-fanctrl
+  programs.fw-fanctrl.enable = true;
+  programs.fw-fanctrl.config = {
+    defaultStrategy = "lazy";
+    strategies = {
+      "lazy" = {
+        fanSpeedUpdateFrequency = 5;
+        movingAverageInterval = 25;
+        speedCurve = [
+          { temp = 45; speed = 0; }
+          { temp = 54; speed = 0; }
+          { temp = 55; speed = 15; }
+          { temp = 65; speed = 25; }
+          { temp = 70; speed = 40; }
+          { temp = 75; speed = 60; }
+          { temp = 85; speed = 100; }
+        ];
+      };
+    };
+  };
 
   # Turn off AMD ABM
   boot.kernelParams = [ "amdgpu.abmlevel=0" ];

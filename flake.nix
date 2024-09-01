@@ -26,6 +26,12 @@
     # Nixos-hardware
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     
+    # FW-Fanctrl for better Framework Fan curve
+    fw-fanctrl = {
+      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Packages I just want the latest of
     waybar.url = "github:Alexays/Waybar/master";
     hypridle.url = "github:hyprwm/hypridle/main";
@@ -78,6 +84,7 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.catppuccin.nixosModules.catppuccin
             inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+            inputs.fw-fanctrl.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

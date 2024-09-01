@@ -42,6 +42,14 @@
             border: none;
             border-radius: 0;
         }
+        #power-profiles-daemon {
+            color: @text;
+            background-color: @surface0; 
+            border-radius: 8px;
+            padding: 0 8px;
+            font-weight: bold;
+            margin: 3px;
+        }
         #idle_inhibitor {
             color: @text;
             background-color: @surface0; 
@@ -252,8 +260,19 @@
         "spacing"= 2; 
         "modules-left"= ["hyprland/workspaces" "mpris" ];
         "modules-center"= ["clock"];
-        "modules-right"= ["idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "cpu" "memory" "battery"];
+        "modules-right"= ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "cpu" "memory" "battery"];
         "margin"= "6px 6px 0px 6px";
+        "power-profiles-daemon" = {
+            "format"= "{icon}";
+            "tooltip-format"= "Power profile: {profile}\nDriver: {driver}";
+            "tooltip"= true;
+            "format-icons"= {
+                "default"= "";
+                "performance"= "";
+                "balanced"= "";
+                "power-saver"= "";
+            };
+        };
         "idle_inhibitor"= {
             "format"= "{icon}";
             "format-icons"= {
