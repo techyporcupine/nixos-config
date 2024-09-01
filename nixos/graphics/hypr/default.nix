@@ -20,7 +20,7 @@
       slurp
       gnome-connections
       swaynotificationcenter
-      hyprpaper
+      inputs.hyprpaper.packages.${system}.hyprpaper
       inputs.hypridle.packages.${system}.hypridle
       hyprlock
       hyprpicker
@@ -67,6 +67,7 @@
     programs.hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      portalPackage = inputs.xdph.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
     };
 
     tp.hm = {

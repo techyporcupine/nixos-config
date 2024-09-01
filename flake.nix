@@ -29,6 +29,8 @@
     # Packages I just want the latest of
     waybar.url = "github:Alexays/Waybar/master";
     hypridle.url = "github:hyprwm/hypridle/main";
+    hyprpaper.url = "github:hyprwm/hyprpaper/main";
+    xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
     ladybird.url = "github:LadybirdBrowser/ladybird";
 
     # Home manager config
