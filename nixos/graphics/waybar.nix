@@ -50,6 +50,14 @@
             font-weight: bold;
             margin: 3px;
         }
+        #temperature {
+            color: @red;
+            background-color: @surface0; 
+            border-radius: 8px;
+            padding: 0 8px;
+            font-weight: bold;
+            margin: 3px;
+        }
         #idle_inhibitor {
             color: @text;
             background-color: @surface0; 
@@ -260,7 +268,7 @@
         "spacing"= 2; 
         "modules-left"= ["hyprland/workspaces" "mpris" ];
         "modules-center"= ["clock"];
-        "modules-right"= ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "cpu" "memory" "battery"];
+        "modules-right"= ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
         "margin"= "6px 6px 0px 6px";
         "power-profiles-daemon" = {
             "format"= "{icon}";
@@ -272,6 +280,11 @@
                 "balanced"= "";
                 "power-saver"= "";
             };
+        };
+        "temperature"= {
+            "thermal-zone"= 3;
+            "interval" = 7;
+            "format"= "{temperatureC}°C ";
         };
         "idle_inhibitor"= {
             "format"= "{icon}";
