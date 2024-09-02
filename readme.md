@@ -28,3 +28,12 @@ Most of the config here is for my Framework 13 with an AMD Ryzen 5 7640U, so som
 10. Change password with `passwd`
 
 11. You should be good! All done!!
+
+## Disk Encryption and Secure Boot
+
+### Secure boot
+TODO
+
+### Disk Encryption
+
+The disko config provided by `carbon-disko.nix` includes full disk encryption that will prompt you for an encryption password when you format the drive, and using it like that will work totally fine! The fun thing is, `carbon` is also configured for automatic decryption of the drive thanks to TPM2 and `systemd-cryptenroll`. To enable automatic decryption of your drive at boot using the TPM2 chip in your device, simply run `sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+7 /dev/nvme0n1p2` if you have secure boot, or run `sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0 /dev/nvme0n1p2` if you do not! It will prompt you for your drive password, and then will automatically decrypt at boot!

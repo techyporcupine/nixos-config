@@ -65,6 +65,7 @@
     hdhomerun-config-gui
     fw-ectool
     blender-hip
+    tpm2-tss
   ];
 
   # Enable fw-fanctrl
@@ -90,6 +91,9 @@
 
   # Turn off AMD ABM
   boot.kernelParams = [ "amdgpu.abmlevel=0" ];
+
+  # Set up TPM Decryption
+  boot.initrd.systemd.enable = true;
   
   # Enable 6GHz
   hardware.wirelessRegulatoryDatabase = true;
