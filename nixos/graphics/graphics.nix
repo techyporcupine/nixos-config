@@ -38,6 +38,7 @@
       yubikey-manager-qt
       yubikey-personalization-gui
       webcord
+      networkmanagerapplet
     ];
 
     # Globally enable Wayland in electron apps
