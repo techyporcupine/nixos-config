@@ -32,6 +32,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.1";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Packages I just want the latest of
     waybar.url = "github:Alexays/Waybar/master";
     hypridle.url = "github:hyprwm/hypridle/main";
@@ -85,6 +90,7 @@
             inputs.catppuccin.nixosModules.catppuccin
             inputs.nixos-hardware.nixosModules.framework-13-7040-amd
             inputs.fw-fanctrl.nixosModules.default
+            inputs.lanzaboote.nixosModules.lanzaboote
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

@@ -15,7 +15,7 @@ Most of the config here is for my Framework 13 with an AMD Ryzen 5 7640U, so som
 
 4. Get this flake onto installer (use git or copy from USB drive) and then use `cd` to enter into that directory
 
-5. Examine the configuration file for your machine, and add in proper device path for the drive you would like to install to, along with setting what size you want the swapfile in the disko configuration file (if you want a swap size other than 20GB, which should be optimal for 16GB of RAM with hibernation).
+5. Examine the configuration file for your machine, and add in proper device path for the drive you would like to install to, along with setting what size you want the swapfile in the disko configuration file (if you want a swap size other than 20GB, which should be optimal for 16GB of RAM with hibernation). Check anything with `FIXME:` and follow it's directions!
 
 6. **!!THIS WILL ERASE YOUR DRIVE!!** Run the following command to partition disk using the disko configuration: `sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko disko/carbon-disko.nix`
 
@@ -32,7 +32,8 @@ Most of the config here is for my Framework 13 with an AMD Ryzen 5 7640U, so som
 ## Disk Encryption and Secure Boot
 
 ### Secure boot
-TODO
+
+Secure boot on NixOS using Lanzaboote, it's not that hard! Start by running `nix-shell -p sbctl --command "sudo sbctl create-keys"` to generate your secure boot keys! Proceed to follow the [instructions](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md#part-2-enabling-secure-boot) from Lanzaboote
 
 ### Disk Encryption
 

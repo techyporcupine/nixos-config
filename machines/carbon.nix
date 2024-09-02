@@ -89,6 +89,14 @@
     };
   };
 
+
+  # FIXME: When installing this flake, comment out the following 5 lines until you have rebooted into the new system and decide you want secure boot!
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
+
   # Set up TPM Decryption
   boot.initrd.systemd.enable = true;
 
@@ -98,6 +106,7 @@
       "resume_offset=533760"
       "amdgpu.abmlevel=0"
     ];
+    # Specify device to get the resume swapfile from
     resumeDevice = "/dev/disk/by-label/nixos";
   };
   
