@@ -68,28 +68,6 @@
     tpm2-tss
   ];
 
-  # Enable fw-fanctrl
-  programs.fw-fanctrl.enable = true;
-  programs.fw-fanctrl.config = {
-    defaultStrategy = "lazy";
-    strategies = {
-      "lazy" = {
-        fanSpeedUpdateFrequency = 5;
-        movingAverageInterval = 20;
-        speedCurve = [
-          { temp = 0; speed = 0; }
-          { temp = 49; speed = 0; }
-          { temp = 50; speed = 15; }
-          { temp = 65; speed = 25; }
-          { temp = 70; speed = 40; }
-          { temp = 75; speed = 60; }
-          { temp = 85; speed = 100; }
-        ];
-      };
-    };
-  };
-
-
   # FIXME: When installing this flake, comment out the following 5 lines until you have rebooted into the new system and decide you want secure boot!
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote = {
