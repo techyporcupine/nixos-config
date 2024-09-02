@@ -77,9 +77,9 @@
         fanSpeedUpdateFrequency = 5;
         movingAverageInterval = 20;
         speedCurve = [
-          { temp = 45; speed = 0; }
-          { temp = 54; speed = 0; }
-          { temp = 55; speed = 15; }
+          { temp = 0; speed = 0; }
+          { temp = 49; speed = 0; }
+          { temp = 50; speed = 15; }
           { temp = 65; speed = 25; }
           { temp = 70; speed = 40; }
           { temp = 75; speed = 60; }
