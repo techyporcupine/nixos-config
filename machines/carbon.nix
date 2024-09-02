@@ -52,7 +52,7 @@
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # TCP Ports out of firewall
-  networking.firewall.allowedTCPPorts = [ 19132 3000 ];
+  networking.firewall.allowedTCPPorts = [ 19132 ];
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
