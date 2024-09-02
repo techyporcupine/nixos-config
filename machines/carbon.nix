@@ -89,11 +89,17 @@
     };
   };
 
-  # Turn off AMD ABM
-  boot.kernelParams = [ "amdgpu.abmlevel=0" ];
-
   # Set up TPM Decryption
   boot.initrd.systemd.enable = true;
+
+  boot = {
+    # Set resume offset for swapfile and turn off AMD ABM
+    kernelParams = [
+      "resume_offset=533760"
+      "amdgpu.abmlevel=0"
+    ];
+    resumeDevice = "/dev/disk/by-label/nixos";
+  };
   
   # Enable 6GHz
   hardware.wirelessRegulatoryDatabase = true;
