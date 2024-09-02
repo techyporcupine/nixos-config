@@ -74,7 +74,7 @@
     strategies = {
       "lazy" = {
         fanSpeedUpdateFrequency = 5;
-        movingAverageInterval = 25;
+        movingAverageInterval = 20;
         speedCurve = [
           { temp = 45; speed = 0; }
           { temp = 54; speed = 0; }
