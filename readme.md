@@ -33,7 +33,7 @@ Most of the config here is for my Framework 13 with an AMD Ryzen 5 7640U, so som
 
 ### Secure boot
 
-Secure boot on NixOS using Lanzaboote, it's not that hard! Start by running `nix-shell -p sbctl --command "sudo sbctl create-keys"` to generate your secure boot keys! Proceed to follow the [instructions](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md#part-2-enabling-secure-boot) from Lanzaboote
+Secure boot on NixOS using Lanzaboote, it's not that hard! Start by running `nix-shell -p sbctl --command "sudo sbctl create-keys"` to generate your secure boot keys! Proceed to follow the [instructions](https://github.com/nix-community/lanzaboote/blob/master/docs/QUICK_START.md#part-2-enabling-secure-boot) from Lanzaboote.
 
 ### Disk Encryption
 
