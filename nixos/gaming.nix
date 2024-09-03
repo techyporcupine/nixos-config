@@ -21,6 +21,7 @@
       prismlauncher
       dolphin-emu
       heroic
+      cemu
     ];
   };
 }
