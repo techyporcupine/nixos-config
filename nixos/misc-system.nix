@@ -147,7 +147,7 @@
     environment.systemPackages = with pkgs; [
       home-manager
       wget
-      neofetch
+      fastfetch
       pciutils
       unzip
       htop

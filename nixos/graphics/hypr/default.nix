@@ -27,6 +27,7 @@
       sway-contrib.grimshot
       cliphist
       wl-clipboard
+      nwg-displays
     ];
     
     systemd = {
@@ -99,10 +100,14 @@
         enable = true;
         package = inputs.hyprland.packages.${pkgs.system}.hyprland;
         settings = {
+          source = "~/.config/hypr/monitors.conf";
+          env = [ "AQ_NO_MODIFIERS,1" ];
           # Configuration for monitors
           monitor = [
             # https://wiki.hyprland.org/Configuring/Monitors/
-            "eDP-1,preferred,0x0,1"
+            "eDP-1,2256x1504@60.00,0x0,1"
+            "desc:Dell Inc. DELL SE2416H 9DRWM69T3X5B,1920x1080@60.0,auto,1.0"
+            "desc:Dell Inc. DELL P2210 U828K953633S,1680x1050@59.88,auto-right,1.0,transform,3"
             #"monitor=,preferred,auto,1" # Everything config
           ];
           # Commands to exec on launch
@@ -193,6 +198,11 @@
             ", XF86MonBrightnessDown, exec, brightnessctl -s s 5%-"
             ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1"
             ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1"   
+          ];
+          # Binds that can run with the lockscreen open
+          bindl = [
+            #",switch:off:Lid Switch,exec,hyprctl keyword monitor 'eDP-1'" 
+            #",switch:on:Lid Switch,exec,hyprctl keyword monitor 'eDP-1,disable'" 
           ];
           # Traditional binds
           bind = [

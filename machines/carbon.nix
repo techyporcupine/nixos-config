@@ -66,6 +66,7 @@
     fw-ectool
     blender-hip
     tpm2-tss
+    amdgpu_top
   ];
 
   # FIXME: When installing this flake, comment out the following 5 lines until you have rebooted into the new system and decide you want secure boot!
@@ -79,7 +80,7 @@
   boot.initrd.systemd.enable = true;
 
   boot = {
-    # Set resume offset for swapfile and turn off AMD ABM
+    # Set resume offset for swapfile and turn off AMD ABM. Also do some AMD setting to try to get rid of screen flash.
     kernelParams = [
       "resume_offset=533760"
       "amdgpu.abmlevel=0"

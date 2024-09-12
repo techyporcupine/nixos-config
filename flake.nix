@@ -2,51 +2,73 @@
   description = "techyporcupine's NixOS Config!";
 
   inputs = {
-    # Hyprland (weird config cus they said to)
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    };
-
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
 
-    # Nix-minecraft for mc server
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-
-    # Catppuccin
-    catppuccin.url = "github:techyporcupine/ctp-nix";
-
-    # Disko
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Nixos-hardware
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    
-    # FW-Fanctrl for better Framework Fan curve
-    fw-fanctrl = {
-      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+    # Hyprland
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nix-minecraft for mc server
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Catppuccin
+    catppuccin = {
+      url = "github:techyporcupine/ctp-nix";
+    };
+
+    # Disko
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Nixos-hardware
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
+
+    # Add Lanzaboote for secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Packages I just want the latest of
-    waybar.url = "github:Alexays/Waybar/master";
-    hypridle.url = "github:hyprwm/hypridle/main";
-    hyprpaper.url = "github:hyprwm/hyprpaper/main";
-    xdph.url = "github:hyprwm/xdg-desktop-portal-hyprland";
-    ladybird.url = "github:LadybirdBrowser/ladybird";
+    waybar = {
+      url = "github:Alexays/Waybar/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hypridle = {
+      url = "github:hyprwm/hypridle/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprpaper = {
+      url = "github:hyprwm/hyprpaper/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    xdph = {
+      url = "github:hyprwm/xdg-desktop-portal-hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ladybird = {
+      url = "github:LadybirdBrowser/ladybird";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Home manager config
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, ... }@inputs:
@@ -89,7 +111,6 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.catppuccin.nixosModules.catppuccin
             inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-            inputs.fw-fanctrl.nixosModules.default
             inputs.lanzaboote.nixosModules.lanzaboote
             {
               home-manager.useGlobalPkgs = true;
