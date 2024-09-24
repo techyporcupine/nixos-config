@@ -10,7 +10,7 @@
           name = "Fira-Code";
           size = 11;
       };
-      theme = "Catppuccin-Mocha";
+      themeFile = "Catppuccin-Mocha";
       shellIntegration.enableZshIntegration = true;
     };
   };

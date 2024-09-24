@@ -44,7 +44,7 @@
 
     # Packages I just want the latest of
     waybar = {
-      url = "github:Alexays/Waybar/master";
+      url = "github:Alexays/Waybar/8e2a742042e898da6da6ac1fade7d2a4a7b3b880";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hypridle = {
@@ -86,6 +86,12 @@
           config.allowUnfree = true;
         };
       };
+      overlay-staging = final: prev: {
+        staging = import inputs.nixpkgs-staging {
+          system = final.system;
+          config.allowUnfree = true;
+        };
+      };
       systems = [
         "aarch64-linux"
         "x86_64-linux"
@@ -103,6 +109,7 @@
             ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
               overlay-stable
               overlay-tp
+              overlay-staging
             ]; })
             inputs.disko.nixosModules.disko
             ./machines/carbon.nix 
@@ -129,6 +136,7 @@
             ({ config, pkgs, ... }: { nixpkgs.overlays = [ 
               overlay-stable
               overlay-tp
+              overlay-staging
             ]; })
             {
               nixpkgs.config.pkgs = import inputs.nixpkgs-stable { inherit systems; };
