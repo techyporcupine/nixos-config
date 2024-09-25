@@ -44,7 +44,7 @@
 
     # Packages I just want the latest of
     waybar = {
-      url = "github:Alexays/Waybar/8e2a742042e898da6da6ac1fade7d2a4a7b3b880";
+      url = "github:Alexays/Waybar/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hypridle = {

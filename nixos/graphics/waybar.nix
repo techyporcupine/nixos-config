@@ -324,8 +324,10 @@
             # "ignored-players"= ["firefox"];
         };
         "clock"= {
+            "format"="{:%H:%M:%S}";
             "tooltip-format"= "{:%Y %B}";
             "format-alt"= "{:%Y-%m-%d}";
+            "interval" = 1;
         };
         "custom/fan"= {
             "exec"= "sensors | awk '/Processor Fan:/ {print $3,$4}'";
