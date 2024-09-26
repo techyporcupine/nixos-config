@@ -173,6 +173,8 @@
           bindgesture swipe:right workspace prev
           bindgesture swipe:left workspace next
           seat seat0 xcursor_theme catppuccin-mocha-green-cursors 24
+          bindswitch --reload --locked lid:on output eDP-1 disable
+          bindswitch --reload --locked lid:off output eDP-1 enable
         '';
       };
     };
