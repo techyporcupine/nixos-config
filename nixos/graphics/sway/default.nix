@@ -92,6 +92,8 @@
             {command = "udiskie";}
             {command = "wl-paste --watch cliphist store";}
           ];
+          # Set default workspace to be workspace 1
+          defaultWorkspace = "1";
           # Set command used to launch dmenu
           menu = "zsh -c 'rofi -show drun'";
           # Set status bar used
@@ -149,6 +151,7 @@
             "${modifier}+7" = "workspace number 7";
             "${modifier}+8" = "workspace number 8";
             "${modifier}+9" = "workspace number 9";
+            "${modifier}+0" = "workspace number 10";
             "${modifier}+Shift+1" = "move container to workspace number 1; workspace number 1";
             "${modifier}+Shift+2" = "move container to workspace number 2; workspace number 2";
             "${modifier}+Shift+3" = "move container to workspace number 3; workspace number 3";
@@ -158,6 +161,7 @@
             "${modifier}+Shift+7" = "move container to workspace number 7; workspace number 7";
             "${modifier}+Shift+8" = "move container to workspace number 8; workspace number 8";
             "${modifier}+Shift+9" = "move container to workspace number 9; workspace number 9";
+            "${modifier}+Shift+0" = "move container to workspace number 10; workspace number 10";
           };
         }; 
         # Extra config stuff that didn't have options in Nix
