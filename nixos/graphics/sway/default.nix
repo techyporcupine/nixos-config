@@ -81,12 +81,6 @@
         checkConfig = false;
         config = rec {
           modifier = "Mod4";
-          # Declare display outputs
-          output = {
-            eDP-1 = {
-              scale = "1";
-            };
-          };
           # Use kitty as default terminal
           terminal = "kitty"; 
           startup = [
@@ -173,9 +167,41 @@
           bindgesture swipe:right workspace prev
           bindgesture swipe:left workspace next
           seat seat0 xcursor_theme catppuccin-mocha-green-cursors 24
-          bindswitch --reload --locked lid:on output eDP-1 disable
-          bindswitch --reload --locked lid:off output eDP-1 enable
         '';
+      };
+      # Enable kanshi for dynamic monitor configuration!
+      services.kanshi = {
+        enable = true;
+        settings = [
+          { profile.name = "undocked";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                scale = 1.0;
+                status = "enable";
+              }
+            ];
+          }
+          { profile.name = "desk-docked";
+            profile.outputs = [
+              {
+                criteria = "Dell Inc. DELL SOMETHING";
+                position = "0,155";
+                mode = "1920x1080@60Hz";
+              }
+              {
+                criteria = "Dell Inc. DELL P2210 82X70P3";
+                position = "1920,0";
+                mode = "1680x1050@60Hz";
+                transform = "270";
+              }
+              {
+                criteria = "eDP-1";
+                status = "disable";
+              }
+            ];
+          }
+        ];
       };
     };
   };
