@@ -34,18 +34,16 @@
       polkit_gnome
       gnome-logs
       cheese
-      grim
-      slurp
       gnome-connections
       swaynotificationcenter
       inputs.hyprpaper.packages.${system}.hyprpaper
       inputs.hypridle.packages.${system}.hypridle
       hyprlock
       hyprpicker
-      sway-contrib.grimshot
       cliphist
       wl-clipboard
       nwg-displays
+      (flameshot.override { enableWlrSupport = true; })
     ];
 
     # enable sway window manager
@@ -140,7 +138,7 @@
             "${modifier}+N" = "exec swaync-client -t -sw";
             "${modifier}+L" = "exec loginctl lock-session";
             "${modifier}+W" = "floating toggle";
-            "Print" = "exec grimshot copy area";
+            "Print" = "exec flameshot gui";
             "XF86MonBrightnessUp" = "exec brightnessctl -s s +5%";
             "XF86MonBrightnessDown" = "exec brightnessctl -s s 5%-";
             "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1";
