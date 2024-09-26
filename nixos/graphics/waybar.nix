@@ -97,14 +97,14 @@
             margin: 1px;
         }
         #workspaces button {
-            padding: 0 5px; 
+            padding: 0 0px; 
             border-radius: 8px;
             /* background-color: @surface0; */
             color: @green;
             margin: 3px;
             font-weight: bold;
         }
-        #workspaces button.active {
+        #workspaces button.focused {
             background-color: @surface0;
         }
         #workspaces button.urgent {
@@ -266,7 +266,7 @@
         "layer"= "top"; 
         "height"= 34; 
         "spacing"= 2; 
-        "modules-left"= ["hyprland/workspaces" "mpris" ];
+        "modules-left"= ["sway/workspaces" "mpris" ];
         "modules-center"= ["clock"];
         "modules-right"= ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
         "margin"= "6px 6px 0px 6px";
