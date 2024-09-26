@@ -32,7 +32,6 @@
   tp.graphics = {
     enable = true;
     kitty = true;
-    hyprland = true;
     sway = true;
     swaync = true;
     gtk = true;

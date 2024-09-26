@@ -10,6 +10,48 @@
 
     security.polkit.enable = true;
 
+    # Enable udisks for drive utils
+    services.udisks2.enable = true;
+    
+    # GDM for logging in
+    services.xserver = {
+      displayManager.gdm.enable = true;
+    };
+
+    # Enable blueman for bluetooth managment
+    services.blueman.enable = true;
+    
+    # Enable gnome-keyring
+    services.gnome.gnome-keyring.enable = true;
+
+    # Enable seahorse key and password managment
+    programs.seahorse.enable = true;
+
+
+    # Packages that are not needed if you're not using Hyprland
+    environment.systemPackages = with pkgs; [
+      nautilus
+      gnome-disk-utility
+      gnome-tweaks
+      udiskie
+      baobab
+      polkit_gnome
+      gnome-logs
+      cheese
+      grim
+      slurp
+      gnome-connections
+      swaynotificationcenter
+      inputs.hyprpaper.packages.${system}.hyprpaper
+      inputs.hypridle.packages.${system}.hypridle
+      hyprlock
+      hyprpicker
+      sway-contrib.grimshot
+      cliphist
+      wl-clipboard
+      nwg-displays
+    ];
+
     # enable sway window manager
     programs.sway = {
         enable = true;
@@ -17,6 +59,28 @@
     };
 
     tp.hm = {
+      # Files to copy to a location in the home directory
+      xdg.configFile."hyprpaper" = {
+        enable = true;
+        source = ./hyprpaper.conf;
+        target = "hypr/hyprpaper.conf";
+      };
+      xdg.configFile."hypridle" = {
+        enable = true;
+        source = ./hypridle.conf;
+        target = "hypr/hypridle.conf";
+      };
+      xdg.configFile."hyprlock" = {
+        enable = true;
+        source = ./hyprlock.conf;
+        target = "hypr/hyprlock.conf";
+      };
+      xdg.configFile."wallpapers" = {
+        enable = true;
+        source = ./wallpapers;
+        target = "hypr/wallpapers";
+      };
+      
       wayland.windowManager.sway = {
         enable = true;
         package = pkgs.swayfx;
@@ -37,6 +101,7 @@
             {command = "hyprpaper";}
             {command = "hypridle";}
             {command = "swaync";}
+            {command = "udiskie";}
             {command = "wl-paste --watch cliphist store";}
           ];
           # Set command used to launch dmenu
@@ -84,6 +149,8 @@
             "XF86MonBrightnessDown" = "exec brightnessctl -s s 5%-";
             "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1";
             "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1";
+            "XF86AudioMute" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%"
+
 
 
             # Workspace mods

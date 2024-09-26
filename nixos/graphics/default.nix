@@ -1,6 +1,5 @@
 {
   imports = [
-    ./hypr
     ./rofi
     ./mangohud
     ./graphics.nix
