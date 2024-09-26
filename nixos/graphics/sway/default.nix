@@ -4,10 +4,7 @@
   };
 
   config = lib.mkIf cfg.sway {
-    # Enable the gnome-keyring secrets vault. 
-    # Will be exposed through DBus to programs willing to store secrets.
-    services.gnome.gnome-keyring.enable = true;
-
+    # Enable policykit for reasons
     security.polkit.enable = true;
 
     # Enable udisks for drive utils
@@ -26,7 +23,6 @@
 
     # Enable seahorse key and password managment
     programs.seahorse.enable = true;
-
 
     # Packages that are not needed if you're not using Hyprland
     environment.systemPackages = with pkgs; [
@@ -62,25 +58,25 @@
       # Files to copy to a location in the home directory
       xdg.configFile."hyprpaper" = {
         enable = true;
-        source = ./hyprpaper.conf;
+        source = ../hypr/hyprpaper.conf;
         target = "hypr/hyprpaper.conf";
       };
       xdg.configFile."hypridle" = {
         enable = true;
-        source = ./hypridle.conf;
+        source = ../hypr/hypridle.conf;
         target = "hypr/hypridle.conf";
       };
       xdg.configFile."hyprlock" = {
         enable = true;
-        source = ./hyprlock.conf;
+        source = ../hypr/hyprlock.conf;
         target = "hypr/hyprlock.conf";
       };
       xdg.configFile."wallpapers" = {
         enable = true;
-        source = ./wallpapers;
+        source = ../hypr/wallpapers;
         target = "hypr/wallpapers";
       };
-      
+
       wayland.windowManager.sway = {
         enable = true;
         package = pkgs.swayfx;
@@ -149,9 +145,7 @@
             "XF86MonBrightnessDown" = "exec brightnessctl -s s 5%-";
             "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1";
             "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1";
-            "XF86AudioMute" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%"
-
-
+            "XF86AudioMute" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%";
 
             # Workspace mods
             "${modifier}+1" = "workspace number 1";
