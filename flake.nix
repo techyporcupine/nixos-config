@@ -14,6 +14,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # SwayFX
+    swayfx = {
+      url = "git+https://github.com/WillPower3309/swayfx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Nix-minecraft for mc server
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";

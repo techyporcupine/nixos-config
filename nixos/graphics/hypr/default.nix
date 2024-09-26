@@ -13,8 +13,6 @@
       baobab
       polkit_gnome
       gnome-logs
-      gnome-system-monitor
-      gnome-font-viewer
       cheese
       grim
       slurp
