@@ -46,6 +46,10 @@
       (flameshot.override { enableWlrSupport = true; })
     ];
 
+    security.pam.services.hyprlock = {
+      rules.auth.unix.order = config.security.pam.services.hyprlock.rules.auth.fprintd.order - 10;
+    };
+
     # enable sway window manager
     programs.sway = {
         enable = true;
@@ -93,7 +97,7 @@
             {command = "wl-paste --watch cliphist store";}
           ];
           # Set default workspace to be workspace 1
-          defaultWorkspace = "1";
+          defaultWorkspace = "workspace number 1";
           # Set command used to launch dmenu
           menu = "zsh -c 'rofi -show drun'";
           # Set status bar used
@@ -177,31 +181,30 @@
       services.kanshi = {
         enable = true;
         settings = [
+          { profile.name = "docked";
+            profile.outputs = [
+              {
+                criteria = "eDP-1";
+                scale = 1.0;
+                status = "disable";
+              }
+              {
+                criteria = "Dell Inc. DELL SE2416H 9DRWM69T3X5B";
+                position = "2256,0";
+              }
+              {
+                criteria = "Dell Inc. DELL P2210 U828K953633S";
+                transform = "270";
+                position = "4176,0";
+              }
+            ];
+          }
           { profile.name = "undocked";
             profile.outputs = [
               {
                 criteria = "eDP-1";
                 scale = 1.0;
                 status = "enable";
-              }
-            ];
-          }
-          { profile.name = "desk-docked";
-            profile.outputs = [
-              {
-                criteria = "Dell Inc. DELL SOMETHING";
-                position = "0,155";
-                mode = "1920x1080@60Hz";
-              }
-              {
-                criteria = "Dell Inc. DELL P2210 82X70P3";
-                position = "1920,0";
-                mode = "1680x1050@60Hz";
-                transform = "270";
-              }
-              {
-                criteria = "eDP-1";
-                status = "disable";
               }
             ];
           }
