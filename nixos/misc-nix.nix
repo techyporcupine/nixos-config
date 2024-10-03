@@ -7,14 +7,6 @@
     # NIX CONFIG
     nix = {
       package = pkgs.nixVersions.latest;
-      # Garbage Collection config
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 7d";
-        persistent = true;
-      };
-
       # Random Nix Settings
       settings = {
         trusted-users = [ "root" ];
@@ -25,6 +17,13 @@
         trusted-substituters = ["https://hyprland.cachix.org" "https://ai.cachix.org"];
         trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc="];
       };
+    };
+
+    programs.nh = {
+      enable = true;
+      clean.enable = true;
+      clean.dates = "daily";
+      clean.extraArgs = "--keep-since 2d";
     };
 
     # Allow unfree packages

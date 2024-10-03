@@ -110,7 +110,7 @@
       ];
       forAllSystems = inputs.nixpkgs.lib.genAttrs systems;
     # NixOS configuration entrypoint
-    # To switch to new NixOS config 'sudo nixos-rebuild switch --flake .#carbon'
+    # To switch to new NixOS config 'nh os switch ./' as long as the hostname of your device is the same as the nixosConfiguration name!
     in {
       nixosConfigurations = {
         carbon = inputs.nixpkgs.lib.nixosSystem {
@@ -170,20 +170,5 @@
           ];
         };
       };
-
-      # Standalone home-manager configuration entrypoint (VERY OLD)
-      # To switch to new home-manager setup 'home-manager switch --flake .#techyporcupine'
-      #homeConfigurations = {
-      #  "techyporcupine" = home-manager.lib.homeManagerConfiguration {
-      #    pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-      #    extraSpecialArgs = {inherit inputs outputs;};
-      #    # Path to home-manager configuration
-      #    modules = [ 
-      #      ({ config, pkgs, ... }: { nixpkgs.overlays = [ overlay-stable ]; })
-      #      hyprland.homeManagerModules.default
-      #      ./home-manager/home.nix
-      #    ];
-      #  };
-      #};
     };
 }
