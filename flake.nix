@@ -8,12 +8,6 @@
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
 
-    # Hyprland
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # SwayFX
     swayfx = {
       url = "git+https://github.com/WillPower3309/swayfx";

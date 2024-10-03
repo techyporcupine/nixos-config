@@ -7,6 +7,7 @@
     # NIX CONFIG
     nix = {
       package = pkgs.nixVersions.latest;
+      channel.enable = false;
       # Random Nix Settings
       settings = {
         trusted-users = [ "root" ];
