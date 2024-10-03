@@ -11,8 +11,8 @@
     services.udisks2.enable = true;
     
     # GDM for logging in
-    services.xserver = {
-      displayManager.gdm.enable = true;
+    services = {
+      xserver.displayManager.gdm.enable = true;
     };
 
     # Enable blueman for bluetooth managment
@@ -50,10 +50,13 @@
       rules.auth.unix.order = config.security.pam.services.hyprlock.rules.auth.fprintd.order - 10;
     };
 
+    environment.sessionVariables.WLR_RENDERER = "vulkan";
+
+
     # enable sway window manager
     programs.sway = {
-        enable = true;
-        package = pkgs.swayfx;
+      enable = true;
+      package = inputs.nyx.packages.${pkgs.system}.sway_git;
     };
 
     tp.hm = {
@@ -86,7 +89,7 @@
 
       wayland.windowManager.sway = {
         enable = true;
-        package = pkgs.swayfx;
+        package = inputs.nyx.packages.${pkgs.system}.sway_git;
         checkConfig = false;
         config = rec {
           modifier = "Mod4";
@@ -103,6 +106,11 @@
           ];
           # Set default workspace to be workspace 1
           defaultWorkspace = "workspace number 1";
+          output = {
+            eDP-1 = {
+              color_profile = "icc ~/.color/icc/BOE_FW13AMD.icm";
+            };
+          };
           # Set command used to launch dmenu
           menu = "zsh -c 'rofi -show drun'";
           # Set status bar used

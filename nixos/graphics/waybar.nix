@@ -28,7 +28,7 @@
             background-color: @base;
             color: #ffffff;
             border: 2px solid @sky;
-            border-radius: 12px;
+            border-radius: 0px;
         }
 
         /* window#waybar.hidden { */

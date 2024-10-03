@@ -48,6 +48,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Nyx
+    nyx = {
+      url = "github:chaotic-cx/nyx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Packages I just want the latest of
     waybar = {
       url = "github:Alexays/Waybar/master";
@@ -125,6 +131,7 @@
             inputs.catppuccin.nixosModules.catppuccin
             inputs.nixos-hardware.nixosModules.framework-13-7040-amd
             inputs.lanzaboote.nixosModules.lanzaboote
+            inputs.nyx.nixosModules.default
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
