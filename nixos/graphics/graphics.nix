@@ -9,7 +9,7 @@
 
     # Graphical applications
     environment.systemPackages = with pkgs; [
-      firefox
+      firefox-bin
       spotify
       xorg.xeyes
       vlc

@@ -138,12 +138,18 @@
             "${modifier}+N" = "exec swaync-client -t -sw";
             "${modifier}+L" = "exec loginctl lock-session";
             "${modifier}+W" = "floating toggle";
+
+            # Special Function keys
             "Print" = "exec flameshot gui";
             "XF86MonBrightnessUp" = "exec brightnessctl -s s +5%";
             "XF86MonBrightnessDown" = "exec brightnessctl -s s 5%-";
             "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1";
             "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- --limit 1";
             "XF86AudioMute" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 0%";
+            "XF86AudioPlay" = "exec playerctl play-pause";
+            "XF86AudioPause" = "exec playerctl pause";
+            "XF86AudioNext" = "exec playerctl next";
+            "XF86AudioPrev" = "exec playerctl previous";
 
             # Workspace mods
             "${modifier}+1" = "workspace number 1";

@@ -22,6 +22,13 @@
       bluetooth.enable = true;
     };
 
+    hardware.graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        rocmPackages.clr.icd
+      ];
+    };
+
     # Enable HomeManager
     tp.hm.programs.home-manager.enable = true;
     tp.hm.systemd.user.startServices = "sd-switch";
