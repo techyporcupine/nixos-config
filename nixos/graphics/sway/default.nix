@@ -78,6 +78,11 @@
         source = ../hypr/wallpapers;
         target = "hypr/wallpapers";
       };
+      xdg.configFile."icc" = {
+        enable = true;
+        source = ./assets/BOE_FW13AMD.icm;
+        target = "../.color/icc/BOE_FW13AMD.icm";
+      };
 
       wayland.windowManager.sway = {
         enable = true;
@@ -177,7 +182,6 @@
         # Extra config stuff that didn't have options in Nix
         extraConfig = ''
           default_border pixel
-          corner_radius 10
           bindgesture swipe:right workspace prev
           bindgesture swipe:left workspace next
           seat seat0 xcursor_theme catppuccin-mocha-green-cursors 24
