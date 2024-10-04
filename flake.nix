@@ -61,10 +61,6 @@
       url = "github:hyprwm/hyprpaper/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xdph = {
-      url = "github:hyprwm/xdg-desktop-portal-hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     ladybird = {
       url = "github:LadybirdBrowser/ladybird";
       inputs.nixpkgs.follows = "nixpkgs";
