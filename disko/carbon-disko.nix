@@ -28,18 +28,18 @@
                 };
                 content = {
                   type = "btrfs";
-                  extraArgs = [ "-L" "nixos" "-f" ];
+                  extraArgs = ["-L" "nixos" "-f"];
                   subvolumes = {
                     "/rootfs" = {
                       mountpoint = "/";
                     };
                     "/home" = {
                       mountpoint = "/home";
-                      mountOptions = [ "compress=zstd" ];
+                      mountOptions = ["compress=zstd"];
                     };
                     "/nix" = {
                       mountpoint = "/nix";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                      mountOptions = ["compress=zstd" "noatime"];
                     };
                     "/swap" = {
                       mountpoint = "/swap";
@@ -55,4 +55,3 @@
     };
   };
 }
-

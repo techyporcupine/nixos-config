@@ -1,4 +1,11 @@
-{pkgs, config, lib, ... }: let cfg = config.tp.disks; in {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.tp.disks;
+in {
   options.tp.disks = {
     enable = lib.mkEnableOption "TP's disk config";
   };
@@ -7,7 +14,7 @@
     # BOOT CONFIG
     boot = {
       loader.systemd-boot.enable = true;
-      loader.efi.canTouchEfiVariables = true; 
+      loader.efi.canTouchEfiVariables = true;
       plymouth = {
         enable = true; #  Enable plymouth for nice boot and shutdown screens
       };

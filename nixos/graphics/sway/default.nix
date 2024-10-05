@@ -1,4 +1,12 @@
-{pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
+  cfg = config.tp.graphics;
+in {
   options.tp.graphics = {
     sway = lib.mkEnableOption "Enable Sway and all things required for it to work";
   };
@@ -9,7 +17,7 @@
 
     # Enable udisks for drive utils
     services.udisks2.enable = true;
-    
+
     # GDM for logging in
     services = {
       xserver.displayManager.gdm.enable = true;
@@ -17,7 +25,7 @@
 
     # Enable blueman for bluetooth managment
     services.blueman.enable = true;
-    
+
     # Enable gnome-keyring
     services.gnome.gnome-keyring.enable = true;
 
@@ -43,7 +51,7 @@
       cliphist
       wl-clipboard
       nwg-displays
-      (flameshot.override { enableWlrSupport = true; })
+      (flameshot.override {enableWlrSupport = true;})
     ];
 
     security.pam.services.hyprlock = {
@@ -51,7 +59,6 @@
     };
 
     environment.sessionVariables.WLR_RENDERER = "vulkan";
-
 
     # enable sway window manager
     programs.sway = {
@@ -94,7 +101,7 @@
         config = rec {
           modifier = "Mod4";
           # Use kitty as default terminal
-          terminal = "kitty"; 
+          terminal = "kitty";
           startup = [
             # Launch some applications on start
             {command = "firefox";}
@@ -186,7 +193,7 @@
             "${modifier}+Shift+9" = "move container to workspace number 9; workspace number 9";
             "${modifier}+Shift+0" = "move container to workspace number 10; workspace number 10";
           };
-        }; 
+        };
         # Extra config stuff that didn't have options in Nix
         extraConfig = ''
           default_border pixel
@@ -199,7 +206,8 @@
       services.kanshi = {
         enable = true;
         settings = [
-          { profile.name = "docked";
+          {
+            profile.name = "docked";
             profile.outputs = [
               {
                 criteria = "eDP-1";
@@ -217,7 +225,8 @@
               }
             ];
           }
-          { profile.name = "undocked";
+          {
+            profile.name = "undocked";
             profile.outputs = [
               {
                 criteria = "eDP-1";

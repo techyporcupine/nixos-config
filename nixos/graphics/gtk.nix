@@ -1,4 +1,12 @@
-{ pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
+  cfg = config.tp.graphics;
+in {
   options.tp.graphics = {
     gtk = lib.mkEnableOption "Enable gtk theming";
   };
@@ -9,15 +17,15 @@
       adwaita-icon-theme
     ];
     # Enable dconf and turn off GDM auto brightness
-    programs.dconf.enable = true; 
+    programs.dconf.enable = true;
     programs.dconf.profiles.gdm.databases = [
       {
         settings."org/gnome/settings-daemon/plugins/power" = {
-            ambient-enabled = false;
+          ambient-enabled = false;
         };
       }
     ];
-    
+
     tp.hm = {
       # set some options in dconf cus they didnt take effect otherwise
       dconf.settings = {
@@ -35,7 +43,7 @@
           flavor = "mocha";
           accent = "green";
           size = "standard";
-          tweaks = [ "normal" ];
+          tweaks = ["normal"];
         };
         iconTheme = {
           name = "Papirus-Dark";

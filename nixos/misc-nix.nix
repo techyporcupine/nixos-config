@@ -1,4 +1,12 @@
-{pkgs, config, lib, inputs, ... }: let cfg = config.tp.nix; in {
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
+  cfg = config.tp.nix;
+in {
   options.tp.nix = {
     enable = lib.mkEnableOption "TP's nix config";
   };
@@ -10,10 +18,10 @@
       channel.enable = false;
       # Random Nix Settings
       settings = {
-        trusted-users = [ "root" ];
+        trusted-users = ["root"];
         auto-optimise-store = true;
 
-        experimental-features = [ "nix-command" "flakes" ];
+        experimental-features = ["nix-command" "flakes"];
 
         trusted-substituters = ["https://hyprland.cachix.org" "https://ai.cachix.org"];
         trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "ai.cachix.org-1:N9dzRK+alWwoKXQlnn0H6aUx0lU/mspIoz8hMvGvbbc="];

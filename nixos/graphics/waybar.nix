@@ -1,4 +1,12 @@
-{pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
+  cfg = config.tp.graphics;
+in {
   options.tp.graphics = {
     waybar = lib.mkEnableOption "Enable waybar and theming for it";
   };
@@ -44,7 +52,7 @@
         }
         #power-profiles-daemon {
             color: @text;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 8px;
             font-weight: bold;
@@ -52,7 +60,7 @@
         }
         #temperature {
             color: @red;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 8px;
             font-weight: bold;
@@ -60,7 +68,7 @@
         }
         #idle_inhibitor {
             color: @text;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 8px;
             font-weight: bold;
@@ -75,7 +83,7 @@
         }
         #mpris {
             color: @surface2;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -90,14 +98,14 @@
         }
         #clock {
             color: @base;
-            background-color: @sky; 
+            background-color: @sky;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
             margin: 1px;
         }
         #workspaces button {
-            padding: 0 0px; 
+            padding: 0 0px;
             border-radius: 8px;
             /* background-color: @surface0; */
             color: @green;
@@ -112,7 +120,7 @@
         }
         #backlight {
             color: @sky;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -120,7 +128,7 @@
         }
         #battery {
             color: @sky;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -134,7 +142,7 @@
         }
         #custom-fan {
             color: @red;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -142,7 +150,7 @@
         }
         #custom-cputemp {
             color: @red;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -150,7 +158,7 @@
         }
         #cpu {
             color: @yellow;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -158,15 +166,15 @@
         }
         #memory {
             color: @yellow;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
             margin: 3px;
-        } 
+        }
         #network {
             color: @mauve;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -178,7 +186,7 @@
         }
         #pulseaudio {
             color: @text;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -190,7 +198,7 @@
         }
         #keyboard-state {
             color: @mauve;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -198,7 +206,7 @@
         }
         #tray {
             color: @text;
-            background-color: @surface0; 
+            background-color: @surface0;
             border-radius: 8px;
             padding: 0 10px;
             font-weight: bold;
@@ -262,121 +270,123 @@
         @define-color rosewater #f5e0dc;
       '';
       # Normal config for waybar
-      settings = [{
-        "layer"= "top"; 
-        "height"= 34; 
-        "spacing"= 2; 
-        "modules-left"= ["sway/workspaces" "mpris" ];
-        "modules-center"= ["clock"];
-        "modules-right"= ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
-        "margin"= "6px 6px 0px 6px";
-        "power-profiles-daemon" = {
-            "format"= "{icon}";
-            "tooltip-format"= "Power profile: {profile}\nDriver: {driver}";
-            "tooltip"= true;
-            "format-icons"= {
-                "default"= "";
-                "performance"= "";
-                "balanced"= "";
-                "power-saver"= "";
+      settings = [
+        {
+          "layer" = "top";
+          "height" = 34;
+          "spacing" = 2;
+          "modules-left" = ["sway/workspaces" "mpris"];
+          "modules-center" = ["clock"];
+          "modules-right" = ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
+          "margin" = "6px 6px 0px 6px";
+          "power-profiles-daemon" = {
+            "format" = "{icon}";
+            "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
+            "tooltip" = true;
+            "format-icons" = {
+              "default" = "";
+              "performance" = "";
+              "balanced" = "";
+              "power-saver" = "";
             };
-        };
-        "temperature"= {
-            "thermal-zone"= 3;
+          };
+          "temperature" = {
+            "thermal-zone" = 3;
             "interval" = 7;
-            "format"= "{temperatureC}°C ";
-        };
-        "idle_inhibitor"= {
-            "format"= "{icon}";
-            "format-icons"= {
-                "activated"= "";
-                "deactivated"= "";
+            "format" = "{temperatureC}°C ";
+          };
+          "idle_inhibitor" = {
+            "format" = "{icon}";
+            "format-icons" = {
+              "activated" = "";
+              "deactivated" = "";
             };
-        };
-        "cava" = {
-            "framerate"= 60;
+          };
+          "cava" = {
+            "framerate" = 60;
             "sensitivity" = 1;
-            "bars"= 24;
-            "lower_cutoff_freq"= 50;
-            "higher_cutoff_freq"= 10000;
-            "method"= "pipewire";
-            "source"= "auto";
-            "stereo"= true;
-            "reverse"= false;
-            "bar_delimiter"= 0;
-            "noise_reduction"= 0.77;
-            "input_delay"= 2;
-            "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+            "bars" = 24;
+            "lower_cutoff_freq" = 50;
+            "higher_cutoff_freq" = 10000;
+            "method" = "pipewire";
+            "source" = "auto";
+            "stereo" = true;
+            "reverse" = false;
+            "bar_delimiter" = 0;
+            "noise_reduction" = 0.77;
+            "input_delay" = 2;
+            "format-icons" = ["▁" "▂" "▃" "▄" "▅" "▆" "▇" "█"];
             "hide_on_silence" = true;
-        };
-        "mpris"= {
-            "format"= "{player_icon} {title} <small>[{position}/{length}]</small>";
-            "format-paused"= "{status_icon} <i>{title} <small>[{position}/{length}]</small></i>";
+          };
+          "mpris" = {
+            "format" = "{player_icon} {title} <small>[{position}/{length}]</small>";
+            "format-paused" = "{status_icon} <i>{title} <small>[{position}/{length}]</small></i>";
             "interval" = 1;
-            "title-len" = 46; 
-            "player-icons"= {
-                "default"= "▶";
-                "mpv"= "🎵";
+            "title-len" = 46;
+            "player-icons" = {
+              "default" = "▶";
+              "mpv" = "🎵";
             };
-            "status-icons"= {
-                "paused"= "⏸";
+            "status-icons" = {
+              "paused" = "⏸";
             };
             # "ignored-players"= ["firefox"];
-        };
-        "clock"= {
-            "format"="{:%H:%M:%S}";
-            "tooltip-format"= "{:%Y %B}";
-            "format-alt"= "{:%Y-%m-%d}";
+          };
+          "clock" = {
+            "format" = "{:%H:%M:%S}";
+            "tooltip-format" = "{:%Y %B}";
+            "format-alt" = "{:%Y-%m-%d}";
             "interval" = 1;
-        };
-        "custom/fan"= {
-            "exec"= "sensors | awk '/Processor Fan:/ {print $3,$4}'";
-            "interval"= 3;
-        };
-        "custom/cputemp"= {
-            "exec"= "sensors | awk '/CPU:/ {print $2,$3}' | cut -c 2-8";
-            "interval"= 3;
-        };
-        "cpu"= {
-            "format"= "{usage}% ";
-            "tooltip"= false;
-        };
-        "memory"= {
-            "format"= "{}% ";
-        };
-        "backlight"= {
-            "format"= "{percent}% ";
-        };
-        "battery"= {
-            "states"= {
-                "warning"= 25;
-                "critical"= 10;
+          };
+          "custom/fan" = {
+            "exec" = "sensors | awk '/Processor Fan:/ {print $3,$4}'";
+            "interval" = 3;
+          };
+          "custom/cputemp" = {
+            "exec" = "sensors | awk '/CPU:/ {print $2,$3}' | cut -c 2-8";
+            "interval" = 3;
+          };
+          "cpu" = {
+            "format" = "{usage}% ";
+            "tooltip" = false;
+          };
+          "memory" = {
+            "format" = "{}% ";
+          };
+          "backlight" = {
+            "format" = "{percent}% ";
+          };
+          "battery" = {
+            "states" = {
+              "warning" = 25;
+              "critical" = 10;
             };
-            "format"= "{capacity}% {icon}";
-            "format-charging"= "{capacity}% ";
-            "format-plugged"= "{capacity}% ";
-            "format-alt"= "{time} {icon}";
-            "format-icons"= ["" "" "" "" ""];
-        };
-        "tray"= {
-            "icon-size"= 14;
-            "spacing"= 5;
-        };
-        "network"= {
-            "format-wifi"= "{essid} ({signalStrength}%) ";
-            "format-ethernet"= "{ipaddr} ";
-            "tooltip-format"= "{ifname} via {gwaddr} ";
-            "format-linked"= "{ifname} (No IP) ";
-            "format-disconnected"= "Disconnected ";
-            "format-alt"= "{ifname}= {ipaddr}";
-        };
-        "wireplumber"= {
-            "format"= "{volume}% {icon}";
-            "format-muted"= "";
-            "on-click"= "helvum";
-            "format-icons"= ["" "" ""];
-        };
-      }];
+            "format" = "{capacity}% {icon}";
+            "format-charging" = "{capacity}% ";
+            "format-plugged" = "{capacity}% ";
+            "format-alt" = "{time} {icon}";
+            "format-icons" = ["" "" "" "" ""];
+          };
+          "tray" = {
+            "icon-size" = 14;
+            "spacing" = 5;
+          };
+          "network" = {
+            "format-wifi" = "{essid} ({signalStrength}%) ";
+            "format-ethernet" = "{ipaddr} ";
+            "tooltip-format" = "{ifname} via {gwaddr} ";
+            "format-linked" = "{ifname} (No IP) ";
+            "format-disconnected" = "Disconnected ";
+            "format-alt" = "{ifname}= {ipaddr}";
+          };
+          "wireplumber" = {
+            "format" = "{volume}% {icon}";
+            "format-muted" = "";
+            "on-click" = "helvum";
+            "format-icons" = ["" "" ""];
+          };
+        }
+      ];
     };
   };
 }

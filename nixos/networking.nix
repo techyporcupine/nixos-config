@@ -1,4 +1,11 @@
-{pkgs, config, lib, ... }: let cfg = config.tp.networking; in {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.tp.networking;
+in {
   options.tp.networking = {
     enable = lib.mkEnableOption "TP's network stack";
     tailscale.client = lib.mkEnableOption "Tailscale";

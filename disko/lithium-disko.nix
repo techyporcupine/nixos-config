@@ -25,7 +25,7 @@
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = [ "-f" ]; # Override existing partition
+                extraArgs = ["-f"]; # Override existing partition
                 # BTRFS Subvolumes and where they are mounted
                 subvolumes = {
                   # The rootfs, mounted at / on the disk
@@ -34,15 +34,15 @@
                   };
                   # the home dir, mounted at /home on the disk with some nice zstd compression
                   "/home" = {
-                    mountOptions = [ "compress=zstd" ];
+                    mountOptions = ["compress=zstd"];
                     mountpoint = "/home";
                   };
                   # the nix dir, mounted at /nix on the disk, also with some nice zstd compression
                   "/nix" = {
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = ["compress=zstd" "noatime"];
                     mountpoint = "/nix";
                   };
-                  # Subvolume for the swapfile, mounted at /.swapvol 
+                  # Subvolume for the swapfile, mounted at /.swapvol
                   # 4GB should be good for 16GB of RAM w/o hibernation
                   "/swap" = {
                     mountpoint = "/.swapvol";
@@ -59,4 +59,3 @@
     };
   };
 }
-

@@ -1,5 +1,13 @@
 # TODO: COMMENTS and fix Nvidia xserver driver thingys
-{pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
+  cfg = config.tp.graphics;
+in {
   options.tp.graphics = {
     enable = lib.mkEnableOption "TP's graphics stack";
   };
@@ -25,6 +33,8 @@
           ms-vscode-remote.remote-ssh
           catppuccin.catppuccin-vsc
           catppuccin.catppuccin-vsc-icons
+          esbenp.prettier-vscode
+          kamadorueda.alejandra
         ];
       })
       zed-editor
@@ -57,7 +67,7 @@
     services.xserver = {
       enable = true;
     };
-    
+
     # Enable CUPS to print docs
     services.printing.enable = true;
   };

@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # NIX CONFIGURATION
   tp.nix.enable = true;
   system.stateVersion = "24.11";
@@ -52,7 +55,7 @@
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # TCP Ports out of firewall
-  networking.firewall.allowedTCPPorts = [ 19132 ];
+  networking.firewall.allowedTCPPorts = [19132];
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
@@ -93,7 +96,7 @@
     # Specify device to get the resume swapfile from
     resumeDevice = "/dev/disk/by-label/nixos";
   };
-  
+
   # Enable 6GHz
   hardware.wirelessRegulatoryDatabase = true;
   boot.extraModprobeConfig = ''
@@ -103,13 +106,13 @@
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
   ################################################################################
-  boot.initrd.availableKernelModules = [ "xhci_pci" "usb_storage" "uas" "sd_mod" "thunderbolt" "nvme" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage" "uas" "sd_mod" "thunderbolt" "nvme"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-amd"];
+  boot.extraModulePackages = [];
 
-  hardware.enableRedistributableFirmware = lib.mkDefault true; 
-  
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

@@ -1,4 +1,11 @@
-{pkgs, config, lib, ... }: let cfg = config.tp.system; in {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.tp.system;
+in {
   options.tp.system = {
     enable = lib.mkEnableOption "TP's system config (locale, timezone, kb layout, i2c, bluetooth)";
   };
@@ -58,18 +65,18 @@
           "helium" = {
             forwardAgent = true;
             hostname = "10.0.0.133";
-            setEnv = { TERM = "kitty"; };
+            setEnv = {TERM = "kitty";};
           };
           "nixserve" = {
             forwardAgent = true;
             hostname = "10.0.0.5";
-            setEnv = { TERM = "kitty"; };
+            setEnv = {TERM = "kitty";};
           };
           "printers" = {
             forwardAgent = true;
             user = "printers";
             hostname = "10.0.0.30";
-            setEnv = { TERM = "kitty"; };
+            setEnv = {TERM = "kitty";};
           };
           "switch" = {
             hostname = "10.0.0.4";
@@ -96,7 +103,7 @@
             "sudo"
           ];
         };
-        # Defined aliases to be used inside of the shell 
+        # Defined aliases to be used inside of the shell
         shellAliases = {
           c = "clear";
           tsu = "sudo tailscale up --accept-routes";
@@ -134,7 +141,7 @@
             fish_style_pwd_dir_length = 1;
           };
           cmd_duration = {
-            min_time = 0;        
+            min_time = 0;
           };
         };
       };

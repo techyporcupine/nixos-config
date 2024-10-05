@@ -1,4 +1,11 @@
-{pkgs, config, lib, ... }: let cfg = config.tp.gaming; in {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.tp.gaming;
+in {
   options.tp.gaming = {
     enable = lib.mkEnableOption "TP's gaming configuration";
     graphical = lib.mkEnableOption "gaming programs that are graphical";
@@ -11,17 +18,18 @@
       gamescope.enable = true;
 
       gamemode.enable = true;
-      
+
       steam.enable = true;
     };
 
-    environment.systemPackages = with pkgs; lib.mkIf cfg.graphical [
-      mangohud
-      jre17_minimal
-      prismlauncher
-      dolphin-emu
-      heroic
-      cemu
-    ];
+    environment.systemPackages = with pkgs;
+      lib.mkIf cfg.graphical [
+        mangohud
+        jre17_minimal
+        prismlauncher
+        dolphin-emu
+        heroic
+        cemu
+      ];
   };
 }

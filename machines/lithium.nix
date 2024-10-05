@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # NIX CONFIGURATION
   tp.nix.enable = true;
   system.stateVersion = "24.05";
@@ -57,9 +60,8 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-    
   ];
-  
+
   # SOPS CONFIG
   #sops = {
   #  # FIXME: If you are using this repo, make sure that you change this to the actual path to this repo
@@ -75,12 +77,12 @@
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
   ################################################################################
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usb_storage" "uas" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" "btintel" ];
+  boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usb_storage" "uas" "sd_mod" "sdhci_pci"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel" "btintel"];
 
-  hardware.enableRedistributableFirmware = lib.mkDefault true; 
-  
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction

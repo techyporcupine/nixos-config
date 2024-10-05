@@ -1,4 +1,11 @@
-{pkgs, config, lib, options, inputs, ... }:{
+{
+  pkgs,
+  config,
+  lib,
+  options,
+  inputs,
+  ...
+}: {
   options.tp.hm = lib.mkOption {
     description = "The `home-manager` configuration of the primary user";
     apply = lib.const config.home-manager.users.${config.tp.username};
@@ -19,7 +26,7 @@
     users.users.${config.tp.username} = {
       isNormalUser = true;
       description = "${config.tp.fullName}";
-      extraGroups = [ "networkmanager" "wheel" "plugdev" "video" "audio" "dialout" "fuse" ];
+      extraGroups = ["networkmanager" "wheel" "plugdev" "video" "audio" "dialout" "fuse"];
       shell = pkgs.zsh;
       initialPassword = "initialPassword";
       openssh.authorizedKeys.keys = [
@@ -29,10 +36,10 @@
 
     # Enable Zsh, THIS IS NESSECERY to get nix directories in zsh's path.
     programs.zsh.enable = true;
-    
+
     # Allow other users to do fuse mounts
     programs.fuse.userAllowOther = true;
-    
+
     home-manager.users.${config.tp.username}.imports = options.tp.hm.definitions;
 
     tp.hm.home = {

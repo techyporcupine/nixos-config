@@ -1,4 +1,12 @@
-{pkgs, config, lib, inputs, ... }: let cfg = config.tp.graphics; in {
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: let
+  cfg = config.tp.graphics;
+in {
   options.tp.graphics = {
     mangohud = lib.mkEnableOption "Enable mangohud and config for it";
   };

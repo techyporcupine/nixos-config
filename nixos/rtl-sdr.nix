@@ -1,5 +1,12 @@
 # TODO: COMMENTS
-{pkgs, config, lib, ... }: let cfg = config.tp.rtl-sdr; in {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.tp.rtl-sdr;
+in {
   options.tp.rtl-sdr = {
     enable = lib.mkEnableOption "TP's sdr stack";
   };

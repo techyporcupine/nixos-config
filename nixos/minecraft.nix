@@ -1,13 +1,21 @@
-{ inputs, pkgs, config, lib, ... }: let cfg = config.tp.gaming; in {
+{
+  inputs,
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.tp.gaming;
+in {
   options.tp.gaming = {
     minecraft-server.enable = lib.mkEnableOption "Config for an MC server";
     minecraft-server.broccoli-bloc = lib.mkEnableOption "Config for Broccoli-bloc";
   };
 
-  imports = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
+  imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
 
   config = lib.mkIf cfg.minecraft-server.enable {
-    nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
+    nixpkgs.overlays = [inputs.nix-minecraft.overlay];
 
     services.minecraft-servers = {
       enable = true;
