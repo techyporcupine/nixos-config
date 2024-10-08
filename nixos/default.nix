@@ -3,7 +3,7 @@
     ./networking.nix
     ./disks.nix
     ./gaming.nix
-    ./minecraft.nix
+    ./server
     ./misc-nix.nix
     ./misc-system.nix
     ./rtl-sdr.nix
