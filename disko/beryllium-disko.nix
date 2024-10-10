@@ -3,7 +3,7 @@
     disk = {
       # Set up disk called "vdb"
       vdb = {
-        device = "/dev/sda";
+        device = "/dev/by-id/ata-SAMSUNG_MZ7LN128HCHP-000L1_S1ZMNXAG597322";
         type = "disk";
         content = {
           type = "gpt";
