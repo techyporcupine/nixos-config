@@ -9,3 +9,5 @@ Traefik when you use it needs to have an acme.json file with the permissions of 
 Vaultwarden, when you are importing the DB needs it to be owned by vaultwarden:vaultwarden
 
 Dashy needs the directory "dashy" created in the user's home directory. This is where you put the config for dashy.
+
+Home assistant need the directory "hass" created in the user's home directory.
