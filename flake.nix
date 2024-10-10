@@ -136,6 +136,40 @@
           }
         ];
       };
+      beryllium = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        # Path to NixOS configuration
+        modules = [
+          ({
+            config,
+            pkgs,
+            ...
+          }: {
+            nixpkgs.overlays = [
+              overlay-stable
+              overlay-tp
+              overlay-staging
+            ];
+          })
+          inputs.disko.nixosModules.disko
+          ./machines/beryllium.nix
+          ./disko/beryllium-disko.nix
+          ./nixos
+          inputs.home-manager.nixosModules.home-manager
+          inputs.catppuccin.nixosModules.catppuccin
+          inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+          inputs.lanzaboote.nixosModules.lanzaboote
+          inputs.nyx.nixosModules.default
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            # FIXME: Change username here if you changed the HM username
+            home-manager.users.beryllium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+          }
+        ];
+      };
       lithium = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs outputs;};

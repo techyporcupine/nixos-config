@@ -27,8 +27,13 @@
   networking.hostName = "carbon";
   tp.networking = {
     enable = true;
-    tailscale.client = true;
+    tailscale = true;
     avahi = true;
+  };
+
+  services.tailscale = {
+    useRoutingFeatures = "client";
+    extraUpFlags = "--accept-routes --exit-node=nixserve";
   };
 
   # GRAPHICS CONFIG

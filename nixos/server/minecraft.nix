@@ -5,22 +5,34 @@
   lib,
   ...
 }: let
-  cfg = config.tp.gaming;
+  cfg = config.tp.server.minecraft;
 in {
-  options.tp.gaming = {
-    minecraft-server.enable = lib.mkEnableOption "Config for an MC server";
-    minecraft-server.broccoli-bloc = lib.mkEnableOption "Config for Broccoli-bloc";
+  options.tp.server = {
+    minecraft.enable = lib.mkEnableOption "Config for an MC server";
+    minecraft.broccoli-bloc = lib.mkEnableOption "Config for Broccoli-bloc";
   };
 
   imports = [inputs.nix-minecraft.nixosModules.minecraft-servers];
 
-  config = lib.mkIf cfg.minecraft-server.enable {
+  config = lib.mkIf cfg.enable {
     nixpkgs.overlays = [inputs.nix-minecraft.overlay];
+
+    networking.firewall = {
+      allowedTCPPorts = [
+        # Minecraft
+        25565
+      ];
+      allowedUDPPorts = [
+        # Minecraft
+        25565
+        19132
+      ];
+    };
 
     services.minecraft-servers = {
       enable = true;
       eula = true;
-      servers.broccoli-bloc = lib.mkIf cfg.minecraft-server.broccoli-bloc {
+      servers.broccoli-bloc = lib.mkIf cfg.broccoli-bloc {
         enable = true;
         autoStart = true;
         openFirewall = true;
@@ -35,6 +47,7 @@ in {
           white-list = true;
           enforce-secure-profile = false;
           spawn-protection = 0;
+          view-distance = 14;
         };
       };
     };

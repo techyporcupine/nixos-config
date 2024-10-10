@@ -275,7 +275,7 @@ in {
           "layer" = "top";
           "height" = 34;
           "spacing" = 2;
-          "modules-left" = ["sway/workspaces" "mpris"];
+          "modules-left" = ["sway/workspaces"];
           "modules-center" = ["clock"];
           "modules-right" = ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
           "margin" = "6px 6px 0px 6px";

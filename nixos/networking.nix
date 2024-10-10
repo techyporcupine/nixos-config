@@ -8,7 +8,7 @@
 in {
   options.tp.networking = {
     enable = lib.mkEnableOption "TP's network stack";
-    tailscale.client = lib.mkEnableOption "Tailscale";
+    tailscale = lib.mkEnableOption "Tailscale";
     avahi = lib.mkEnableOption "Avahi";
   };
 
@@ -20,10 +20,8 @@ in {
       };
     };
     # Enable tailscale mesh network
-    services.tailscale = lib.mkIf cfg.tailscale.client {
+    services.tailscale = lib.mkIf cfg.tailscale {
       enable = true;
-      useRoutingFeatures = "client";
-      extraUpFlags = "--accept-routes --exit-node=nixserve";
     };
     # Enable avahi for mdns reflection
     services.avahi = lib.mkIf cfg.avahi {
