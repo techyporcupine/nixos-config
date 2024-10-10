@@ -47,6 +47,7 @@
   tp.server = {
     minecraft.enable = true;
     minecraft.broccoli-bloc = true;
+    vaultwarden.enable = true;
   };
 
   # Git config
