@@ -7,3 +7,5 @@ Secrets go in /var/secrets (this should probably be worked on to be more secure)
 Traefik when you use it needs to have an acme.json file with the permissions of 600 and owned by traefik:traefik created in /var/acme.json
 
 Vaultwarden, when you are importing the DB needs it to be owned by vaultwarden:vaultwarden
+
+Dashy needs a 

@@ -27,7 +27,7 @@ in {
         containers = {
           dashy = {
             image = "lissy93/dashy:latest";
-            volumes = ["/home/bowman4/dashy:/app/user-data"];
+            volumes = ["/home/${config.tp.username}/dashy:/app/user-data"];
             autoStart = true;
             extraOptions = [
               "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
@@ -53,19 +53,6 @@ in {
               "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
             ];
             ports = ["127.0.0.1:13003:80"];
-          };
-          zap2xml = {
-            image = "shuaiscott/zap2xml";
-            volumes = ["/mnt/NixServeStorage/Data/Jellyfin:/data"];
-            autoStart = true;
-            environment = {
-              XMLTV_FILENAME = "xmltv.xml";
-              OPT_ARGS = "-I -D";
-            };
-            environmentFiles = ["/var/secrets/zap2xml"];
-            extraOptions = [
-              "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
-            ];
           };
         };
       };
