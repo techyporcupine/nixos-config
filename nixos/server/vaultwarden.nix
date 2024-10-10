@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {
       enable = true;
-      backupDir = "/var/lib/vaultwarden/backups";
+      backupDir = "/home/${config.tp.username}/vaultwarden/backups";
       environmentFile = /run/secrets/vaultwarden-env;
       config = {
         DOMAIN = "https://vault.cb-tech.me";
