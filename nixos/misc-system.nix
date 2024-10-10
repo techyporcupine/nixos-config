@@ -78,6 +78,12 @@ in {
             hostname = "10.0.0.30";
             setEnv = {TERM = "kitty";};
           };
+          "beryllium" = {
+            forwardAgent = true;
+            user = "beryllium";
+            hostname = "10.0.0.128";
+            setEnv = {TERM = "kitty";};
+          };
           "switch" = {
             hostname = "10.0.0.4";
             user = "admin";
