@@ -23,7 +23,7 @@ in {
 
     services.traefik = {
       enable = true;
-      environmentFiles = ["/run/secrets/traefik-env"];
+      environmentFiles = ["/var/secrets/traefik-env"];
       staticConfigOptions = {
         entryPoints = {
           web = {

@@ -21,14 +21,14 @@ in {
         # can be turned off with services.plausible.database.postgres.setup.
         activate = true;
         email = "admin@localhost";
-        passwordFile = /run/secrets/plausible-admin-password;
+        passwordFile = /var/secrets/plausible-admin-password;
       };
       server = {
         baseUrl = "https://plaus.cb-tech.me";
         port = 18002;
         # secretKeybaseFile is a path to the file which contains the secret generated
         # with openssl as described above.
-        secretKeybaseFile = /run/secrets/plausible-secret-key;
+        secretKeybaseFile = /var/secrets/plausible-secret-key;
       };
     };
     services.traefik.dynamicConfigOptions.http = {

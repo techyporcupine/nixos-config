@@ -67,11 +67,6 @@ in {
             hostname = "10.0.0.133";
             setEnv = {TERM = "kitty";};
           };
-          "nixserve" = {
-            forwardAgent = true;
-            hostname = "10.0.0.5";
-            setEnv = {TERM = "kitty";};
-          };
           "printers" = {
             forwardAgent = true;
             user = "printers";
@@ -81,7 +76,7 @@ in {
           "beryllium" = {
             forwardAgent = true;
             user = "beryllium";
-            hostname = "10.0.0.128";
+            hostname = "10.0.0.5";
             setEnv = {TERM = "kitty";};
           };
           "switch" = {

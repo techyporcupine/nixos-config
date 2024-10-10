@@ -62,7 +62,7 @@ in {
               XMLTV_FILENAME = "xmltv.xml";
               OPT_ARGS = "-I -D";
             };
-            environmentFiles = ["/run/secrets/zap2xml"];
+            environmentFiles = ["/var/secrets/zap2xml"];
             extraOptions = [
               "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
             ];
