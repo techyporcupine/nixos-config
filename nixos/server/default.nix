@@ -3,5 +3,10 @@
     ./minecraft.nix
     ./vaultwarden.nix
     ./unifi
+    ./home-assistant.nix
+    ./misc-containers.nix
+    ./plausible.nix
+    ./traefik.nix
+    ./uptime-kuma.nix
   ];
 }
