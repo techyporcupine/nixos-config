@@ -51,6 +51,7 @@
     vaultwarden.enable = true;
     uptime-kuma.enable = true;
     containers.enable = true;
+    home-assistant.enable = true;
   };
 
   # Git config
