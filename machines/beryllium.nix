@@ -47,7 +47,9 @@
   tp.server = {
     minecraft.enable = true;
     minecraft.broccoli-bloc = true;
+    traefik.enable = true;
     vaultwarden.enable = true;
+    uptime-kuma.enable = true;
   };
 
   # Git config
