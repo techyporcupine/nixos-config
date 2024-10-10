@@ -50,6 +50,7 @@
     traefik.enable = true;
     vaultwarden.enable = true;
     uptime-kuma.enable = true;
+    containers.enable = true;
   };
 
   # Git config
