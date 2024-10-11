@@ -176,6 +176,7 @@ in {
       lshw
       usbutils
       cava
+      tmux
     ];
   };
 }
