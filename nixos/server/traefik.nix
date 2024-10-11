@@ -114,13 +114,6 @@ in {
               entrypoints = ["websecure"];
               middlewares = ["speedtest"];
             };
-            wishthisext = {
-              rule = "Host(`wish.cb-tech.me`)";
-              service = "wishthis";
-              entrypoints = ["externalwebsecure" "websecure"];
-              tls.domains = [{main = "wish.cb-tech.me";}];
-              tls.certResolver = "cloudflare";
-            };
           };
           services = {
             dashy = {loadBalancer.servers = [{url = "http://localhost:18080/";}];};
@@ -129,7 +122,6 @@ in {
             alli = {loadBalancer.servers = [{url = "http://10.0.0.30:7126";}];};
             openspeedtest = {loadBalancer.servers = [{url = "http://localhost:13002/";}];};
             librespeed = {loadBalancer.servers = [{url = "http://localhost:13003/";}];};
-            wishthis = {loadBalancer.servers = [{url = "http://localhost:18022/";}];};
           };
         };
       };
