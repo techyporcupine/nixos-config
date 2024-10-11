@@ -53,6 +53,7 @@
     containers.enable = true;
     home-assistant.enable = true;
     plausible.enable = true;
+    unifi.enable = true;
   };
 
   # Git config
