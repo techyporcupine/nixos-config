@@ -54,6 +54,30 @@ in {
             ];
             ports = ["127.0.0.1:13003:80"];
           };
+          wishthis = {
+            image = "hiob/wishthis:release-candidate";
+            volumes = ["/home/${config.tp.username}/wishthis/config.php:/var/www/html/src/config/config.php"];
+            autoStart = true;
+            environment = {
+              VIRTUAL_HOST = "wish.cb-tech.me";
+            };
+            extraOptions = [
+              "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
+              "--network=wishthis"
+            ];
+            ports = ["127.0.0.1:18022:80"];
+          };
+          mariadb = {
+            image = "mariadb";
+            volumes = ["/home/${config.tp.username}/wishthis/mariadb:/var/lib/mysql"];
+            environmentFiles = ["/var/secrets/wishthis"];
+            autoStart = true;
+            extraOptions = [
+              "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
+              "--network=wishthis"
+            ];
+            ports = ["127.0.0.1:3306:3306"];
+          };
         };
       };
     };
