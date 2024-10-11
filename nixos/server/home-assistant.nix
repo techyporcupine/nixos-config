@@ -40,7 +40,7 @@ in {
           tls.certResolver = "cloudflare";
         };
       };
-      services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8123";}];};
+      services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8124";}];};
     };
     networking.firewall = {
       allowedTCPPorts = [
