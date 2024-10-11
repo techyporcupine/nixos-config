@@ -1,6 +1,6 @@
 self: super: let
   unifiVersion = "8.5.6";
-  unifiHash = "sha256-VwRvU+IHJs6uThdWF0uOqxz4cegBykYzB/fD0/AGPaM=";
+  unifiHash = "sha256-ZpCoE8OPb3FcKzf7Nurf9q+g2BpbjZcp1LvWOsV/tpA=";
 in {
   unifiCustom = super.unifi.overrideAttrs (attrs: {
     name = "unifi-controller-${unifiVersion}";
