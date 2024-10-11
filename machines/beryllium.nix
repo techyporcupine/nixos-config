@@ -39,6 +39,7 @@
     enable = true;
     avahi = true;
   };
+
   services.tailscale = {
     useRoutingFeatures = "server";
     extraUpFlags = ["--ssh --advertise-exit-node --advertise-routes=10.0.0.5/32,10.0.0.1/32"];
@@ -62,6 +63,10 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "unifi-controller-8.5.6"
   ];
 
   boot.loader.systemd-boot.enable = true;
