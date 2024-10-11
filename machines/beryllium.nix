@@ -52,6 +52,7 @@
     uptime-kuma.enable = true;
     containers.enable = true;
     home-assistant.enable = true;
+    plausible.enable = true;
   };
 
   # Git config
