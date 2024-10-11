@@ -118,7 +118,7 @@ in {
               rule = "Host(`wish.cb-tech.me`)";
               service = "wishthis";
               entrypoints = ["externalwebsecure" "websecure"];
-              tls.domains = [{main = "home.cb-tech.me";}];
+              tls.domains = [{main = "wish.cb-tech.me";}];
               tls.certResolver = "cloudflare";
             };
           };
