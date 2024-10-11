@@ -22,7 +22,7 @@ in {
     };
 
     nixpkgs.overlays = [
-      (import ../overlays/unifi.nix)
+      (import ./unifi-overlay.nix)
     ];
 
     services.traefik.dynamicConfigOptions.http = {
