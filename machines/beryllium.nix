@@ -12,6 +12,7 @@
     config = {
       permittedInsecurePackages = [
         "openssl-1.1.1w"
+        "unifi-controller-8.5.6"
       ];
       packageOverrides = pkgs: {
         vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
@@ -63,10 +64,6 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-  ];
-
-  nixpkgs.config.permittedInsecurePackages = [
-    "unifi-controller-8.5.6"
   ];
 
   boot.loader.systemd-boot.enable = true;
