@@ -39,7 +39,6 @@ in {
       })
       zed-editor
       chromium
-      calibre
       super-slicer-beta
       libreoffice-fresh
       audacity

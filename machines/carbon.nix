@@ -33,7 +33,6 @@
 
   services.tailscale = {
     useRoutingFeatures = "client";
-    extraUpFlags = "--accept-routes --exit-node=nixserve";
   };
 
   # GRAPHICS CONFIG
