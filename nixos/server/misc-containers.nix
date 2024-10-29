@@ -5,10 +5,11 @@
   inputs,
   ...
 }: let
-  cfg = config.tp.server.containers;
+  cfg = config.tp.server.virtualisation;
 in {
-  options.tp.server.containers = {
-    enable = lib.mkEnableOption "Enable Containers";
+  options.tp.server.virtualisation = {
+    enable = lib.mkEnableOption "Enable Virtualization";
+    containers.enable = lib.mkEnableOption "Enable containers";
   };
 
   config = lib.mkIf cfg.enable {
@@ -22,7 +23,7 @@ in {
         # Required for containers under podman-compose to be able to talk to each other.
         defaultNetwork.settings.dns_enabled = true;
       };
-      oci-containers = {
+      oci-containers = lib.mkIf cfg.containers.enable {
         backend = "podman";
         containers = {
           dashy = {

@@ -35,6 +35,8 @@
     useRoutingFeatures = "client";
   };
 
+  tp.server.virtualisation.enable = true;
+
   # GRAPHICS CONFIG
   tp.graphics = {
     enable = true;
@@ -79,6 +81,7 @@
     krita
     tidal-hifi
     davinci-resolve
+    distrobox
   ];
 
   # FIXME: When installing this flake, comment out the following 5 lines until you have rebooted into the new system and decide you want secure boot!

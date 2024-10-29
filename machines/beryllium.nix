@@ -52,7 +52,8 @@
     traefik.enable = true;
     vaultwarden.enable = true;
     uptime-kuma.enable = true;
-    containers.enable = true;
+    virtualisation.enable = true;
+    virtualisation.containers.enable = true;
     home-assistant.enable = true;
     plausible.enable = true;
     unifi.enable = true;
