@@ -43,7 +43,7 @@
 
   services.tailscale = {
     useRoutingFeatures = "server";
-    extraUpFlags = ["--ssh --advertise-exit-node --advertise-routes=10.0.0.5/32,10.0.0.1/32"];
+    extraUpFlags = ["--ssh --advertise-exit-node --advertise-routes=10.0.0.5/32,10.0.0.1/32,10.0.0.7,10.0.0.30/32"];
   };
 
   tp.server = {
