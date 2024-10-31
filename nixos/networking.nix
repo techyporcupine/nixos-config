@@ -8,7 +8,6 @@
 in {
   options.tp.networking = {
     enable = lib.mkEnableOption "TP's network stack";
-    tailscale = lib.mkEnableOption "Tailscale";
     avahi = lib.mkEnableOption "Avahi";
   };
 
@@ -18,10 +17,6 @@ in {
       firewall = {
         extraCommands = "iptables -I nixos-fw -s 10.0.0.148 -p udp -j nixos-fw-accept"; # hdhomerun
       };
-    };
-    # Enable tailscale mesh network
-    services.tailscale = lib.mkIf cfg.tailscale {
-      enable = true;
     };
     # Enable avahi for mdns reflection
     services.avahi = lib.mkIf cfg.avahi {
