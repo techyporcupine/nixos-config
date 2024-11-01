@@ -127,7 +127,7 @@ in {
             alli = {loadBalancer.servers = [{url = "http://10.0.0.30:7126";}];};
             openspeedtest = {loadBalancer.servers = [{url = "http://localhost:13002/";}];};
             librespeed = {loadBalancer.servers = [{url = "http://localhost:13003/";}];};
-            pve = {loadBalancer.servers = [{url = "http://10.0.0.6:8006/";}];};
+            pve = {loadBalancer.servers = [{url = "https://10.0.0.6:8006/";}];};
           };
         };
       };
