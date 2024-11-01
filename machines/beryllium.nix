@@ -44,7 +44,7 @@
   services.tailscale = {
     # Enable tailscale mesh network
     enable = true;
-    useRoutingFeatures = "server";
+    useRoutingFeatures = "both";
     extraSetFlags = [
       "--ssh"
       "--advertise-exit-node"
