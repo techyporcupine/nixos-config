@@ -36,6 +36,7 @@
 
   # NETWORKING CONFIG
   networking.hostName = "beryllium";
+  networking.firewall.trustedInterfaces = ["tailscale0"];
   tp.networking = {
     enable = true;
     avahi = true;
