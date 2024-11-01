@@ -36,11 +36,11 @@
 
   # NETWORKING CONFIG
   networking.hostName = "beryllium";
-  networking.firewall.trustedInterfaces = ["tailscale0"];
   tp.networking = {
     enable = true;
     avahi = true;
   };
+  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   services.tailscale = {
     # Enable tailscale mesh network
