@@ -114,6 +114,11 @@ in {
               entrypoints = ["websecure"];
               middlewares = ["speedtest"];
             };
+            pve = {
+              rule = "Host(`pve.local.cb-tech.me`)";
+              service = "pve";
+              entrypoints = ["websecure"];
+            };
           };
           services = {
             dashy = {loadBalancer.servers = [{url = "http://localhost:18080/";}];};
@@ -122,6 +127,7 @@ in {
             alli = {loadBalancer.servers = [{url = "http://10.0.0.30:7126";}];};
             openspeedtest = {loadBalancer.servers = [{url = "http://localhost:13002/";}];};
             librespeed = {loadBalancer.servers = [{url = "http://localhost:13003/";}];};
+            pve = {loadBalancer.servers = [{url = "http://10.0.0.6:8006/";}];};
           };
         };
       };
