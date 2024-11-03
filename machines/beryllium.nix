@@ -63,7 +63,7 @@
     virtualisation.containers.enable = true;
     home-assistant.enable = true;
     plausible.enable = true;
-    unifi.enable = false;
+    unifi.enable = true;
   };
 
   # Git config
