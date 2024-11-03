@@ -1,5 +1,5 @@
 self: super: let
-  unifiVersion = "8.6.9";
+  unifiVersion = "8.5.6";
   unifiHash = "sha256-ZpCoE8OPb3FcKzf7Nurf9q+g2BpbjZcp1LvWOsV/tpA=";
 in {
   unifiCustom = super.unifi.overrideAttrs (attrs: {
