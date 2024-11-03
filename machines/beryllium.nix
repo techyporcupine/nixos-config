@@ -40,7 +40,7 @@
     enable = true;
     avahi = true;
   };
-  boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  networking.firewall.allowedTCPPorts = [8443];
 
   services.tailscale = {
     # Enable tailscale mesh network
