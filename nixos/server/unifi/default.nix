@@ -17,8 +17,8 @@ in {
       # open default firewall ports
       openFirewall = true;
       # use latest unifi package
-      unifiPackage = pkgs.unifiCustom;
-      mongodbPackage = pkgs.mongodb-ce;
+      unifiPackage = pkgs.unifi;
+      mongodbPackage = pkgs.mongodb;
     };
 
     nixpkgs.overlays = [
