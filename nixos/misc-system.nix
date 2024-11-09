@@ -27,6 +27,7 @@ in {
       i2c.enable = true;
       # Enable Bluetooth
       bluetooth.enable = true;
+      bluetooth.settings.General.Experimental = "true";
     };
 
     hardware.graphics = {
