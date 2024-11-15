@@ -64,6 +64,7 @@
     home-assistant.enable = true;
     plausible.enable = true;
     unifi.enable = true;
+    immich.enable = true;
   };
 
   # Git config
