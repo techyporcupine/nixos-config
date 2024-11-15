@@ -22,9 +22,11 @@ in {
     services.traefik.dynamicConfigOptions.http = {
       routers = {
         immich = {
-          rule = "Host(`immich.local.cb-tech.me`)";
+          rule = "Host(`immich.cb-tech.me`)";
           service = "immich";
-          entrypoints = ["websecure"];
+          entrypoints = ["externalwebsecure" "websecure"];
+          tls.domains = [{main = "immich.cb-tech.me";}];
+          tls.certResolver = "cloudflare";
         };
       };
       services.immich = {loadBalancer.servers = [{url = "http://localhost:2283";}];};
