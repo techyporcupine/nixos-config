@@ -8,5 +8,6 @@
     ./plausible.nix
     ./traefik.nix
     ./uptime-kuma.nix
+    ./immich.nix
   ];
 }
