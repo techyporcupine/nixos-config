@@ -62,7 +62,7 @@
     virtualisation.enable = true;
     virtualisation.containers.enable = true;
     home-assistant.enable = true;
-    plausible.enable = true;
+    plausible.enable = false;
     unifi.enable = true;
     immich.enable = true;
   };
