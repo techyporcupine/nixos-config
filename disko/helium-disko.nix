@@ -4,7 +4,7 @@
       # Set up disk called "vdb"
       vdb = {
         # TODO: CHANGEME
-        device = "";
+        device = "/dev/sda";
         type = "disk";
         content = {
           type = "gpt";
@@ -13,7 +13,7 @@
               priority = 1;
               name = "ESP";
               start = "1M";
-              end = "128M";
+              end = "512M";
               type = "EF00";
               content = {
                 type = "filesystem";

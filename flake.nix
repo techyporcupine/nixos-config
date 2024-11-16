@@ -200,7 +200,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.helium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            # home-manager.users.helium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
           }
         ];
       };
