@@ -44,7 +44,7 @@
 
   services.tailscale = {
     # Enable tailscale mesh network
-    enable = false;
+    enable = true;
     useRoutingFeatures = "both";
     extraSetFlags = [
       "--ssh"
