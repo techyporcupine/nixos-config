@@ -41,33 +41,15 @@ in {
             "/var/lib/unifi/data/backup/autobackup"
             "/srv/minecraft/broccoli-bloc/"
           ];
-          repository = "rest:http://100.64.0.6:8000";
+          repository = "rest:http://100.64.0.6:8000/remotebackup-large";
+          pruneOpts = [
+            "--keep-daily 3"
+            "--keep-weekly 24"
+          ];
           timerConfig = {
             OnCalendar = "daily";
             Persistent = true;
             RandomizedDelaySec = "10min";
-          };
-        };
-      };
-    };
-
-    systemd = {
-      timers = {
-        "restic-remotebackup-large-remove" = {
-          wantedBy = ["timers.target"];
-          timerConfig = {
-            OnCalendar = "weekly";
-            Persistent = true;
-            Unit = "restic-remotebackup-large-remove.service";
-          };
-        };
-      };
-      services = {
-        "restic-remotebackup-large-remove" = {
-          serviceConfig = {
-            ExecStart = ''/run/current-system/sw/bin/restic-remotebackup-large forget --keep-daily 2 --keep-weekly 26 --prune '';
-            Type = "oneshot";
-            User = "root";
           };
         };
       };
