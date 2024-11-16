@@ -170,7 +170,7 @@
           }
         ];
       };
-      lithium = inputs.nixpkgs-stable.lib.nixosSystem {
+      helium = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs outputs;};
         # Path to NixOS configuration
@@ -190,8 +190,8 @@
             nixpkgs.config.pkgs = import inputs.nixpkgs-stable {inherit systems;};
           }
           inputs.disko.nixosModules.disko
-          ./machines/lithium.nix
-          ./disko/lithium-disko.nix
+          ./machines/helium.nix
+          ./disko/helium-disko.nix
           ./nixos
           inputs.home-manager.nixosModules.home-manager
           inputs.catppuccin.nixosModules.catppuccin
@@ -200,7 +200,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.lithium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            home-manager.users.helium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
           }
         ];
       };

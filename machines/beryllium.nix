@@ -40,7 +40,6 @@
     enable = true;
     avahi = true;
   };
-  networking.firewall.allowedTCPPorts = [8443];
 
   services.tailscale = {
     # Enable tailscale mesh network
@@ -90,11 +89,7 @@
     enable32Bit = true;
   };
 
-  # Mount 1TB Hard drive
-  #fileSystems."/mnt/NixServeStorage" = {
-  #  device = "/dev/disk/by-uuid/16232f5b-b1ee-4347-a52e-06291d80d94e";
-  #  fsType = "ext4";
-  #};
+  systemd.services."immich-server".path = [pkgs.perl];
 
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
