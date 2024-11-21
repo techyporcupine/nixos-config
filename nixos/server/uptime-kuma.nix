@@ -29,16 +29,8 @@ in {
           tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
           tls.certResolver = "cloudflare";
         };
-        uptimemc = {
-          rule = "Host(`status.mc.cb-tech.me`)";
-          service = "uptimemc";
-          entrypoints = ["websecure"];
-          tls.domains = [{main = "status.mc.cb-tech.me";}];
-          tls.certResolver = "cloudflare";
-        };
       };
       services.uptimekuma = {loadBalancer.servers = [{url = "http://localhost:${toString config.services.uptime-kuma.settings.PORT}";}];};
-      services.uptimemc = {loadBalancer.servers = [{url = "http://localhost:${toString config.services.uptime-kuma.settings.PORT}";}];};
     };
   };
 }
