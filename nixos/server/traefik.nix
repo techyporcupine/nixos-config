@@ -80,9 +80,9 @@ in {
             speedtest = {
               buffering.maxRequestBodyBytes = 10000000000;
             };
-            default-whitelist = {
+            internal-whitelist = {
               ipWhiteList = {
-                sourceRange = ["192.168.10.0/24"];
+                sourceRange = ["10.0.0.0/24" "10.0.16.0/24" "10.0.24.0/24"];
               };
             };
           };
@@ -117,7 +117,7 @@ in {
               rule = "Host(`speed2.local.cb-tech.me`)";
               service = "librespeed";
               entrypoints = ["websecure"];
-              middlewares = ["speedtest" "default-whitelist"];
+              middlewares = ["speedtest" "internal-whitelist"];
             };
             pve = {
               rule = "Host(`pve.local.cb-tech.me`)";
