@@ -26,6 +26,8 @@ in {
     };
     environment.systemPackages = with pkgs; [
       wirelesstools
+      inetutils
+      dig
     ];
   };
 }
