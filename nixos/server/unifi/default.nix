@@ -31,6 +31,9 @@ in {
           rule = "Host(`unifi.local.cb-tech.me`)";
           service = "unifi";
           entrypoints = ["websecure"];
+          middlewares = ["internal-whitelist"];
+          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+          tls.certResolver = "cloudflare";
         };
       };
       services.unifi = {loadBalancer.servers = [{url = "https://localhost:8443/";}];};
