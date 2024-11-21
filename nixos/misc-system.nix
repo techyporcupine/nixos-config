@@ -68,21 +68,16 @@ in {
         addKeysToAgent = "yes";
         # Config for clients you can ssh to without all their info.
         matchBlocks = {
-          "helium" = {
-            forwardAgent = true;
-            hostname = "10.0.0.133";
-            setEnv = {TERM = "kitty";};
-          };
           "printers" = {
             forwardAgent = true;
             user = "printers";
-            hostname = "10.0.0.30";
+            hostname = "printers";
             setEnv = {TERM = "kitty";};
           };
           "beryllium" = {
             forwardAgent = true;
             user = "beryllium";
-            hostname = "10.0.0.5";
+            hostname = "beryllium";
             setEnv = {TERM = "kitty";};
           };
           "switch" = {
