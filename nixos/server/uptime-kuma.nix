@@ -25,11 +25,14 @@ in {
           rule = "Host(`uptime.local.cb-tech.me`)";
           service = "uptimekuma";
           entrypoints = ["websecure"];
+          middlewares = ["internal-whitelist"];
+          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+          tls.certResolver = "cloudflare";
         };
         uptimemc = {
           rule = "Host(`status.mc.cb-tech.me`)";
           service = "uptimemc";
-          entrypoints = ["externalwebsecure" "websecure"];
+          entrypoints = ["websecure"];
           tls.domains = [{main = "status.mc.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };

@@ -24,7 +24,7 @@ in {
         immich = {
           rule = "Host(`immich.cb-tech.me`)";
           service = "immich";
-          entrypoints = ["externalwebsecure" "websecure"];
+          entrypoints = ["websecure"];
           tls.domains = [{main = "immich.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };

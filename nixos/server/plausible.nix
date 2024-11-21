@@ -31,17 +31,17 @@ in {
         secretKeybaseFile = "/var/secrets/plausible-secret-key";
       };
     };
-    services.traefik.dynamicConfigOptions.http = {
-      routers = {
-        plausible = {
-          rule = "Host(`plaus.cb-tech.me`)";
-          service = "plausible";
-          entrypoints = ["externalwebsecure" "websecure"];
-          tls.domains = [{main = "plaus.cb-tech.me";}];
-          tls.certResolver = "cloudflare";
-        };
-      };
-      services.plausible = {loadBalancer.servers = [{url = "http://localhost:18002";}];};
-    };
+    #services.traefik.dynamicConfigOptions.http = {
+    #routers = {
+    #  plausible = {
+    #    rule = "Host(`plaus.cb-tech.me`)";
+    #    service = "plausible";
+    #    entrypoints = ["websecure"];
+    #    tls.domains = [{main = "plaus.cb-tech.me";}];
+    #    tls.certResolver = "cloudflare";
+    #  };
+    #};
+    #services.plausible = {loadBalancer.servers = [{url = "http://localhost:18002";}];};
+    #};
   };
 }

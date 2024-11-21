@@ -29,7 +29,7 @@ in {
         vaultwarden = {
           rule = "Host(`vault.cb-tech.me`)";
           service = "vaultwarden";
-          entrypoints = ["externalwebsecure" "websecure"];
+          entrypoints = ["websecure"];
           tls.domains = [{main = "vault.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };

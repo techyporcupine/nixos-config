@@ -35,7 +35,7 @@ in {
         homeassistantext = {
           rule = "Host(`home.cb-tech.me`)";
           service = "homeassistant";
-          entrypoints = ["externalwebsecure" "websecure"];
+          entrypoints = ["websecure"];
           tls.domains = [{main = "home.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };

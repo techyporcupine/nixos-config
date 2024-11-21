@@ -35,20 +35,6 @@ in {
           };
           websecure = {
             address = ":443";
-            http.tls = {
-              certResolver = "cloudflare";
-              domains = [
-                {
-                  main = "local.cb-tech.me";
-                  sans = [
-                    "*.local.cb-tech.me"
-                  ];
-                }
-              ];
-            };
-          };
-          externalwebsecure = {
-            address = ":1443";
           };
         };
         certificatesResolvers = {
@@ -91,38 +77,57 @@ in {
               rule = "Host(`dash.local.cb-tech.me`)";
               service = "dashy";
               entrypoints = ["websecure"];
+              middlewares = ["internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
             };
             printer = {
               rule = "Host(`printer.local.cb-tech.me`)";
               service = "printer";
               entrypoints = ["websecure"];
+              middlewares = ["internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
             };
             hydra = {
               rule = "Host(`hydra.local.cb-tech.me`)";
               service = "hydra";
               entrypoints = ["websecure"];
+              middlewares = ["internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
             };
             alli = {
               rule = "Host(`alli.local.cb-tech.me`)";
               service = "alli";
               entrypoints = ["websecure"];
+              middlewares = ["internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
             };
             openspeedtest = {
               rule = "Host(`speed.local.cb-tech.me`)";
               service = "openspeedtest";
               entrypoints = ["websecure"];
-              middlewares = ["speedtest"];
+              middlewares = ["speedtest" "internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
             };
             librespeed = {
               rule = "Host(`speed2.local.cb-tech.me`)";
               service = "librespeed";
               entrypoints = ["websecure"];
               middlewares = ["speedtest" "internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
             };
             pve = {
               rule = "Host(`pve.local.cb-tech.me`)";
               service = "pve";
               entrypoints = ["websecure"];
+              middlewares = ["internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
             };
           };
           services = {
