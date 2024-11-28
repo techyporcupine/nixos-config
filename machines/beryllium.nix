@@ -51,6 +51,11 @@
     ];
   };
 
+  services.static-web-server = {
+    enable = true;
+    root = "/var/serve/";
+  };
+
   tp.server = {
     minecraft.enable = true;
     minecraft.broccoli-bloc = true;
