@@ -37,7 +37,7 @@ in {
         autoStart = true;
         openFirewall = true;
         jvmOpts = "-Xms512M -Xmx8192M";
-        package = pkgs.paperServers.paper-1_21_3;
+        package = pkgs.paperServers.paper-1_21_4;
         serverProperties = {
           server-port = 25565;
           difficulty = "normal";
