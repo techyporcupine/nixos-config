@@ -92,8 +92,6 @@
     ];
   };
 
-  virtualisation.waydroid.enable = true;
-
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   services.flatpak.enable = true;
