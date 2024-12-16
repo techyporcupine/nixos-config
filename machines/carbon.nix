@@ -78,12 +78,19 @@
     tpm2-tss
     amdgpu_top
     ookla-speedtest
-    blackmagic-desktop-video
     krita
     tidal-hifi
-    davinci-resolve
     distrobox
+    kdePackages.kdenlive
+    ndi
   ];
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-ndi
+    ];
+  };
 
   virtualisation.waydroid.enable = true;
 

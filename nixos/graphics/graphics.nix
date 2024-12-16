@@ -22,7 +22,6 @@ in {
       xorg.xeyes
       vlc
       helvum
-      obs-studio
       gimp
       slack
       (vscode-with-extensions.override {
@@ -39,7 +38,7 @@ in {
       })
       zed-editor
       chromium
-      super-slicer-beta
+      stable.super-slicer-beta
       libreoffice-fresh
       audacity
       pavucontrol
