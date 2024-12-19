@@ -82,7 +82,6 @@
     tidal-hifi
     distrobox
     kdePackages.kdenlive
-    ndi
   ];
 
   programs.obs-studio = {
@@ -91,6 +90,8 @@
       obs-ndi
     ];
   };
+
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen; # Force kernel
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
