@@ -55,6 +55,10 @@ in {
         frontend = {
           port = 8091;
         };
+        advanced = {
+          transmit_power = 10;
+          channel = 26;
+        };
       };
     };
     services.traefik.dynamicConfigOptions.http = {
