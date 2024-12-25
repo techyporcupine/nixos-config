@@ -54,7 +54,6 @@ in {
         };
         frontend = {
           port = 8091;
-          url = "z2m.local.cb-tech.me";
         };
       };
     };
