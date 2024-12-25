@@ -82,6 +82,9 @@
     tidal-hifi
     distrobox
     kdePackages.kdenlive
+    kdePackages.plasma-thunderbolt
+    eog
+    rawtherapee
   ];
 
   programs.obs-studio = {
@@ -90,6 +93,8 @@
       obs-ndi
     ];
   };
+
+  services.hardware.bolt.enable = true;
 
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen; # Force kernel
 
