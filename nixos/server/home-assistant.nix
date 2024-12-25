@@ -44,7 +44,7 @@ in {
     services.zigbee2mqtt = {
       enable = true;
       settings = {
-        homeassistant = config.services.home-assistant.enable;
+        homeassistant = true;
         permit_join = true;
         serial = {
           port = "/dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_24d5aba9cb12ef1183936db8bf9df066-if00-port0";
@@ -53,7 +53,10 @@ in {
         mqtt = {
           server = "mqtt://localhost:1883";
         };
-        frontend.port = 8091;
+        frontend = {
+          port = 8091;
+          url = "z2m.local.cb-tech.me";
+        };
       };
     };
     services.traefik.dynamicConfigOptions.http = {
@@ -65,7 +68,16 @@ in {
           tls.domains = [{main = "home.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };
+        z2m = {
+          rule = "Host(`z2m.local.cb-tech.me`)";
+          service = "z2m";
+          entrypoints = ["websecure"];
+          middlewares = ["internal-whitelist"];
+          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+          tls.certResolver = "cloudflare";
+        };
       };
+      services.z2m = {loadBalancer.servers = [{url = "http://localhost:8091/";}];};
       services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8124";}];};
     };
     networking.firewall = {
