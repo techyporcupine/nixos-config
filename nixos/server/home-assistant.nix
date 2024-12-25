@@ -51,7 +51,7 @@ in {
         mqtt = {
           server = "mqtt://localhost:1883";
         };
-        frontend.port = 8880;
+        frontend.port = 8091;
       };
     };
     services.traefik.dynamicConfigOptions.http = {
@@ -73,7 +73,7 @@ in {
         # MQTT
         1883
         # Z2M
-        8880
+        8091
       ];
       allowedUDPPorts = [
         # Homekit
