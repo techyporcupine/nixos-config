@@ -56,7 +56,7 @@ in {
           port = 8091;
         };
         advanced = {
-          transmit_power = 15;
+          transmit_power = 10;
           channel = 26;
         };
       };
