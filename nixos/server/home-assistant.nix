@@ -20,7 +20,7 @@ in {
         extraOptions = [
           "--network=host"
           "--pull=newer"
-          "--device=/dev/ttyUSB0"
+          #"--device=/dev/ttyUSB0"
         ];
       };
     };
