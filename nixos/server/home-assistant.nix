@@ -51,6 +51,7 @@ in {
         mqtt = {
           server = "mqtt://localhost:1883";
         };
+        "frontend" = true;
         frontend.port = 8091;
       };
     };
