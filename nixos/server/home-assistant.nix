@@ -68,24 +68,13 @@ in {
           tls.domains = [{main = "home.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };
-        z2m = {
-          rule = "Host(`z2m.local.cb-tech.me`)";
-          service = "z2m";
-          entrypoints = ["websecure"];
-          middlewares = ["internal-whitelist"];
-          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-          tls.certResolver = "cloudflare";
-        };
       };
-      services.z2m = {loadBalancer.servers = [{url = "http://localhost:8091/";}];};
       services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8124";}];};
     };
     networking.firewall = {
       allowedTCPPorts = [
         # Homekit
         51827
-        # MQTT
-        1883
         # Z2M
         8091
       ];
