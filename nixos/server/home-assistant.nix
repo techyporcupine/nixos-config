@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
       homeassistant = {
-        volumes = ["/home/${config.tp.username}/hass:/config" "/run/dbus:/run/dbus:ro"];
+        volumes = ["/home/${config.tp.username}/hass:/config" "/run/dbus:/run/dbus:ro" "/dev/ttyUSB0:/dev/ttyUSB0"];
         environment.TZ = "America/New_York";
         image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
         extraOptions = [
