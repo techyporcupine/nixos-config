@@ -30,6 +30,30 @@ in {
         voice = "en-us-ryan-high";
       };
     };
+    services.mosquitto = {
+      enable = true;
+      listeners = [
+        {
+          acl = ["pattern readwrite #"];
+          omitPasswordAuth = true;
+          settings.allow_anonymous = true;
+        }
+      ];
+    };
+    services.zigbee2mqtt = {
+      enable = true;
+      settings = {
+        homeassistant = config.services.home-assistant.enable;
+        permit_join = true;
+        serial = {
+          port = "/dev/ttyUSB0";
+        };
+        mqtt = {
+          server = "mqtt://localhost:1883";
+        };
+        frontend = true;
+      };
+    };
     services.traefik.dynamicConfigOptions.http = {
       routers = {
         homeassistantext = {
@@ -46,6 +70,10 @@ in {
       allowedTCPPorts = [
         # Homekit
         51827
+        # MQTT
+        1883
+        # Z2M
+        8080
       ];
       allowedUDPPorts = [
         # Homekit
