@@ -45,7 +45,6 @@ in {
       enable = true;
       settings = {
         homeassistant = true;
-        permit_join = true;
         serial = {
           port = "/dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_24d5aba9cb12ef1183936db8bf9df066-if00-port0";
           adapter = "ember";
