@@ -31,6 +31,9 @@ in {
         voice = "en-us-ryan-high";
       };
     };
+    services.matter-server = {
+      enable = true;
+    };
     services.mosquitto = {
       enable = true;
       listeners = [
