@@ -62,6 +62,7 @@ in {
           transmit_power = 10;
           channel = 26;
         };
+        availability = true;
       };
     };
     services.traefik.dynamicConfigOptions.http = {
