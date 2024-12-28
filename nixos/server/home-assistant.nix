@@ -28,7 +28,7 @@ in {
         image = "openthread/otbr"; # Warning: if the tag does not change, the image will not be updated
         ports = ["127.0.0.1:8092:8080"];
         extraOptions = [
-          "--sysctl 'net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1'"
+          #"--sysctl 'net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1'"
           "--dns=127.0.0.1"
           "-it"
           "--privileged"
