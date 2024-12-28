@@ -27,12 +27,12 @@ in {
         volumes = ["/dev/ttyUSB1:/dev/ttyUSB1"];
         image = "openthread/otbr"; # Warning: if the tag does not change, the image will not be updated
         ports = ["127.0.0.1:8092:8080"];
+        cmd = ["--radio-url spinel+hdlc+uart:///dev/ttyUSB1"];
         extraOptions = [
-          #"--sysctl 'net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1'"
+          "--sysctl net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1"
           "--dns=127.0.0.1"
           "-it"
           "--privileged"
-          "--radio-url spinel+hdlc+uart:///dev/ttyUSB1"
         ];
       };
     };
