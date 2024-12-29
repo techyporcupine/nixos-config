@@ -36,13 +36,18 @@ in {
           passwordFile = /var/secrets/restic-password;
           initialize = true;
           paths = [
-            "/var/lib/vaultwarden/backups"
+            "/var/backup/vaultwarden"
             "/home/beryllium/dashy"
             "/home/beryllium/hass"
             "/var/lib/unifi/data/backup/autobackup"
             "/srv/minecraft/broccoli-bloc/"
+            "/var/lib/immich"
           ];
-          repository = "rest:http://100.64.0.6:8000/remotebackup-large";
+          exclude = [
+            "/var/lib/immich/encoded-video"
+            "/var/lib/immich/thumbs"
+          ];
+          repository = "rest:http://helium:8000/remotebackup-large";
           pruneOpts = [
             "--keep-daily 3"
             "--keep-weekly 24"

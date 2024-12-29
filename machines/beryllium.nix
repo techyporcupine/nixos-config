@@ -63,6 +63,7 @@
     plausible.enable = false;
     unifi.enable = true;
     immich.enable = true;
+    backups.client.enable = true;
   };
 
   # Git config
