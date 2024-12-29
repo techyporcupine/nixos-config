@@ -56,6 +56,7 @@ in {
       };
       server = lib.mkIf cfg.server.enable {
         enable = true;
+        extraFlags = ["--no-auth"];
       };
     };
   };
