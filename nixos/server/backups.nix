@@ -33,7 +33,7 @@ in {
         #  };
         #};
         remotebackup-large = {
-          passwordFile = /var/secrets/restic-password;
+          passwordFile = "/var/secrets/restic-password";
           initialize = true;
           paths = [
             "/var/backup/vaultwarden"
