@@ -71,6 +71,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    home-manager-stable = {
+      url = "github:nix-community/home-manager/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
+    };
   };
 
   outputs = {self, ...} @ inputs: let
@@ -192,7 +196,7 @@
           inputs.disko.nixosModules.disko
           ./machines/helium.nix
           ./nixos
-          inputs.home-manager.nixosModules.home-manager
+          inputs.home-manager-stable.nixosModules.home-manager
           inputs.catppuccin.nixosModules.catppuccin
           {
             home-manager.useGlobalPkgs = true;
