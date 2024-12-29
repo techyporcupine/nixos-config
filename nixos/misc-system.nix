@@ -32,9 +32,9 @@ in {
 
     hardware.graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-        rocmPackages.clr.icd
-      ];
+      #extraPackages = with pkgs; [
+      #  rocmPackages.clr.icd
+      #];
     };
 
     services.logind.extraConfig = ''
