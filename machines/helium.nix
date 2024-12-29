@@ -30,6 +30,9 @@
     avahi = true;
   };
 
+  # HOSTED SERVICES CONFIG
+  tp.server.backups.server.enable = true;
+
   services.tailscale = {
     # Enable tailscale mesh network
     enable = true;

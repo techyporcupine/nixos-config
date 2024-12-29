@@ -8,12 +8,13 @@
   cfg = config.tp.server.backups;
 in {
   options.tp.server.backups = {
-    enable = lib.mkEnableOption "Enable Restic backups";
+    client.enable = lib.mkEnableOption "Enable Restic client backups";
+    server.enable = lib.mkEnableOption "Enable Restic REST server";
   };
   # TODO: HIGHLY BROKEN
-  config = lib.mkIf cfg.enable {
+  config = {
     services.restic = {
-      backups = {
+      backups = lib.mkIf cfg.client.enable {
         #localbackup-small = {
         #  passwordFile = /run/secrets/restic-password;
         #  initialize = true;
@@ -37,7 +38,7 @@ in {
           paths = [
             "/var/lib/vaultwarden/backups"
             "/home/beryllium/dashy"
-            "/var/lib/hass/"
+            "/home/beryllium/hass"
             "/var/lib/unifi/data/backup/autobackup"
             "/srv/minecraft/broccoli-bloc/"
           ];
@@ -52,6 +53,9 @@ in {
             RandomizedDelaySec = "10min";
           };
         };
+      };
+      server = lib.mkIf cfg.server.enable {
+        enable = true;
       };
     };
   };
