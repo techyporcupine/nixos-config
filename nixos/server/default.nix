@@ -9,5 +9,6 @@
     ./traefik.nix
     ./uptime-kuma.nix
     ./immich.nix
+    ./backups.nix
   ];
 }
