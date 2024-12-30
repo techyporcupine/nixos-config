@@ -62,6 +62,7 @@ in {
       server = lib.mkIf cfg.server.enable {
         enable = true;
         extraFlags = ["--no-auth"];
+        dataDir = "/mnt/1TB_Backup/restic";
       };
     };
   };

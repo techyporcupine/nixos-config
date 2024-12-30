@@ -58,10 +58,10 @@
   boot.loader.generic-extlinux-compatible.enable = lib.mkForce true;
 
   # Mount 1TB Hard drive
-  #fileSystems."/mnt/HDD" = {
-  #  device = "/dev/disk/by-uuid/16232f5b-b1ee-4347-a52e-06291d80d94e";
-  #  fsType = "ext4";
-  #};
+  fileSystems."/mnt/1TB_Backup" = {
+    device = "/dev/disk/by-label/1TB_Backup";
+    fsType = "ext4";
+  };
 
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
