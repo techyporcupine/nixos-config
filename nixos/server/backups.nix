@@ -47,6 +47,7 @@ in {
             "/var/lib/immich/encoded-video"
             "/var/lib/immich/thumbs"
           ];
+          # Access via `restic -r "rest:http://helium:8000/remotebackup-large" snapshots`
           repository = "rest:http://helium:8000/remotebackup-large";
           pruneOpts = [
             "--keep-daily 3"
