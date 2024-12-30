@@ -7,6 +7,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
 
     # SwayFX
     swayfx = {
@@ -97,6 +98,12 @@
         config.allowUnfree = true;
       };
     };
+    overlay-master = final: prev: {
+      master = import inputs.nixpkgs-master {
+        system = final.system;
+        config.allowUnfree = true;
+      };
+    };
     systems = [
       "aarch64-linux"
       "x86_64-linux"
@@ -120,6 +127,7 @@
               overlay-stable
               overlay-tp
               overlay-staging
+              overlay-master
             ];
           })
           inputs.disko.nixosModules.disko
@@ -154,6 +162,7 @@
               overlay-stable
               overlay-tp
               overlay-staging
+              overlay-master
             ];
           })
           inputs.disko.nixosModules.disko
@@ -188,6 +197,7 @@
               overlay-stable
               overlay-tp
               overlay-staging
+              overlay-master
             ];
           })
           {
