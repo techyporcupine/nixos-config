@@ -37,7 +37,7 @@
     # Enable tailscale mesh network
     enable = true;
     useRoutingFeatures = "both";
-    extraUpFlags = [
+    extraSetFlags = [
       "--ssh"
       "--advertise-exit-node"
     ];
