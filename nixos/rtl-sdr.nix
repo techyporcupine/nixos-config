@@ -20,7 +20,7 @@ in {
       pkgs.gqrx
       pkgs.gnuradio
       pkgs.noaa-apt
-      pkgs.gpredict
+      pkgs.stable.gpredict
       pkgs.gqrx
       pkgs.rtl_433
     ];
