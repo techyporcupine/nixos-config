@@ -52,6 +52,20 @@
     libraspberrypi
   ];
 
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs-stable"
+    ];
+    dates = "weekly";
+    rebootWindow = {
+      lower = "03:00";
+      upper = "05:00";
+    };
+  };
+
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.grub.enable = lib.mkForce false;
