@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   # NIX CONFIGURATION
@@ -58,6 +59,7 @@
     flags = [
       "--update-input"
       "nixpkgs-stable"
+      "--no-write-lock-file"
     ];
     dates = "weekly";
     rebootWindow = {
