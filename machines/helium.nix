@@ -59,13 +59,13 @@
     flags = [
       "--update-input"
       "nixpkgs-stable"
-      "--no-write-lock-file"
     ];
     dates = "weekly";
     rebootWindow = {
       lower = "03:00";
       upper = "05:00";
     };
+    allowReboot = true;
   };
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
