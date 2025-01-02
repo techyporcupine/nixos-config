@@ -64,6 +64,7 @@ in {
         enable = true;
         extraFlags = ["--no-auth"];
         dataDir = "/mnt/1TB_Backup/restic";
+        listenAddress = "100.64.0.6:8000";
       };
     };
   };
