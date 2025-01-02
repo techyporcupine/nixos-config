@@ -25,6 +25,10 @@ in {
       enable = true;
       environmentFiles = ["/var/secrets/traefik-env"];
       staticConfigOptions = {
+        # Writing Logs to a File
+        log = {
+          filePath = "/home/beryllium/traefik.log";
+        };
         entryPoints = {
           web = {
             address = ":80";
