@@ -28,7 +28,7 @@ in {
         # Writing Logs to a File
         log = {
           filePath = "/var/lib/traefik/traefik.log";
-          level = "DEBUG";
+          level = "INFO";
         };
         entryPoints = {
           web = {
