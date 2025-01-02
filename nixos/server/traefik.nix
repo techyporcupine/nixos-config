@@ -72,7 +72,7 @@ in {
               buffering.maxRequestBodyBytes = 10000000000;
             };
             internal-whitelist = {
-              ipWhiteList = {
+              ipAllowList = {
                 sourceRange = ["10.0.0.0/24" "10.0.16.0/24" "10.0.24.0/24" "2001:470:e251::/48" "100.64.0.0/16" "fd7a:115c:a1e0::/48"];
               };
             };
