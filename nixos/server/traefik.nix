@@ -27,7 +27,7 @@ in {
       staticConfigOptions = {
         # Writing Logs to a File
         log = {
-          filePath = "/home/beryllium/traefik.log";
+          filePath = "/var/lib/traefik/traefik.log";
         };
         entryPoints = {
           web = {
