@@ -636,6 +636,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-master": {
+      "locked": {
+        "lastModified": 1735957279,
+        "narHash": "sha256-rUkWfLr4urPzuhw/jZ2tQUIo3W7Ua31mxY1CLMdVSu4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c2d4d4e663cdb7544b6617d2db57e8479a7b8fcd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1710695816,
@@ -778,6 +793,7 @@
         "nix-minecraft": "nix-minecraft",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-staging": "nixpkgs-staging",
         "nixpkgs-tp": "nixpkgs-tp",

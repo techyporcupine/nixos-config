@@ -86,6 +86,8 @@
     kdePackages.plasma-thunderbolt
     eog
     rawtherapee
+    qbittorrent
+    libnatpmp
   ];
 
   programs.obs-studio = {
