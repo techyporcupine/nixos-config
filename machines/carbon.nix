@@ -88,6 +88,7 @@
     rawtherapee
     qbittorrent
     libnatpmp
+    handbrake
   ];
 
   programs.obs-studio = {
