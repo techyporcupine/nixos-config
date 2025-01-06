@@ -270,15 +270,17 @@ in {
         @define-color rosewater #f5e0dc;
       '';
       # Normal config for waybar
-      settings = [
-        {
+      settings = {
+        mainBar = {
           "layer" = "top";
           "height" = 34;
           "spacing" = 2;
+          "output" = ["eDP-1"];
           "modules-left" = ["sway/workspaces" "mpris"];
           "modules-center" = ["clock"];
           "modules-right" = ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
           "margin" = "6px 6px 0px 6px";
+
           "power-profiles-daemon" = {
             "format" = "{icon}";
             "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
@@ -385,8 +387,25 @@ in {
             "on-click" = "helvum";
             "format-icons" = ["" "" ""];
           };
-        }
-      ];
+        };
+        altBar = {
+          "layer" = "top";
+          "height" = 34;
+          "spacing" = 2;
+          "output" = ["!eDP-1"];
+          "modules-left" = ["sway/workspaces"];
+          "modules-center" = ["clock"];
+          #"modules-right" = [];
+          "margin" = "6px 6px 0px 6px";
+
+          "clock" = {
+            "format" = "{:%H:%M:%S}";
+            "tooltip-format" = "{:%Y %B}";
+            "format-alt" = "{:%Y-%m-%d}";
+            "interval" = 1;
+          };
+        };
+      };
     };
   };
 }
