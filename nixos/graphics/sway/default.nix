@@ -211,17 +211,18 @@ in {
             profile.outputs = [
               {
                 criteria = "eDP-1";
+                position = "1050,0";
                 scale = 1.0;
-                status = "disable";
-              }
-              {
-                criteria = "Dell Inc. DELL SE2416H 9DRWM69T3X5B";
-                position = "2256,0";
               }
               {
                 criteria = "Dell Inc. DELL P2210 U828K953633S";
+                transform = "90";
+                position = "0,0";
+              }
+              {
+                criteria = "Dell Inc. DELL P2210 U829K04717LI";
                 transform = "270";
-                position = "4176,0";
+                position = "3306,0";
               }
             ];
           }

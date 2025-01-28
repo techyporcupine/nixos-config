@@ -98,6 +98,8 @@
     ];
   };
 
+  services.printing.drivers = [pkgs.cups-kyodialog];
+
   services.hardware.bolt.enable = true;
 
   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen; # Force kernel
