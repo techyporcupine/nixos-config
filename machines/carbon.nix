@@ -83,7 +83,6 @@
     tidal-hifi
     distrobox
     kdePackages.kdenlive
-    kdePackages.plasma-thunderbolt
     eog
     rawtherapee
     qbittorrent
@@ -98,11 +97,14 @@
     ];
   };
 
+  # Kyocera Printer Drivers
   services.printing.drivers = [pkgs.cups-kyodialog];
 
+  # Enable Thunderbolt (USB4)
   services.hardware.bolt.enable = true;
 
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen; # Force kernel
+  # Force use of Zen kernel
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
