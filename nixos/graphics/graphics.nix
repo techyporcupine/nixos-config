@@ -43,7 +43,6 @@ in {
       audacity
       pavucontrol
       scrcpy
-      yubikey-manager-qt
       yubikey-personalization-gui
       webcord
       networkmanagerapplet

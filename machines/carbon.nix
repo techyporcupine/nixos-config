@@ -88,6 +88,7 @@
     qbittorrent
     libnatpmp
     handbrake
+    yubioath-flutter
   ];
 
   programs.obs-studio = {
@@ -96,6 +97,9 @@
       obs-ndi
     ];
   };
+
+  # Enable PCSCD for Yubikey
+  services.pcscd.enable = true;
 
   # Kyocera Printer Drivers
   services.printing.drivers = [pkgs.cups-kyodialog];
