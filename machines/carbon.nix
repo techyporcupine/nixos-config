@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   # NIX CONFIGURATION
@@ -89,13 +90,30 @@
     libnatpmp
     handbrake
     yubioath-flutter
+    inputs.quickemu.packages.${system}.quickemu
   ];
+
+  virtualisation.spiceUSBRedirection.enable = true;
 
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
       obs-ndi
     ];
+  };
+
+  hardware.amdgpu.opencl.enable = true;
+  nixpkgs.config.rocmSupport = true;
+
+  services.ollama = {
+    enable = true;
+    acceleration = false;
+    environmentVariables = {
+      # HCC_AMDGPU_TARGET = "gfx1100"; # used to be necessary, but doesn't seem to anymore
+      # PYTORCH_ROCM_ARCH = "gfx1100";
+      # HSA_ENABLE_SDMA = "0";
+    };
+    # rocmOverrideGfx = "11.0.0";
   };
 
   # Enable PCSCD for Yubikey

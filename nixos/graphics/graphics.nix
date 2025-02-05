@@ -34,6 +34,7 @@ in {
           catppuccin.catppuccin-vsc-icons
           esbenp.prettier-vscode
           kamadorueda.alejandra
+          continue.continue
         ];
       })
       zed-editor
