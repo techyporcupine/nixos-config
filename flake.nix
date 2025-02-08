@@ -211,6 +211,7 @@
           }
           inputs.disko.nixosModules.disko
           ./machines/helium.nix
+          ./disko/helium-disko.nix
           ./nixos
           inputs.home-manager-stable.nixosModules.home-manager
           inputs.catppuccin.nixosModules.catppuccin
