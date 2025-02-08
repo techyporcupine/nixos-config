@@ -67,9 +67,6 @@
     allowReboot = true;
   };
 
-  # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-
   # Mount 1TB Hard drive
   fileSystems."/mnt/1TB_Backup" = {
     device = "/dev/disk/by-label/1TB_Backup";
