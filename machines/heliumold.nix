@@ -7,8 +7,8 @@
 }: {
   # NIX CONFIGURATION
   tp.nix.enable = true;
-  system.stateVersion = "24.11";
-  tp.hm.home.stateVersion = "24.11";
+  system.stateVersion = "24.05";
+  tp.hm.home.stateVersion = "24.05";
 
   # USER CONFIG
   tp.username = "helium";
@@ -50,6 +50,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
+    libraspberrypi
   ];
 
   system.autoUpgrade = {
@@ -69,6 +70,9 @@
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
   boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.loader.grub.enable = lib.mkForce false;
+  # Enables the generation of /boot/extlinux/extlinux.conf
+  boot.loader.generic-extlinux-compatible.enable = lib.mkForce true;
 
   # Mount 1TB Hard drive
   fileSystems."/mnt/1TB_Backup" = {
@@ -99,5 +103,5 @@
   # networking.interfaces.end0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlan0.useDHCP = lib.mkDefault true;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

@@ -15,7 +15,7 @@ in {
     networking = {
       networkmanager.enable = true; # Enable networking via networkmanager
       firewall = {
-        extraCommands = "iptables -I nixos-fw -s 10.0.0.148 -p udp -j nixos-fw-accept"; # hdhomerun
+        extraCommands = "iptables -I nixos-fw -s 10.0.0.144 -p udp -j nixos-fw-accept"; # hdhomerun
       };
     };
     # Enable avahi for mdns reflection

@@ -75,8 +75,8 @@
     libhdhomerun
     hdhomerun-config-gui
     fw-ectool
-    #blender-hip
-    blender
+    blender-hip
+    #blender
     tpm2-tss
     amdgpu_top
     ookla-speedtest
