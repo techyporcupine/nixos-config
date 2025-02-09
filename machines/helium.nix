@@ -48,6 +48,12 @@
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
+  services.cockpit = {
+    enable = true;
+    port = 9090;
+    openFirewall = true;
+  };
+
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
   ];
