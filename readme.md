@@ -48,7 +48,7 @@ Carbon is my Framework 13 with the Ryzen 5 7640U and 16GB of RAM. I daily drive 
 Beryllium is a VM on my Proxmox VE device, and serves as the source of all my main self-hosted applications. Runs NixOS Unstable (which doesn't go well sometimes). Most services are behind Traefik with SSL certs.
 
 ### Helium
-Helium is take two on a Dell Wyse 5070 thin client with a Pentium J5005 and 8GB of DDR4. It is quite overpowered for what it needs to do, but it is a Restic backup server, located off-site, recieving backups from Beryllium. It has a 1TB Toshiba external USB drive, and boots off the 16GB of internal eMMC.
+Helium is take two on a Dell Wyse 5070 thin client with a Pentium J5005 and 8GB of DDR4, running on NixOS Stable. Scheduled to autoupgrade every month. It is quite overpowered for what it needs to do, but it is a Restic backup server, located off-site, recieving backups from Beryllium. It has a 1TB Toshiba external USB drive, and boots off the 16GB of internal eMMC.
 
 ### Heliumold
 Was my first take on Helium, the off-site backup server using a Raspberry Pi 4, but after just a couple days the SD card got corrupted and it stopped booting, and I couldn't get it to boot from USB for the life of me, so now Helium takes over that role.

@@ -59,7 +59,7 @@
       "--update-input"
       "nixpkgs-stable"
     ];
-    dates = "weekly";
+    dates = "monthly";
     rebootWindow = {
       lower = "03:00";
       upper = "05:00";
