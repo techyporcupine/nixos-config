@@ -75,6 +75,20 @@
     };
   };
 
+  services.traefik.dynamicConfigOptions.http = {
+    routers = {
+      zabbix = {
+        rule = "Host(`zabbix.local.cb-tech.me`)";
+        service = "zabbix";
+        entrypoints = ["websecure"];
+        middlewares = ["internal-whitelist"];
+        tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+        tls.certResolver = "cloudflare";
+      };
+    };
+    services.zabbix = {loadBalancer.servers = [{url = "http://localhost:10051";}];};
+  };
+
   networking.firewall.allowedTCPPorts = [10051 10050];
 
   services.zabbixAgent = {
