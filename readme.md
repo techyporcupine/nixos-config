@@ -38,3 +38,17 @@ Secure boot on NixOS using Lanzaboote, it's not that hard! Start by running `nix
 ### Disk Encryption
 
 The disko config provided by `carbon-disko.nix` includes full disk encryption that will prompt you for an encryption password when you format the drive, and using it like that will work totally fine! The fun thing is, `carbon` is also configured for automatic decryption of the drive thanks to TPM2 and `systemd-cryptenroll`. To enable automatic decryption of your drive at boot using the TPM2 chip in your device, simply run `sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+1+4+7 /dev/nvme0n1p2  ` if you have secure boot, or run `sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+1+4 /dev/nvme0n1p2` if you do not! It will prompt you for your drive password, and then will automatically decrypt at boot. Note, there are security implications of doing this, anyone with physical access to your computer could boot it without any user login!
+
+## Hardware
+
+### Carbon
+Carbon is my Framework 13 with the Ryzen 5 7640U and 16GB of RAM. I daily drive this laptop on NixOS Unstable, and it probably has the second most complex config. It has full disk encryption, and at one point it had Secure Boot, but that broke so it's running without it now.
+
+### Beryllium
+Beryllium is a VM on my Proxmox VE device, and serves as the source of all my main self-hosted applications. Runs NixOS Unstable (which doesn't go well sometimes). Most services are behind Traefik with SSL certs.
+
+### Helium
+Helium is take two on a Dell Wyse 5070 thin client with a Pentium J5005 and 8GB of DDR4. It is quite overpowered for what it needs to do, but it is a Restic backup server, located off-site, recieving backups from Beryllium. It has a 1TB Toshiba external USB drive, and boots off the 16GB of internal eMMC.
+
+### Heliumold
+Was my first take on Helium, the off-site backup server using a Raspberry Pi 4, but after just a couple days the SD card got corrupted and it stopped booting, and I couldn't get it to boot from USB for the life of me, so now Helium takes over that role.
