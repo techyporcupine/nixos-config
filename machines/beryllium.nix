@@ -72,6 +72,12 @@
     httpd.virtualHost = {
       hostName = "zabbix.local.cb-tech.me";
       adminAddr = "webmaster@zabbix.local.cb-tech.me";
+      listen = [
+        {
+          ip = "*";
+          port = 18003;
+        }
+      ];
     };
   };
 
@@ -86,7 +92,7 @@
         tls.certResolver = "cloudflare";
       };
     };
-    services.zabbix = {loadBalancer.servers = [{url = "http://localhost:10051";}];};
+    services.zabbix = {loadBalancer.servers = [{url = "http://localhost:18003";}];};
   };
 
   networking.firewall.allowedTCPPorts = [10051 10050];
