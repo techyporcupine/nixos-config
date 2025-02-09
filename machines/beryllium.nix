@@ -72,7 +72,6 @@
     httpd.virtualHost = {
       hostName = "zabbix.local.cb-tech.me";
       adminAddr = "webmaster@zabbix.local.cb-tech.me";
-      forceSSL = true;
     };
   };
 
