@@ -69,11 +69,15 @@
   services.zabbixServer.enable = true;
   services.zabbixWeb = {
     enable = true;
-    virtualHost = {
-      hostName = "zabbix.localhost";
-      adminAddr = "webmaster@localhost";
+    httpd.virtualHost = {
+      hostName = "zabbix.local.cb-tech.me";
+      adminAddr = "webmaster@zabbix.local.cb-tech.me";
+      forceSSL = true;
+      enableACME = true;
     };
   };
+
+  networking.firewall.allowedTCPPorts = [10051 10050];
 
   services.zabbixAgent = {
     enable = true;
