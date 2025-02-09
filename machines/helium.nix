@@ -68,10 +68,10 @@
   };
 
   # Mount 1TB Hard drive
-  #fileSystems."/mnt/1TB_Backup" = {
-  #  device = "/dev/disk/by-label/1TB_Backup";
-  #  fsType = "ext4";
-  #};
+  fileSystems."/mnt/1TB_Backup" = {
+    device = "/dev/disk/by-label/1TB_Backup";
+    fsType = "ext4";
+  };
 
   boot.plymouth.enable = lib.mkForce false;
 
