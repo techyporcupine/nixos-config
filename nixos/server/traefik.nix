@@ -135,7 +135,7 @@ in {
               tls.certResolver = "cloudflare";
             };
             heliumdash = {
-              rule = "Host(`helium.dash.local.cb-tech.me`)";
+              rule = "Host(`helium.local.cb-tech.me`)";
               service = "heliumdash";
               entrypoints = ["websecure"];
               middlewares = ["internal-whitelist"];
