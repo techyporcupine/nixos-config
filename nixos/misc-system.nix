@@ -126,7 +126,7 @@ in {
         enable = true;
         enableZshIntegration = true;
         settings = {
-          format = "$directory$character$git_branch$git_status";
+          format = "$hostname$directory$character$git_branch$git_status";
           right_format = "$status$cmd_duration";
           character = {
             success_symbol = "[❯](blue)";
@@ -150,6 +150,9 @@ in {
           };
           cmd_duration = {
             min_time = 0;
+          };
+          hostname = {
+            ssh_only = false;
           };
         };
       };
