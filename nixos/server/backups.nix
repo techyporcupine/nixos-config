@@ -42,6 +42,7 @@ in {
             "/var/lib/unifi/data/backup/autobackup"
             "/srv/minecraft/broccoli-bloc/"
             "/var/lib/immich"
+            "/var/lib/uptime-kuma"
           ];
           exclude = [
             "/var/lib/immich/encoded-video"
