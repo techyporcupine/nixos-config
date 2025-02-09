@@ -54,6 +54,11 @@
     openFirewall = true;
   };
 
+  services.zabbixAgent = {
+    enable = true;
+    server = "10.0.0.5";
+  };
+
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
   ];
