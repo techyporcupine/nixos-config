@@ -66,6 +66,20 @@
     backups.client.enable = true;
   };
 
+  services.zabbixServer.enable = true;
+  services.zabbixWeb = {
+    enable = true;
+    virtualHost = {
+      hostName = "zabbix.localhost";
+      adminAddr = "webmaster@localhost";
+    };
+  };
+
+  services.zabbixAgent = {
+    enable = true;
+    server = "localhost";
+  };
+
   # Git config
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
