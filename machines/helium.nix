@@ -73,6 +73,8 @@
     fsType = "ext4";
   };
 
+  hardware.enableAllHardware = true;
+
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
   ################################################################################

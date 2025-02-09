@@ -24,7 +24,7 @@
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = ["-f"]; # Override existing partition
+                extraArgs = ["-f" "-L root"]; # Override existing partition
                 # BTRFS Subvolumes and where they are mounted
                 subvolumes = {
                   # The rootfs, mounted at / on the disk
