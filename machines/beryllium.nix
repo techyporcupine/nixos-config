@@ -66,42 +66,6 @@
     backups.client.enable = true;
   };
 
-  services.zabbixServer.enable = true;
-  services.zabbixWeb = {
-    enable = true;
-    httpd.virtualHost = {
-      hostName = "zabbix.local.cb-tech.me";
-      adminAddr = "webmaster@zabbix.local.cb-tech.me";
-      listen = [
-        {
-          ip = "*";
-          port = 18003;
-        }
-      ];
-    };
-  };
-
-  services.traefik.dynamicConfigOptions.http = {
-    routers = {
-      zabbix = {
-        rule = "Host(`zabbix.local.cb-tech.me`)";
-        service = "zabbix";
-        entrypoints = ["websecure"];
-        middlewares = ["internal-whitelist"];
-        tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-        tls.certResolver = "cloudflare";
-      };
-    };
-    services.zabbix = {loadBalancer.servers = [{url = "http://localhost:18003";}];};
-  };
-
-  networking.firewall.allowedTCPPorts = [10051 10050];
-
-  services.zabbixAgent = {
-    enable = true;
-    server = "localhost";
-  };
-
   # Git config
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
