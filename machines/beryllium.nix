@@ -46,7 +46,6 @@
     enable = true;
     useRoutingFeatures = "both";
     extraSetFlags = [
-      "--ssh"
       "--advertise-exit-node"
     ];
   };
