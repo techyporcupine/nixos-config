@@ -40,6 +40,7 @@ in {
           };
           websecure = {
             address = ":443";
+            transport.respondingTimeouts.readTimeout = 0;
           };
         };
         certificatesResolvers = {

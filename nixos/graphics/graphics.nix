@@ -66,6 +66,9 @@ in {
       enable = true;
     };
 
+    # Enable GVFS for Android filesystem mounting
+    services.gvfs.enable = true;
+
     # Enable CUPS to print docs
     services.printing.enable = true;
   };
