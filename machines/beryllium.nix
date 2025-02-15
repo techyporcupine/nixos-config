@@ -63,6 +63,7 @@
     unifi.enable = true;
     immich.enable = true;
     backups.client.enable = true;
+    jellyfin.enable = true;
   };
 
   # Git config

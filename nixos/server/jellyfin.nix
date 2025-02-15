@@ -18,7 +18,7 @@ in {
     services.traefik.dynamicConfigOptions.http = {
       routers = {
         jellyfin = {
-          rule = "Host(`uptime.local.cb-tech.me`)";
+          rule = "Host(`jellyfin.local.cb-tech.me`)";
           service = "jellyfin";
           entrypoints = ["websecure"];
           middlewares = ["internal-whitelist"];
