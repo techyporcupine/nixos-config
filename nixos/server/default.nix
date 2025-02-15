@@ -10,5 +10,6 @@
     ./uptime-kuma.nix
     ./immich.nix
     ./backups.nix
+    ./jellyfin.nix
   ];
 }
