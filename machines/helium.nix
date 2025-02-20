@@ -76,6 +76,7 @@
   fileSystems."/mnt/1TB_Backup" = {
     device = "/dev/disk/by-label/1TB_Backup";
     fsType = "ext4";
+    options = ["sync"];
   };
 
   boot.plymouth.enable = lib.mkForce false;
