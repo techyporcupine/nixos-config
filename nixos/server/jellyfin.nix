@@ -25,6 +25,13 @@ in {
           tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
           tls.certResolver = "cloudflare";
         };
+        jellyfinext = {
+          rule = "Host(`jellyfin.cb-tech.me`)";
+          service = "jellyfin";
+          entrypoints = ["websecure"];
+          tls.domains = [{main = "jellyfin.cb-tech.me";}];
+          tls.certResolver = "cloudflare";
+        };
       };
       services.jellyfin = {loadBalancer.servers = [{url = "http://localhost:8096";}];};
     };
