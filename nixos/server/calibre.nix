@@ -19,7 +19,7 @@ in {
         port = 8083;
       };
       options = {
-        calibreLibrary = /var/books;
+        calibreLibrary = "/var/books";
         enableBookUploading = true;
         enableBookConversion = true;
       };
