@@ -28,6 +28,12 @@ in {
       enable = true;
       port = 8082;
     };
+    networking.firewall = {
+      allowedTCPPorts = [
+        # Minecraft
+        8082
+      ];
+    };
     services.traefik.dynamicConfigOptions.http = {
       routers = {
         books = {

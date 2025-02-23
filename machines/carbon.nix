@@ -91,6 +91,7 @@
     handbrake
     yubioath-flutter
     inputs.quickemu.packages.${system}.quickemu
+    calibre
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
