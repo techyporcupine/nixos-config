@@ -19,10 +19,14 @@ in {
         port = 8083;
       };
       options = {
-        calibreLibrary = "/var/books";
+        calibreLibrary = "/var/lib/calibre-server";
         enableBookUploading = true;
         enableBookConversion = true;
       };
+    };
+    services.calibre-server = {
+      enable = true;
+      port = 8082;
     };
     services.traefik.dynamicConfigOptions.http = {
       routers = {
