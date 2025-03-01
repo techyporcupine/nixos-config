@@ -19,7 +19,7 @@ in {
     ];
     # Config for waybar
     tp.hm.programs.waybar = {
-      package = inputs.waybar.packages.${pkgs.system}.waybar;
+      # package = inputs.waybar.packages.${pkgs.system}.waybar;
       enable = true;
       systemd = {
         enable = false;

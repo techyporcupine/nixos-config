@@ -121,7 +121,7 @@
   services.pcscd.enable = true;
 
   # Kyocera Printer Drivers
-  services.printing.drivers = [pkgs.cups-kyodialog];
+  services.printing.drivers = [pkgs.stable.cups-kyodialog];
 
   # Enable Thunderbolt (USB4)
   services.hardware.bolt.enable = true;
