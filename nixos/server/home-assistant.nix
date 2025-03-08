@@ -34,7 +34,7 @@ in {
         enable = true;
         device = "cpu";
         uri = "tcp://0.0.0.0:10300";
-        model = "medium.en";
+        model = "Systran/faster-distil-whisper-medium.en";
         language = "en";
       };
     };
