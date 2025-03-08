@@ -30,6 +30,13 @@ in {
         uri = "tcp://0.0.0.0:10200";
         voice = "en-us-ryan-high";
       };
+      faster-whisper.servers.hasswhisper = {
+        enable = true;
+        device = "cpu";
+        uri = "tcp://0.0.0.0:10300";
+        model = "medium.en";
+        language = "en";
+      };
     };
     services.matter-server = {
       enable = true;
