@@ -23,6 +23,15 @@ in {
           #"--device=/dev/ttyUSB0"
         ];
       };
+      matter-hub = {
+        volumes = ["/home/${config.tp.username}/matter-hub:/data"];
+        image = "ghcr.io/t0bst4r/home-assistant-matter-hub:latest"; # Warning: if the tag does not change, the image will not be updated
+        extraOptions = [
+          "--network=host"
+          "--pull=newer"
+        ];
+        environmentFiles = [/var/secrets/matter-hub];
+      };
     };
     services.wyoming = {
       piper.servers.hasspiper = {
@@ -90,10 +99,15 @@ in {
         51827
         # Z2M
         8091
+        # Matter
+        8482
+        5540
       ];
       allowedUDPPorts = [
         # Homekit
         5353
+        # Matter
+        5540
       ];
     };
   };

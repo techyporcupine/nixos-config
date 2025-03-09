@@ -63,7 +63,7 @@
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # TCP Ports out of firewall
-  networking.firewall.allowedTCPPorts = [19132];
+  networking.firewall.allowedTCPPorts = [19132 10300];
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
@@ -104,7 +104,20 @@
   };
 
   hardware.amdgpu.opencl.enable = true;
-  nixpkgs.config.rocmSupport = true;
+  #nixpkgs.config.rocmSupport = true;
+
+  services.wyoming.faster-whisper = {
+    servers.hasswhisper = {
+      enable = true;
+      device = "cpu";
+      uri = "tcp://0.0.0.0:10300";
+      model = "small.en";
+      language = "en";
+      #extraArgs = ["--cpu-threads 12"];
+    };
+  };
+
+  #nixpkgs.config.allowBroken = true;
 
   services.ollama = {
     enable = true;

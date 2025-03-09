@@ -789,11 +789,11 @@
     },
     "nixpkgs-tp": {
       "locked": {
-        "lastModified": 1727964900,
-        "narHash": "sha256-UXlzsSZ/W3BDJncQpss9wpQ2FC5F85N55FaTcGP7nVY=",
+        "lastModified": 1741469861,
+        "narHash": "sha256-NpEAQV1p1xbNBXQSYYuwAIJRHlOnkuFeVpgxLoXz+h8=",
         "owner": "techyporcupine",
         "repo": "nixpkgs",
-        "rev": "635c7ea3298176e57716e88ed3d820ce66766c91",
+        "rev": "9d19aeafe16482f680319bb3bffec764f0ad0ee2",
         "type": "github"
       },
       "original": {
