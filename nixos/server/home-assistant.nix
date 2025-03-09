@@ -94,21 +94,38 @@ in {
       services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8124";}];};
     };
     networking.firewall = {
-      allowedTCPPorts = [
-        # Homekit
-        51827
-        # Z2M
-        8091
-        # Matter
-        8482
-        5540
-      ];
-      allowedUDPPorts = [
-        # Homekit
-        5353
-        # Matter
-        5540
-      ];
+      interfaces."ens18" = {
+        allowedTCPPorts = [
+          # Homekit
+          51827
+          # Z2M
+          8091
+          # Matter
+          8482
+          5540
+        ];
+        allowedUDPPorts = [
+          # Homekit
+          5353
+          # Matter
+          5540
+        ];
+      };
+      interfaces."vlan124" = {
+        allowedTCPPorts = [
+          # Homekit
+          51827
+          # Matter
+          8482
+          5540
+        ];
+        allowedUDPPorts = [
+          # Homekit
+          5353
+          # Matter
+          5540
+        ];
+      };
     };
   };
 }

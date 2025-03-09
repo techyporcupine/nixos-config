@@ -17,7 +17,7 @@ in {
   config = lib.mkIf cfg.enable {
     nixpkgs.overlays = [inputs.nix-minecraft.overlay];
 
-    networking.firewall = {
+    networking.firewall.interfaces."ens18" = {
       allowedTCPPorts = [
         # Minecraft
         25565

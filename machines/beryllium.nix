@@ -75,7 +75,6 @@
     immich.enable = true;
     backups.client.enable = true;
     jellyfin.enable = true;
-    calibre.enable = true;
   };
 
   # Git config
