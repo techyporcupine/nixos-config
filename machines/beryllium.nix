@@ -40,10 +40,15 @@
     enable = true;
     avahi = true;
   };
-  networking.vlans = {
-    vlan124 = {
-      id = 124;
-      interface = "ens18";
+  networking = {
+    vlans = {
+      vlan124 = {
+        id = 124;
+        interface = "ens18";
+      };
+    };
+    interfaces = {
+      vlan124.useDHCP = true; # gets DHCP from existing over trunk
     };
   };
 
