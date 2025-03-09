@@ -40,6 +40,12 @@
     enable = true;
     avahi = true;
   };
+  networking.vlans = {
+    vlan124 = {
+      id = 124;
+      interface = "ens18";
+    };
+  };
 
   services.tailscale = {
     # Enable tailscale mesh network
