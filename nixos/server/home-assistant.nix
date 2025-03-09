@@ -90,8 +90,26 @@ in {
           tls.domains = [{main = "home.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };
+        z2m = {
+          rule = "Host(`z2m.local.cb-tech.me`)";
+          service = "z2m";
+          entrypoints = ["websecure"];
+          middlewares = ["internal-whitelist"];
+          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+          tls.certResolver = "cloudflare";
+        };
+        matter = {
+          rule = "Host(`matter.local.cb-tech.me`)";
+          service = "matter";
+          entrypoints = ["websecure"];
+          middlewares = ["internal-whitelist"];
+          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+          tls.certResolver = "cloudflare";
+        };
       };
       services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8124";}];};
+      services.z2m = {loadBalancer.servers = [{url = "http://localhost:8091";}];};
+      services.matter = {loadBalancer.servers = [{url = "http://localhost:8482";}];};
     };
     networking.firewall = {
       interfaces."ens18" = {
@@ -101,7 +119,6 @@ in {
           # Z2M
           8091
           # Matter
-          8482
           5540
         ];
         allowedUDPPorts = [
