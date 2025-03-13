@@ -47,15 +47,27 @@
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
-  services.cockpit = {
-    enable = true;
-    port = 9090;
-    openFirewall = true;
-  };
-
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
   ];
+
+  systemd.services.myservice = {
+    enable = true;
+    path = [pkgs.beszel];
+    serviceConfig = {
+      ExecStart = "beszel-agent -listen " 45876 " -key " ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgCsRuI6F5c9rUILfkDB4xNraMl34fz3capxdrlN7RZ "";
+    };
+    unitConfig = {
+      Type = "simple";
+    };
+    wantedBy = ["multi-user.target"];
+    after = ["network-online.target"];
+  };
+  networking.firewall = {
+    allowedTCPPorts = [
+      45876
+    ];
+  };
 
   system.autoUpgrade = {
     enable = true;
