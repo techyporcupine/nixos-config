@@ -75,6 +75,7 @@
     immich.enable = true;
     backups.client.enable = true;
     jellyfin.enable = true;
+    beszel.enable = true;
   };
 
   # Git config

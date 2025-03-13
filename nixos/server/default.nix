@@ -11,5 +11,6 @@
     ./immich.nix
     ./backups.nix
     ./jellyfin.nix
+    ./beszel.nix
   ];
 }
