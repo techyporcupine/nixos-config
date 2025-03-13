@@ -36,7 +36,7 @@ in {
           tls.certResolver = "cloudflare";
         };
       };
-      services.beszel = {loadBalancer.servers = [{url = "http://localhost:8090}";}];};
+      services.beszel = {loadBalancer.servers = [{url = "http://localhost:8090";}];};
     };
   };
 }
