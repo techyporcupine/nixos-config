@@ -79,6 +79,29 @@
     beszel.enable = true;
   };
 
+  systemd.services.beszel = {
+    enable = true;
+    path = [pkgs.beszel];
+    serviceConfig = {
+      ExecStart = "${pkgs.beszel}/bin/beszel-agent";
+    };
+    environment = {
+      LISTEN = "45876";
+      KEY = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgCsRuI6F5c9rUILfkDB4xNraMl34fz3capxdrlN7RZ";
+      #EXTRA_FILESYSTEMS = "/mnt/1TB_Backup";
+    };
+    unitConfig = {
+      Type = "simple";
+    };
+    wantedBy = ["multi-user.target"];
+    after = ["network-online.target"];
+  };
+  networking.firewall = {
+    allowedTCPPorts = [
+      45876
+    ];
+  };
+
   # Git config
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
