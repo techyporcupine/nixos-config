@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
       beszel = {
-        volumes = ["/home/${config.tp.username}/beszel_data:/config"];
+        volumes = ["/home/${config.tp.username}/beszel_data:/beszel_data"];
         image = " docker.io/henrygd/beszel"; # Warning: if the tag does not change, the image will not be updated
         ports = [
           "127.0.0.1:8090:8090"
