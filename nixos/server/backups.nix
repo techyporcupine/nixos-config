@@ -59,7 +59,6 @@ in {
           timerConfig = {
             OnCalendar = "daily";
             Persistent = true;
-            RandomizedDelaySec = "10min";
           };
         };
       };
