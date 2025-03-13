@@ -51,11 +51,13 @@
   environment.systemPackages = with pkgs; [
   ];
 
-  systemd.services.myservice = {
+  systemd.services.beszel = {
     enable = true;
     path = [pkgs.beszel];
     serviceConfig = {
-      ExecStart = "${pkgs.beszel}/bin/beszel-agent -listen '45876' -key 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgCsRuI6F5c9rUILfkDB4xNraMl34fz3capxdrlN7RZ'";
+      ExecStart = "${pkgs.beszel}/bin/beszel-agent";
+      Environment = "LISTEN=45876";
+      Environment = "KEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINgCsRuI6F5c9rUILfkDB4xNraMl34fz3capxdrlN7RZ";
     };
     unitConfig = {
       Type = "simple";
