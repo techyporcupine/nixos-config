@@ -13,7 +13,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
-      homeassistant = {
+      beszel = {
         volumes = ["/home/${config.tp.username}/beszel_data:/config"];
         image = " docker.io/henrygd/beszel"; # Warning: if the tag does not change, the image will not be updated
         ports = [
