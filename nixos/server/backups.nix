@@ -37,12 +37,14 @@ in {
           initialize = true;
           paths = [
             "/var/backup/vaultwarden"
-            "/home/beryllium/dashy"
-            "/home/beryllium/hass"
+            "/home/${config.tp.username}/dashy"
+            "/home/${config.tp.username}/hass"
             "/var/lib/unifi/data/backup/autobackup"
             "/srv/minecraft/broccoli-bloc/"
             "/var/lib/immich"
             "/var/lib/uptime-kuma"
+            "/home/${config.tp.username}/beszel_data"
+            "/var/media"
           ];
           exclude = [
             "/var/lib/immich/encoded-video"
