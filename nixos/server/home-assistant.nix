@@ -76,7 +76,7 @@ in {
         };
         advanced = {
           transmit_power = 5;
-          channel = 26;
+          channel = 25;
         };
         availability = true;
       };
