@@ -75,8 +75,8 @@ in {
           port = 8091;
         };
         advanced = {
-          transmit_power = 5;
-          channel = 25;
+          transmit_power = 10;
+          channel = 26;
         };
         availability = true;
       };
