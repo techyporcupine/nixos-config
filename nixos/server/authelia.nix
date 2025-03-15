@@ -16,7 +16,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.authelia.instances.haddock = {
+    services.authelia.instances.beryllium = {
       enable = true;
       settings = {
         theme = "auto";
