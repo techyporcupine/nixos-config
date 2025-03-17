@@ -37,11 +37,6 @@ in {
       #];
     };
 
-    services.logind.extraConfig = ''
-      HandlePowerKey=ignore
-      HandlePowerKeyLongPress=hibernate
-    '';
-
     # Enable HomeManager
     tp.hm.programs.home-manager.enable = true;
     tp.hm.systemd.user.startServices = "sd-switch";

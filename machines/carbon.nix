@@ -106,19 +106,6 @@
   hardware.amdgpu.opencl.enable = true;
   #nixpkgs.config.rocmSupport = true;
 
-  services.wyoming.faster-whisper = {
-    servers.hasswhisper = {
-      enable = true;
-      device = "cpu";
-      uri = "tcp://0.0.0.0:10300";
-      model = "small.en";
-      language = "en";
-      #extraArgs = ["--cpu-threads 12"];
-    };
-  };
-
-  #nixpkgs.config.allowBroken = true;
-
   services.ollama = {
     enable = true;
     acceleration = false;
@@ -170,6 +157,11 @@
   hardware.wirelessRegulatoryDatabase = true;
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom=US
+  '';
+
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore
+    HandlePowerKeyLongPress=hibernate
   '';
 
   ################################################################################
