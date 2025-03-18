@@ -16,6 +16,7 @@ in {
       lm_sensors
       brightnessctl
       playerctl
+      ddcutil
     ];
     # Config for waybar
     tp.hm.programs.waybar = {
@@ -49,6 +50,14 @@ in {
             /* Avoid rounded borders under each button name */
             border: none;
             border-radius: 0;
+        }
+        #privacy {
+            color: @base;
+            background-color: @peach;
+            border-radius: 8px;
+            padding: 0 8px;
+            font-weight: bold;
+            margin: 3px;
         }
         #power-profiles-daemon {
             color: @text;
@@ -278,9 +287,31 @@ in {
           "output" = ["eDP-1"];
           "modules-left" = ["sway/workspaces" "mpris"];
           "modules-center" = ["clock"];
-          "modules-right" = ["power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
+          "modules-right" = ["privacy" "power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];
           "margin" = "6px 6px 0px 6px";
 
+          "privacy" = {
+            "icon-spacing" = 4;
+            "icon-size" = 18;
+            "transition-duration" = 250;
+            "modules" = [
+              {
+                "type" = "screenshare";
+                "tooltip" = true;
+                "tooltip-icon-size" = 24;
+              }
+              {
+                "type" = "audio-out";
+                "tooltip" = true;
+                "tooltip-icon-size" = 24;
+              }
+              {
+                "type" = "audio-in";
+                "tooltip" = true;
+                "tooltip-icon-size" = 24;
+              }
+            ];
+          };
           "power-profiles-daemon" = {
             "format" = "{icon}";
             "tooltip-format" = "Power profile: {profile}\nDriver: {driver}";
