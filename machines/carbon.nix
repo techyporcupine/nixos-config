@@ -159,9 +159,17 @@
     options cfg80211 ieee80211_regdom=US
   '';
 
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandlePowerKeyLongPress=hibernate
+  services.logind = {
+    # Set to suspend then hibernate
+    lidSwitch = "suspend-then-hibernate";
+    # Disable power key from powering off, make a hold go to hibernate.
+    extraConfig = ''
+      HandlePowerKey=ignore
+    '';
+  };
+  # Set to hibernate after some time
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=2days
   '';
 
   ################################################################################
