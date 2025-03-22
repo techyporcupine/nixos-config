@@ -23,7 +23,7 @@ in {
       port = 9111;
       scrapeConfigs = [
         {
-          job_name = "opnsense-opnsense.internal";
+          job_name = "opnsense";
           static_configs = [
             {
               targets = ["10.0.0.1:9100"];
