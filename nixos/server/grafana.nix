@@ -8,7 +8,7 @@
   cfg = config.tp.server.grafana;
 in {
   options.tp.server.grafana = {
-    enable = lib.mkEnableOption "Enable grafana";
+    enable = lib.mkEnableOption "Enable grafana and prometheus";
   };
 
   config = lib.mkIf cfg.enable {
@@ -17,6 +17,10 @@ in {
       domain = "grafana.local.cb-tech.me";
       port = 2342;
       addr = "127.0.0.1";
+    };
+    services.prometheus = {
+      enable = true;
+      port = 9111;
     };
     services.traefik.dynamicConfigOptions.http = {
       routers = {
