@@ -37,8 +37,8 @@ in {
                 walk = ["1.3.6.1.4.1.41112.1.6"];
                 lookups = [
                   {
-                    source_indexes = [unifiVapIndex];
-                    lookup = unifiVapName;
+                    source_indexes = ["unifiVapIndex"];
+                    lookup = "unifiVapName";
                   }
                 ];
               };
