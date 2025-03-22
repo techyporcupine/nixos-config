@@ -32,6 +32,17 @@ in {
                 version = 2;
               };
             };
+            modules = {
+              ubiquiti_unifi = {
+                walk = ["1.3.6.1.4.1.41112.1.6"];
+                lookups = [
+                  {
+                    source_indexes = [unifiVapIndex];
+                    lookup = unifiVapName;
+                  }
+                ];
+              };
+            };
           };
         };
       };
