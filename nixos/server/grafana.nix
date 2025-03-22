@@ -21,6 +21,19 @@ in {
     services.prometheus = {
       enable = true;
       port = 9111;
+      exporters = {
+        snmp = {
+          enable = true;
+          configuration = {
+            auths = {
+              public_v2 = {
+                community = "public";
+                version = 2;
+              };
+            };
+          };
+        };
+      };
       scrapeConfigs = [
         {
           job_name = "opnsense-bowman4";
