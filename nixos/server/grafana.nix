@@ -21,6 +21,16 @@ in {
     services.prometheus = {
       enable = true;
       port = 9111;
+      scrapeConfigs = [
+        {
+          job_name = "opnsense-bowman4";
+          static_configs = [
+            {
+              targets = ["opnsense:9100"];
+            }
+          ];
+        }
+      ];
     };
     services.traefik.dynamicConfigOptions.http = {
       routers = {
