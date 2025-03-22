@@ -26,7 +26,7 @@ in {
           job_name = "opnsense-bowman4";
           static_configs = [
             {
-              targets = ["opnsense:9100"];
+              targets = ["10.0.0.1:9100"];
             }
           ];
         }
