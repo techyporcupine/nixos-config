@@ -81,6 +81,9 @@ in {
         availability = true;
       };
     };
+    environment.systemPackages = with pkgs; [
+      net-snmp
+    ];
     services.traefik.dynamicConfigOptions.http = {
       routers = {
         homeassistantext = {
