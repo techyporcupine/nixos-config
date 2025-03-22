@@ -92,7 +92,6 @@
     yubioath-flutter
     inputs.quickemu.packages.${system}.quickemu
     calibre
-    gnome-network-displays
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
