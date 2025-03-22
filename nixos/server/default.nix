@@ -12,5 +12,6 @@
     ./backups.nix
     ./jellyfin.nix
     ./beszel.nix
+    ./grafana.nix
   ];
 }

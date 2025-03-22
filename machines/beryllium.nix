@@ -77,6 +77,9 @@
     backups.client.enable = true;
     jellyfin.enable = true;
     beszel.enable = true;
+    grafana = {
+      enable = true;
+    };
   };
 
   systemd.services.beszel = {
