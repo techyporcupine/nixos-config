@@ -24,6 +24,7 @@ in {
       exporters = {
         snmp = {
           enable = true;
+          openFirewall = true;
           configuration = {
             auths = {
               public_v2 = {
