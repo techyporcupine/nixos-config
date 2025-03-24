@@ -15,7 +15,7 @@ in {
     services.matrix-synapse = {
       enable = true;
       server_name = "matrix.cb-tech.me";
-      listeners = [
+      settings.listeners = [
         {
           port = 8118;
           bind_address = "::1";
