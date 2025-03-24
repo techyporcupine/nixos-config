@@ -15,7 +15,7 @@ in {
     services.matrix-synapse = {
       enable = true;
       settings = {
-        server_name = "matrix.cb-tech.me";
+        server_name = "cb-tech.me";
         database.name = "sqlite3";
         listeners = [
           {
