@@ -16,6 +16,7 @@ in {
       enable = true;
       settings = {
         server_name = "matrix.cb-tech.me";
+        database.name = "sqlite3";
         listeners = [
           {
             port = 8118;
