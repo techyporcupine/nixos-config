@@ -80,6 +80,7 @@
     grafana = {
       enable = true;
     };
+    matrix.enable = true;
   };
 
   systemd.services.beszel = {

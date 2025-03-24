@@ -13,5 +13,6 @@
     ./jellyfin.nix
     ./beszel.nix
     ./grafana.nix
+    ./matrix.nix
   ];
 }
