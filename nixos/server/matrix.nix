@@ -18,7 +18,7 @@ in {
       settings.listeners = [
         {
           port = 8118;
-          bind_address = "::1";
+          bind_addresses = ["::1"];
           type = "http";
           tls = false;
           x_forwarded = true;
