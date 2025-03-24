@@ -14,6 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.matrix-synapse = {
       enable = true;
+      extraConfigFiles = ["/var/secrets/synapse"];
       settings = {
         server_name = "cb-tech.me";
         database.name = "sqlite3";
