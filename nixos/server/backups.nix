@@ -45,6 +45,7 @@ in {
             "/var/lib/uptime-kuma"
             "/home/${config.tp.username}/beszel_data"
             "/var/media"
+            "/var/lib/matrix-synapse"
           ];
           exclude = [
             "/var/lib/immich/encoded-video"
