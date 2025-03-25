@@ -53,7 +53,7 @@ in {
           job_name = "restic-prometheus";
           static_configs = [
             {
-              targets = ["http://helium:8000/metrics"];
+              targets = ["http://100.64.0.6:8000/metrics"];
             }
           ];
         }
