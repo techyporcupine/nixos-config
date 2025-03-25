@@ -49,6 +49,14 @@ in {
             }
           ];
         }
+        {
+          job_name = "restic-prometheus";
+          static_configs = [
+            {
+              targets = ["http://helium:8000/metrics"];
+            }
+          ];
+        }
       ];
     };
     services.traefik.dynamicConfigOptions.http = {
