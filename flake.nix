@@ -68,10 +68,6 @@
       url = "github:hyprwm/hyprpaper/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ladybird = {
-      url = "github:LadybirdBrowser/ladybird";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # Home manager config
     home-manager = {
