@@ -12,7 +12,6 @@
     config = {
       permittedInsecurePackages = [
         "openssl-1.1.1w"
-        "unifi-controller-8.5.6"
       ];
       packageOverrides = pkgs: {
         vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
