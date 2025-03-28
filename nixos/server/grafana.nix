@@ -14,9 +14,11 @@ in {
   config = lib.mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      domain = "grafana.local.cb-tech.me";
-      port = 2342;
-      addr = "127.0.0.1";
+      settings.server = {
+        domain = "grafana.local.cb-tech.me";
+        port = 2342;
+        addr = "127.0.0.1";
+      };
     };
     services.prometheus = {
       enable = true;
