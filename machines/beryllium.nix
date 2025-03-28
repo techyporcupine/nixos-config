@@ -130,7 +130,7 @@
     enable32Bit = true;
   };
 
-  systemd.services."immich-server".path = [pkgs.perl];
+  swapDevices = lib.mkForce [];
 
   ################################################################################
   ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
