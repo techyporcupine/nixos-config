@@ -18,7 +18,7 @@ in {
       openFirewall = true;
       # use latest unifi package
       unifiPackage = pkgs.unifi;
-      mongodbPackage = pkgs.mongodb;
+      mongodbPackage = pkgs.mongodb-6_0;
     };
 
     nixpkgs.overlays = [
