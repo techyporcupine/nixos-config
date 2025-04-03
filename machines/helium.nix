@@ -40,7 +40,7 @@
     useRoutingFeatures = "both";
     extraSetFlags = [
       "--advertise-exit-node"
-      "--advertise-routes=192.168.1.8/30"
+      "--advertise-routes=192.168.1.8/30,192.168.1.7/32"
     ];
   };
 
