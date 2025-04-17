@@ -81,6 +81,12 @@ in {
             hostname = "helium";
             setEnv = {TERM = "kitty";};
           };
+          "boron" = {
+            forwardAgent = true;
+            user = "boron";
+            hostname = "10.0.0.8";
+            setEnv = {TERM = "kitty";};
+          };
           "switch" = {
             hostname = "10.0.0.4";
             user = "admin";
