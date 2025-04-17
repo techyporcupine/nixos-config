@@ -9,5 +9,6 @@
     ./waybar.nix
     ./qt.nix
     ./sway
+    ./nvidia.nix
   ];
 }
