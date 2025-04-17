@@ -92,6 +92,8 @@
     yubioath-flutter
     inputs.quickemu.packages.${system}.quickemu
     calibre
+    rawtherapee
+    (llama-cpp.override {rocmSupport = true;})
   ];
 
   virtualisation.spiceUSBRedirection.enable = true;
@@ -105,6 +107,11 @@
 
   hardware.amdgpu.opencl.enable = true;
   #nixpkgs.config.rocmSupport = true;
+
+  #services.llama-cpp = {
+  #  enable = true;
+  #  package = pkgs.llama-cpp.override {rocmSupport = true;};
+  #};
 
   services.ollama = {
     enable = true;

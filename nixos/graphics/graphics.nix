@@ -1,4 +1,3 @@
-# TODO: COMMENTS and fix Nvidia xserver driver thingys
 {
   pkgs,
   config,
