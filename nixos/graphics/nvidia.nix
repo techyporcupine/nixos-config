@@ -11,7 +11,7 @@ in {
     nvidia = lib.mkEnableOption "TP's graphics stack";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.nvidia.enable {
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
 
