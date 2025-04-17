@@ -8,10 +8,10 @@
   cfg = config.tp.graphics;
 in {
   options.tp.graphics = {
-    nvidia = lib.mkEnableOption "TP's graphics stack";
+    nvidia = lib.mkEnableOption "nvidia stack";
   };
 
-  config = lib.mkIf cfg.nvidia.enable {
+  config = lib.mkIf cfg.nvidia {
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
 
