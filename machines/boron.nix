@@ -53,11 +53,6 @@
   tp.server = {
   };
 
-  # PACKAGES JUST FOR THIS MACHINE
-  environment.systemPackages = with pkgs; [
-    (llama-cpp.override {cudaSupport = true;})
-  ];
-
   systemd.services.beszel = {
     enable = true;
     path = [pkgs.beszel];
@@ -87,6 +82,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
+    (llama-cpp.override {cudaSupport = true;})
   ];
 
   boot.loader.systemd-boot.enable = true;
