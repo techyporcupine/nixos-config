@@ -89,12 +89,15 @@
   ];
 
   services.wyoming = {
-    faster-whisper.servers.remotewhisper = {
-      enable = true;
-      device = "cuda";
-      uri = "tcp://0.0.0.0:10300";
-      model = "Systran/faster-distil-whisper-medium.en";
-      language = "en";
+    faster-whisper = {
+      package = pkgs.faster-whisper.override {ctranslate2 = pkgs.ctranslate2.override {withCUDA = true;};};
+      servers.remotewhisper = {
+        enable = true;
+        device = "cuda";
+        uri = "tcp://0.0.0.0:10300";
+        model = "Systran/faster-distil-whisper-medium.en";
+        language = "en";
+      };
     };
   };
 
