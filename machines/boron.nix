@@ -90,7 +90,6 @@
 
   services.wyoming = {
     faster-whisper = {
-      package = pkgs.wyoming-faster-whisper.override {whisper-ctranslate2 = pkgs.whisper-ctranslate2.override {withCUDA = true;};};
       servers.remotewhisper = {
         enable = true;
         device = "cuda";
@@ -100,6 +99,8 @@
       };
     };
   };
+
+  nixpkgs.config.cudaSupport = true;
 
   boot.loader.systemd-boot.enable = true;
 
