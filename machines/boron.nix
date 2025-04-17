@@ -90,7 +90,7 @@
 
   services.wyoming = {
     faster-whisper = {
-      package = pkgs.faster-whisper.override {ctranslate2 = pkgs.ctranslate2.override {withCUDA = true;};};
+      package = pkgs.wyoming-faster-whisper.override {ctranslate2 = pkgs.ctranslate2.override {withCUDA = true;};};
       servers.remotewhisper = {
         enable = true;
         device = "cuda";
