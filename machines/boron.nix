@@ -94,7 +94,7 @@
         enable = true;
         device = "cuda";
         uri = "tcp://0.0.0.0:10300";
-        model = "Systran/faster-whisper-medium";
+        model = "small.en";
         language = "en";
       };
     };
