@@ -94,14 +94,32 @@
     openFirewall = true;
   };
 
-  services.open-webui = {
-    enable = true;
-    openFirewall = true;
-    environment = {
-      ANONYMIZED_TELEMETRY = "False";
-      DO_NOT_TRACK = "True";
-      SCARF_NO_ANALYTICS = "True";
-      WEBUI_AUTH = "False";
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+    oci-containers = lib.mkIf cfg.containers.enable {
+      backend = "podman";
+      containers = {
+        dashy = {
+          image = "ghcr.io/open-webui/open-webui:main";
+          volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
+          autoStart = true;
+          environment = {
+            OLLAMA_BASE_URL = "http://10.0.0.8:8080";
+          };
+          extraOptions = [
+            "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
+          ];
+          ports = ["127.0.0.1:3000:8080"];
+        };
+      };
     };
   };
 
