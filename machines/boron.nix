@@ -77,6 +77,7 @@
       45876
       10300
       3000
+      11434
     ];
   };
 
@@ -113,7 +114,7 @@
           volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
           autoStart = true;
           environment = {
-            OLLAMA_BASE_URL = "http://10.0.0.8:3000";
+            OLLAMA_BASE_URL = "http://10.0.0.8:8080";
             WEBUI_AUTH = "False";
           };
           extraOptions = [
