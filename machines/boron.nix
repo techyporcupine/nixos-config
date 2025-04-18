@@ -76,6 +76,7 @@
     allowedTCPPorts = [
       45876
       10300
+      3000
     ];
   };
 
@@ -112,7 +113,7 @@
           volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
           autoStart = true;
           environment = {
-            OLLAMA_BASE_URL = "http://10.0.0.8:8080";
+            OLLAMA_BASE_URL = "http://10.0.0.8:3000";
           };
           extraOptions = [
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
