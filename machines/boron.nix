@@ -88,6 +88,12 @@
     (llama-cpp.override {cudaSupport = true;})
   ];
 
+  services.ollama = {
+    enable = true;
+    host = "0.0.0.0";
+    openFirewall = true;
+  };
+
   services.wyoming = {
     faster-whisper = {
       servers.remotewhisper = {
