@@ -108,7 +108,7 @@
     oci-containers = {
       backend = "podman";
       containers = {
-        dashy = {
+        open-webui = {
           image = "ghcr.io/open-webui/open-webui:main";
           volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
           autoStart = true;
@@ -118,7 +118,7 @@
           extraOptions = [
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
           ];
-          ports = ["127.0.0.1:3000:8080"];
+          ports = ["0.0.0.0:3000:8080"];
         };
       };
     };
