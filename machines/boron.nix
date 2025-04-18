@@ -118,8 +118,8 @@
           };
           extraOptions = [
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
+            "--network=host"
           ];
-          ports = ["0.0.0.0:3000:8080"];
         };
       };
     };
