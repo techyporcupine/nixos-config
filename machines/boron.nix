@@ -114,6 +114,7 @@
           autoStart = true;
           environment = {
             OLLAMA_BASE_URL = "http://10.0.0.8:3000";
+            WEBUI_AUTH = "False";
           };
           extraOptions = [
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
