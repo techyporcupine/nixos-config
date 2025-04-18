@@ -92,7 +92,7 @@
     faster-whisper = {
       servers.remotewhisper = {
         enable = true;
-        device = "cpu";
+        device = "cuda";
         uri = "tcp://0.0.0.0:10300";
         model = "small.en";
         language = "en";
