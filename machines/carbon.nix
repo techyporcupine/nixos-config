@@ -92,7 +92,8 @@
     yubioath-flutter
     inputs.quickemu.packages.${system}.quickemu
     calibre
-    rawtherapee
+    darktable
+    inkscape
     (llama-cpp.override {rocmSupport = true;})
   ];
 
