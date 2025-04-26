@@ -15,6 +15,22 @@
         "type": "github"
       }
     },
+    "companion-satellite": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "path": "nixos/pkgs/companion-satellite",
+        "type": "path"
+      },
+      "original": {
+        "path": "nixos/pkgs/companion-satellite",
+        "type": "path"
+      },
+      "parent": []
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -838,6 +854,7 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
+        "companion-satellite": "companion-satellite",
         "disko": "disko",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",

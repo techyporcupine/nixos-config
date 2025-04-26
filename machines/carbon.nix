@@ -95,7 +95,14 @@
     darktable
     inkscape
     (llama-cpp.override {rocmSupport = true;})
+    inputs.companion-satellite.packages.${pkgs.system}.default
   ];
+
+  programs.ydotool.enable = true;
+
+  users.users.${config.tp.username} = {
+    extraGroups = ["ydotool"];
+  };
 
   virtualisation.spiceUSBRedirection.enable = true;
 

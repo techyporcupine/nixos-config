@@ -9,6 +9,11 @@
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
     nixpkgs-master.url = "github:nixos/nixpkgs";
 
+    companion-satellite = {
+      url = "path:nixos/pkgs/companion-satellite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Quickemu
     quickemu = {
       url = "github:quickemu-project/quickemu";
