@@ -17,7 +17,7 @@ in {
 
       database = {
         createLocally = true;
-        passwordFile = /run/secrets/librenmsdb;
+        passwordFile = /var/secrets/librenmsdb;
       };
     };
 
