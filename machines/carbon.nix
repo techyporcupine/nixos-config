@@ -135,6 +135,8 @@
   # Enable PCSCD for Yubikey
   services.pcscd.enable = true;
 
+  hardware.opentabletdriver.enable = true;
+
   # Kyocera Printer Drivers
   services.printing.drivers = [pkgs.stable.cups-kyodialog];
 
