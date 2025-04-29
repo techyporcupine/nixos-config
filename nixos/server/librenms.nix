@@ -14,7 +14,6 @@ in {
     # LibreNMS setup with local DB
     services.librenms = {
       enable = true;
-      webServer = "nginx";
 
       database = {
         createLocally = true;
