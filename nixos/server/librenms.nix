@@ -22,17 +22,20 @@ in {
     };
 
     # nginx listens only locally, Traefik proxies it
-    services.nginx.virtualHosts."librenms.internal" = {
-      root = "/var/www/librenms/html";
-      listen = [
-        {
-          addr = "127.0.0.1";
-          port = 18089;
-        }
-      ];
-      locations."/" = {
-        index = "index.php";
-        tryFiles = "$uri $uri/ /index.php?$query_string";
+    services.nginx = {
+      defaultVirtualHost = false;
+
+      virtualHosts."librenms.internal" = {
+        root = "/var/www/librenms/html";
+        listen = [
+          {
+            addr = "127.0.0.1";
+            port = 18089;
+          }
+        ];
+        locations."/" = {
+          index = "index.php";
+        };
       };
     };
 
