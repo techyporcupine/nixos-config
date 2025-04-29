@@ -21,7 +21,6 @@ in {
       };
 
       nginx = {
-        enable = true; # Ensure Nginx is enabled
         virtualHosts = {
           "librenms.internal" = {
             root = "/var/www/librenms/html";
