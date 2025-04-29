@@ -19,27 +19,23 @@ in {
         createLocally = true;
         passwordFile = "/var/secrets/librenmsdb";
       };
-    };
 
-    services.nginx = {
-      enable = true;
-      recommendedProxySettings = true;
-
-      # Prevent default server from binding to 0.0.0.0:80
-      virtualHosts = {};
-    };
-
-    # nginx listens only locally, Traefik proxies it
-    services.nginx.virtualHosts."librenms.internal" = {
-      root = "/var/www/librenms/html";
-      listen = [
-        {
-          addr = "127.0.0.1";
-          port = 18089;
-        }
-      ];
-      locations."/" = {
-        index = "index.php";
+      nginx = {
+        enable = true; # Ensure Nginx is enabled
+        virtualHosts = {
+          "librenms.internal" = {
+            root = "/var/www/librenms/html";
+            listen = [
+              {
+                addr = "127.0.0.1";
+                port = 18089;
+              }
+            ];
+            locations."/" = {
+              index = "index.php";
+            };
+          };
+        };
       };
     };
 
