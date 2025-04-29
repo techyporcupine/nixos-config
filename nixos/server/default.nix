@@ -14,5 +14,6 @@
     ./beszel.nix
     ./grafana.nix
     ./matrix.nix
+    ./librenms.nix
   ];
 }

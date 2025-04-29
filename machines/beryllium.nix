@@ -79,6 +79,7 @@
     grafana = {
       enable = true;
     };
+    librenms.enable = true;
     matrix.enable = true;
   };
 
