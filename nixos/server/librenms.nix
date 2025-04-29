@@ -21,19 +21,25 @@ in {
       };
 
       nginx = {
-        virtualHosts = {
-          "librenms.internal" = {
-            root = "/var/www/librenms/html";
-            listen = [
-              {
-                addr = "127.0.0.1";
-                port = 18089;
-              }
-            ];
-            locations."/" = {
-              index = "index.php";
-            };
-          };
+        # Configure the listener (maps to 'listen' directive)
+        listen = [
+          {
+            addr = "127.0.0.1"; # Listen only on localhost
+            port = 18089; # The port Traefik forwards to
+          }
+        ];
+
+        # Set the document root (maps to 'root' directive)
+        # Use the package path for robustness
+        # root = "${config.services.librenms.package}/html";
+
+        # Configure locations (maps to 'location' blocks)
+        locations."/" = {
+          # Add the try_files directive for PHP routing
+          tryFiles = "$uri $uri/ /index.php?$query_string";
+
+          # Set the index file
+          index = "index.php";
         };
       };
     };
