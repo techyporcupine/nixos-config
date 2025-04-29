@@ -34,26 +34,6 @@ in {
         index = "index.php";
         tryFiles = "$uri $uri/ /index.php?$query_string";
       };
-      locations."~ \.php$" = {
-        fastcgiPass = "unix:/run/phpfpm/librenms.sock";
-        fastcgiIndex = "index.php";
-        extraConfig = ''
-          include fastcgi.conf;
-        '';
-      };
-    };
-
-    # PHP-FPM pool
-    services.phpfpm.pools.librenms = {
-      user = "librenms";
-      group = "librenms";
-      phpPackage = pkgs.php;
-      settings = {
-        "listen" = "/run/phpfpm/librenms.sock";
-        "listen.owner" = "librenms";
-        "listen.group" = "nginx";
-        "listen.mode" = "0660";
-      };
     };
 
     # Traefik reverse proxy to nginx
