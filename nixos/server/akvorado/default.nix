@@ -58,7 +58,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${akvoradoPkg}/bin/akvorado orchestrator /home/${config.tp.username}/akvorado/config.yaml";
+        ExecStart = "${akvoradoPkg}/bin/akvorado orchestrator /var/lib/akvorado-orchestrator/config.yaml";
         Restart = "always";
         DynamicUser = true;
         StateDirectory = "akvorado-orchestrator";
