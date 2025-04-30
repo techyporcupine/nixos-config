@@ -72,7 +72,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${akvoradoPkg}/bin/akvorado inlet http://127.0.0.1:8081";
+        ExecStart = "${akvoradoPkg}/bin/akvorado inlet http://127.0.0.1:8083";
         Restart = "always";
         DynamicUser = true;
         StateDirectory = "akvorado-inlet";
@@ -86,7 +86,7 @@ in {
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${akvoradoPkg}/bin/akvorado console http://127.0.0.1:8082";
+        ExecStart = "${akvoradoPkg}/bin/akvorado console http://127.0.0.1:8083";
         Restart = "always";
         DynamicUser = true;
         StateDirectory = "akvorado-console";
