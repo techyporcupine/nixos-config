@@ -59,6 +59,16 @@ in {
             }
           ];
         }
+        {
+          job_name = "pushgateway";
+          scrape_interval = "300s";
+          honor_labels = true;
+          static_configs = [
+            {
+              targets = ["127.0.0.1:9093"];
+            }
+          ];
+        }
       ];
     };
     services.traefik.dynamicConfigOptions.http = {
