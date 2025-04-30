@@ -23,6 +23,7 @@ in {
     services.prometheus = {
       enable = true;
       port = 9111;
+      pushgateway.enable = true;
       exporters = {
         snmp = {
           enable = true;
