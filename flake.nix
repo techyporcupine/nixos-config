@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    akvorado = {
+      url = "github:akvorado/akvorado";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Quickemu
     quickemu = {
       url = "github:quickemu-project/quickemu";

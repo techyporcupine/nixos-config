@@ -15,5 +15,6 @@
     ./grafana.nix
     ./matrix.nix
     ./librenms.nix
+    ./akvorado.nix
   ];
 }
