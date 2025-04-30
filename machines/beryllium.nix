@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }: {
   # NIX CONFIGURATION
@@ -113,6 +114,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
+    inputs.akvorado.packages.${pkgs.system}.default
   ];
 
   boot.loader.systemd-boot.enable = true;
