@@ -94,6 +94,14 @@ in {
       };
     };
 
+    networking.firewall = {
+      interfaces."ens18" = {
+        allowedUDPPorts = [
+          2056
+        ];
+      };
+    };
+
     services.traefik.dynamicConfigOptions.http = {
       routers = {
         akvorado = {
