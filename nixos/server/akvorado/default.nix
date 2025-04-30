@@ -15,7 +15,10 @@ in {
   config = lib.mkIf cfg.enable {
     services.clickhouse.enable = true;
 
-    services.apache-kafka.enable = true;
+    services.apache-kafka = {
+      enable = true;
+      configFiles.serverProperties = ./server.properties;
+    };
 
     systemd.services.akvorado = {
       description = "Akvorado Flow Collector";
