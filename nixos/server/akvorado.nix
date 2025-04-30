@@ -5,7 +5,7 @@
   inputs,
   ...
 }: let
-  cfg = config.tp.server.advorado;
+  cfg = config.tp.server.akvorado;
   akvoradoPkg = inputs.akvorado.packages.${pkgs.system}.default;
 in {
   options.tp.server.akvorado = {
