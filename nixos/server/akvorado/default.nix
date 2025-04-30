@@ -51,17 +51,46 @@ in {
     # with the right permissions
     systemd.services.apache-kafka.unitConfig.StateDirectory = "apache-kafka";
 
-    systemd.services.akvorado = {
-      description = "Akvorado Flow Collector";
-      after = ["network.target"];
+    systemd.services.akvorado-orchestrator = {
+      description = "Akvorado Flow Collector Orchestrator";
+      after = ["network.target" "remote-fs.target"];
+      requires = ["network.target" "remote-fs.target"];
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {
-        ExecStart = "${akvoradoPkg}/bin/akvorado";
+        ExecStart = "${akvoradoPkg}/bin/akvorado orchestrator /home/${config.tp.username}/akvorado/config.yaml";
         Restart = "always";
         DynamicUser = true;
-        StateDirectory = "akvorado";
-        WorkingDirectory = "/var/lib/akvorado";
+        StateDirectory = "akvorado-orchestrator";
+        WorkingDirectory = "/var/lib/akvorado-orchestrator";
+      };
+    };
+    systemd.services.akvorado-inlet = {
+      description = "Akvorado Flow Collector Inlet";
+      after = ["network.target" "remote-fs.target"];
+      requires = ["network.target" "remote-fs.target" "akvorado-orchestrator.service"];
+      wantedBy = ["multi-user.target"];
+
+      serviceConfig = {
+        ExecStart = "${akvoradoPkg}/bin/akvorado inlet http://127.0.0.1:8081";
+        Restart = "always";
+        DynamicUser = true;
+        StateDirectory = "akvorado-inlet";
+        WorkingDirectory = "/var/lib/akvorado-inlet";
+      };
+    };
+    systemd.services.akvorado-console = {
+      description = "Akvorado Flow Collector Console";
+      after = ["network.target" "remote-fs.target"];
+      requires = ["network.target" "remote-fs.target" "akvorado-orchestrator.service"];
+      wantedBy = ["multi-user.target"];
+
+      serviceConfig = {
+        ExecStart = "${akvoradoPkg}/bin/akvorado console http://127.0.0.1:8082";
+        Restart = "always";
+        DynamicUser = true;
+        StateDirectory = "akvorado-console";
+        WorkingDirectory = "/var/lib/akvorado-console";
       };
     };
 
@@ -76,7 +105,7 @@ in {
           tls.certResolver = "cloudflare";
         };
       };
-      services.akvorado = {loadBalancer.servers = [{url = "http://localhost:8081";}];};
+      services.akvorado = {loadBalancer.servers = [{url = "http://localhost:8082";}];};
     };
   };
 }
