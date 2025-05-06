@@ -12,13 +12,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.interfaces."ens18" = {
+    networking.firewall = {
       allowedTCPPorts = [
         # Basic HTTP ports
         80
         443
         1443
-        13002
       ];
     };
 
