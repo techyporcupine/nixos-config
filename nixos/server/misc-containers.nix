@@ -41,7 +41,7 @@ in {
             extraOptions = [
               "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
             ];
-            ports = ["127.0.0.1:13002:3000"];
+            ports = ["0.0.0.0:13002:3000"];
           };
           librespeed = {
             image = "ghcr.io/librespeed/speedtest:latest";
@@ -53,7 +53,7 @@ in {
             extraOptions = [
               "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
             ];
-            ports = ["0.0.0.0:13003:80"];
+            ports = ["127.0.0.1:13003:80"];
           };
         };
       };
