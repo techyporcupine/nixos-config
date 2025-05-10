@@ -118,7 +118,6 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-    (llama-cpp.override {cudaSupport = true;})
   ];
 
   services.ollama = {
