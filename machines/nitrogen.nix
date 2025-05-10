@@ -126,7 +126,7 @@
     openFirewall = true;
     acceleration = "cuda";
     environmentVariables = {
-      OLLAMA_LLM_LIBRARY = "cuda_v11";
+      OLLAMA_FLASH_ATTENTION = 0;
     };
   };
 
