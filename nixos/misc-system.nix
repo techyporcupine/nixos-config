@@ -84,7 +84,13 @@ in {
           "boron" = {
             forwardAgent = true;
             user = "boron";
-            hostname = "10.0.0.8";
+            hostname = "10.0.0.10";
+            setEnv = {TERM = "kitty";};
+          };
+          "nitrogen" = {
+            forwardAgent = true;
+            user = "nitrogen";
+            hostname = "10.0.0.11";
             setEnv = {TERM = "kitty";};
           };
           "switch" = {
