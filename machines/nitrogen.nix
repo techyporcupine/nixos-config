@@ -121,10 +121,6 @@
     (llama-cpp.override {cudaSupport = true;})
   ];
 
-  nixpkgs.overlays = [
-    (import ../nixos/pkgs/ollama-overlay.nix)
-  ];
-
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
