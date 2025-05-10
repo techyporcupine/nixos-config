@@ -37,6 +37,8 @@
     useRoutingFeatures = "client";
   };
 
+  services.cloudflare-warp.enable = true;
+
   tp.server.virtualisation.enable = true;
 
   # GRAPHICS CONFIG
