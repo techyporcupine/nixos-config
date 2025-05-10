@@ -132,6 +132,7 @@
     acceleration = "cuda";
     environmentVariables = {
       OLLAMA_FLASH_ATTENTION = "0";
+      GGML_CUDA_FORCE_MMQ = "1";
     };
   };
 
