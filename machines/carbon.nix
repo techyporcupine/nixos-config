@@ -98,6 +98,10 @@
     inkscape
     (llama-cpp.override {rocmSupport = true;})
     inputs.companion-satellite.packages.${pkgs.system}.default
+
+    # Copter applications
+    qgroundcontrol
+    mission-planner
   ];
 
   programs.ydotool.enable = true;
