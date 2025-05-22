@@ -113,8 +113,6 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-    inputs.akvorado.packages.${pkgs.system}.default
-    inputs.akvorado.packages.${pkgs.system}.frontend
   ];
 
   boot.loader.systemd-boot.enable = true;
