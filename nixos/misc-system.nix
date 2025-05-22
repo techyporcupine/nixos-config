@@ -94,8 +94,8 @@ in {
             setEnv = {TERM = "kitty";};
           };
           "switch" = {
-            hostname = "10.0.0.4";
-            user = "admin";
+            hostname = "10.0.0.7";
+            user = "cisco";
             extraOptions = {
               PubkeyAcceptedAlgorithms = "+ssh-rsa";
               HostkeyAlgorithms = "+ssh-rsa";
