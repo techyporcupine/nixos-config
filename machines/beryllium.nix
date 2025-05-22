@@ -81,7 +81,7 @@
     };
     librenms.enable = true;
     matrix.enable = true;
-    akvorado.enable = true;
+    akvorado.enable = false;
   };
 
   systemd.services.beszel = {
