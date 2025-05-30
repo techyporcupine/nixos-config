@@ -84,6 +84,8 @@
     akvorado.enable = false;
   };
 
+  services.freeradius.enable = true;
+
   systemd.services.beszel = {
     enable = true;
     path = [pkgs.beszel];
