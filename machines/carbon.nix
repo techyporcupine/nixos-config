@@ -97,7 +97,7 @@
     darktable
     inkscape
     (llama-cpp.override {rocmSupport = true;})
-    inputs.companion-satellite.packages.${pkgs.system}.default
+    # inputs.companion-satellite.packages.${pkgs.system}.default
 
     # Copter applications
     qgroundcontrol
