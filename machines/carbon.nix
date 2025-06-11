@@ -104,6 +104,8 @@
     mission-planner
   ];
 
+  programs.kdeconnect.enable = true;
+
   programs.ydotool.enable = true;
 
   users.users.${config.tp.username} = {
