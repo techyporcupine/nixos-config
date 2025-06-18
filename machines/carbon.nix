@@ -97,6 +97,7 @@
     darktable
     inkscape
     (llama-cpp.override {rocmSupport = true;})
+    master.davinci-resolve
     # inputs.companion-satellite.packages.${pkgs.system}.default
 
     # Copter applications
