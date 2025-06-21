@@ -13,8 +13,9 @@ in {
   config = lib.mkIf cfg.enable {
     # TIME CONFIG
     time = {
-      timeZone = "America/New_York";
+      timeZone = lib.mkDefault "America/New_York";
     };
+    services.automatic-timezoned.enable = true;
 
     # LOCALE CONFIG
     i18n = {
