@@ -65,7 +65,7 @@
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # TCP Ports out of firewall
-  networking.firewall.allowedTCPPorts = [19132 10300];
+  networking.firewall.allowedTCPPorts = [19132 10300 9300];
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
@@ -100,6 +100,7 @@
     android-studio
     gnome-boxes
     # inputs.companion-satellite.packages.${pkgs.system}.default
+    packet
 
     # Copter applications
     qgroundcontrol

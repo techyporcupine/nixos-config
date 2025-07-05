@@ -35,6 +35,8 @@ in {
     # Packages that are not needed if you're not using Hyprland
     environment.systemPackages = with pkgs; [
       nautilus
+      nautilus-python
+      python3Packages.dbus-python
       gnome-disk-utility
       gnome-tweaks
       udiskie
@@ -53,6 +55,16 @@ in {
       nwg-displays
       (flameshot.override {enableWlrSupport = true;})
     ];
+
+    tp.hm.xdg = {
+      enable = true;
+      mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "image/png" = ["org.gnome.eog.desktop"];
+        };
+      };
+    };
 
     security.pam.services.hyprlock = {
       rules.auth.unix.order = config.security.pam.services.hyprlock.rules.auth.fprintd.order - 10;
