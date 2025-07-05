@@ -98,6 +98,8 @@
     inkscape
     (llama-cpp.override {rocmSupport = true;})
     master.davinci-resolve
+    android-studio
+    gnome-boxes
     # inputs.companion-satellite.packages.${pkgs.system}.default
 
     # Copter applications
@@ -106,6 +108,9 @@
   ];
 
   programs.kdeconnect.enable = true;
+
+  programs.virt-manager.enable = true;
+  virtualisation.libvirtd.enable = true;
 
   programs.ydotool.enable = true;
 

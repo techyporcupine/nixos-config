@@ -26,7 +26,7 @@
     users.users.${config.tp.username} = {
       isNormalUser = true;
       description = "${config.tp.fullName}";
-      extraGroups = ["networkmanager" "wheel" "plugdev" "video" "audio" "dialout" "fuse"];
+      extraGroups = ["networkmanager" "wheel" "plugdev" "video" "audio" "dialout" "fuse" "libvirtd" "kvm"];
       shell = pkgs.zsh;
       initialPassword = "initialPassword";
       openssh.authorizedKeys.keys = [
