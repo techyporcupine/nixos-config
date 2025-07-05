@@ -91,7 +91,6 @@
     qbittorrent
     libnatpmp
     handbrake
-    yubioath-flutter
     inputs.quickemu.packages.${system}.quickemu
     calibre
     darktable

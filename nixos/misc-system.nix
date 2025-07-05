@@ -58,6 +58,7 @@ in {
     tp.hm.services = {
       ssh-agent.enable = true;
     };
+    services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
     tp.hm.programs = {
       ssh = {
         enable = true;

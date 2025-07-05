@@ -45,7 +45,7 @@ in {
       audacity
       pavucontrol
       scrcpy
-      yubikey-personalization-gui
+      yubioath-flutter
       webcord
       networkmanagerapplet
     ];
