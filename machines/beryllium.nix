@@ -61,6 +61,10 @@
     ];
   };
 
+  time = {
+    timeZone = lib.mkForce "America/New_York";
+  };
+
   tp.server = {
     minecraft.enable = true;
     minecraft.broccoli-bloc = true;
