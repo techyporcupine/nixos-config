@@ -74,7 +74,7 @@ in {
           "beryllium" = {
             forwardAgent = true;
             user = "beryllium";
-            hostname = "beryllium";
+            hostname = "10.0.0.5";
             setEnv = {TERM = "kitty";};
           };
           "helium" = {
