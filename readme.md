@@ -1,6 +1,6 @@
 ## Techyporcupine's Workstation NixOS Config
 
-Repo that has the configuration for a nice NixOS setup using [nixos-unstable](https://github.com/NixOS/nixpkgs/tree/nixos-unstable) and [Hyprland](https://hyprland.org/).
+Repo that has the configuration for a nice NixOS setup using [nixos-unstable](https://github.com/NixOS/nixpkgs/tree/nixos-unstable) and Sway.
 Most of the config here is for my Framework 13 with an AMD Ryzen 5 7640U, so some things may need to be changed in your case!
 
 ![Overview Screenshot](assets/overviewscrnsht.png)
