@@ -52,7 +52,7 @@ in {
             "/var/lib/immich/thumbs"
           ];
           # Access via `restic -r "rest:http://helium:8000/remotebackup-large" snapshots`
-          repository = "rest:http://[2001:470:e251:1000::6]:8000/remotebackup-large";
+          repository = "rest:http://172.16.0.6:8000/remotebackup-large";
           pruneOpts = [
             "--keep-daily 3"
             "--keep-weekly 12"
