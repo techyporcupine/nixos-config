@@ -101,6 +101,7 @@
     gnome-boxes
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
+    remmina
 
     # Copter applications
     qgroundcontrol
