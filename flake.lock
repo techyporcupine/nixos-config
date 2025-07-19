@@ -54,22 +54,6 @@
         "type": "github"
       }
     },
-    "companion-satellite": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "path": "nixos/pkgs/companion-satellite",
-        "type": "path"
-      },
-      "original": {
-        "path": "nixos/pkgs/companion-satellite",
-        "type": "path"
-      },
-      "parent": []
-    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -759,11 +743,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1752944542,
-        "narHash": "sha256-emQMlUPQ2X00V9sCYNcCbbhlu5fPAbyunrP8u2eRDig=",
+        "lastModified": 1752961448,
+        "narHash": "sha256-jHUCTAKIiSL+Er2Z6WVLHcbelKgI6HUH8wrDV9TiEes=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "12094020ba573f9f55549ac406911059678f92d8",
+        "rev": "ada0db9a13b8ef1a55cbca5fb6bec4c57b06428c",
         "type": "github"
       },
       "original": {
@@ -806,11 +790,11 @@
     },
     "nixpkgs-staging": {
       "locked": {
-        "lastModified": 1752926796,
-        "narHash": "sha256-jg6wDr+gggLTItEEBTcezIYPqQi/wfinf32apgOsflA=",
+        "lastModified": 1752948302,
+        "narHash": "sha256-i3U4cTHSasMwuLLoD24DZz289ooBUnk5Q/hu8crwcf0=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "959ae5f4daf023c206c0034663f84f4132efa04c",
+        "rev": "8fcc66688a0d6527a22dc828c1804decb839eb99",
         "type": "github"
       },
       "original": {
@@ -911,7 +895,6 @@
       "inputs": {
         "akvorado": "akvorado",
         "catppuccin": "catppuccin",
-        "companion-satellite": "companion-satellite",
         "disko": "disko",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
