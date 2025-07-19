@@ -40,16 +40,6 @@
     avahi = true;
   };
 
-  services.tailscale = {
-    # Enable tailscale mesh network
-    enable = true;
-    useRoutingFeatures = "both";
-    extraSetFlags = [
-      "--advertise-exit-node"
-      "--advertise-routes=10.0.0.5/32,10.0.0.1/32,10.0.0.8/32"
-    ];
-  };
-
   tp.server = {
   };
 
