@@ -80,7 +80,7 @@ in {
           "helium" = {
             forwardAgent = true;
             user = "helium";
-            hostname = "helium";
+            hostname = "2001:470:e251:1000::6";
             setEnv = {TERM = "kitty";};
           };
           "boron" = {
