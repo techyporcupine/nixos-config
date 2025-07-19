@@ -195,7 +195,7 @@
           }
         ];
       };
-      helium = inputs.nixpkgs-stable.lib.nixosSystem {
+      heliumold = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
         # Path to NixOS configuration
@@ -220,6 +220,41 @@
           ./disko/helium-disko.nix
           ./nixos
           inputs.home-manager-stable.nixosModules.home-manager
+          inputs.catppuccin.nixosModules.catppuccin
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            # FIXME: Change username here if you changed the HM username
+            # home-manager.users.helium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+          }
+        ];
+      };
+      helium = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        # Path to NixOS configuration
+        modules = [
+          ({
+            config,
+            pkgs,
+            ...
+          }: {
+            nixpkgs.overlays = [
+              overlay-stable
+              overlay-tp
+              overlay-staging
+              overlay-master
+            ];
+          })
+          #{
+          #  nixpkgs.config.pkgs = import inputs.nixpkgs {inherit systems;};
+          #}
+          inputs.disko.nixosModules.disko
+          ./machines/helium.nix
+          ./disko/helium-disko.nix
+          ./nixos
+          inputs.home-manager.nixosModules.home-manager
           inputs.catppuccin.nixosModules.catppuccin
           {
             home-manager.useGlobalPkgs = true;
