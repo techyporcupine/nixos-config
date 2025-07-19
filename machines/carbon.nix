@@ -91,9 +91,9 @@
     qbittorrent
     libnatpmp
     handbrake
-    inputs.quickemu.packages.${system}.quickemu
+    #inputs.quickemu.packages.${system}.quickemu
     calibre
-    darktable
+    stable.darktable
     inkscape
     (llama-cpp.override {rocmSupport = true;})
     master.davinci-resolve
