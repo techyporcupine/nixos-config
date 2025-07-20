@@ -333,40 +333,6 @@
           }
         ];
       };
-      heliumold = inputs.nixpkgs-stable.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = {inherit inputs outputs;};
-        # Path to NixOS configuration
-        modules = [
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.overlays = [
-              overlay-stable
-              overlay-tp
-              overlay-staging
-              overlay-master
-            ];
-          })
-          {
-            nixpkgs.config.pkgs = import inputs.nixpkgs-stable {inherit systems;};
-          }
-          inputs.disko.nixosModules.disko
-          ./machines/heliumold.nix
-          ./nixos
-          inputs.home-manager-stable.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            # FIXME: Change username here if you changed the HM username
-            # home-manager.users.helium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
-          }
-        ];
-      };
     };
   };
 }
