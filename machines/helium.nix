@@ -34,15 +34,15 @@
   # HOSTED SERVICES CONFIG
   tp.server.backups.server.enable = true;
 
-  services.tailscale = {
-    # Enable tailscale mesh network
-    enable = true;
-    useRoutingFeatures = "both";
-    extraSetFlags = [
-      "--advertise-exit-node"
-      "--advertise-routes=192.168.1.8/30,192.168.1.7/32"
-    ];
-  };
+  #services.tailscale = {
+  #  # Enable tailscale mesh network
+  #  enable = true;
+  #  useRoutingFeatures = "both";
+  #  extraSetFlags = [
+  #    "--advertise-exit-node"
+  #    "--advertise-routes=192.168.1.8/30,192.168.1.7/32"
+  #  ];
+  #};
 
   # Git config
   tp.hm.programs.git.userName = "techyporcupine";

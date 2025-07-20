@@ -31,11 +31,11 @@
     avahi = true;
   };
 
-  services.tailscale = {
-    # Enable tailscale mesh network
-    enable = true;
-    useRoutingFeatures = "client";
-  };
+  #services.tailscale = {
+  #  # Enable tailscale mesh network
+  #  enable = true;
+  #  useRoutingFeatures = "client";
+  #};
 
   services.cloudflare-warp.enable = true;
 
