@@ -67,9 +67,14 @@ in {
         enable = true;
         extraFlags = ["--no-auth"];
         dataDir = "/mnt/1TB_Backup/restic";
-        listenAddress = "0.0.0.0:8000";
+        #listenAddress = "100.64.0.6:8000";
         prometheus = true;
       };
+    };
+    networking.firewall = lib.mkIf cfg.server.enable {
+      allowedTCPPorts = [
+        8000
+      ];
     };
   };
 }
