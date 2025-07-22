@@ -78,6 +78,12 @@ in {
                 sourceRange = ["10.0.0.0/24" "10.0.16.0/24" "10.0.24.0/24" "10.15.0.0/16" "2001:470:e251::/48" "172.16.0.0/16"];
               };
             };
+            authelia = {
+              forwardAuth = {
+                address = "https://auth.cb-tech.me/api/verify";
+                trustForwardHeader = true;
+              };
+            };
           };
           routers = {
             dashy = {

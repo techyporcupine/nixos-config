@@ -25,7 +25,7 @@ in {
           rule = "Host(`uptime.local.cb-tech.me`)";
           service = "uptimekuma";
           entrypoints = ["websecure"];
-          middlewares = ["internal-whitelist"];
+          middlewares = ["internal-whitelist" "authelia"];
           tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
           tls.certResolver = "cloudflare";
         };
