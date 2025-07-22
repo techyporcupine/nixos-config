@@ -88,9 +88,6 @@ in {
                   "Remote-Email"
                   "Remote-Groups"
                 ];
-                forwardHeaders = {
-                  X-Forwarded-Method = "{method}";
-                };
               };
             };
           };
