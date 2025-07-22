@@ -23,15 +23,19 @@ in {
         "auth.generic_oauth" = {
           enabled = true;
           name = "Authelia";
-          allow_sign_up = false;
+          icon = "signin";
           client_id = "grafana";
           client_secret = "\$__file{/var/secrets/grafana-secret}";
-          scopes = "openid profile email";
-          auth_url = "https://auth.cb-tech.me/oidc/authorize";
-          token_url = "https://auth.cb-tech.me/oidc/token";
-          api_url = "https://auth.cb-tech.me/oidc/userinfo";
-          role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
-          login_attribute_path = "email";
+          scopes = "openid profile email groups";
+          empty_scopes = false;
+          auth_url = "https://auth.cb-tech.me/api/oidc/authorization";
+          token_url = "https://auth.cb-tech.me/api/oidc/token";
+          api_url = "https://auth.cb-tech.me/api/oidc/userinfo";
+          login_attribute_path = "preferred_username";
+          groups_attribute_path = "groups";
+          name_attribute_path = "name";
+          use_pkce = true;
+          role_attribute_path = "";
         };
       };
     };
