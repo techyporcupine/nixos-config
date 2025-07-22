@@ -14,10 +14,25 @@ in {
   config = lib.mkIf cfg.enable {
     services.grafana = {
       enable = true;
-      settings.server = {
-        domain = "grafana.local.cb-tech.me";
-        http_port = 2342;
-        addr = "127.0.0.1";
+      settings = {
+        server = {
+          domain = "grafana.local.cb-tech.me";
+          http_port = 2342;
+          addr = "127.0.0.1";
+        };
+        "auth.generic_oauth" = {
+          enabled = true;
+          name = "Authelia";
+          allow_sign_up = false;
+          client_id = "grafana";
+          client_secret = "\$__file{/var/secrets/grafana-secret}";
+          scopes = "openid profile email";
+          auth_url = "https://auth.cb-tech.me/oidc/authorize";
+          token_url = "https://auth.cb-tech.me/oidc/token";
+          api_url = "https://auth.cb-tech.me/oidc/userinfo";
+          role_attribute_path = "contains(groups[*], 'admin') && 'Admin' || 'Viewer'";
+          login_attribute_path = "email";
+        };
       };
     };
     services.prometheus = {
