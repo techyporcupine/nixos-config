@@ -80,7 +80,7 @@ in {
             };
             authelia = {
               forwardAuth = {
-                address = "https://auth.cb-tech.me/api/verify";
+                address = "https://auth.cb-tech.me/api/authz/forward-auth";
                 trustForwardHeader = true;
                 authResponseHeaders = [
                   "Remote-User"
