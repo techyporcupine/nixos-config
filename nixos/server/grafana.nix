@@ -16,7 +16,7 @@ in {
       enable = true;
       settings = {
         server = {
-          domain = "grafana.local.cb-tech.me";
+          root_url = "https://grafana.local.cb-tech.me/";
           http_port = 2342;
           addr = "127.0.0.1";
         };
