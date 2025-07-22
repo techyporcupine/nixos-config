@@ -82,6 +82,12 @@ in {
               forwardAuth = {
                 address = "https://auth.cb-tech.me/api/verify";
                 trustForwardHeader = true;
+                authResponseHeaders = [
+                  "Remote-User"
+                  "Remote-Name"
+                  "Remote-Email"
+                  "Remote-Groups"
+                ];
               };
             };
           };
