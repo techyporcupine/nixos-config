@@ -25,6 +25,7 @@ in {
           name = "Authelia";
           icon = "signin";
           client_id = "grafana";
+          allow_sign_up = false;
           client_secret = "\$__file{/var/secrets/grafana-secret}";
           scopes = "openid profile email groups";
           empty_scopes = false;
