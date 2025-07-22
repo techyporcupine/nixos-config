@@ -23,7 +23,7 @@ in {
         extraOptions = [
           "--pull=newer"
         ];
-        ports = ["127.0.0.1:9091:9091"];
+        ports = ["127.0.0.1:9095:9091"];
       };
     };
 
@@ -37,7 +37,7 @@ in {
           tls.certResolver = "cloudflare";
         };
       };
-      services.authelia = {loadBalancer.servers = [{url = "http://localhost:9091";}];};
+      services.authelia = {loadBalancer.servers = [{url = "http://localhost:9095";}];};
     };
   };
 }
