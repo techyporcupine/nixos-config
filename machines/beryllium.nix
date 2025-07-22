@@ -77,6 +77,7 @@
     librenms.enable = true;
     matrix.enable = true;
     akvorado.enable = false;
+    authelia.enable = true;
   };
 
   systemd.services.beszel = {

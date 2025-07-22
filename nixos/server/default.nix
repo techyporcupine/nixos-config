@@ -16,5 +16,6 @@
     ./matrix.nix
     ./librenms.nix
     ./akvorado
+    ./authelia.nix
   ];
 }
