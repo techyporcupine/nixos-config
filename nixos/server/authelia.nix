@@ -17,7 +17,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers.containers = {
-      homeassistant = {
+      authelia = {
         volumes = ["/home/${config.tp.username}/authelia/config:/config"];
         image = "authelia/authelia:latest"; # Warning: if the tag does not change, the image will not be updated
         extraOptions = [
