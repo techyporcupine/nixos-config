@@ -33,7 +33,6 @@ in {
           rule = "Host(`auth.cb-tech.me`)";
           service = "authelia";
           entrypoints = ["websecure"];
-          middlewares = ["authelia"];
           tls.domains = [{main = "auth.cb-tech.me";}];
           tls.certResolver = "cloudflare";
         };
