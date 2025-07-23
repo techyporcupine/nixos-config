@@ -83,7 +83,7 @@
   services.caddy = {
     enable = true;
     config = ''
-      static.cb-tech.me {
+      :18085 {
           root * /var/www/static
           file_server
       }
