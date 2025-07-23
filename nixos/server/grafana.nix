@@ -20,23 +20,20 @@ in {
           http_port = 2342;
           addr = "127.0.0.1";
         };
+        "auth" = {
+          signout_redirect_url = "https://auth.cb-tech.me/application/o/grafana/end-session/";
+        };
         "auth.generic_oauth" = {
           enabled = true;
-          name = "Authelia";
-          icon = "signin";
+          name = "authentik";
           client_id = "grafana";
-          allow_sign_up = false;
+          allow_sign_up = true;
           client_secret = "\$__file{/var/secrets/grafana-secret}";
-          scopes = "openid profile email groups";
-          empty_scopes = false;
-          auth_url = "https://auth.cb-tech.me/api/oidc/authorization";
-          token_url = "https://auth.cb-tech.me/api/oidc/token";
-          api_url = "https://auth.cb-tech.me/api/oidc/userinfo";
-          login_attribute_path = "preferred_username";
-          groups_attribute_path = "groups";
-          name_attribute_path = "name";
-          use_pkce = true;
-          role_attribute_path = "";
+          scopes = "openid profile email";
+          auth_url = "https://auth.cb-tech.me/application/o/authorize/";
+          token_url = "https://auth.cb-tech.me/application/o/token/";
+          api_url = "https://auth.cb-tech.me/application/o/userinfo/";
+          role_attribute_path = "contains(groups, 'Grafana Admins') && 'Admin' || contains(groups, 'Grafana Editors') && 'Editor' || 'Viewer'";
         };
       };
     };
