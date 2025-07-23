@@ -79,15 +79,23 @@ in {
                 sourceRange = ["10.0.0.0/24" "10.0.16.0/24" "10.0.24.0/24" "10.15.0.0/16" "2001:470:e251::/48" "172.16.0.0/16"];
               };
             };
-            authelia = {
+            authentik = {
               forwardAuth = {
-                address = "https://auth.cb-tech.me/api/authz/forward-auth";
+                address = "https://auth.cb-tech.me/outpost.goauthentik.io/auth/traefik";
                 trustForwardHeader = true;
                 authResponseHeaders = [
-                  "Remote-User"
-                  "Remote-Name"
-                  "Remote-Email"
-                  "Remote-Groups"
+                  "X-authentik-username"
+                  "X-authentik-groups"
+                  "X-authentik-entitlements"
+                  "X-authentik-email"
+                  "X-authentik-name"
+                  "X-authentik-uid"
+                  "X-authentik-jwt"
+                  "X-authentik-meta-jwks"
+                  "X-authentik-meta-outpost"
+                  "X-authentik-meta-provider"
+                  "X-authentik-meta-app"
+                  "X-authentik-meta-version"
                 ];
               };
             };
