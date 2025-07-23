@@ -80,6 +80,16 @@
     authentik.enable = true;
   };
 
+  services.caddy = {
+    enable = true;
+    config = ''
+      static.cb-tech.me {
+          root * /var/www/static
+          file_server
+      }
+    '';
+  };
+
   systemd.services.beszel = {
     enable = true;
     path = [pkgs.beszel];
