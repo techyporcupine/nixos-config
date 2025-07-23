@@ -27,7 +27,7 @@ in {
           enabled = true;
           name = "authentik";
           client_id = "grafana";
-          allow_sign_up = true;
+          allow_sign_up = false;
           client_secret = "\$__file{/var/secrets/grafana-secret}";
           scopes = "openid profile email";
           auth_url = "https://auth.cb-tech.me/application/o/authorize/";
