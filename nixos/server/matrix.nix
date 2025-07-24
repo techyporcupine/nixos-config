@@ -34,6 +34,7 @@ in {
           }
         ];
         oidc_providers = [];
+        public_baseurl = "https://matrix.cb-tech.me/";
       };
     };
     services.traefik.dynamicConfigOptions.http = {
