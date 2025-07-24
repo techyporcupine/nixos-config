@@ -33,6 +33,22 @@ in {
             ];
           }
         ];
+        oidc_providers = [
+          {
+            idp_id = "authentik";
+            idp_name = "authentik";
+            discover = true;
+            issuer = "https://auth.cb-tech.me/application/o/synapse/";
+            client_id = "synapse";
+            scopes = ["openid" "profile" "email"];
+            user_mapping_provider = {
+              config = {
+                localpart_template = "{{ user.preferred_username }}";
+                display_name_template = "{{ user.name|capitalize }}";
+              };
+            };
+          }
+        ];
       };
     };
     services.traefik.dynamicConfigOptions.http = {
