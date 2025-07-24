@@ -33,6 +33,7 @@ in {
             ];
           }
         ];
+        oidc_providers = [];
       };
     };
     services.traefik.dynamicConfigOptions.http = {
