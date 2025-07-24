@@ -106,6 +106,7 @@
     # Copter applications
     qgroundcontrol
     mission-planner
+    pio.esphome
   ];
 
   programs.kdeconnect.enable = true;
