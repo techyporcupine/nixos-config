@@ -93,7 +93,7 @@
     handbrake
     #inputs.quickemu.packages.${system}.quickemu
     calibre
-    stable.darktable
+    darktable
     inkscape
     (llama-cpp.override {rocmSupport = true;})
     master.davinci-resolve
@@ -107,6 +107,8 @@
     qgroundcontrol
     mission-planner
     pio.esphome
+    signal-desktop
+    thunderbird
   ];
 
   programs.kdeconnect.enable = true;
@@ -131,6 +133,10 @@
 
   hardware.amdgpu.opencl.enable = true;
   #nixpkgs.config.rocmSupport = true;
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "libsoup-2.74.3"
+  ];
 
   #services.llama-cpp = {
   #  enable = true;

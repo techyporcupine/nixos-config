@@ -13,7 +13,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.unifi = {
-      enable = true;
+      enable = false;
       # open default firewall ports
       openFirewall = true;
       # use latest unifi package
@@ -36,7 +36,7 @@ in {
           tls.certResolver = "cloudflare";
         };
       };
-      services.unifi = {loadBalancer.servers = [{url = "https://localhost:8443/";}];};
+      services.unifi = {loadBalancer.servers = [{url = "https://10.0.0.13:11443/";}];};
     };
   };
 }
