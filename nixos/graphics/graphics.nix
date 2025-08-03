@@ -34,8 +34,8 @@ in {
           esbenp.prettier-vscode
           kamadorueda.alejandra
           continue.continue
-          github.copilot
-          github.copilot-chat
+          #github.copilot
+          #github.copilot-chat
         ];
       })
       zed-editor
