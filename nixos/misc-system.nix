@@ -83,6 +83,12 @@ in {
             hostname = "2001:470:e251:1000::6";
             setEnv = {TERM = "kitty";};
           };
+          "heliumv4" = {
+            forwardAgent = true;
+            user = "helium";
+            hostname = "172.16.0.6";
+            setEnv = {TERM = "kitty";};
+          };
           "boron" = {
             forwardAgent = true;
             user = "boron";
