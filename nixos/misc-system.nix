@@ -105,6 +105,26 @@ in {
               KexAlgorithms = "+diffie-hellman-group1-sha1";
             };
           };
+          "3750xmgmt" = {
+            hostname = "172.16.0.1";
+            user = "admin";
+            extraOptions = {
+              PubkeyAcceptedAlgorithms = "+ssh-rsa";
+              HostkeyAlgorithms = "+ssh-rsa";
+              Ciphers = "aes128-ctr";
+              KexAlgorithms = "+diffie-hellman-group1-sha1";
+            };
+          };
+          "3750x" = {
+            hostname = "10.0.0.9";
+            user = "admin";
+            extraOptions = {
+              PubkeyAcceptedAlgorithms = "+ssh-rsa";
+              HostkeyAlgorithms = "+ssh-rsa";
+              Ciphers = "aes128-ctr";
+              KexAlgorithms = "+diffie-hellman-group1-sha1";
+            };
+          };
         };
       };
     };

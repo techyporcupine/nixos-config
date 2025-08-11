@@ -109,6 +109,7 @@
     pio.esphome
     signal-desktop
     thunderbird
+    tio
   ];
 
   programs.kdeconnect.enable = true;
