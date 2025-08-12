@@ -59,7 +59,7 @@ in {
       iosevka
       inconsolata
       roboto-mono
-      fira-code-nerdfont
+      nerd-fonts.fira-code
     ];
 
     # X11/Wayland Configuration

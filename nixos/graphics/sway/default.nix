@@ -20,7 +20,7 @@ in {
 
     # GDM for logging in
     services = {
-      xserver.displayManager.gdm.enable = true;
+      displayManager.gdm.enable = true;
     };
 
     # Enable blueman for bluetooth managment
@@ -66,6 +66,14 @@ in {
     programs.sway = {
       enable = true;
       package = inputs.nyx.packages.${pkgs.system}.sway_git;
+    };
+
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      # Prefer wlr, then gtk
+      config.common.default = ["wlr" "gtk"];
     };
 
     tp.hm = {
@@ -122,10 +130,8 @@ in {
           };
           # Set command used to launch dmenu
           menu = "zsh -c 'rofi -show drun'";
-          # Set status bar used
-          bars = [
-            {command = "waybar";}
-          ];
+          # Disable swaybar
+          bars = [];
           # Window related settings
           window = {
             border = 2;

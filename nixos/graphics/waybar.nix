@@ -23,7 +23,7 @@ in {
       # package = inputs.waybar.packages.${pkgs.system}.waybar;
       enable = true;
       systemd = {
-        enable = false;
+        enable = true;
         target = "graphical-session.target";
       };
       # CSS style for waybar
