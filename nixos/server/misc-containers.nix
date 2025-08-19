@@ -55,6 +55,15 @@ in {
             ];
             ports = ["127.0.0.1:13003:80"];
           };
+          rtlamr = {
+            image = "allangood/rtlamr2mqtt";
+            volumes = ["/home/${config.tp.username}/rtlamr/rtlamr2mqtt.yaml:/etc/rtlamr2mqtt.yaml"];
+            autoStart = true;
+            extraOptions = [
+              "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
+              "--device=/dev/bus/usb/005/005:/dev/bus/usb/005/005"
+            ];
+          };
         };
       };
     };
