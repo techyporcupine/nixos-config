@@ -56,7 +56,7 @@ in {
             ports = ["127.0.0.1:13003:80"];
           };
           rtlamr = {
-            image = "allangood/rtlamr2mqtt";
+            image = "allangood/rtlamr2mqtt:latest";
             volumes = ["/home/${config.tp.username}/rtlamr/rtlamr2mqtt.yaml:/etc/rtlamr2mqtt.yaml"];
             autoStart = true;
             extraOptions = [
