@@ -54,6 +54,7 @@ in {
       enable = true;
       listeners = [
         {
+          address = "0.0.0.0";
           acl = ["pattern readwrite #"];
           omitPasswordAuth = true;
           settings.allow_anonymous = true;
@@ -115,6 +116,9 @@ in {
       services.matter = {loadBalancer.servers = [{url = "http://localhost:8482";}];};
     };
     networking.firewall = {
+      allowedTCPPorts = [
+        1883
+      ];
       interfaces."ens18" = {
         allowedTCPPorts = [
           # Homekit
