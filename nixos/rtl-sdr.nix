@@ -23,6 +23,7 @@ in {
       pkgs.stable.gpredict
       pkgs.gqrx
       pkgs.rtl_433
+      pkgs.rtlamr
     ];
   };
 }
