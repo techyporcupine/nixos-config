@@ -81,15 +81,11 @@
     #blender
     tpm2-tss
     amdgpu_top
-    ookla-speedtest
     krita
-    tidal-hifi
     distrobox
     kdePackages.kdenlive
     eog
-    rawtherapee
     qbittorrent
-    libnatpmp
     handbrake
     #inputs.quickemu.packages.${system}.quickemu
     calibre
@@ -97,8 +93,6 @@
     inkscape
     (llama-cpp.override {rocmSupport = true;})
     master.davinci-resolve
-    android-studio
-    gnome-boxes
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
     remmina
@@ -109,7 +103,6 @@
     pio.esphome
     signal-desktop
     thunderbird
-    tio
   ];
 
   programs.kdeconnect.enable = true;
