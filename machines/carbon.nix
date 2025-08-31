@@ -51,7 +51,8 @@
     rofi = true;
     waybar = true;
     mangohud = true;
-    qt = true;
+    # test if stuff breaks
+    qt = false;
   };
 
   # GAMING CONFIG
