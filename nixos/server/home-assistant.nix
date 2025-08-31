@@ -63,7 +63,7 @@ in {
     };
     services.zigbee2mqtt = {
       enable = true;
-      package = pkgs.stable.master.zigbee2mqtt;
+      package = pkgs.master.zigbee2mqtt;
       settings = {
         homeassistant = true;
         serial = {
