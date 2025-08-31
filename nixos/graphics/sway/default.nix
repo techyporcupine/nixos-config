@@ -52,7 +52,7 @@ in {
       hyprpicker
       cliphist
       wl-clipboard
-      nwg-displays
+      stable.nwg-displays
       (flameshot.override {enableWlrSupport = true;})
     ];
 
