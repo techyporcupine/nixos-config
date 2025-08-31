@@ -82,7 +82,7 @@
 
   services.caddy = {
     enable = true;
-    config = ''
+    extraConfig = ''
       :18085 {
           root * /var/www/static
           file_server

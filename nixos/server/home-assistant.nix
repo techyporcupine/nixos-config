@@ -35,12 +35,12 @@ in {
     };
     services.wyoming = {
       piper.servers.hasspiper = {
-        enable = true;
+        enable = false;
         uri = "tcp://0.0.0.0:10200";
         voice = "en-us-ryan-high";
       };
       faster-whisper.servers.hasswhisper = {
-        enable = true;
+        enable = false;
         device = "cpu";
         uri = "tcp://0.0.0.0:10300";
         model = "Systran/faster-distil-whisper-medium.en";
