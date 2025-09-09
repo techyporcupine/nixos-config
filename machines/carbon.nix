@@ -92,7 +92,7 @@
     calibre
     darktable
     inkscape
-    (llama-cpp.override {rocmSupport = true;})
+    (llama-cpp.override {vulkanSupport = true;})
     master.davinci-resolve
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
@@ -127,24 +127,21 @@
   };
 
   hardware.amdgpu.opencl.enable = true;
-  #nixpkgs.config.rocmSupport = true;
+  nixpkgs.config.rocmSupport = true;
 
   nixpkgs.config.permittedInsecurePackages = [
     "libsoup-2.74.3"
   ];
 
-  #services.llama-cpp = {
-  #  enable = true;
-  #  package = pkgs.llama-cpp.override {rocmSupport = true;};
-  #};
-
   services.ollama = {
-    enable = true;
-    acceleration = false;
+    enable = false;
+    acceleration = "rocm";
     environmentVariables = {
       # HCC_AMDGPU_TARGET = "gfx1100"; # used to be necessary, but doesn't seem to anymore
       # PYTORCH_ROCM_ARCH = "gfx1100";
       # HSA_ENABLE_SDMA = "0";
+      HSA_OVERRIDE_GFX_VERSION = "11.0.3";
+      HCC_AMDGPU_TARGET = "gfx1103";
     };
     # rocmOverrideGfx = "11.0.0";
   };
