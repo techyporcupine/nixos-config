@@ -161,7 +161,6 @@ in {
             "${modifier}+Space" = "exec ${menu}";
             "${modifier}+V" = "exec cliphist list | rofi -dmenu | cliphist decode | wl-copy";
             "${modifier}+M" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
-            #"${modifier}+N" = "exec swaync-client -t -sw";
             "${modifier}+L" = "exec loginctl lock-session";
             "${modifier}+W" = "floating toggle";
 
