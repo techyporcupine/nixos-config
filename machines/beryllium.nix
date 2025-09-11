@@ -170,6 +170,13 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  services.ollama = {
+    enable = true;
+    host = "0.0.0.0";
+    openFirewall = true;
+    acceleration = "cuda";
+  };
+
   # Disable SWAP
   swapDevices = lib.mkForce [];
 
