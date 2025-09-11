@@ -10,5 +10,6 @@
     ./qt.nix
     ./sway
     ./nvidia.nix
+    ./mako.nix
   ];
 }

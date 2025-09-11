@@ -41,7 +41,7 @@
 
     # Catppuccin
     catppuccin = {
-      url = "github:techyporcupine/ctp-nix";
+      url = "github:catppuccin/nix";
     };
 
     # Disko
@@ -165,7 +165,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.techyporcupine.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            home-manager.users.techyporcupine.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
@@ -200,7 +200,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.beryllium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            home-manager.users.beryllium.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
@@ -235,7 +235,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            # home-manager.users.helium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            # home-manager.users.helium.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
@@ -270,7 +270,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            # home-manager.users.helium.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            # home-manager.users.helium.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
@@ -304,7 +304,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.boron.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            home-manager.users.boron.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
@@ -338,7 +338,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.nitrogen.imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+            home-manager.users.nitrogen.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };

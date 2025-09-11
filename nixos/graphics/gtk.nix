@@ -38,13 +38,13 @@ in {
       # Other GTK settings
       gtk = {
         enable = true;
-        catppuccin = {
-          enable = true;
-          flavor = "mocha";
-          accent = "green";
-          size = "standard";
-          tweaks = ["normal"];
-        };
+        #catppuccin = {
+        #  enable = true;
+        #  flavor = "mocha";
+        #  accent = "green";
+        #  size = "standard";
+        #  tweaks = ["normal"];
+        #};
         iconTheme = {
           name = "Papirus-Dark";
           package = pkgs.papirus-icon-theme;

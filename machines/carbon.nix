@@ -46,7 +46,8 @@
     enable = true;
     kitty = true;
     sway = true;
-    swaync = true;
+    swaync = false;
+    mako = true;
     gtk = true;
     rofi = true;
     waybar = true;
