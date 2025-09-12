@@ -119,7 +119,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-    (llama-cpp.override {cudaSupport = true;})
+    llama-cpp
   ];
 
   boot.loader.systemd-boot.enable = true;

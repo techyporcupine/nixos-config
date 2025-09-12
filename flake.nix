@@ -50,6 +50,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    llama-cpp-overlay = {
+      url = "github:ggml-org/llama.cpp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Nixos-hardware
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
@@ -124,6 +129,34 @@
         config.allowUnfree = true;
       };
     };
+    llama-cpp-optimized = final: prev: {
+      llama-cpp = (prev.llama-cpp.override {cudaSupport = true;}).overrideAttrs (old: {
+        cmakeFlags =
+          old.cmakeFlags
+          ++ [
+            "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON"
+            "-DGGML_NATIVE=ON"
+            "-DGGML_SSE42=ON"
+            "-DGGML_AVX=ON"
+            "-DGGML_F16C=ON"
+            "-DGGML_AVX2=ON"
+            "-DGGML_BMI2=ON"
+            "-DGGML_FMA=ON"
+            "-DGGML_AVX512=ON"
+            "-DGGML_AVX512_VBMI=ON"
+            "-DGGML_AVX512_VNNI=ON"
+            "-DGGML_OPENMP=ON"
+            "-DGGML_BLAS=OFF"
+            "-DLLAMA_BUILD_SERVER=ON"
+            "-DBUILD_SHARED_LIBS=ON"
+            "-DGGML_CUDA=ON"
+            "-DCMAKE_CUDA_ARCHITECTURES=${prev.cudaPackages.flags.cmakeCudaArchitecturesString}"
+          ];
+        NIX_CFLAGS_COMPILE =
+          (old.NIX_CFLAGS_COMPILE or "")
+          + " -O3 -march=native -mtune=native";
+      });
+    };
     systems = [
       "aarch64-linux"
       "x86_64-linux"
@@ -184,6 +217,8 @@
               overlay-tp
               overlay-staging
               overlay-master
+              llama-cpp-overlay.overlays.default
+              llama-cpp-optimized
             ];
           })
           inputs.disko.nixosModules.disko
@@ -289,6 +324,8 @@
               overlay-tp
               overlay-staging
               overlay-master
+              llama-cpp-overlay.overlays.default
+              llama-cpp-optimized
             ];
           })
           inputs.disko.nixosModules.disko
@@ -323,6 +360,8 @@
               overlay-tp
               overlay-staging
               overlay-master
+              llama-cpp-overlay.overlays.default
+              llama-cpp-optimized
             ];
           })
           inputs.disko.nixosModules.disko
