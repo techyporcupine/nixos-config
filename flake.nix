@@ -130,7 +130,7 @@
       };
     };
     llama-cpp-optimized = final: prev: {
-			llama-cpp = prev.llama-cpp.overrideAttrs (old: {
+			llama-cpp = prev.llamaPackagesCuda.llama-cpp.overrideAttrs (old: {
         cmakeFlags =
           old.cmakeFlags
           ++ [
