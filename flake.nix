@@ -97,7 +97,7 @@
     };
   };
 
-  outputs = {self, llama-cpp-overlay, ...} @ inputs: let
+  outputs = {self, ...} @ inputs: let
     inherit (self) outputs;
     overlay-stable = final: prev: {
       stable = import inputs.nixpkgs-stable {
