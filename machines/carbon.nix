@@ -92,7 +92,11 @@
     calibre
     darktable
     inkscape
-		pkgs.llamaPackagesRocm.llama-cpp
+    (llama-cpp.override {
+      cudaSupport = false;
+      rocmSupport = true;
+      vulkanSupport = true;
+    })
     master.davinci-resolve
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
