@@ -116,7 +116,7 @@
   ];
 
   services.ollama = {
-    enable = true;
+    enable = false;
     host = "0.0.0.0";
     openFirewall = true;
     acceleration = "cuda";
