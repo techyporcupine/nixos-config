@@ -152,7 +152,10 @@
   hardware.opentabletdriver.enable = true;
 
   # Kyocera Printer Drivers
-  services.printing.drivers = [pkgs.stable.cups-kyodialog];
+  services.printing.drivers = [
+    pkgs.stable.cups-kyodialog
+    pkgs.cups-brother-hll2350dw
+  ];
 
   # Enable Thunderbolt (USB4)
   services.hardware.bolt.enable = true;

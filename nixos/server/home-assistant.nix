@@ -16,7 +16,7 @@ in {
       homeassistant = {
         volumes = ["/home/${config.tp.username}/hass:/config" "/home/${config.tp.username}/hass-ssh:/root/.ssh" "/run/dbus:/run/dbus:ro"];
         environment.TZ = "America/New_York";
-        image = "ghcr.io/home-assistant/home-assistant:stable"; # Warning: if the tag does not change, the image will not be updated
+        image = "ghcr.io/home-assistant/home-assistant:stable";
         extraOptions = [
           "--network=host"
           "--pull=newer"
@@ -25,7 +25,7 @@ in {
       };
       matter-hub = {
         volumes = ["/home/${config.tp.username}/matter-hub:/data"];
-        image = "ghcr.io/t0bst4r/home-assistant-matter-hub:latest"; # Warning: if the tag does not change, the image will not be updated
+        image = "ghcr.io/t0bst4r/home-assistant-matter-hub:latest";
         extraOptions = [
           "--network=host"
           "--pull=newer"
