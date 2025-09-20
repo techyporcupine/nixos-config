@@ -55,6 +55,11 @@
       url = "github:NixOS/nixos-hardware/master";
     };
 
+    llama-cpp = {
+      url = "github:ggml-org/llama.cpp/3913f8730ec6d6245480affc30ae3049107956f4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Add Lanzaboote for secure boot
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
@@ -149,6 +154,8 @@
               overlay-staging
               overlay-master
               overlay-pio
+							inputs.llama-cpp.overlays.default
+							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
             ];
           })
           inputs.disko.nixosModules.disko
@@ -184,6 +191,8 @@
               overlay-tp
               overlay-staging
               overlay-master
+							inputs.llama-cpp.overlays.default
+							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
             ];
           })
           inputs.disko.nixosModules.disko
@@ -289,6 +298,8 @@
               overlay-tp
               overlay-staging
               overlay-master
+							inputs.llama-cpp.overlays.default
+							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
             ];
           })
           inputs.disko.nixosModules.disko
@@ -323,6 +334,8 @@
               overlay-tp
               overlay-staging
               overlay-master
+							inputs.llama-cpp.overlays.default
+							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
             ];
           })
           inputs.disko.nixosModules.disko
