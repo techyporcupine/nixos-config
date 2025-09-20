@@ -17,5 +17,6 @@
     ./librenms.nix
     ./akvorado
     ./authentik.nix
+    ./llama-swap
   ];
 }
