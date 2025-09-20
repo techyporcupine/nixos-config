@@ -7,7 +7,7 @@
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
-    nixpkgs-master.url = "github:dotlambda/nixpkgs/immich";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
     fixpionix.url = "github:frenetic00/nixpkgs/fix-pio";
 
@@ -154,8 +154,8 @@
               overlay-staging
               overlay-master
               overlay-pio
-							inputs.llama-cpp.overlays.default
-							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
+              inputs.llama-cpp.overlays.default
+              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
           inputs.disko.nixosModules.disko
@@ -191,8 +191,8 @@
               overlay-tp
               overlay-staging
               overlay-master
-							inputs.llama-cpp.overlays.default
-							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
+              inputs.llama-cpp.overlays.default
+              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
           inputs.disko.nixosModules.disko
@@ -298,8 +298,8 @@
               overlay-tp
               overlay-staging
               overlay-master
-							inputs.llama-cpp.overlays.default
-							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
+              inputs.llama-cpp.overlays.default
+              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
           inputs.disko.nixosModules.disko
@@ -334,8 +334,8 @@
               overlay-tp
               overlay-staging
               overlay-master
-							inputs.llama-cpp.overlays.default
-							(import ./nixos/pkgs/llama-cpp.nix { inherit inputs; })
+              inputs.llama-cpp.overlays.default
+              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
           inputs.disko.nixosModules.disko
