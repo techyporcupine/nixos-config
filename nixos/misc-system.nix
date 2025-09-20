@@ -222,6 +222,9 @@ in {
       usbutils
       cava
       tmux
+      ripgrep
+      neovim
+      fd
     ];
   };
 }
