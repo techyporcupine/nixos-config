@@ -41,6 +41,7 @@
   };
 
   tp.server = {
+		llama-swap.enable = true;
   };
 
   # Load nvidia driver for Xorg and Wayland
@@ -108,7 +109,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-    (llama-cpp.override {cudaSupport = true;})
+		llama-cpp-cuda-native
   ];
 
   nixpkgs.overlays = [

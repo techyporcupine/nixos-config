@@ -92,7 +92,7 @@
     calibre
     darktable
     inkscape
-    (llama-cpp.override {vulkanSupport = true;})
+		llama-cpp-vulkan-native
     master.davinci-resolve
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
