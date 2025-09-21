@@ -41,6 +41,7 @@
   };
 
   tp.server = {
+		llama-swap.enable = true;
   };
 
   tp.graphics.nvidia = true;
