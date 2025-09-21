@@ -1,7 +1,7 @@
 {
   macros = {
     "llama-server" = ''
-      llama-server
+      /run/current-system/sw/bin/llama-server
       --port ''${PORT}
       --no-webui
     '';
