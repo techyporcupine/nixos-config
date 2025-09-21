@@ -32,7 +32,7 @@ in {
   llama-cpp-cpu = (inputs.llama-cpp.overlays.default final prev).llamaPackages.llama-cpp;
 
   # 2. Base Vulkan-accelerated package.
-  llama-cpp-vulkan = final.llama-cpp-cpu.override {useVulkan = true;};
+  llama-cpp-vulkan = final.llama-cpp-cpu.override {useVulkan = true; useRocm = false };
 
   # 3. Base CUDA-accelerated package.
   # This one is special, as it comes from the flake's CUDA-specific pkgs set.
