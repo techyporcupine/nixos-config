@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.rofi {
     # Configuration for Rofi, a way to run applications installed on the system
     tp.hm.programs.rofi = {
-      package = pkgs.rofi-wayland;
+      package = pkgs.rofi;
       enable = true;
       theme = ./theme.rasi;
       extraConfig = {
