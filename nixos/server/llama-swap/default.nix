@@ -19,7 +19,7 @@ in {
       enable = true;
       description = "llama-swap for managing llama.cpp models";
       after = ["network.target"];
-      wantedBy = ["multi-user.target"];
+      wantedBy = ["default.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.llama-swap}/bin/llama-swap -config %E/llama-swap/llama-swap.yaml -listen 0.0.0.0:5349";
