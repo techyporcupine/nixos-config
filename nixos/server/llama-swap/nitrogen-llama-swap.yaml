@@ -1,0 +1,173 @@
+macros:
+  "llama-server": |
+    /run/current-system/sw/bin/llama-server
+    --port ${PORT}
+    --no-webui
+
+models:
+  "qwen-embedding":
+    cmd: |
+      ${llama-server}
+      -hf Mungert/Qwen3-Embedding-0.6B-GGUF:Q6_K_M
+      --pooling last
+      --embedding
+      -c 512
+    ttl: 300
+
+  "embeddinggemma":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/embeddinggemma-300m-GGUF:Q8_0
+      --embedding
+      -c 512
+    ttl: 300
+
+  "qwen3-30b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q3_K_S
+      -ngl 999
+      -ts 6,1
+      -c 8192
+      --temp 1.0
+      --top-k 64
+      --min-p 0
+      --top-p 0.95
+    ttl: 180
+
+  "gpt-oss-20b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/gpt-oss-20b-GGUF:Q4_K_M
+      -ngl 999
+      -dev CUDA0
+      -fa on
+      --jinja
+      -c 8192
+    ttl: 180
+
+  "qwen3-14b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-14B-GGUF:Q5_K_M
+      -ngl 999
+      -dev CUDA0
+      --jinja
+      --temp 0.7
+      --top-k 20
+      --min-p 0
+      --top-p 0.80
+      --presence-penalty 0.5
+      -c 8192
+    ttl: 180
+
+  "gemma-12b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/gemma-3-12b-it-qat-GGUF:Q5_K_M
+      -ngl 999
+      -dev CUDA0
+      -c 8192
+      --temp 1.0
+      --top-k 64
+      --min-p 0
+      --top-p 0.95
+    ttl: 180
+
+  "nemotron-12b":
+    cmd: |
+      ${llama-server}
+      -hf bartowski/nvidia_NVIDIA-Nemotron-Nano-12B-v2-GGUF:Q5_K_M
+      -c 16384
+      --temp 0.6
+      --top-p 0.95
+    ttl: 180
+
+  "nemotron-9b":
+    cmd: |
+      ${llama-server}
+      -hf bartowski/nvidia_NVIDIA-Nemotron-Nano-9B-v2-GGUF:Q5_K_M
+      -c 16384
+      --temp 0.6
+      --top-p 0.95
+    ttl: 180
+
+  "qwen3-8b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-8B-GGUF:Q5_K_XL
+      -c 8192
+      --temp 0.7
+      --top-k 20
+      --min-p 0
+      --top-p 0.80
+      --presence-penalty 0.5
+    ttl: 180
+
+  "gemma-3n-e4b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/gemma-3n-E4B-it-GGUF:Q4_K_M
+      -c 8192
+      --temp 1.0
+      --top-k 64
+      --min-p 0
+      --top-p 0.95
+    ttl: 180
+
+  "qwen3-4b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M
+      -c 8192
+      --temp 0.7
+      --top-k 20
+      --min-p 0
+      --top-p 0.80
+      --presence-penalty 0.5
+    ttl: 180
+
+  "gemma-3n-e2b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/gemma-3n-E2B-it-GGUF:Q4_K_M
+      -c 8192
+      --temp 1.0
+      --top-k 64
+      --min-p 0
+      --top-p 0.95
+    ttl: 180
+
+  "qwen3-1.7b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-1.7B-GGUF:Q5_K_XL
+      -c 8192
+      --temp 0.7
+      --top-k 20
+      --min-p 0
+      --top-p 0.80
+      --presence-penalty 0.5
+    ttl: 300
+
+  "qwen3-0.6b":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-0.6B-GGUF:Q5_K_XL
+      -c 4096
+      --temp 0.7
+      --top-k 20
+      --min-p 0
+      --top-p 0.80
+      --presence-penalty 0.5
+    ttl: 300
+
+groups:
+  "embedding":
+    swap: true
+    exclusive: false
+    persistent: true
+    members:
+      - "qwen-embedding"
+      - "embeddinggemma"
+

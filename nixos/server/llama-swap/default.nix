@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -10,11 +11,27 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.llama-swap = {
+    users.users.${config.tp.username}.linger = true;
+
+    systemd.user.services.llama-swap = {
       enable = true;
-      port = 5349;
-      openFirewall = true;
-			settings = (import ./${config.networking.hostName}-llama-swap.nix);
+      description = "llama-swap for managing llama.cpp models";
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.llama-swap}/bin/llama-swap -config %E/llama-swap/llama-swap.yaml -listen 0.0.0.0:5349";
+        Restart = "on-failure";
+        RestartSec = "10s";
+      };
+    };
+
+    tp.hm.xdg.configFile = {
+      "llama-swap.yaml" = {
+        enable = true;
+        source = ./${config.networking.hostName}-llama-swap.yaml;
+        target = "llama-swap/llama-swap.yaml";
+      };
     };
   };
 }
