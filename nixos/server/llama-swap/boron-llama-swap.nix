@@ -36,7 +36,7 @@
         ''${llama-server}
         -hf unsloth/gemma-3n-E4B-it-GGUF:Q4_K_M
         -ngl 999
-        -c 16384
+        -c 4096
         --temp 1.0
         --top-k 64
         --min-p 0
@@ -49,7 +49,7 @@
       cmd = ''
         ''${llama-server}
         -hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M
-        -c 16384
+        -c 4096
         -ngl 999
 				-fa on
         --temp 0.7
@@ -78,7 +78,7 @@
       cmd = ''
         ''${llama-server}
         -hf unsloth/Qwen3-1.7B-GGUF:Q5_K_XL
-        -c 8192
+        -c 16384
         --temp 0.7
         --top-k 20
         --min-p 0
@@ -92,7 +92,7 @@
       cmd = ''
         ''${llama-server}
         -hf unsloth/Qwen3-0.6B-GGUF:Q5_K_XL
-        -c 4096
+        -c 16384
         --temp 0.7
         --top-k 20
         --min-p 0
