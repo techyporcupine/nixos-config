@@ -62,54 +62,42 @@ in {
     tp.hm.programs = {
       ssh = {
         enable = true;
-        addKeysToAgent = "yes";
+
         # Config for clients you can ssh to without all their info.
         matchBlocks = {
+          "*" = {
+            addKeysToAgent = "yes";
+            setEnv = {TERM = "kitty";};
+          };
           "printers" = {
             forwardAgent = true;
             user = "printers";
             hostname = "printers";
-            setEnv = {TERM = "kitty";};
           };
           "beryllium" = {
             forwardAgent = true;
             user = "beryllium";
             hostname = "10.0.0.5";
-            setEnv = {TERM = "kitty";};
           };
           "helium" = {
             forwardAgent = true;
             user = "helium";
             hostname = "2001:470:e251:1000::6";
-            setEnv = {TERM = "kitty";};
           };
           "heliumv4" = {
             forwardAgent = true;
             user = "helium";
             hostname = "172.16.0.6";
-            setEnv = {TERM = "kitty";};
           };
           "boron" = {
             forwardAgent = true;
             user = "boron";
             hostname = "10.0.0.10";
-            setEnv = {TERM = "kitty";};
           };
           "nitrogen" = {
             forwardAgent = true;
             user = "nitrogen";
             hostname = "10.0.0.11";
-            setEnv = {TERM = "kitty";};
-          };
-          "switch" = {
-            hostname = "10.0.0.7";
-            user = "cisco";
-            extraOptions = {
-              PubkeyAcceptedAlgorithms = "+ssh-rsa";
-              HostkeyAlgorithms = "+ssh-rsa";
-              Ciphers = "aes128-ctr";
-              KexAlgorithms = "+diffie-hellman-group1-sha1";
-            };
           };
           "3750xmgmt" = {
             hostname = "172.16.0.1";

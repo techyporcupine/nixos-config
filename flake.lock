@@ -878,15 +878,16 @@
     },
     "nixpkgs-tp": {
       "locked": {
-        "lastModified": 1741469861,
-        "narHash": "sha256-NpEAQV1p1xbNBXQSYYuwAIJRHlOnkuFeVpgxLoXz+h8=",
+        "lastModified": 1758490461,
+        "narHash": "sha256-uOKDY0KGhtdnyweFp4uE4fToR71ACdm10KxtsIZUbxs=",
         "owner": "techyporcupine",
         "repo": "nixpkgs",
-        "rev": "9d19aeafe16482f680319bb3bffec764f0ad0ee2",
+        "rev": "6d6e9c150ee1ce33b57e2a2328afacd9217d92a3",
         "type": "github"
       },
       "original": {
         "owner": "techyporcupine",
+        "ref": "patch-1",
         "repo": "nixpkgs",
         "type": "github"
       }

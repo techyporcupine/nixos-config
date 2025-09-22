@@ -6,7 +6,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
-    nixpkgs-tp.url = "github:techyporcupine/nixpkgs";
+    nixpkgs-tp.url = "github:techyporcupine/nixpkgs/patch-1";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
     fixpionix.url = "github:frenetic00/nixpkgs/fix-pio";

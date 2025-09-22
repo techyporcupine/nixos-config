@@ -153,7 +153,7 @@
 
   # Kyocera Printer Drivers
   services.printing.drivers = [
-    pkgs.stable.cups-kyodialog
+    pkgs.tp.cups-kyodialog
     pkgs.cups-brother-hll2350dw
   ];
 
