@@ -47,16 +47,16 @@
 
     "qwen3-4b" = {
       cmd = ''
-        ''${llama-server}
-        -hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M
-        -c 4096
-        -ngl 999
-				-fa on
-        --temp 0.7
-        --top-k 20
-        --min-p 0
-        --top-p 0.80
-        --presence-penalty 0.5
+					''${llama-server}
+					-hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M
+					-c 4096
+					-ngl 999
+					-fa on
+					--temp 0.7
+					--top-k 20
+					--min-p 0
+					--top-p 0.80
+					--presence-penalty 0.5
       '';
       ttl = 180;
     };
@@ -115,4 +115,3 @@
     };
   };
 }
-
