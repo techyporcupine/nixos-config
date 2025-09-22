@@ -11,6 +11,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [5349];
+
     users.users.${config.tp.username}.linger = true;
 
     systemd.user.services.llama-swap = {
