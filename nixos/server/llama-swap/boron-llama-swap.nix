@@ -49,7 +49,7 @@
       cmd = ''
         ''${llama-server}
         -hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M
-        -c 4096
+        -c 3072
         -ngl 999
         -fa on
         --temp 0.7
