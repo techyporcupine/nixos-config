@@ -121,7 +121,7 @@
   services.wyoming = {
     piper.servers.boronPiper = {
       enable = true;
-      useCUDA = true;
+      useCUDA = false; # Breaks as of 9/23/25
       uri = "tcp://0.0.0.0:10200";
       voice = "en-us-ryan-high";
     };
