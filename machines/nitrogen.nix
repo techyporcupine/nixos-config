@@ -147,8 +147,8 @@
           environment = {
             OLLAMA_BASE_URL = "http://10.0.0.10:11434";
             WEBUI_AUTH = "False";
-						OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
-						OPENAI_API_KEY=abc123;
+            OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
+            OPENAI_API_KEY = "abc123";
           };
           extraOptions = [
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
