@@ -122,6 +122,7 @@
   services.wyoming = {
     piper.servers.boronPiper = {
       enable = true;
+      piper = pkgs.stable.piper-tts;
       useCUDA = false; # Breaks as of 9/23/25
       uri = "tcp://0.0.0.0:10200";
       voice = "en_GB-cori-high";
