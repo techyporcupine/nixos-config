@@ -98,22 +98,6 @@
         "type": "github"
       }
     },
-    "fixpionix": {
-      "locked": {
-        "lastModified": 1754145443,
-        "narHash": "sha256-2RtA4D7yI8His/TeGFHGUmrwXWyD6iqxDFxiaON/fuY=",
-        "owner": "frenetic00",
-        "repo": "nixpkgs",
-        "rev": "591935a0ec5fd18c70f32433b0f8834014c50121",
-        "type": "github"
-      },
-      "original": {
-        "owner": "frenetic00",
-        "ref": "fix-pio",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -985,7 +969,6 @@
         "akvorado": "akvorado",
         "catppuccin": "catppuccin",
         "disko": "disko",
-        "fixpionix": "fixpionix",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
         "hypridle": "hypridle",

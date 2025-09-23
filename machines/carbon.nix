@@ -30,12 +30,17 @@
     enable = true;
     avahi = true;
   };
+  networking.networkmanager.plugins = [
+    pkgs.networkmanager-strongswan
+  ];
 
-  #services.tailscale = {
-  #  # Enable tailscale mesh network
-  #  enable = true;
-  #  useRoutingFeatures = "client";
-  #};
+  services.tailscale = {
+    # Enable tailscale mesh network
+    enable = true;
+    useRoutingFeatures = "client";
+  };
+
+  services.strongswan.enable = true;
 
   services.cloudflare-warp.enable = true;
 
