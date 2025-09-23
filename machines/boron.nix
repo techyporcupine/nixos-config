@@ -125,6 +125,7 @@
       useCUDA = false; # Breaks as of 9/23/25
       uri = "tcp://0.0.0.0:10200";
       voice = "en-us-ryan-high";
+      streaming = false;
     };
     faster-whisper.servers.boronWhisper = {
       enable = true;
