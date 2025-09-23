@@ -101,7 +101,7 @@
     # Copter applications
     qgroundcontrol
     mission-planner
-    pio.esphome
+    esphome
     signal-desktop
     thunderbird
   ];

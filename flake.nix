@@ -9,8 +9,6 @@
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs/patch-1";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
-    fixpionix.url = "github:frenetic00/nixpkgs/fix-pio";
-
     #companion-satellite = {
     #  url = "path:nixos/pkgs/companion-satellite";
     #  inputs.nixpkgs.follows = "nixpkgs";
@@ -123,12 +121,6 @@
         config.allowUnfree = true;
       };
     };
-    overlay-pio = final: prev: {
-      pio = import inputs.fixpionix {
-        system = final.system;
-        config.allowUnfree = true;
-      };
-    };
     systems = [
       "aarch64-linux"
       "x86_64-linux"
@@ -153,7 +145,6 @@
               overlay-tp
               overlay-staging
               overlay-master
-              overlay-pio
               inputs.llama-cpp.overlays.default
               (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
