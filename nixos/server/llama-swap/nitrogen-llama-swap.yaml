@@ -35,6 +35,20 @@ models:
       --top-p 0.95
     ttl: 180
 
+  "magistral":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Magistral-Small-2509-GGUF:UD-Q4_K_XL
+      --jinja
+      --temp 0.7
+      --top-k -1
+      --top-p 0.95
+      -fa on
+      -ngl 99
+      -ts 33,8
+      -c 4096
+    ttl: 180
+
   "gpt-oss-20b":
     cmd: |
       ${llama-server}
