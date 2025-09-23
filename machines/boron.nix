@@ -124,7 +124,7 @@
       enable = true;
       useCUDA = false; # Breaks as of 9/23/25
       uri = "tcp://0.0.0.0:10200";
-      voice = "en-gb-cori-high";
+      voice = "en_GB-cori-high";
     };
     faster-whisper.servers.boronWhisper = {
       enable = true;
