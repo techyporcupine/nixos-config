@@ -41,7 +41,7 @@
   };
 
   tp.server = {
-		llama-swap.enable = true;
+    llama-swap.enable = true;
   };
 
   tp.graphics.nvidia = true;
@@ -78,7 +78,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-		llama-cpp-cuda-native
+    llama-cpp-cuda-native
   ];
 
   services.ollama = {
@@ -119,14 +119,18 @@
   };
 
   services.wyoming = {
-    faster-whisper = {
-      servers.remotewhisper = {
-        enable = true;
-        device = "cpu";
-        uri = "tcp://0.0.0.0:10300";
-        model = "small.en";
-        language = "en";
-      };
+    piper.servers.boronPiper = {
+      enable = false;
+      useCUDA = true;
+      uri = "tcp://0.0.0.0:10200";
+      #voice = "en-us-ryan-high";
+    };
+    faster-whisper.servers.boronWhisper = {
+      enable = false;
+      device = "cuda";
+      uri = "tcp://0.0.0.0:10300";
+      model = "Systran/faster-distil-whisper-medium.en";
+      language = "en";
     };
   };
 
