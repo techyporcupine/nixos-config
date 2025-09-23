@@ -128,7 +128,7 @@
     };
     faster-whisper.servers.boronWhisper = {
       enable = true;
-      device = "cuda";
+      device = "cpu";
       uri = "tcp://0.0.0.0:10300";
       model = "Systran/faster-distil-whisper-medium.en";
       language = "en";
