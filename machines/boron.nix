@@ -120,13 +120,13 @@
 
   services.wyoming = {
     piper.servers.boronPiper = {
-      enable = false;
+      enable = true;
       useCUDA = true;
       uri = "tcp://0.0.0.0:10200";
-      #voice = "en-us-ryan-high";
+      voice = "en-us-ryan-high";
     };
     faster-whisper.servers.boronWhisper = {
-      enable = false;
+      enable = true;
       device = "cuda";
       uri = "tcp://0.0.0.0:10300";
       model = "Systran/faster-distil-whisper-medium.en";
