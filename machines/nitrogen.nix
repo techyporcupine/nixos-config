@@ -140,6 +140,7 @@
             ENABLE_LOGIN_FORM = "true";
             OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
             OPENAI_API_KEY = "abc123";
+            WEBUI_AUTH = "False";
           };
           environmentFiles = [/var/secrets/open-webui];
           extraOptions = [
