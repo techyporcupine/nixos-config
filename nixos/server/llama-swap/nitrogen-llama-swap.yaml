@@ -92,7 +92,7 @@ models:
     cmd: |
       ${llama-server}
       -hf bartowski/nvidia_NVIDIA-Nemotron-Nano-12B-v2-GGUF:Q5_K_M
-			--jinja
+      --jinja
       -c 16384
       -ngl 999
       -dev CUDA0
@@ -104,7 +104,7 @@ models:
     cmd: |
       ${llama-server}
       -hf bartowski/nvidia_NVIDIA-Nemotron-Nano-9B-v2-GGUF:Q5_K_M
-			--jinja
+      --jinja
       -c 32768
       -ngl 999
       -dev CUDA0
