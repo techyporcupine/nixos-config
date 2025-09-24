@@ -33,20 +33,6 @@ in {
         environmentFiles = [/var/secrets/matter-hub];
       };
     };
-    services.wyoming = {
-      piper.servers.hasspiper = {
-        enable = false;
-        uri = "tcp://0.0.0.0:10200";
-        voice = "en-us-ryan-high";
-      };
-      faster-whisper.servers.hasswhisper = {
-        enable = false;
-        device = "cpu";
-        uri = "tcp://0.0.0.0:10300";
-        model = "Systran/faster-distil-whisper-medium.en";
-        language = "en";
-      };
-    };
     services.matter-server = {
       enable = true;
     };

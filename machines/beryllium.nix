@@ -119,7 +119,7 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-		# llama-cpp-vulkan-native
+    # llama-cpp-vulkan-native
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -169,13 +169,6 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
-  services.ollama = {
-    enable = true;
-    host = "0.0.0.0";
-    openFirewall = true;
-    acceleration = "cuda";
   };
 
   # Disable SWAP
