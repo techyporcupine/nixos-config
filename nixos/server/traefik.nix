@@ -180,6 +180,14 @@ in {
               tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
               tls.certResolver = "cloudflare";
             };
+            llm = {
+              rule = "Host(`llm.local.cb-tech.me`)";
+              service = "llm";
+              entrypoints = ["websecure"];
+              middlewares = ["internal-whitelist"];
+              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.certResolver = "cloudflare";
+            };
           };
           services = {
             dashy = {loadBalancer.servers = [{url = "http://localhost:18080/";}];};
@@ -192,6 +200,7 @@ in {
             heliumdash = {loadBalancer.servers = [{url = "https://helium:9090/";}];};
             caddy = {loadBalancer.servers = [{url = "http://localhost:18085/";}];};
             mesh = {loadBalancer.servers = [{url = "http://10.15.24.10:5920/";}];};
+            llm = {loadBalancer.servers = [{url = "http://10.0.0.11:8080/";}];};
           };
         };
       };

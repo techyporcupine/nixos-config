@@ -41,7 +41,7 @@
   };
 
   tp.server = {
-		llama-swap.enable = true;
+    llama-swap.enable = true;
   };
 
   # Load nvidia driver for Xorg and Wayland
@@ -109,23 +109,12 @@
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
-		llama-cpp-cuda-native
+    llama-cpp-cuda-native
   ];
 
   nixpkgs.overlays = [
     (import ../nixos/pkgs/ollama-overlay.nix)
   ];
-
-  services.ollama = {
-    enable = false;
-    host = "0.0.0.0";
-    openFirewall = true;
-    acceleration = "cuda";
-    environmentVariables = {
-      OLLAMA_FLASH_ATTENTION = "0";
-      GGML_CUDA_FORCE_MMQ = "on";
-    };
-  };
 
   virtualisation = {
     podman = {
@@ -145,11 +134,12 @@
           volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
           autoStart = true;
           environment = {
-            OLLAMA_BASE_URL = "http://10.0.0.10:11434";
             WEBUI_AUTH = "False";
+            WEBUI_URL = "https://llm.local.cb-tech.me";
             OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
             OPENAI_API_KEY = "abc123";
           };
+          environmentFiles = [/var/secrets/open-webui];
           extraOptions = [
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
             "--network=host"
