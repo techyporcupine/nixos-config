@@ -135,9 +135,9 @@
           autoStart = true;
           environment = {
             WEBUI_URL = "https://llm.local.cb-tech.me";
-            ENABLE_OAUTH_SIGNUP = "true";
+            ENABLE_OAUTH_SIGNUP = "false";
             OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
-            ENABLE_LOGIN_FORM = "false";
+            ENABLE_LOGIN_FORM = "true";
             OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
             OPENAI_API_KEY = "abc123";
           };
