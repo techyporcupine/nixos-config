@@ -49,7 +49,6 @@ models:
       --top-p 0.80
       --presence-penalty 0.5
       --jinja
-    ttl: 180
 
   gemma-3n-e2b:
     cmd: |
