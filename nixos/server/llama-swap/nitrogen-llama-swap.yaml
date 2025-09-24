@@ -22,18 +22,65 @@ models:
       -c 512
     ttl: 300
 
-  "qwen3-30b":
+  "qwen3-30b-fast":
     cmd: |
       ${llama-server}
       -hf unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q3_K_S
-      -ngl 999
+      --jinja
+      -ngl 99
       -ts 6,1
-      -c 8192
-      --temp 1.0
-      --top-k 64
-      --min-p 0
+      -c 6144
+      --temp 0.7
+      --top-k 20
+      --min-p 0.0
+      --top-p 0.80
+    ttl: 600
+
+  "qwen3-30b-long":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q4_K_M
+      --jinja
+      -ngl 99
+      -ts 5,1
+      -ncmoe 14
+      -c 16384
+      --temp 0.7
+      --top-k 20
+      --min-p 0.0
+      --top-p 0.80
+    ttl: 600
+
+  "qwen3-30b-think":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q4_K_M
+      --jinja
+      -ngl 99
+      -ts 5,1
+      -ncmoe 14
+      -c 16384
+      --temp 0.6
+      --top-k 20
+      --min-p 0.0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
+
+  "qwen3-coder":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M
+      --jinja
+      -ngl 99
+      -ts 5,1
+      -ncmoe 14
+      -c 16384
+      --temp 0.7
+      --top-k 20
+      --min-p 0.0
+      --top-p 0.8
+      --repetition-penalty 1.05
+    ttl: 600
 
   "magistral":
     cmd: |
