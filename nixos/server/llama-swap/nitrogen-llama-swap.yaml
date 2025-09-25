@@ -22,18 +22,65 @@ models:
       -c 512
     ttl: 300
 
-  "qwen3-30b":
+  "qwen3-30b-fast":
     cmd: |
       ${llama-server}
       -hf unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q3_K_S
-      -ngl 999
+      --jinja
+      -ngl 99
       -ts 6,1
-      -c 8192
-      --temp 1.0
-      --top-k 64
-      --min-p 0
+      -c 6144
+      --temp 0.7
+      --top-k 20
+      --min-p 0.0
+      --top-p 0.80
+    ttl: 600
+
+  "qwen3-30b-long":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF:Q4_K_M
+      --jinja
+      -ngl 99
+      -ts 5,1
+      -ncmoe 14
+      -c 16384
+      --temp 0.7
+      --top-k 20
+      --min-p 0.0
+      --top-p 0.80
+    ttl: 600
+
+  "qwen3-30b-think":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-30B-A3B-Thinking-2507-GGUF:Q4_K_M
+      --jinja
+      -ngl 99
+      -ts 5,1
+      -ncmoe 14
+      -c 16384
+      --temp 0.6
+      --top-k 20
+      --min-p 0.0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
+
+  "qwen3-coder":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q4_K_M
+      --jinja
+      -ngl 99
+      -ts 5,1
+      -ncmoe 14
+      -c 16384
+      --temp 0.7
+      --top-k 20
+      --min-p 0.0
+      --top-p 0.8
+      --repeat-penalty 1.05
+    ttl: 600
 
   "magistral":
     cmd: |
@@ -47,18 +94,48 @@ models:
       -ngl 99
       -ts 33,8
       -c 4096
-    ttl: 180
+    ttl: 600
 
-  "gpt-oss-20b":
+  "mistral":
     cmd: |
       ${llama-server}
-      -hf unsloth/gpt-oss-20b-GGUF:Q4_K_M
-      -ngl 999
-      -dev CUDA0
+      -hf unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF:UD-Q4_K_XL
+      --jinja
+      --temp 0.15
+      --top-k -1
+      --top-p 1.00
+      -fa on
+      -ngl 99
+      -ts 33,8
+      -c 4096
+    ttl: 600
+
+  "gpt-oss-20b-fast":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/gpt-oss-20b-GGUF:Q5_K_M
+      -ngl 99
       -fa on
       --jinja
-      -c 8192
-    ttl: 180
+      -c 16384
+      --temp 1.0
+      --top-k 0.0
+      --top-p 1.0
+    ttl: 600
+
+  "gpt-oss-20b-long":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/gpt-oss-20b-GGUF:Q5_K_M
+      -ngl 99
+      -fa on
+      --jinja
+      -c 65536
+      -ts 22,3
+      --temp 1.0
+      --top-k 0.0
+      --top-p 1.0
+    ttl: 600
 
   "qwen3-14b":
     cmd: |
@@ -73,7 +150,7 @@ models:
       --top-p 0.80
       --presence-penalty 0.5
       -c 8192
-    ttl: 180
+    ttl: 600
 
   "gemma-12b":
     cmd: |
@@ -86,7 +163,7 @@ models:
       --top-k 64
       --min-p 0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "nemotron-12b":
     cmd: |
@@ -98,7 +175,7 @@ models:
       -dev CUDA0
       --temp 0.6
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "nemotron-9b":
     cmd: |
@@ -110,7 +187,7 @@ models:
       -dev CUDA0
       --temp 0.6
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "qwen3-8b":
     cmd: |
@@ -123,7 +200,7 @@ models:
       --min-p 0
       --top-p 0.80
       --presence-penalty 0.5
-    ttl: 180
+    ttl: 600
 
   "gemma-3n-e4b":
     cmd: |
@@ -136,22 +213,68 @@ models:
       --top-k 64
       --min-p 0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
-  "qwen3-4b":
+  "qwen3-4b-fast":
     cmd: |
       ${llama-server}
-      -hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q4_K_M
-      -c 32768
-      -ngl 999
+      -hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q8_K_XL
+      -c 45056
+      -ngl 99
       -dev CUDA0
       --temp 0.7
       --top-k 20
       --min-p 0
       --top-p 0.80
-      --presence-penalty 0.5
+      --presence-penalty 1.05
       --jinja
-    ttl: 180
+    ttl: 600
+
+  "qwen3-4b-long":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-4B-Instruct-2507-GGUF:Q6_K_XL
+      -c 71680
+      -ts 29,8
+      -ngl 99
+      --temp 0.7
+      --top-k 20
+      --min-p 0
+      --top-p 0.80
+      --presence-penalty 1.05
+      --jinja
+    ttl: 600
+
+  "qwen3-4b-think":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-4B-Thinking-2507-GGUF:Q8_K_XL
+      -c 45056
+      -ngl 99
+      -dev CUDA0
+      --temp 0.6
+      --top-k 20
+      --min-p 0
+      --top-p 0.95
+      --presence-penalty 1.05
+      --jinja
+    ttl: 600
+
+  "qwen3-4b-think-long":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Qwen3-4B-Thinking-2507-GGUF:Q6_K_XL
+      -c 71680
+      -ts 29,8
+      -ngl 99
+      --temp 0.6
+      --top-k 20
+      --min-p 0
+      --top-p 0.95
+      --presence-penalty 1.05
+      --jinja
+    ttl: 600
+
 
   "gemma-3n-e2b":
     cmd: |
@@ -164,7 +287,7 @@ models:
       --top-k 64
       --min-p 0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "qwen3-1.7b":
     cmd: |
@@ -178,7 +301,7 @@ models:
       --min-p 0
       --top-p 0.80
       --presence-penalty 0.5
-    ttl: 300
+    ttl: 600
 
   "qwen3-0.6b":
     cmd: |
@@ -192,7 +315,7 @@ models:
       --min-p 0
       --top-p 0.80
       --presence-penalty 0.5
-    ttl: 300
+    ttl: 600
 
 groups:
   "embedding":
