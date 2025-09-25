@@ -94,7 +94,21 @@ models:
       -ngl 99
       -ts 33,8
       -c 4096
-    ttl: 180
+    ttl: 600
+
+  "mistral":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF:UD-Q4_K_XL
+      --jinja
+      --temp 0.15
+      --top-k -1
+      --top-p 1.00
+      -fa on
+      -ngl 99
+      -ts 33,8
+      -c 4096
+    ttl: 600
 
   "gpt-oss-20b":
     cmd: |
@@ -105,7 +119,7 @@ models:
       -fa on
       --jinja
       -c 8192
-    ttl: 180
+    ttl: 600
 
   "qwen3-14b":
     cmd: |
@@ -120,7 +134,7 @@ models:
       --top-p 0.80
       --presence-penalty 0.5
       -c 8192
-    ttl: 180
+    ttl: 600
 
   "gemma-12b":
     cmd: |
@@ -133,7 +147,7 @@ models:
       --top-k 64
       --min-p 0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "nemotron-12b":
     cmd: |
@@ -145,7 +159,7 @@ models:
       -dev CUDA0
       --temp 0.6
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "nemotron-9b":
     cmd: |
@@ -157,7 +171,7 @@ models:
       -dev CUDA0
       --temp 0.6
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "qwen3-8b":
     cmd: |
@@ -170,7 +184,7 @@ models:
       --min-p 0
       --top-p 0.80
       --presence-penalty 0.5
-    ttl: 180
+    ttl: 600
 
   "gemma-3n-e4b":
     cmd: |
@@ -183,7 +197,7 @@ models:
       --top-k 64
       --min-p 0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "qwen3-4b":
     cmd: |
@@ -198,7 +212,7 @@ models:
       --top-p 0.80
       --presence-penalty 0.5
       --jinja
-    ttl: 180
+    ttl: 600
 
   "gemma-3n-e2b":
     cmd: |
@@ -211,7 +225,7 @@ models:
       --top-k 64
       --min-p 0
       --top-p 0.95
-    ttl: 180
+    ttl: 600
 
   "qwen3-1.7b":
     cmd: |
@@ -225,7 +239,7 @@ models:
       --min-p 0
       --top-p 0.80
       --presence-penalty 0.5
-    ttl: 300
+    ttl: 600
 
   "qwen3-0.6b":
     cmd: |
@@ -239,7 +253,7 @@ models:
       --min-p 0
       --top-p 0.80
       --presence-penalty 0.5
-    ttl: 300
+    ttl: 600
 
 groups:
   "embedding":
