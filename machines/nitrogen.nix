@@ -44,9 +44,6 @@
     llama-swap.enable = true;
   };
 
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["nvidia"];
-
   tp.graphics.nvidia.enable = true;
 
   systemd.services.beszel = {
