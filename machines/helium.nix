@@ -37,6 +37,7 @@
     client = {
       enable = true;
       sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
+      extraFilesystems = "/mnt/1TB_Backup";
     };
   };
 
