@@ -12,7 +12,7 @@ in {
     prime = lib.mkEnableOption "Prime Sync for Optimus Configurations";
   };
 
-  config = lib.mkIf cfg.nvidia.enable {
+  config = lib.mkIf cfg.enable {
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
 
