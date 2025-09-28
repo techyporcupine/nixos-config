@@ -57,7 +57,7 @@ in {
       };
       environment = {
         LISTEN = "45876";
-        KEY = "${config.tp.server.beszel.sshKey}";
+        KEY = "${config.tp.server.beszel.client.sshKey}";
         EXTRA_FILESYSTEMS = lib.mkIf (cfg.client.extraFilesystems != null) "${config.tp.server.beszel.client.extraFilesystems}";
       };
       unitConfig = {
