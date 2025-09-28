@@ -42,31 +42,18 @@
 
   tp.server = {
     llama-swap.enable = true;
+    beszel = {
+      client = {
+        enable = true;
+        sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
+      };
+    };
   };
 
   tp.graphics.nvidia.enable = true;
 
-  systemd.services.beszel = {
-    enable = true;
-    path = [pkgs.beszel];
-    serviceConfig = {
-      ExecStart = "${pkgs.beszel}/bin/beszel-agent";
-    };
-    environment = {
-      LISTEN = "45876";
-      KEY = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
-      #EXTRA_FILESYSTEMS = "/mnt/1TB_Backup";
-    };
-    unitConfig = {
-      Type = "simple";
-    };
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"];
-    requires = ["network-online.target"];
-  };
   networking.firewall = {
     allowedTCPPorts = [
-      45876
       10300
       8080
       11434

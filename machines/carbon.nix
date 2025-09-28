@@ -42,8 +42,6 @@
 
   services.strongswan.enable = true;
 
-  services.cloudflare-warp.enable = true;
-
   tp.server.virtualisation.enable = true;
 
   # GRAPHICS CONFIG

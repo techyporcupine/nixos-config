@@ -33,16 +33,12 @@
 
   # HOSTED SERVICES CONFIG
   tp.server.backups.server.enable = true;
-
-  #services.tailscale = {
-  #  # Enable tailscale mesh network
-  #  enable = true;
-  #  useRoutingFeatures = "both";
-  #  extraSetFlags = [
-  #    "--advertise-exit-node"
-  #    "--advertise-routes=192.168.1.8/30,192.168.1.7/32"
-  #  ];
-  #};
+  tp.server.beszel = {
+    client = {
+      enable = true;
+      sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
+    };
+  };
 
   # Git config
   tp.hm.programs.git.userName = "techyporcupine";
@@ -51,30 +47,6 @@
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
   ];
-
-  systemd.services.beszel = {
-    enable = true;
-    path = [pkgs.beszel];
-    serviceConfig = {
-      ExecStart = "${pkgs.beszel}/bin/beszel-agent";
-    };
-    environment = {
-      LISTEN = "45876";
-      KEY = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
-      EXTRA_FILESYSTEMS = "/mnt/1TB_Backup";
-    };
-    unitConfig = {
-      Type = "simple";
-    };
-    wantedBy = ["multi-user.target"];
-    after = ["network-online.target"];
-    requires = ["network-online.target"];
-  };
-  networking.firewall = {
-    allowedTCPPorts = [
-      45876
-    ];
-  };
 
   system.autoUpgrade = {
     enable = true;
