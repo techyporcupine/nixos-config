@@ -5,14 +5,14 @@
   inputs,
   ...
 }: let
-  cfg = config.tp.graphics;
+  cfg = config.tp.graphics.nvidia;
 in {
-  options.tp.graphics = {
-    nvidia = lib.mkEnableOption "nvidia stack";
-    nvidia.prime = lib.mkEnableOption "Prime Sync for Optimus Configurations";
+  options.tp.graphics.nvidia = {
+    enable = lib.mkEnableOption "nvidia stack";
+    prime = lib.mkEnableOption "Prime Sync for Optimus Configurations";
   };
 
-  config = lib.mkIf cfg.nvidia {
+  config = lib.mkIf cfg.nvidia.enable {
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
 

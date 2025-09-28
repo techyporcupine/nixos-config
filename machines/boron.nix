@@ -44,7 +44,7 @@
     llama-swap.enable = true;
   };
 
-  tp.graphics.nvidia = true;
+  tp.graphics.nvidia.enable = true;
   tp.graphics.nvidia.prime = true;
 
   systemd.services.beszel = {
