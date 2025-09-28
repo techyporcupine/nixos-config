@@ -8,11 +8,21 @@
   cfg = config.tp.server.beszel;
 in {
   options.tp.server.beszel = {
-    enable = lib.mkEnableOption "Enable Beszel";
+    server.enable = lib.mkEnableOption "Enable Beszel server";
+    client.enable = lib.mkEnableOption "Enable Beszel client service";
+    client.sshKey = lib.mkOption {
+      type = with lib.types; nullOr str; # FIXME: setting this to null may break things
+      default = null;
+      description = "The SSH key to use as given by Beszel UI";
+    };
+    client.extraFilesystens = lib.mkOption {
+      type = with lib.types; nullOr str; # FIXME: setting this to null may break things
+      default = null;
+      description = "Path to any extra filesystems to monitor";
+    };
   };
-
-  config = lib.mkIf cfg.enable {
-    virtualisation.oci-containers.containers = {
+  config = {
+    virtualisation.oci-containers.containers = lib.mkIf cfg.server.enable {
       beszel = {
         volumes = ["/home/${config.tp.username}/beszel_data:/beszel_data"];
         image = " docker.io/henrygd/beszel"; # Warning: if the tag does not change, the image will not be updated
@@ -25,7 +35,7 @@ in {
         ];
       };
     };
-    services.traefik.dynamicConfigOptions.http = {
+    services.traefik.dynamicConfigOptions.http = lib.mkIf cfg.server.enable {
       routers = {
         beszel = {
           rule = "Host(`hosts.local.cb-tech.me`)";
@@ -37,6 +47,30 @@ in {
         };
       };
       services.beszel = {loadBalancer.servers = [{url = "http://localhost:8090";}];};
+    };
+
+    systemd.services.beszel = lib.mkIf cfg.client.enable {
+      enable = true;
+      path = [pkgs.beszel];
+      serviceConfig = {
+        ExecStart = "${pkgs.beszel}/bin/beszel-agent";
+      };
+      environment = {
+        LISTEN = "45876";
+        KEY = "${config.tp.server.beszel.sshKey}";
+        EXTRA_FILESYSTEMS = "${config.tp.server.beszel.extraFilesystens}";
+      };
+      unitConfig = {
+        Type = "simple";
+      };
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      requires = ["network-online.target"];
+    };
+    networking.firewall = lib.mkIf cfg.client.enable {
+      allowedTCPPorts = [
+        45876
+      ];
     };
   };
 }
