@@ -45,6 +45,7 @@
   };
 
   tp.graphics.nvidia = true;
+  tp.graphics.nvidia.prime = true;
 
   systemd.services.beszel = {
     enable = true;

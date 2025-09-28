@@ -9,6 +9,7 @@
 in {
   options.tp.graphics = {
     nvidia = lib.mkEnableOption "nvidia stack";
+    nvidia.prime = lib.mkEnableOption "Prime Sync for Optimus Configurations";
   };
 
   config = lib.mkIf cfg.nvidia {
@@ -41,7 +42,7 @@ in {
       # accessible via `nvidia-settings`.
       nvidiaSettings = true;
 
-      prime = {
+      prime = cfg.mkIf cfg.nvidia.prime {
         sync.enable = true;
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
