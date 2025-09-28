@@ -8,8 +8,8 @@
   cfg = config.tp.graphics.nvidia;
 in {
   options.tp.graphics.nvidia = {
-    enable = lib.mkEnableOption "nvidia stack";
-    prime = lib.mkEnableOption "Prime Sync for Optimus Configurations";
+    enable = lib.mkEnableOption "Enable the base nvidia stack";
+    prime = lib.mkEnableOption "Enable Prime Sync for Optimus Configurations";
   };
 
   config = lib.mkIf cfg.enable {
