@@ -15,7 +15,7 @@ in {
       default = null;
       description = "The SSH key to use as given by Beszel UI";
     };
-    client.extraFilesystens = lib.mkOption {
+    client.extraFilesystems = lib.mkOption {
       type = with lib.types; nullOr str; # FIXME: setting this to null may break things
       default = null;
       description = "Path to any extra filesystems to monitor";
@@ -58,7 +58,7 @@ in {
       environment = {
         LISTEN = "45876";
         KEY = "${config.tp.server.beszel.sshKey}";
-        EXTRA_FILESYSTEMS = lib.mkIf (cfg.client.extraFilesystems != null) "${config.tp.server.beszel.client.extraFilesystens}";
+        EXTRA_FILESYSTEMS = lib.mkIf (cfg.client.extraFilesystems != null) "${config.tp.server.beszel.client.extraFilesystems}";
       };
       unitConfig = {
         Type = "simple";
