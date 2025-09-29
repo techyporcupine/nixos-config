@@ -32,12 +32,14 @@
   };
 
   # HOSTED SERVICES CONFIG
-  tp.server.backups.server.enable = true;
-  tp.server.beszel = {
-    client = {
-      enable = true;
-      sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
+  tp.server = {
+    beszel = {
+      client = {
+        enable = true;
+        sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
+      };
     };
+    zipline.enable = true;
   };
 
   # Git config
