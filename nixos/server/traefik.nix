@@ -101,14 +101,6 @@ in {
             };
           };
           routers = {
-            dashy = {
-              rule = "Host(`dash.local.cb-tech.me`)";
-              service = "dashy";
-              entrypoints = ["websecure"];
-              middlewares = ["internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
             printer = {
               rule = "Host(`printer.local.cb-tech.me`)";
               service = "printer";
@@ -133,43 +125,12 @@ in {
               tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
               tls.certResolver = "cloudflare";
             };
-            openspeedtest = {
-              rule = "Host(`speed.local.cb-tech.me`)";
-              service = "openspeedtest";
-              entrypoints = ["websecure"];
-              middlewares = ["speedtest" "internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
-            librespeed = {
-              rule = "Host(`speed2.local.cb-tech.me`)";
-              service = "librespeed";
-              entrypoints = ["websecure"];
-              middlewares = ["speedtest" "internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
             pve = {
               rule = "Host(`pve.local.cb-tech.me`)";
               service = "pve";
               entrypoints = ["websecure"];
               middlewares = ["internal-whitelist"];
               tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
-            heliumdash = {
-              rule = "Host(`helium.local.cb-tech.me`)";
-              service = "heliumdash";
-              entrypoints = ["websecure"];
-              middlewares = ["internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
-            caddy = {
-              rule = "Host(`static.cb-tech.me`)";
-              service = "caddy";
-              entrypoints = ["websecure"];
-              tls.domains = [{main = "static.cb-tech.me";}];
               tls.certResolver = "cloudflare";
             };
             mesh = {
@@ -190,15 +151,10 @@ in {
             };
           };
           services = {
-            dashy = {loadBalancer.servers = [{url = "http://localhost:18080/";}];};
             printer = {loadBalancer.servers = [{url = "http://10.0.0.30/";}];};
             hydra = {loadBalancer.servers = [{url = "http://10.0.0.30:7125";}];};
             alli = {loadBalancer.servers = [{url = "http://10.0.0.30:7126";}];};
-            openspeedtest = {loadBalancer.servers = [{url = "http://localhost:13002/";}];};
-            librespeed = {loadBalancer.servers = [{url = "http://localhost:13003/";}];};
             pve = {loadBalancer.servers = [{url = "https://10.0.0.6:8006/";}];};
-            heliumdash = {loadBalancer.servers = [{url = "https://helium:9090/";}];};
-            caddy = {loadBalancer.servers = [{url = "http://localhost:18085/";}];};
             mesh = {loadBalancer.servers = [{url = "http://10.15.24.10:5920/";}];};
             llm = {loadBalancer.servers = [{url = "http://10.0.0.11:8080/";}];};
           };
