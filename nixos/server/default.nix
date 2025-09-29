@@ -18,5 +18,6 @@
     ./akvorado
     ./authentik.nix
     ./llama-swap
+    ./zipline.nix
   ];
 }
