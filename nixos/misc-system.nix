@@ -99,6 +99,11 @@ in {
             user = "nitrogen";
             hostname = "10.0.0.11";
           };
+          "lithium" = {
+            forwardAgent = true;
+            user = "lithium";
+            hostname = "10.0.0.14";
+          };
           "3750xmgmt" = {
             hostname = "172.16.0.1";
             user = "admin";
