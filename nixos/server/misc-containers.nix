@@ -52,31 +52,31 @@ in {
               "--device=/dev/bus/usb/005/005:/dev/bus/usb/005/005"
             ];
           };
-          services.traefik.dynamicConfigOptions.http = {
-            routers = {
-              dashy = {
-                rule = "Host(`dash.local.cb-tech.me`)";
-                service = "dashy";
-                entrypoints = ["websecure"];
-                middlewares = ["internal-whitelist"];
-                tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-                tls.certResolver = "cloudflare";
-              };
-              openspeedtest = {
-                rule = "Host(`speed.local.cb-tech.me`)";
-                service = "openspeedtest";
-                entrypoints = ["websecure"];
-                middlewares = ["speedtest" "internal-whitelist"];
-                tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-                tls.certResolver = "cloudflare";
-              };
-            };
-            services = {
-              openspeedtest = {loadBalancer.servers = [{url = "http://localhost:13002/";}];};
-              dashy = {loadBalancer.servers = [{url = "http://localhost:18080/";}];};
-            };
-          };
         };
+      };
+    };
+    services.traefik.dynamicConfigOptions.http = {
+      routers = {
+        dashy = {
+          rule = "Host(`dash.local.cb-tech.me`)";
+          service = "dashy";
+          entrypoints = ["websecure"];
+          middlewares = ["internal-whitelist"];
+          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+          tls.certResolver = "cloudflare";
+        };
+        openspeedtest = {
+          rule = "Host(`speed.local.cb-tech.me`)";
+          service = "openspeedtest";
+          entrypoints = ["websecure"];
+          middlewares = ["speedtest" "internal-whitelist"];
+          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+          tls.certResolver = "cloudflare";
+        };
+      };
+      services = {
+        openspeedtest = {loadBalancer.servers = [{url = "http://localhost:13002/";}];};
+        dashy = {loadBalancer.servers = [{url = "http://localhost:18080/";}];};
       };
     };
   };
