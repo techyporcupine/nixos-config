@@ -200,7 +200,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.beryllium.imports = [inputs.catppuccin.homeModules.catppuccin];
+            # home-manager.users.beryllium.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
@@ -271,7 +271,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.boron.imports = [inputs.catppuccin.homeModules.catppuccin];
+            # home-manager.users.boron.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
@@ -307,7 +307,42 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {inherit inputs outputs;};
             # FIXME: Change username here if you changed the HM username
-            home-manager.users.nitrogen.imports = [inputs.catppuccin.homeModules.catppuccin];
+            # home-manager.users.nitrogen.imports = [inputs.catppuccin.homeModules.catppuccin];
+          }
+        ];
+      };
+      lithium = inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        # Path to NixOS configuration
+        modules = [
+          ({
+            config,
+            pkgs,
+            ...
+          }: {
+            nixpkgs.overlays = [
+              overlay-stable
+              overlay-tp
+              overlay-staging
+              overlay-master
+            ];
+          })
+          #{
+          #  nixpkgs.config.pkgs = import inputs.nixpkgs {inherit systems;};
+          #}
+          inputs.disko.nixosModules.disko
+          ./machines/lithium.nix
+          ./disko/lithium-disko.nix
+          ./nixos
+          inputs.home-manager.nixosModules.home-manager
+          inputs.catppuccin.nixosModules.catppuccin
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            # FIXME: Change username here if you changed the HM username
+            # home-manager.users.lithium.imports = [inputs.catppuccin.homeModules.catppuccin];
           }
         ];
       };
