@@ -196,10 +196,8 @@
     options cfg80211 ieee80211_regdom=US
   '';
 
-  services.logind = {
-    # Set to suspend then hibernate
-    lidSwitch = "suspend-then-hibernate";
-  };
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
+
   # Set to hibernate after some time
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=2days
