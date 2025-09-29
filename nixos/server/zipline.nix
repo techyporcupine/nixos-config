@@ -17,6 +17,7 @@ in {
       settings = {
         CORE_HOSTNAME = "0.0.0.0";
         CORE_PORT = 3000;
+        FEATURES_THUMBNAILS_NUM_THREADS = "4";
       };
       environmentFiles = ["/var/secrets/zipline.env"];
     };
