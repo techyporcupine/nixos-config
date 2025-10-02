@@ -14,7 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.immich = {
       enable = true;
-      package = pkgs.immich;
+      package = pkgs.master.immich;
       machine-learning.enable = true;
       environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
     };
