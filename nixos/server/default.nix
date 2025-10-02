@@ -15,7 +15,6 @@
     ./grafana.nix
     ./matrix.nix
     ./librenms.nix
-    ./akvorado
     ./authentik.nix
     ./llama-swap
     ./zipline.nix

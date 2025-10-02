@@ -14,17 +14,6 @@
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
 
-    akvorado = {
-      url = "github:akvorado/akvorado";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Quickemu
-    quickemu = {
-      url = "github:quickemu-project/quickemu";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # SwayFX
     swayfx = {
       url = "git+https://github.com/WillPower3309/swayfx";

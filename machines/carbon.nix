@@ -91,22 +91,21 @@
     eog
     qbittorrent
     handbrake
-    #inputs.quickemu.packages.${system}.quickemu
     calibre
     darktable
     inkscape
-    #llama-cpp-vulkan-native
     master.davinci-resolve
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
     remmina
+    esphome
+    signal-desktop
+    thunderbird
+    opencode
 
     # Copter applications
     qgroundcontrol
     mission-planner
-    esphome
-    signal-desktop
-    thunderbird
   ];
 
   programs.kdeconnect.enable = true;
