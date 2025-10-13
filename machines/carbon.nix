@@ -30,9 +30,6 @@
     enable = true;
     avahi = true;
   };
-  networking.networkmanager.plugins = [
-    pkgs.networkmanager-strongswan
-  ];
 
   services.tailscale = {
     # Enable tailscale mesh network
@@ -69,7 +66,7 @@
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # TCP Ports out of firewall
-  networking.firewall.allowedTCPPorts = [19132 10300 9300];
+  networking.firewall.allowedTCPPorts = [];
 
   # PACKAGES JUST FOR THIS MACHINE
   environment.systemPackages = with pkgs; [
@@ -82,7 +79,6 @@
     hdhomerun-config-gui
     fw-ectool
     blender-hip
-    #blender
     tpm2-tss
     amdgpu_top
     krita
@@ -133,19 +129,6 @@
   nixpkgs.config.permittedInsecurePackages = [
     "libsoup-2.74.3"
   ];
-
-  services.ollama = {
-    enable = false;
-    acceleration = "rocm";
-    environmentVariables = {
-      # HCC_AMDGPU_TARGET = "gfx1100"; # used to be necessary, but doesn't seem to anymore
-      # PYTORCH_ROCM_ARCH = "gfx1100";
-      # HSA_ENABLE_SDMA = "0";
-      HSA_OVERRIDE_GFX_VERSION = "11.0.3";
-      HCC_AMDGPU_TARGET = "gfx1103";
-    };
-    # rocmOverrideGfx = "11.0.0";
-  };
 
   # Enable PCSCD for Yubikey
   services.pcscd.enable = true;

@@ -4,7 +4,9 @@
   pkgs,
   ...
 }: {
-  # NIX CONFIGURATION
+  # Machine: boron
+  # Purpose: per-machine Nix configuration and local overrides for 'boron'.
+  # Sections: Nix config, user, disks, system, networking, services, hardware, footer
   tp.nix.enable = true;
   system.stateVersion = "25.05";
   tp.hm.home.stateVersion = "25.05";
@@ -19,25 +21,25 @@
     };
   };
 
-  # USER CONFIG
+  # User account
   tp.username = "boron";
   tp.fullName = "boron";
 
-  # BOOT AND DISKS CONFIG
+  # Boot & disks
   tp.disks = {
     enable = true;
   };
 
-  # SYSTEM CONFIG
+  # System features
   tp.system = {
     enable = true;
   };
 
-  # NETWORKING CONFIG
+  # Networking
   networking.hostName = "boron";
   tp.networking = {
     enable = true;
-    avahi = true;
+    avahi = true; # mDNS
   };
 
   tp.server = {
@@ -50,6 +52,7 @@
     };
   };
 
+  # Graphics (NVIDIA + PRIME for hybrid setups)
   tp.graphics.nvidia.enable = true;
   tp.graphics.nvidia.prime = true;
 
@@ -62,11 +65,11 @@
     ];
   };
 
-  # Git config
+  # Git identity for home-manager
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
-  # PACKAGES JUST FOR THIS MACHINE
+  # Machine-specific packages
   environment.systemPackages = with pkgs; [
     llama-cpp-cuda-native
     handbrake
@@ -130,23 +133,24 @@
 
   boot.loader.systemd-boot.enable = true;
 
-  # Set up systemd initrd
+  # Initrd + bootloader
   boot.initrd.systemd.enable = true;
 
+  # Graphics-related packages (VA-API / VDPAU helpers)
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      intel-media-driver # iHD
+      vaapiIntel # i965 (legacy, compatible with some browsers)
       vaapiVdpau
       libvdpau-va-gl
     ];
     enable32Bit = true;
   };
 
-  ################################################################################
-  ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
-  ################################################################################
+  # --- System footer: kernel/initrd/network defaults ---
+  # These options set kernel/initrd modules, default networking behavior, and host platform.
+  # Edit only if you understand implications for boot or device support.
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];

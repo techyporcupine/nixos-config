@@ -5,7 +5,8 @@
   inputs,
   ...
 }: {
-  # NIX CONFIGURATION
+  # Machine: beryllium
+  # Purpose: per-machine Nix configuration and local overrides for 'beryllium'.
   tp.nix.enable = true;
   system.stateVersion = "24.11";
   tp.hm.home.stateVersion = "24.11";
@@ -20,25 +21,25 @@
     };
   };
 
-  # USER CONFIG
+  # User account
   tp.username = "beryllium";
   tp.fullName = "beryllium";
 
-  # BOOT AND DISKS CONFIG
+  # Boot & disks
   tp.disks = {
     enable = true;
   };
 
-  # SYSTEM CONFIG
+  # System features
   tp.system = {
     enable = true;
   };
 
-  # NETWORKING CONFIG
+  # Networking
   networking.hostName = "beryllium";
   tp.networking = {
     enable = true;
-    avahi = true;
+    avahi = true; # mDNS
   };
   networking = {
     vlans = {
@@ -52,6 +53,7 @@
     };
   };
 
+  # Timezone
   time = {
     timeZone = lib.mkForce "America/New_York";
   };
@@ -94,37 +96,37 @@
     '';
   };
 
-  # Git config
+  # Git identity for home-manager
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
-  # PACKAGES JUST FOR THIS MACHINE
+  # Machine-specific packages
   environment.systemPackages = with pkgs; [
     # llama-cpp-vulkan-native
   ];
 
   boot.loader.systemd-boot.enable = true;
 
-  # Set up systemd initrd
+  # Initrd + bootloader
   boot.initrd.systemd.enable = true;
 
+  # Graphics-related packages (VA-API / VDPAU helpers)
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      intel-media-driver # iHD
+      vaapiIntel # i965 (legacy)
       vaapiVdpau
       libvdpau-va-gl
     ];
     enable32Bit = true;
   };
 
-  # Disable SWAP
+  # Disable swap (explicit override)
   swapDevices = lib.mkForce [];
 
-  ################################################################################
-  ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
-  ################################################################################
+  # --- System footer: kernel/initrd/network defaults ---
+  # Tunable defaults for kernel/initrd modules and networking. Change only when needed.
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];

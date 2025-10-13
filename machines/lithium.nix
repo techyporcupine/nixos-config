@@ -5,33 +5,34 @@
   inputs,
   ...
 }: {
-  # NIX CONFIGURATION
+  # Machine: lithium
+  # Purpose: per-machine Nix configuration and local overrides for 'lithium'.
   tp.nix.enable = true;
   system.stateVersion = "25.11";
   tp.hm.home.stateVersion = "25.11";
 
-  # USER CONFIG
+  # User account
   tp.username = "lithium";
   tp.fullName = "lithium";
 
-  # BOOT AND DISKS CONFIG
+  # Boot & disks
   tp.disks = {
     enable = true;
   };
 
-  # SYSTEM CONFIG
+  # System features
   tp.system = {
     enable = true;
   };
 
-  # NETWORKING CONFIG
+  # Networking
   networking.hostName = "lithium";
   tp.networking = {
     enable = true;
-    avahi = true;
+    avahi = true; # mDNS
   };
 
-  # HOSTED SERVICES CONFIG
+  # Hosted services / clients
   tp.server = {
     beszel = {
       client = {
@@ -42,28 +43,24 @@
     zipline.enable = true;
   };
 
-  # Git config
+  # Git identity for home-manager
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
-  # PACKAGES JUST FOR THIS MACHINE
+  # Machine-specific packages
   environment.systemPackages = with pkgs; [
   ];
 
   #hardware.enableAllHardware = true;
 
-  ################################################################################
-  ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
-  ################################################################################
+  # --- System footer: kernel/initrd/network defaults ---
+  # Tunable defaults for kernel/initrd modules and networking. Edit only when required for boot/device support.
   boot.initrd.availableKernelModules = ["ahci" "xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  # Default: enable DHCP on interfaces unless overridden per-interface
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
