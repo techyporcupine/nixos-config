@@ -22,6 +22,18 @@ models:
       -c 512
     ttl: 300
 
+  "granite-small":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/granite-4.0-h-small-GGUF:Q4_K_M
+      -fa on
+      -ngl 99
+      -ncmoe 13
+      -ts 5,1
+      -c 16384
+      --temp 0.0
+    ttl: 600
+
   "qwen3-30b-fast":
     cmd: |
       ${llama-server}
