@@ -1,12 +1,11 @@
 {
-  # flake: NixOS configuration for techyporcupine
-  # Purpose: define inputs (pkgs, overlays, modules) and NixOS system outputs
   description = "techyporcupine's NixOS Config!";
 
-  # External inputs (nixpkgs, overlays, modules, and community flakes)
+  # Dependencies: package sources, modules, and overlays
   inputs = {
-    # Nixpkgs
+    # Main package repository (unstable channel)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Additional package channels for stable/testing packages
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs/patch-1";
@@ -17,52 +16,53 @@
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
 
-    # SwayFX
+    # Wayland compositor with eye candy effects
     swayfx = {
       url = "git+https://github.com/WillPower3309/swayfx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix-minecraft for mc server
+    # Minecraft server management
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Catppuccin
+    # Catppuccin theme
     catppuccin = {
       url = "github:catppuccin/nix";
     };
 
-    # Disko
+    # Declarative disk partitioning
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nixos-hardware
+    # Hardware-specific configurations
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware/master";
     };
 
+    # Local LLM inference engine
     llama-cpp = {
       url = "github:ggml-org/llama.cpp/b6700";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Add Lanzaboote for secure boot
+    # Secure boot support
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nyx
+    # Chaotic-AUR packages
     nyx = {
       url = "github:chaotic-cx/nyx";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Packages I just want the latest of
+    # Latest versions of specific packages
     waybar = {
       url = "github:Alexays/Waybar/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,7 +76,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Home manager config
+    # User environment management
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -87,48 +87,52 @@
     };
   };
 
-  # Outputs: produce NixOS system definitions using the inputs above
+  # System configurations and build outputs
   outputs = {self, ...} @ inputs: let
     inherit (self) outputs;
+    # Overlay to access stable packages alongside unstable
     overlay-stable = final: prev: {
       stable = import inputs.nixpkgs-stable {
         system = final.system;
         config.allowUnfree = true;
       };
     };
+    # Custom fork overlay
     overlay-tp = final: prev: {
       tp = import inputs.nixpkgs-tp {
         system = final.system;
         config.allowUnfree = true;
       };
     };
+    # Staging packages overlay
     overlay-staging = final: prev: {
       staging = import inputs.nixpkgs-staging {
         system = final.system;
         config.allowUnfree = true;
       };
     };
+    # Master branch overlay
     overlay-master = final: prev: {
       master = import inputs.nixpkgs-master {
         system = final.system;
         config.allowUnfree = true;
       };
     };
+    # Supported architectures
     systems = [
       "aarch64-linux"
       "x86_64-linux"
     ];
     forAllSystems = inputs.nixpkgs.lib.genAttrs systems;
-    # NixOS configuration entrypoint
-    # To switch to a machine's configuration, run e.g. `nh os switch ./` from a checkout
-    # where the hostname matches the `nixosConfigurations` key for that machine.
   in {
+    # Machine configurations - switch with `nh os switch ./`
     nixosConfigurations = {
+      # Framework laptop
       carbon = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # Path to NixOS configuration
         modules = [
+          # Apply package overlays
           ({
             config,
             pkgs,
@@ -143,6 +147,7 @@
               (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
+          # Core system modules
           inputs.disko.nixosModules.disko
           ./machines/carbon.nix
           ./disko/carbon-disko.nix
@@ -152,6 +157,7 @@
           inputs.nixos-hardware.nixosModules.framework-13-7040-amd
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nyx.nixosModules.default
+          # Home Manager configuration
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
@@ -161,11 +167,12 @@
           }
         ];
       };
+      # Framework laptop (backup/secondary)
       beryllium = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # Path to NixOS configuration
         modules = [
+          # Apply package overlays
           ({
             config,
             pkgs,
@@ -180,6 +187,7 @@
               (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
+          # Core system modules
           inputs.disko.nixosModules.disko
           ./machines/beryllium.nix
           ./disko/beryllium-disko.nix
@@ -198,11 +206,12 @@
           }
         ];
       };
+      # Server
       helium = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # Path to NixOS configuration
         modules = [
+          # Apply package overlays
           ({
             config,
             pkgs,
@@ -215,9 +224,7 @@
               overlay-master
             ];
           })
-          #{
-          #  nixpkgs.config.pkgs = import inputs.nixpkgs {inherit systems;};
-          #}
+          # Core system modules
           inputs.disko.nixosModules.disko
           ./machines/helium.nix
           ./disko/helium-disko.nix
@@ -233,11 +240,12 @@
           }
         ];
       };
+      # Desktop workstation
       boron = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # Path to NixOS configuration
         modules = [
+          # Apply package overlays
           ({
             config,
             pkgs,
@@ -252,6 +260,7 @@
               (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
+          # Core system modules
           inputs.disko.nixosModules.disko
           ./machines/boron.nix
           ./disko/boron-disko.nix
@@ -269,11 +278,12 @@
           }
         ];
       };
+      # Server with LLM support
       nitrogen = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # Path to NixOS configuration
         modules = [
+          # Apply package overlays
           ({
             config,
             pkgs,
@@ -288,6 +298,7 @@
               (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
             ];
           })
+          # Core system modules
           inputs.disko.nixosModules.disko
           ./machines/nitrogen.nix
           ./disko/nitrogen-disko.nix
@@ -305,11 +316,12 @@
           }
         ];
       };
+      # Additional server
       lithium = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs outputs;};
-        # Path to NixOS configuration
         modules = [
+          # Apply package overlays
           ({
             config,
             pkgs,
@@ -322,9 +334,7 @@
               overlay-master
             ];
           })
-          #{
-          #  nixpkgs.config.pkgs = import inputs.nixpkgs {inherit systems;};
-          #}
+          # Core system modules
           inputs.disko.nixosModules.disko
           ./machines/lithium.nix
           ./disko/lithium-disko.nix
