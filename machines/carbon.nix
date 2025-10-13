@@ -94,7 +94,6 @@
     calibre
     darktable
     inkscape
-    master.davinci-resolve
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
     remmina
