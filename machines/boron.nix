@@ -7,14 +7,17 @@
   # Machine: boron
   # Purpose: per-machine Nix configuration and local overrides for 'boron'.
   # Sections: Nix config, user, disks, system, networking, services, hardware, footer
+  # Notes: 'tp.*' is the project's namespace used across machines for per-host settings.
   tp.nix.enable = true;
   system.stateVersion = "25.05";
   tp.hm.home.stateVersion = "25.05";
   nixpkgs = {
     config = {
+      # Allow specific insecure package (kept minimal)
       permittedInsecurePackages = [
         "openssl-1.1.1w"
       ];
+      # Local package overrides (e.g., driver tweaks)
       packageOverrides = pkgs: {
         vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
       };
@@ -42,6 +45,7 @@
     avahi = true; # mDNS
   };
 
+  # Hosted services and client declarations for this host
   tp.server = {
     llama-swap.enable = true;
     beszel = {
@@ -52,10 +56,11 @@
     };
   };
 
-  # Graphics (NVIDIA + PRIME for hybrid setups)
+  # Graphics (NVIDIA + PRIME for hybrid setups). Toggle per-host graphics/prime usage here.
   tp.graphics.nvidia.enable = true;
   tp.graphics.nvidia.prime = true;
 
+  # Per-host firewall exceptions (add only needed ports)
   networking.firewall = {
     allowedTCPPorts = [
       10200
@@ -75,6 +80,7 @@
     handbrake
   ];
 
+  # Ollama daemon for local LLM hosting
   services.ollama = {
     enable = true;
     host = "0.0.0.0";
@@ -82,6 +88,7 @@
     acceleration = "cuda";
   };
 
+  # Virtualisation settings: podman and OCI container entries (open-webui)
   virtualisation = {
     podman = {
       enable = true;
@@ -109,23 +116,6 @@
           ];
         };
       };
-    };
-  };
-
-  services.wyoming = {
-    piper.servers.boronPiper = {
-      enable = true;
-      piper = pkgs.stable.piper-tts;
-      useCUDA = false; # Breaks as of 9/23/25
-      uri = "tcp://0.0.0.0:10200";
-      voice = "en_GB-cori-high";
-    };
-    faster-whisper.servers.boronWhisper = {
-      enable = true;
-      device = "cpu";
-      uri = "tcp://0.0.0.0:10300";
-      model = "Systran/faster-distil-whisper-medium.en";
-      language = "en";
     };
   };
 

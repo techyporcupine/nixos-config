@@ -1,4 +1,6 @@
 {
+  # Disk layout for 'nitrogen' via disko
+  # GPT partitioning with btrfs subvolumes (root, home, nix, swap) and vfat ESP.
   disko.devices = {
     disk = {
       # Set up disk called "vdb"
@@ -42,7 +44,7 @@
                     mountpoint = "/nix";
                   };
                   # Subvolume for the swapfile, mounted at /.swapvol
-                  # 4GB should be good for 16GB of RAM w/o hibernation
+                  # 4GB swap recommended for ~16GB RAM if not hibernating
                   "/swap" = {
                     mountpoint = "/.swapvol";
                     swap = {

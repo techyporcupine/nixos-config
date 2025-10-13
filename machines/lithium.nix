@@ -33,6 +33,7 @@
   };
 
   # Hosted services / clients
+  # Per-host services (clients and hosted apps)
   tp.server = {
     beszel = {
       client = {
@@ -51,7 +52,7 @@
   environment.systemPackages = with pkgs; [
   ];
 
-  #hardware.enableAllHardware = true;
+  #hardware.enableAllHardware = true; # uncomment to enable all detected hardware
 
   # --- System footer: kernel/initrd/network defaults ---
   # Tunable defaults for kernel/initrd modules and networking. Edit only when required for boot/device support.

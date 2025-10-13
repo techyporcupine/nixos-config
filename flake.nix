@@ -1,6 +1,9 @@
 {
+  # flake: NixOS configuration for techyporcupine
+  # Purpose: define inputs (pkgs, overlays, modules) and NixOS system outputs
   description = "techyporcupine's NixOS Config!";
 
+  # External inputs (nixpkgs, overlays, modules, and community flakes)
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -84,6 +87,7 @@
     };
   };
 
+  # Outputs: produce NixOS system definitions using the inputs above
   outputs = {self, ...} @ inputs: let
     inherit (self) outputs;
     overlay-stable = final: prev: {
@@ -116,7 +120,8 @@
     ];
     forAllSystems = inputs.nixpkgs.lib.genAttrs systems;
     # NixOS configuration entrypoint
-    # To switch to new NixOS config 'nh os switch ./' as long as the hostname of your device is the same as the nixosConfiguration name!
+    # To switch to a machine's configuration, run e.g. `nh os switch ./` from a checkout
+    # where the hostname matches the `nixosConfigurations` key for that machine.
   in {
     nixosConfigurations = {
       carbon = inputs.nixpkgs.lib.nixosSystem {

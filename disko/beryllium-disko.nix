@@ -1,4 +1,6 @@
 {
+  # Disk layout for 'beryllium' via disko
+  # GPT + btrfs subvolume layout. Use the ESP for bootloader files.
   disko.devices = {
     disk = {
       # Set up disk called "vdb"
@@ -36,7 +38,7 @@
                     mountOptions = ["compress=zstd"];
                     mountpoint = "/home";
                   };
-                  # the nix dir, mounted at /nix on the disk, also with some nice zstd compression
+                  # the nix dir, mounted at /nix with zstd compression
                   "/nix" = {
                     mountOptions = ["compress=zstd" "noatime"];
                     mountpoint = "/nix";

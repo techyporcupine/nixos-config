@@ -1,4 +1,6 @@
 {
+  # Placeholder/example disk layout for disko
+  # Simple GPT + vfat ESP and ext4 root for devices without btrfs needs.
   disko.devices = {
     disk = {
       main = {

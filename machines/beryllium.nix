@@ -41,6 +41,7 @@
     enable = true;
     avahi = true; # mDNS
   };
+  # Additional networking (VLAN trunk for this host)
   networking = {
     vlans = {
       vlan124 = {
@@ -54,10 +55,12 @@
   };
 
   # Timezone
+  # Timezone forced to local region for scheduled tasks and logs
   time = {
     timeZone = lib.mkForce "America/New_York";
   };
 
+  # Services hosted or enabled on this machine (many services live here)
   tp.server = {
     minecraft.enable = true;
     minecraft.broccoli-bloc = true;
@@ -86,6 +89,7 @@
     authentik.enable = true;
   };
 
+  # Local Caddy instance for static site on port 18085
   services.caddy = {
     enable = true;
     extraConfig = ''
@@ -105,6 +109,7 @@
     # llama-cpp-vulkan-native
   ];
 
+  # Bootloader + initrd
   boot.loader.systemd-boot.enable = true;
 
   # Initrd + bootloader

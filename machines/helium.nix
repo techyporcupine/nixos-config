@@ -33,6 +33,7 @@
   };
 
   # Hosted services / clients
+  # Enable backup server on this host
   tp.server.backups.server.enable = true;
   tp.server.beszel = {
     client = {
@@ -50,6 +51,7 @@
   environment.systemPackages = with pkgs; [
   ];
 
+  # Automatic flake upgrades (monthly) — uses flake path in inputs.self
   system.autoUpgrade = {
     enable = true;
     flake = inputs.self.outPath;
@@ -65,13 +67,15 @@
     allowReboot = true;
   };
 
-  # Mount 1TB Hard drive
+  # Additional filesystem: mount a pre-labeled 1TB backup disk for backups
+  # (Make sure the device label exists before enabling)
   fileSystems."/mnt/1TB_Backup" = {
     device = "/dev/disk/by-label/1TB_Backup";
     fsType = "ext4";
     options = ["sync"];
   };
 
+  # Disable plymouth; kept here so you can flip it on/off per host
   boot.plymouth.enable = lib.mkForce false;
 
   #hardware.enableAllHardware = true;

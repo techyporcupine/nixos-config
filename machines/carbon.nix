@@ -5,30 +5,33 @@
   inputs,
   ...
 }: {
-  # NIX CONFIGURATION
+  # Machine: carbon
+  # Purpose: per-machine Nix configuration and local overrides for 'carbon'.
+  # Sections: Nix config, user, disks, system, networking, services, graphics, packages, hardware, footer
+  # Notes: 'tp.*' is the project's namespace used across machines for per-host settings.
   tp.nix.enable = true;
   system.stateVersion = "24.11";
   tp.hm.home.stateVersion = "24.11";
 
-  # USER CONFIG
+  # User account
   tp.username = "techyporcupine";
   tp.fullName = "Caleb";
 
-  # BOOT AND DISKS CONFIG
+  # Boot & disks
   tp.disks = {
     enable = true;
   };
 
-  # SYSTEM CONFIG
+  # System features
   tp.system = {
     enable = true;
   };
 
-  # NETWORKING CONFIG
+  # Networking
   networking.hostName = "carbon";
   tp.networking = {
     enable = true;
-    avahi = true;
+    avahi = true; # mDNS
   };
 
   services.tailscale = {
@@ -41,7 +44,7 @@
 
   tp.server.virtualisation.enable = true;
 
-  # GRAPHICS CONFIG
+  # Graphics
   tp.graphics = {
     enable = true;
     kitty = true;
@@ -55,20 +58,20 @@
     qt = false;
   };
 
-  # GAMING CONFIG
+  # Gaming
   tp.gaming = {
     enable = true;
     graphical = true;
   };
 
-  # Git config
+  # Git identity for home-manager
   tp.hm.programs.git.userName = "techyporcupine";
   tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
-  # TCP Ports out of firewall
+  # Per-host firewall exceptions (default: none)
   networking.firewall.allowedTCPPorts = [];
 
-  # PACKAGES JUST FOR THIS MACHINE
+  # Machine-specific packages
   environment.systemPackages = with pkgs; [
     yt-dlp
     blisp
@@ -135,7 +138,7 @@
 
   hardware.opentabletdriver.enable = true;
 
-  # Kyocera Printer Drivers
+  # Printer Drivers
   services.printing.drivers = [
     pkgs.tp.cups-kyodialog
     pkgs.cups-brother-hll2350dw
@@ -184,9 +187,9 @@
     HibernateDelaySec=2days
   '';
 
-  ################################################################################
-  ###### DO NOT MODIFY BELOW THIS UNLESS YOU KNOW EXACTLY WHAT YOU'RE DOING ######
-  ################################################################################
+  # --- System footer: kernel/initrd/network defaults ---
+  # These options set kernel/initrd modules, default networking behavior, and host platform.
+  # Edit only if you understand implications for boot or device support.
   boot.initrd.availableKernelModules = ["xhci_pci" "usb_storage" "uas" "sd_mod" "thunderbolt" "nvme"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];

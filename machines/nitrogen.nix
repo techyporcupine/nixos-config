@@ -72,12 +72,12 @@
     llama-cpp-cuda-native
   ];
 
-  # Local overlays
+  # Local overlays (adds project-specific package overlays)
   nixpkgs.overlays = [
     (import ../nixos/pkgs/ollama-overlay.nix)
   ];
 
-  # Virtualisation / containers
+  # Virtualisation & containers (podman backend + OCI container entries)
   virtualisation = {
     podman = {
       enable = true;
@@ -117,7 +117,7 @@
 
   boot.loader.systemd-boot.enable = true;
 
-  # Initrd + boot
+  # Initrd + boot (enable systemd initrd for early userspace hooks)
   boot.initrd.systemd.enable = true;
 
   # Graphics-related packages (VA-API / VDPAU helpers)

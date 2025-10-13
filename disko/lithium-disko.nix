@@ -1,4 +1,6 @@
 {
+  # Disk layout for 'lithium' via disko
+  # GPT partitioning with btrfs subvolumes and a vfat ESP mounted at /boot.
   disko.devices = {
     disk = {
       # Set up disk called "vdb"
@@ -42,7 +44,7 @@
                     mountpoint = "/nix";
                   };
                   # Subvolume for the swapfile, mounted at /.swapvol
-                  # 2GB should be good for 8GB of RAM w/o hibernation
+                  # 2GB swap recommended for ~8GB RAM if not hibernating
                   "/swap" = {
                     mountpoint = "/.swapvol";
                     swap = {

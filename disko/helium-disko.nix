@@ -1,4 +1,6 @@
 {
+  # Disk layout for 'helium' via disko
+  # Boot on mmcblk0: GPT + btrfs subvolumes for root, home, and /nix.
   disko.devices = {
     disk = {
       # Set up disk called "vdb"
@@ -24,7 +26,7 @@
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = ["-f" "-L root"]; # Override existing partition
+                extraArgs = ["-f" "-L root"]; # force and set label
                 # BTRFS Subvolumes and where they are mounted
                 subvolumes = {
                   # The rootfs, mounted at / on the disk

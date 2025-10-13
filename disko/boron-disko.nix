@@ -1,4 +1,8 @@
 {
+  # Disk layout for 'boron' via disko
+  # Defines device, GPT partitioning, and btrfs subvolumes.
+  # - ESP: vfat FAT32 for firmware/bootloader (/boot)
+  # - root: btrfs for subvolume-based layout (root/home/nix/swap)
   disko.devices = {
     disk = {
       # Set up disk called "vdb"
@@ -36,7 +40,7 @@
                     mountOptions = ["compress=zstd"];
                     mountpoint = "/home";
                   };
-                  # the nix dir, mounted at /nix on the disk, also with some nice zstd compression
+                  # the nix dir, mounted at /nix with zstd compression
                   "/nix" = {
                     mountOptions = ["compress=zstd" "noatime"];
                     mountpoint = "/nix";

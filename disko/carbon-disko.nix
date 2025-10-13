@@ -1,4 +1,7 @@
 {
+  # Disk layout for 'carbon' via disko
+  # Uses LUKS (cryptroot) for full-disk encryption, then btrfs inside LUKS.
+  # NOTE: `allowDiscards = true` enables TRIM inside the LUKS device.
   disko.devices = {
     disk = {
       # Set up disk called "vdb"
@@ -28,7 +31,7 @@
                 };
                 content = {
                   type = "btrfs";
-                  extraArgs = ["-L" "nixos" "-f"];
+                  extraArgs = ["-L" "nixos" "-f"]; # label and force
                   subvolumes = {
                     "/rootfs" = {
                       mountpoint = "/";
