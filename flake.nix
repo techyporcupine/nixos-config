@@ -11,11 +11,6 @@
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs/patch-1";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
 
-    #companion-satellite = {
-    #  url = "path:nixos/pkgs/companion-satellite";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
-
     # Wayland compositor with eye candy effects
     swayfx = {
       url = "git+https://github.com/WillPower3309/swayfx";
@@ -29,9 +24,7 @@
     };
 
     # Catppuccin theme
-    catppuccin = {
-      url = "github:catppuccin/nix";
-    };
+    catppuccin.url = "github:catppuccin/nix";
 
     # Declarative disk partitioning
     disko = {
@@ -90,6 +83,7 @@
   # System configurations and build outputs
   outputs = {self, ...} @ inputs: let
     inherit (self) outputs;
+
     # Overlay to access stable packages alongside unstable
     overlay-stable = final: prev: {
       stable = import inputs.nixpkgs-stable {
@@ -118,237 +112,132 @@
         config.allowUnfree = true;
       };
     };
-    # Supported architectures
-    systems = [
-      "aarch64-linux"
-      "x86_64-linux"
+
+    # Common overlays for all systems
+    baseOverlays = [
+      overlay-stable
+      overlay-tp
+      overlay-staging
+      overlay-master
     ];
-    forAllSystems = inputs.nixpkgs.lib.genAttrs systems;
+
+    # Overlays with llama-cpp support
+    llamaOverlays =
+      baseOverlays
+      ++ [
+        inputs.llama-cpp.overlays.default
+        (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
+      ];
+
+    # Common modules for all systems
+    commonModules = [
+      inputs.disko.nixosModules.disko
+      ./nixos
+      inputs.home-manager.nixosModules.home-manager
+      inputs.catppuccin.nixosModules.catppuccin
+    ];
+
+    # Helper function to create system configurations
+    mkSystem = {
+      hostname,
+      overlays ? baseOverlays,
+      extraModules ? [],
+      homeManagerUser ? null,
+    }:
+      inputs.nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs outputs;};
+        modules =
+          [
+            # Apply package overlays
+            ({
+              config,
+              pkgs,
+              ...
+            }: {
+              nixpkgs.overlays = overlays;
+            })
+            # Machine-specific configuration
+            ./machines/${hostname}.nix
+            ./disko/${hostname}-disko.nix
+          ]
+          ++ commonModules
+          ++ extraModules
+          ++ (
+            if homeManagerUser != null
+            then [
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = {inherit inputs outputs;};
+                home-manager.users.${homeManagerUser}.imports = [
+                  inputs.catppuccin.homeModules.catppuccin
+                ];
+              }
+            ]
+            else [
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = {inherit inputs outputs;};
+              }
+            ]
+          );
+      };
   in {
     # Machine configurations - switch with `nh os switch ./`
     nixosConfigurations = {
       # Framework laptop
-      carbon = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # Apply package overlays
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.overlays = [
-              overlay-stable
-              overlay-tp
-              overlay-staging
-              overlay-master
-              inputs.llama-cpp.overlays.default
-              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
-            ];
-          })
-          # Core system modules
-          inputs.disko.nixosModules.disko
-          ./machines/carbon.nix
-          ./disko/carbon-disko.nix
-          ./nixos
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
+      carbon = mkSystem {
+        hostname = "carbon";
+        overlays = llamaOverlays;
+        homeManagerUser = "techyporcupine";
+        extraModules = [
           inputs.nixos-hardware.nixosModules.framework-13-7040-amd
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nyx.nixosModules.default
-          # Home Manager configuration
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            # FIXME: Change username here if you changed the HM username
-            home-manager.users.techyporcupine.imports = [inputs.catppuccin.homeModules.catppuccin];
-          }
         ];
       };
+
       # Framework laptop (backup/secondary)
-      beryllium = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # Apply package overlays
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.overlays = [
-              overlay-stable
-              overlay-tp
-              overlay-staging
-              overlay-master
-              inputs.llama-cpp.overlays.default
-              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
-            ];
-          })
-          # Core system modules
-          inputs.disko.nixosModules.disko
-          ./machines/beryllium.nix
-          ./disko/beryllium-disko.nix
-          ./nixos
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
+      beryllium = mkSystem {
+        hostname = "beryllium";
+        overlays = llamaOverlays;
+        extraModules = [
           inputs.nixos-hardware.nixosModules.framework-13-7040-amd
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nyx.nixosModules.default
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            # FIXME: Change username here if you changed the HM username
-            # home-manager.users.beryllium.imports = [inputs.catppuccin.homeModules.catppuccin];
-          }
         ];
       };
+
       # Server
-      helium = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # Apply package overlays
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.overlays = [
-              overlay-stable
-              overlay-tp
-              overlay-staging
-              overlay-master
-            ];
-          })
-          # Core system modules
-          inputs.disko.nixosModules.disko
-          ./machines/helium.nix
-          ./disko/helium-disko.nix
-          ./nixos
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            # FIXME: Change username here if you changed the HM username
-            # home-manager.users.helium.imports = [inputs.catppuccin.homeModules.catppuccin];
-          }
-        ];
+      helium = mkSystem {
+        hostname = "helium";
       };
+
       # Desktop workstation
-      boron = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # Apply package overlays
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.overlays = [
-              overlay-stable
-              overlay-tp
-              overlay-staging
-              overlay-master
-              inputs.llama-cpp.overlays.default
-              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
-            ];
-          })
-          # Core system modules
-          inputs.disko.nixosModules.disko
-          ./machines/boron.nix
-          ./disko/boron-disko.nix
-          ./nixos
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
+      boron = mkSystem {
+        hostname = "boron";
+        overlays = llamaOverlays;
+        extraModules = [
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nyx.nixosModules.default
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            # FIXME: Change username here if you changed the HM username
-            # home-manager.users.boron.imports = [inputs.catppuccin.homeModules.catppuccin];
-          }
         ];
       };
+
       # Server with LLM support
-      nitrogen = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # Apply package overlays
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.overlays = [
-              overlay-stable
-              overlay-tp
-              overlay-staging
-              overlay-master
-              inputs.llama-cpp.overlays.default
-              (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
-            ];
-          })
-          # Core system modules
-          inputs.disko.nixosModules.disko
-          ./machines/nitrogen.nix
-          ./disko/nitrogen-disko.nix
-          ./nixos
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
+      nitrogen = mkSystem {
+        hostname = "nitrogen";
+        overlays = llamaOverlays;
+        extraModules = [
           inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nyx.nixosModules.default
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            # FIXME: Change username here if you changed the HM username
-            # home-manager.users.nitrogen.imports = [inputs.catppuccin.homeModules.catppuccin];
-          }
         ];
       };
+
       # Additional server
-      lithium = inputs.nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs outputs;};
-        modules = [
-          # Apply package overlays
-          ({
-            config,
-            pkgs,
-            ...
-          }: {
-            nixpkgs.overlays = [
-              overlay-stable
-              overlay-tp
-              overlay-staging
-              overlay-master
-            ];
-          })
-          # Core system modules
-          inputs.disko.nixosModules.disko
-          ./machines/lithium.nix
-          ./disko/lithium-disko.nix
-          ./nixos
-          inputs.home-manager.nixosModules.home-manager
-          inputs.catppuccin.nixosModules.catppuccin
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            # FIXME: Change username here if you changed the HM username
-            # home-manager.users.lithium.imports = [inputs.catppuccin.homeModules.catppuccin];
-          }
-        ];
+      lithium = mkSystem {
+        hostname = "lithium";
       };
     };
   };
