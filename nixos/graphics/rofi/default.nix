@@ -12,13 +12,14 @@ in {
   };
 
   config = lib.mkIf cfg.rofi {
-    # Configuration for Rofi, a way to run applications installed on the system
+    # Rofi application launcher settings
     tp.hm.programs.rofi = {
       package = pkgs.rofi;
       enable = true;
+      # Use custom theme file
       theme = ./theme.rasi;
       extraConfig = {
-        # TODO: How does this font get defined and stuff, it doesn't seem active
+        # Font for Rofi interface
         font = "Fira Code";
         modi = "drun";
         icon-theme = "Papirus";

@@ -1,3 +1,5 @@
+# MangoHud performance overlay configuration
+# Copies MangoHud configuration file for gaming performance monitoring
 {
   pkgs,
   config,
@@ -12,10 +14,12 @@ in {
   };
 
   config = lib.mkIf cfg.mangohud {
-    # Copy configfile for mangohud
+    # Install MangoHud configuration file
     tp.hm.xdg.configFile."mangohud" = {
       enable = true;
+      # Source configuration from MangoHud.conf
       source = ./MangoHud.conf;
+      # Install to XDG config directory
       target = "./MangoHud/MangoHud.conf";
     };
   };

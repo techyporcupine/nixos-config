@@ -29,47 +29,52 @@ in {
     # Enable gnome-keyring
     services.gnome.gnome-keyring.enable = true;
 
-    # Enable seahorse key and password managment
+    # Enable Seahorse for key and password management
     programs.seahorse.enable = true;
 
-    # Packages that are not needed if you're not using Hyprland
+    # Desktop utilities and Wayland tools
     environment.systemPackages = with pkgs; [
-      nautilus
-      nautilus-python
-      python3Packages.dbus-python
-      gnome-disk-utility
-      gnome-tweaks
-      udiskie
-      baobab
-      polkit_gnome
-      gnome-logs
-      cheese
-      gnome-connections
-      inputs.hyprpaper.packages.${system}.hyprpaper
-      inputs.hypridle.packages.${system}.hypridle
-      hyprlock
-      hyprpicker
-      cliphist
-      wl-clipboard
-      stable.nwg-displays
-      (flameshot.override {enableWlrSupport = true;})
+      nautilus # File manager
+      nautilus-python # Python extensions for Nautilus
+      python3Packages.dbus-python # DBus Python bindings
+      gnome-disk-utility # Disk management tool
+      gnome-tweaks # GNOME settings tweaker
+      udiskie # Automount removable drives
+      baobab # Disk usage analyzer
+      polkit_gnome # PolicyKit authentication agent
+      gnome-logs # System log viewer
+      cheese # Webcam application
+      gnome-connections # Remote desktop client
+      inputs.hyprpaper.packages.${system}.hyprpaper # Wallpaper utility
+      inputs.hypridle.packages.${system}.hypridle # Idle daemon
+      hyprlock # Screen locker
+      hyprpicker # Color picker
+      cliphist # Clipboard manager
+      wl-clipboard # Wayland clipboard utilities
+      stable.nwg-displays # Display configuration tool
+      (flameshot.override {enableWlrSupport = true;}) # Screenshot tool
     ];
 
     security.pam.services.hyprlock = {
       rules.auth.unix.order = config.security.pam.services.hyprlock.rules.auth.fprintd.order - 10;
     };
 
+    # Use Vulkan renderer for Wayland
     environment.sessionVariables.WLR_RENDERER = "vulkan";
 
-    # enable sway window manager
+    # Enable Sway window manager
     programs.sway = {
       enable = true;
+      # Use git version from nyx input
       package = inputs.nyx.packages.${pkgs.system}.sway_git;
     };
 
+    # Configure XDG desktop portals for Wayland
     xdg.portal = {
       enable = true;
+      # Enable wlroots portal
       wlr.enable = true;
+      # Add GTK portal
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
       # Prefer wlr, then gtk
       config.common.default = ["wlr" "gtk"];

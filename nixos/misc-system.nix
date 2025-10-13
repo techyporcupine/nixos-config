@@ -1,3 +1,5 @@
+# Miscellaneous system configuration module
+# Configures locale, timezone, hardware, SSH, shell, and sound
 {
   pkgs,
   config,
@@ -11,26 +13,29 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # TIME CONFIG
+    # Time zone configuration with automatic detection
     time = {
       timeZone = lib.mkDefault "America/New_York";
     };
+    # Automatically update timezone based on location
     services.automatic-timezoned.enable = true;
 
-    # LOCALE CONFIG
+    # Locale configuration
     i18n = {
       defaultLocale = "en_US.UTF-8";
     };
 
-    # HARDWARE CONFIG
+    # Hardware support configuration
     hardware = {
-      # Enable I2C (monitor config using ddcutil)
+      # Enable I2C for monitor configuration (ddcutil)
       i2c.enable = true;
-      # Enable Bluetooth
+      # Enable Bluetooth support
       bluetooth.enable = true;
+      # Enable experimental Bluetooth features
       bluetooth.settings.General.Experimental = "true";
     };
 
+    # Enable hardware graphics acceleration
     hardware.graphics = {
       enable = true;
       #extraPackages = with pkgs; [
@@ -38,35 +43,43 @@ in {
       #];
     };
 
-    # Enable HomeManager
+    # Enable Home Manager for user configuration
     tp.hm.programs.home-manager.enable = true;
+    # Reload systemd user services on switch
     tp.hm.systemd.user.startServices = "sd-switch";
 
-    # Enable FWUPD for firmware updating
+    # Enable firmware update daemon
     services.fwupd.enable = true;
 
-    # Enable UPower for Dbus power management
+    # Enable power management daemon
     services.upower.enable = true;
 
-    # SSH Config
+    # SSH server configuration
     services.openssh = {
       enable = true;
+      # Allow password authentication
       settings.PasswordAuthentication = true;
+      # Disable keyboard-interactive authentication
       settings.KbdInteractiveAuthentication = false;
     };
+    # Enable SSH agent for key management
     programs.ssh.startAgent = true;
     tp.hm.services = {
       ssh-agent.enable = true;
     };
+    # Disable GNOME's SSH agent (conflicts with ssh-agent)
     services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
     tp.hm.programs = {
       ssh = {
         enable = true;
 
-        # Config for clients you can ssh to without all their info.
+        # SSH client configuration for known hosts
         matchBlocks = {
+          # Default settings for all hosts
           "*" = {
+            # Automatically add keys to SSH agent
             addKeysToAgent = "yes";
+            # Set terminal type for remote sessions
             setEnv = {TERM = "kitty";};
           };
           "printers" = {
@@ -129,56 +142,69 @@ in {
     };
 
     tp.hm.programs = {
-      # Zsh configuration
+      # Zsh shell configuration
       zsh = {
         enable = true;
+        # Enable Oh My Zsh framework
         oh-my-zsh = {
           enable = true;
           plugins = [
-            "git"
-            "sudo"
+            "git" # Git aliases and completion
+            "sudo" # Press ESC twice to add sudo to command
           ];
         };
-        # Defined aliases to be used inside of the shell
+        # Shell command aliases
         shellAliases = {
           c = "clear";
           tsu = "sudo tailscale up --accept-routes";
           tsd = "sudo tailscale down";
         };
+        # Enable command suggestions based on history
         autosuggestion.enable = true;
+        # Enable shell completion
         enableCompletion = true;
+        # Enable syntax highlighting
         syntaxHighlighting.enable = true;
       };
-      # Configuration for starship, my zsh theme
+      # Starship prompt theme configuration
       starship = {
         enable = true;
         enableZshIntegration = true;
+        # Custom prompt format and styling
         settings = {
+          # Left side: hostname, directory, prompt character, git info
           format = "$hostname$directory$character$git_branch$git_status";
+          # Right side: exit status and command duration
           right_format = "$status$cmd_duration";
+          # Prompt character styling
           character = {
             success_symbol = "[❯](blue)";
             error_symbol = "[❯](red)";
           };
+          # Command exit status indicators
           status = {
             disabled = false;
             format = "[$symbol]($style)";
             symbol = "[✘ ](red)";
             success_symbol = "[✔ ](green)";
           };
+          # Git branch display
           git_branch = {
             format = "[$branch]($style) ";
             style = "bold green";
           };
+          # Directory display (truncated)
           directory = {
             style = "blue";
             truncation_length = 1;
             truncation_symbol = "";
             fish_style_pwd_dir_length = 1;
           };
+          # Always show command duration
           cmd_duration = {
             min_time = 0;
           };
+          # Always show hostname
           hostname = {
             ssh_only = false;
           };
@@ -186,17 +212,24 @@ in {
       };
     };
 
-    # SOUND CONFIG
+    # Sound configuration using PipeWire
+    # Disable PulseAudio
     services.pulseaudio.enable = false;
+    # Enable RealtimeKit for low-latency audio
     security.rtkit.enable = true;
+    # Enable PipeWire sound server
     services.pipewire = {
       enable = true;
+      # Enable ALSA support
       alsa.enable = true;
+      # Enable 32-bit ALSA support for games
       alsa.support32Bit = true;
+      # Enable PulseAudio compatibility
       pulse.enable = true;
       #jack.enable = true;
     };
 
+    # System-wide utility packages
     environment.systemPackages = with pkgs; [
       home-manager
       wget

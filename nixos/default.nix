@@ -1,3 +1,5 @@
+# Main NixOS configuration module aggregator
+# Imports all system configuration modules
 {
   imports = [
     ./networking.nix
