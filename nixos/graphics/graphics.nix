@@ -24,7 +24,6 @@ in {
       gimp
       slack
       (vscode-with-extensions.override {
-        vscode = vscodium;
         vscodeExtensions = with vscode-extensions; [
           bbenoist.nix
           ms-python.python
@@ -34,8 +33,8 @@ in {
           esbenp.prettier-vscode
           kamadorueda.alejandra
           continue.continue
-          #github.copilot
-          #github.copilot-chat
+          github.copilot
+          github.copilot-chat
         ];
       })
       zed-editor
