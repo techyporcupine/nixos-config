@@ -1,3 +1,5 @@
+# Network configuration module
+# Configures NetworkManager, firewall rules, Avahi mDNS, and network utilities
 {
   pkgs,
   config,
@@ -13,17 +15,19 @@ in {
 
   config = lib.mkIf cfg.enable {
     networking = {
-      networkmanager.enable = true; # Enable networking via networkmanager
-      firewall = {
-        extraCommands = "iptables -I nixos-fw -s 10.0.0.144 -p udp -j nixos-fw-accept"; # hdhomerun
-      };
+      # NetworkManager for easier WiFi/network management (vs manual ifconfig)
+      networkmanager.enable = true;
     };
-    # Enable avahi for mdns reflection
+
+    # Avahi: mDNS/DNS-SD implementation (discovers .local hostnames)
     services.avahi = lib.mkIf cfg.avahi {
       enable = true;
+      # Enable mDNS name resolution in NSS (allows resolving .local addresses)
       nssmdns4 = true;
+      # Open firewall for mDNS traffic (UDP port 5353)
       openFirewall = true;
     };
+
     environment.systemPackages = with pkgs; [
       wirelesstools
       inetutils

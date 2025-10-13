@@ -13,62 +13,65 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # Time zone configuration with automatic detection
+    # Time zone configuration
     time = {
+      # Default to Eastern time, but can be overridden per-machine
       timeZone = lib.mkDefault "America/New_York";
     };
-    # Automatically update timezone based on location
+    # Automatically update timezone based on geolocation (useful for laptops)
     services.automatic-timezoned.enable = true;
 
-    # Locale configuration
+    # Locale configuration (language, date format, currency, etc.)
     i18n = {
       defaultLocale = "en_US.UTF-8";
     };
 
     # Hardware support configuration
     hardware = {
-      # Enable I2C for monitor configuration (ddcutil)
+      # Enable I2C bus access (needed for ddcutil to control monitor brightness/settings)
       i2c.enable = true;
-      # Enable Bluetooth support
+      # Enable Bluetooth radio
       bluetooth.enable = true;
-      # Enable experimental Bluetooth features
+      # Enable experimental Bluetooth features (better LE Audio, codec support)
       bluetooth.settings.General.Experimental = "true";
     };
 
-    # Enable hardware graphics acceleration
+    # Enable hardware graphics acceleration (OpenGL, Vulkan, VA-API)
     hardware.graphics = {
       enable = true;
       #extraPackages = with pkgs; [
-      #  rocmPackages.clr.icd
+      #  rocmPackages.clr.icd  # Uncomment for AMD ROCm compute support
       #];
     };
 
-    # Enable Home Manager for user configuration
+    # Enable Home Manager for user-level configuration
     tp.hm.programs.home-manager.enable = true;
-    # Reload systemd user services on switch
+    # Restart changed systemd user services instead of warning (smoother updates)
     tp.hm.systemd.user.startServices = "sd-switch";
 
-    # Enable firmware update daemon
+    # FWUPD: firmware update daemon (updates UEFI, peripherals via LVFS)
     services.fwupd.enable = true;
 
-    # Enable power management daemon
+    # UPower: battery/power monitoring (shows battery status in UI)
     services.upower.enable = true;
 
     # SSH server configuration
     services.openssh = {
       enable = true;
-      # Allow password authentication
+      # Allow password authentication (in addition to key-based)
       settings.PasswordAuthentication = true;
-      # Disable keyboard-interactive authentication
+      # Disable keyboard-interactive (prevents redundant password prompts)
       settings.KbdInteractiveAuthentication = false;
     };
-    # Enable SSH agent for key management
+    # Enable SSH agent system-wide (manages private keys in memory)
     programs.ssh.startAgent = true;
     tp.hm.services = {
+      # Also enable SSH agent for user (home-manager integration)
       ssh-agent.enable = true;
     };
-    # Disable GNOME's SSH agent (conflicts with ssh-agent)
+    # Force disable GNOME's SSH agent to prevent conflicts
     services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
+
     tp.hm.programs = {
       ssh = {
         enable = true;
@@ -77,9 +80,9 @@ in {
         matchBlocks = {
           # Default settings for all hosts
           "*" = {
-            # Automatically add keys to SSH agent
+            # Auto-add keys to agent on first use (convenience)
             addKeysToAgent = "yes";
-            # Set terminal type for remote sessions
+            # Set TERM to kitty for better remote terminal support
             setEnv = {TERM = "kitty";};
           };
           "printers" = {
@@ -87,6 +90,7 @@ in {
             user = "printers";
             hostname = "printers";
           };
+          # Home lab servers (named after elements)
           "beryllium" = {
             forwardAgent = true;
             user = "beryllium";
@@ -95,12 +99,12 @@ in {
           "helium" = {
             forwardAgent = true;
             user = "helium";
-            hostname = "2001:470:e251:1000::6";
+            hostname = "2001:470:e251:1000::6"; # IPv6 address
           };
           "heliumv4" = {
             forwardAgent = true;
             user = "helium";
-            hostname = "172.16.0.6";
+            hostname = "172.16.0.6"; # IPv4 fallback
           };
           "boron" = {
             forwardAgent = true;
@@ -117,10 +121,12 @@ in {
             user = "lithium";
             hostname = "10.0.0.14";
           };
+          # Cisco 3750X switch configs (legacy crypto for old hardware)
           "3750xmgmt" = {
             hostname = "172.16.0.1";
             user = "admin";
             extraOptions = {
+              # Enable legacy algorithms (Cisco IOS only supports older SSH)
               PubkeyAcceptedAlgorithms = "+ssh-rsa";
               HostkeyAlgorithms = "+ssh-rsa";
               Ciphers = "aes128-ctr";
@@ -145,66 +151,71 @@ in {
       # Zsh shell configuration
       zsh = {
         enable = true;
-        # Enable Oh My Zsh framework
+        # Oh My Zsh: community-driven framework with plugins/themes
         oh-my-zsh = {
           enable = true;
           plugins = [
-            "git" # Git aliases and completion
-            "sudo" # Press ESC twice to add sudo to command
+            "git" # Git aliases and completion (gst, gco, etc.)
+            "sudo" # Press ESC twice to prepend sudo to command
           ];
         };
-        # Shell command aliases
+        # Convenient shell aliases
         shellAliases = {
           c = "clear";
-          tsu = "sudo tailscale up --accept-routes";
-          tsd = "sudo tailscale down";
+          tsu = "sudo tailscale up --accept-routes"; # Start Tailscale VPN
+          tsd = "sudo tailscale down"; # Stop Tailscale VPN
         };
-        # Enable command suggestions based on history
+        # Show grayed-out suggestions from history as you type
         autosuggestion.enable = true;
-        # Enable shell completion
+        # Tab completion for commands and arguments
         enableCompletion = true;
-        # Enable syntax highlighting
+        # Color-code valid/invalid commands as you type
         syntaxHighlighting.enable = true;
       };
-      # Starship prompt theme configuration
+
+      # Starship: fast, customizable prompt written in Rust
       starship = {
         enable = true;
         enableZshIntegration = true;
-        # Custom prompt format and styling
         settings = {
-          # Left side: hostname, directory, prompt character, git info
+          # Left prompt: hostname, directory, prompt char, git info
           format = "$hostname$directory$character$git_branch$git_status";
-          # Right side: exit status and command duration
+          # Right prompt: status and timing
           right_format = "$status$cmd_duration";
-          # Prompt character styling
+
+          # Prompt character (❯)
           character = {
-            success_symbol = "[❯](blue)";
-            error_symbol = "[❯](red)";
+            success_symbol = "[❯](blue)"; # Blue when last command succeeded
+            error_symbol = "[❯](red)"; # Red when last command failed
           };
-          # Command exit status indicators
+
+          # Show checkmark/X for last command status
           status = {
             disabled = false;
             format = "[$symbol]($style)";
             symbol = "[✘ ](red)";
             success_symbol = "[✔ ](green)";
           };
-          # Git branch display
+
           git_branch = {
             format = "[$branch]($style) ";
             style = "bold green";
           };
-          # Directory display (truncated)
+
+          # Show only last directory component (e.g., ~/foo/bar → bar)
           directory = {
             style = "blue";
             truncation_length = 1;
             truncation_symbol = "";
-            fish_style_pwd_dir_length = 1;
+            fish_style_pwd_dir_length = 1; # Fish-style path shortening
           };
-          # Always show command duration
+
+          # Always show how long commands take (helpful for slow ops)
           cmd_duration = {
             min_time = 0;
           };
-          # Always show hostname
+
+          # Always show hostname (not just in SSH sessions)
           hostname = {
             ssh_only = false;
           };
@@ -212,21 +223,19 @@ in {
       };
     };
 
-    # Sound configuration using PipeWire
-    # Disable PulseAudio
-    services.pulseaudio.enable = false;
-    # Enable RealtimeKit for low-latency audio
+    # Sound configuration using PipeWire (modern replacement for PulseAudio/JACK)
+    services.pulseaudio.enable = false; # PipeWire handles this
+    # RealtimeKit: allows non-root processes to get realtime scheduling (low-latency audio)
     security.rtkit.enable = true;
-    # Enable PipeWire sound server
     services.pipewire = {
       enable = true;
-      # Enable ALSA support
+      # ALSA: Linux kernel sound API
       alsa.enable = true;
-      # Enable 32-bit ALSA support for games
+      # 32-bit ALSA for older games/applications
       alsa.support32Bit = true;
-      # Enable PulseAudio compatibility
+      # PulseAudio compatibility layer (most apps expect PulseAudio)
       pulse.enable = true;
-      #jack.enable = true;
+      #jack.enable = true;  # Uncomment for pro audio (JACK) support
     };
 
     # System-wide utility packages

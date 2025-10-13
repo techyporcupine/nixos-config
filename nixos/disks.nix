@@ -1,3 +1,5 @@
+# Boot and disk-related configuration module
+# Configures systemd-boot, EFI, Plymouth boot screen, and kernel
 {
   pkgs,
   config,
@@ -13,12 +15,16 @@ in {
   config = lib.mkIf cfg.enable {
     # BOOT CONFIG
     boot = {
+      # Use systemd-boot as the bootloader (simpler than GRUB for EFI systems)
       loader.systemd-boot.enable = true;
+      # Allow modification of EFI variables (needed for boot entry management)
       loader.efi.canTouchEfiVariables = true;
       plymouth = {
-        enable = true; #  Enable plymouth for nice boot and shutdown screens
+        # Enable Plymouth for graphical boot splash screen (hides kernel messages)
+        enable = true;
       };
-      kernelPackages = pkgs.linuxPackages_latest; # Get latest kernel
+      # Use latest stable kernel instead of LTS (gets newest hardware support)
+      kernelPackages = pkgs.linuxPackages_latest;
     };
   };
 }

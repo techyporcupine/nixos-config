@@ -1,3 +1,5 @@
+# Gaming configuration module
+# Enables Steam, Gamescope, GameMode, and various emulators
 {
   pkgs,
   config,
@@ -8,17 +10,20 @@
 in {
   options.tp.gaming = {
     enable = lib.mkEnableOption "TP's gaming configuration";
+    # Separate option to control graphical programs (useful for headless systems)
     graphical = lib.mkEnableOption "gaming programs that are graphical";
   };
 
   config = lib.mkIf cfg.enable {
     # PROGRAMS CONFIG
     programs = lib.mkIf cfg.graphical {
-      # Enable Valve's Gamescope
+      # Gamescope: Valve's micro-compositor for gaming (better performance/control)
       gamescope.enable = true;
 
+      # GameMode: Feral Interactive's optimization daemon (CPU governor, process priority)
       gamemode.enable = true;
 
+      # Steam with automatic FHS environment setup
       steam.enable = true;
     };
 

@@ -1,4 +1,5 @@
-# TODO: COMMENTS
+# RTL-SDR configuration module
+# Enables RTL-SDR hardware support and installs radio software (GQRX, GNU Radio, etc.)
 {
   pkgs,
   config,
@@ -12,10 +13,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    #RTL-SDR config
+    # Enable RTL-SDR USB dongle support (sets udev rules, blacklists DVB drivers)
     hardware.rtl-sdr = {
       enable = true;
     };
+
     environment.systemPackages = [
       pkgs.gqrx
       pkgs.gnuradio
