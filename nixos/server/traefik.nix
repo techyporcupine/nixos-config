@@ -162,7 +162,7 @@ in {
             hydra = {loadBalancer.servers = [{url = "http://10.0.0.30:7125";}];};
             alli = {loadBalancer.servers = [{url = "http://10.0.0.30:7126";}];};
             pve = {loadBalancer.servers = [{url = "https://10.0.0.6:8006/";}];};
-            mesh = {loadBalancer.servers = [{url = "http://10.15.24.10:5920/";}];};
+            mesh = {loadBalancer.servers = [{url = "http://10.15.24.10:8000/";}];};
             llm = {loadBalancer.servers = [{url = "http://10.0.0.11:8080/";}];};
             zipline = {loadBalancer.servers = [{url = "http://10.0.0.14:3000";}];};
           };
