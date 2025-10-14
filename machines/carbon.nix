@@ -40,8 +40,6 @@
     useRoutingFeatures = "client";
   };
 
-  services.strongswan.enable = true;
-
   tp.server.virtualisation.enable = true;
 
   # Graphics
@@ -90,7 +88,7 @@
     eog
     qbittorrent
     handbrake
-    calibre
+    #calibre
     darktable
     inkscape
     # inputs.companion-satellite.packages.${pkgs.system}.default
@@ -99,7 +97,7 @@
     esphome
     signal-desktop
     thunderbird
-    opencode
+    master.opencode
 
     # Copter applications
     qgroundcontrol
@@ -122,7 +120,7 @@
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
-      obs-ndi
+      distroav
     ];
   };
 

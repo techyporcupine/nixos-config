@@ -24,7 +24,7 @@ in {
       pkgs.noaa-apt
       pkgs.stable.gpredict
       pkgs.gqrx
-      pkgs.rtl_433
+      #pkgs.master.rtl_433
       pkgs.rtlamr
     ];
   };
