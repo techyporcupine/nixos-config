@@ -405,12 +405,12 @@ in {
             "spacing" = 5;
           };
           "network" = {
-            "format-wifi" = "{essid} ({signalStrength}%) ";
-            "format-ethernet" = "{ipaddr} ";
-            "tooltip-format" = "{ifname} via {gwaddr} ";
+            "format-wifi" = "{essid} {signaldBm}dBm {frequency}GHz ";
+            "format-ethernet" = "{ipaddr}/{cidr} ";
+            "tooltip-format" = "{ifname} via {gwaddr}/{cidr} ";
             "format-linked" = "{ifname} (No IP) ";
             "format-disconnected" = "Disconnected ";
-            "format-alt" = "{ifname}= {ipaddr}";
+            "format-alt" = "{ifname}= {ipaddr}/{cidr}";
           };
           "wireplumber" = {
             "format" = "{volume}% {icon}";
