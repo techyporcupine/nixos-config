@@ -21,6 +21,8 @@ in {
           "--network=host"
           "--pull=newer"
           #"--device=/dev/ttyUSB0"
+          "--cap-add=NET_ADMIN"
+          "--cap-add=NET_RAW"
         ];
       };
       matter-hub = {
