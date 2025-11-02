@@ -24,6 +24,15 @@
         ];
       NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -O3 -march=native -mtune=native";
       NIX_CXXSTDLIB_COMPILE = (old.NIX_CXXSTDLIB_COMPILE or "") + " -O3 -march=native -mtune=native";
+
+      # Normalize meta.license: some upstream flakes set it as a single-element list
+      # (eg. [ { shortName = "CUDA EULA"; ... } ]) which breaks checks that expect a set.
+      # If it's a list, pick the first element; otherwise keep it as-is.
+      meta = old.meta // {
+        license = if builtins.typeOf (old.meta.license) == "list"
+                  then builtins.elemAt (old.meta.license) 0
+                  else old.meta.license;
+      };
     });
 in {
   # --- Base Packages (Portable builds) ---
