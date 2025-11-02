@@ -8,6 +8,8 @@
   ...
 }: final: prev: let
   system = prev.system;
+  llamaOverlay = inputs.llama-cpp.overlays.default final prev;
+  llamaPackages = llamaOverlay.llamaPackages;
 
   # Helper function to apply native CPU optimizations to any llama.cpp package.
   # This avoids repeating the same overrideAttrs logic for each variant.
@@ -24,32 +26,20 @@
         ];
       NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -O3 -march=native -mtune=native";
       NIX_CXXSTDLIB_COMPILE = (old.NIX_CXXSTDLIB_COMPILE or "") + " -O3 -march=native -mtune=native";
-
-      # Normalize meta.license safely: handle missing meta and list licenses.
-      # Some flakes set `meta.license` to a single-element list (eg. [ { shortName = "CUDA EULA"; ... } ]),
-      # which causes `check-meta.nix` to fail. This code uses `tryEval` to avoid evaluating
-      # `old.meta` directly if it's not present and only normalizes when necessary.
-      meta = let
-        _t = builtins.tryEval old.meta;
-        _m = if _t.success then _t.value else {};
-        _lic = if builtins.hasAttr "license" _m then _m.license else null;
-        _norm = if _lic == null then null
-                else if builtins.typeOf _lic == "list" then builtins.elemAt _lic 0
-                else _lic;
-      in _m // (if _norm == null then {} else { license = _norm; });
     });
 in {
   # --- Base Packages (Portable builds) ---
 
   # 1. Base CPU-only package from the upstream flake's overlay.
-  llama-cpp-cpu = (inputs.llama-cpp.overlays.default final prev).llamaPackages.llama-cpp;
+  llama-cpp-cpu = llamaPackages.llama-cpp;
 
   # 2. Base Vulkan-accelerated package.
   llama-cpp-vulkan = final.llama-cpp-cpu.override {useVulkan = true; useRocm = false; };
 
   # 3. Base CUDA-accelerated package.
-  # This one is special, as it comes from the flake's CUDA-specific pkgs set.
-  llama-cpp-cuda = inputs.llama-cpp.legacyPackages.${system}.llamaPackagesCuda.llama-cpp;
+  # Build directly from the CPU package to ensure we reuse the main nixpkgs
+  # configuration, including allowUnfree, instead of the upstream CUDA instance.
+  llama-cpp-cuda = llamaPackages.llama-cpp.override {useCuda = true; useRocm = false; useVulkan = false; };
 
   # --- Native-Optimized Packages ---
 
