@@ -25,14 +25,18 @@
       NIX_CFLAGS_COMPILE = (old.NIX_CFLAGS_COMPILE or "") + " -O3 -march=native -mtune=native";
       NIX_CXXSTDLIB_COMPILE = (old.NIX_CXXSTDLIB_COMPILE or "") + " -O3 -march=native -mtune=native";
 
-      # Normalize meta.license: some upstream flakes set it as a single-element list
-      # (eg. [ { shortName = "CUDA EULA"; ... } ]) which breaks checks that expect a set.
-      # If it's a list, pick the first element; otherwise keep it as-is.
-      meta = old.meta // {
-        license = if builtins.typeOf (old.meta.license) == "list"
-                  then builtins.elemAt (old.meta.license) 0
-                  else old.meta.license;
-      };
+      # Normalize meta.license safely: handle missing meta and list licenses.
+      # Some flakes set `meta.license` to a single-element list (eg. [ { shortName = "CUDA EULA"; ... } ]),
+      # which causes `check-meta.nix` to fail. This code uses `tryEval` to avoid evaluating
+      # `old.meta` directly if it's not present and only normalizes when necessary.
+      meta = let
+        _t = builtins.tryEval old.meta;
+        _m = if _t.success then _t.value else {};
+        _lic = if builtins.hasAttr "license" _m then _m.license else null;
+        _norm = if _lic == null then null
+                else if builtins.typeOf _lic == "list" then builtins.elemAt _lic 0
+                else _lic;
+      in _m // (if _norm == null then {} else { license = _norm; });
     });
 in {
   # --- Base Packages (Portable builds) ---
