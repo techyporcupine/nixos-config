@@ -44,8 +44,8 @@
   };
 
   # Git identity for home-manager
-  tp.hm.programs.git.settings.user.name = "techyporcupine";
-  tp.hm.programs.git.settings.user.email = "git@cb-tech.me";
+  tp.hm.programs.git.userName = "techyporcupine";
+  tp.hm.programs.git.userEmail = "git@cb-tech.me";
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
