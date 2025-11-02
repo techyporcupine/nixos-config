@@ -18,9 +18,9 @@
         "openssl-1.1.1w"
       ];
       # Local package overrides (e.g., driver tweaks)
-      packageOverrides = pkgs: {
-        vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-      };
+      # packageOverrides = pkgs: {
+      #   vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+      # };
     };
   };
 
@@ -129,13 +129,13 @@
   # Graphics-related packages (VA-API / VDPAU helpers)
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # iHD
-      vaapiIntel # i965 (legacy, compatible with some browsers)
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-    enable32Bit = true;
+    # extraPackages = with pkgs; [
+    #   intel-media-driver # iHD
+    #   vaapiIntel # i965 (legacy, compatible with some browsers)
+    #   vaapiVdpau
+    #   libvdpau-va-gl
+    # ];
+    # enable32Bit = true;
   };
 
   # --- System footer: kernel/initrd/network defaults ---
