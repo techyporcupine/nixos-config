@@ -56,17 +56,13 @@
     };
 
     # Configure Git to sign commits with SSH key (instead of GPG)
-    tp.hm.programs.git = lib.mkIf (config.tp.gitUserName != null) {
+    tp.hm.programs.git = {
       enable = true;
       signing = {
         signByDefault = true;
         key = "~/.ssh/id_ed25519";
       };
       settings = {
-        user = {
-          name = config.tp.gitUserName;
-          email = config.tp.gitUserEmail;
-        };
         gpg = {
           # Use SSH format instead of GPG for commit signing
           format = "ssh";

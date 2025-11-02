@@ -63,8 +63,8 @@
   };
 
   # Git identity for home-manager
-  tp.gitUserName = "techyporcupine";
-  tp.gitUserEmail = "git@cb-tech.me";
+  tp.hm.programs.git.settings.user.name = "techyporcupine";
+  tp.hm.programs.git.settings.user.email = "git@cb-tech.me";
 
   # Per-host firewall exceptions (default: none)
   networking.firewall.allowedTCPPorts = [];
