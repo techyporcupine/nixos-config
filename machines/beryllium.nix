@@ -121,7 +121,7 @@
     extraPackages = with pkgs; [
       intel-media-driver # iHD
       intel-vaapi-driver # i965 (legacy)
-      vaapiVdpau
+      libva-vdpau-driver
       libvdpau-va-gl
     ];
     enable32Bit = true;
