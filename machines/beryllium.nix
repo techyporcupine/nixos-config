@@ -120,7 +120,7 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver # iHD
-      vaapiIntel # i965 (legacy)
+      intel-vaapi-driver # i965 (legacy)
       vaapiVdpau
       libvdpau-va-gl
     ];
