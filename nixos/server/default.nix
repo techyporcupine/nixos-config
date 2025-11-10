@@ -18,5 +18,6 @@
     ./authentik.nix
     ./llama-swap
     ./zipline.nix
+    ./n8n.nix
   ];
 }
