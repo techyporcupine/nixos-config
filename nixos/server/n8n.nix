@@ -14,7 +14,9 @@ in {
   config = lib.mkIf cfg.enable {
     services.n8n = {
       enable = true;
-      webhookUrl = "https://n8n.cb-tech.me/";
+      environment = {
+        WEBHOOK_URL = "https://n8n.cb-tech.me/";
+      };
     };
     services.traefik.dynamicConfigOptions.http = {
       routers = {
