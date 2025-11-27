@@ -126,7 +126,7 @@
       baseOverlays
       ++ [
         inputs.llama-cpp.overlays.default
-        (import ./nixos/pkgs/llama-cpp.nix {inherit inputs;})
+        (import ./nixos/pkgs/llama-cpp.nix {inherit inputs lib;})
       ];
 
     # Common modules for all systems
