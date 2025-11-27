@@ -9,6 +9,8 @@
   ...
 }: final: prev: let
   system = prev.stdenv.hostPlatform.system;
+  llamaOverlay = inputs.llama-cpp.overlays.default final prev;
+  llamaPackages = llamaOverlay.llamaPackages;
 
   # Helper function to apply native CPU optimizations to any llama.cpp package.
   # This avoids repeating the same overrideAttrs logic for each variant.
