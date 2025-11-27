@@ -65,9 +65,9 @@
   withLlguidance = pkg:
     pkg.overrideAttrs (old: {
       pname = old.pname + "-llguidance";
-      
+
       buildInputs = (old.buildInputs or []) ++ [llguidance];
-      
+
       cmakeFlags = (old.cmakeFlags or []) ++ ["-DLLAMA_LLGUIDANCE=ON"];
 
       postPatch = (old.postPatch or "") + ''
@@ -83,7 +83,7 @@
     set(LLAMA_COMMON_EXTRA_LIBS ''${LLAMA_COMMON_EXTRA_LIBS} llguidance)
     target_compile_definitions(''${TARGET} PUBLIC LLAMA_USE_LLGUIDANCE)
 if (FALSE) # Disable the ExternalProject_Add'
-        
+
         # Close the if(FALSE) block
         substituteInPlace common/CMakeLists.txt \
           --replace-fail 'endif ()' \
@@ -95,14 +95,15 @@ in {
   # --- Base Packages (Portable builds) ---
 
   # 1. Base CPU-only package from the upstream flake's overlay.
-  llama-cpp-cpu = (inputs.llama-cpp.overlays.default final prev).llamaPackages.llama-cpp;
+  llama-cpp-cpu = llamaPackages.llama-cpp;
 
   # 2. Base Vulkan-accelerated package.
-  llama-cpp-vulkan = final.llama-cpp-cpu.override {useVulkan = true;};
+  llama-cpp-vulkan = final.llama-cpp-cpu.override {useVulkan = true; useRocm = false; };
 
   # 3. Base CUDA-accelerated package.
-  # This one is special, as it comes from the flake's CUDA-specific pkgs set.
-  llama-cpp-cuda = inputs.llama-cpp.legacyPackages.${system}.llamaPackagesCuda.llama-cpp;
+  # Build directly from the CPU package to ensure we reuse the main nixpkgs
+  # configuration, including allowUnfree, instead of the upstream CUDA instance.
+  llama-cpp-cuda = llamaPackages.llama-cpp.override {useCuda = true; useRocm = false; useVulkan = false; };
 
   # --- Native-Optimized Packages ---
 
