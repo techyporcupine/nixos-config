@@ -81,7 +81,7 @@
   };
 
   # System configurations and build outputs
-  outputs = {self, ...} @ inputs: let
+  outputs = {self, nixpkgs, ...} @ inputs: let
     inherit (self) outputs;
     inherit (nixpkgs) lib;
 
