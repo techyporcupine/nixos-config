@@ -83,6 +83,7 @@
   # System configurations and build outputs
   outputs = {self, ...} @ inputs: let
     inherit (self) outputs;
+    inherit (nixpkgs) lib;
 
     # Overlay to access stable packages alongside unstable
     overlay-stable = final: prev: {
