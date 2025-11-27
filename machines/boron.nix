@@ -76,7 +76,7 @@
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
-    llama-cpp-cuda-native
+    llama-cpp-cuda-native-llguidance
     handbrake
   ];
 
