@@ -134,11 +134,10 @@ in {
               tls.certResolver = "cloudflare";
             };
             mesh = {
-              rule = "Host(`mesh.local.cb-tech.me`)";
+              rule = "Host(`mesh.cb-tech.me`)";
               service = "mesh";
               entrypoints = ["websecure"];
-              middlewares = ["internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
+              tls.domains = [{main = "mesh.cb-tech.me";}];
               tls.certResolver = "cloudflare";
             };
             llm = {
