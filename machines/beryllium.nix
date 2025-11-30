@@ -42,17 +42,17 @@
     avahi = true; # mDNS
   };
   # Additional networking (VLAN trunk for this host)
-  networking = {
-    vlans = {
-      vlan124 = {
-        id = 124;
-        interface = "ens18";
-      };
-    };
-    interfaces = {
-      vlan124.useDHCP = true; # gets DHCP from existing over trunk
-    };
-  };
+  #networking = {
+  #  vlans = {
+  #    vlan124 = {
+  #      id = 124;
+  #      interface = "ens18";
+  #    };
+  #  };
+  #  interfaces = {
+  #    vlan124.useDHCP = true; # gets DHCP from existing over trunk
+  #  };
+  #};
 
   # Timezone
   # Timezone forced to local region for scheduled tasks and logs
