@@ -39,7 +39,7 @@
 
     # Local LLM inference engine
     llama-cpp = {
-      url = "github:ggml-org/llama.cpp/b7172";
+      url = "github:ggml-org/llama.cpp/b7422";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
