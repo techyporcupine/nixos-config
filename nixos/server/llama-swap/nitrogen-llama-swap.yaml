@@ -11,7 +11,9 @@ models:
       -hf Mungert/Qwen3-Embedding-0.6B-GGUF:Q6_K_M
       --pooling last
       --embedding
-      -c 512
+      -c 1024
+      -b 8192
+      -ub 1024
     ttl: 300
 
   "embeddinggemma":
@@ -19,7 +21,9 @@ models:
       ${llama-server}
       -hf unsloth/embeddinggemma-300m-GGUF:Q8_0
       --embedding
-      -c 512
+      -c 1024
+      -b 8192
+      -ub 1024
     ttl: 300
 
   "granite-small":
