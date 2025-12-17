@@ -85,7 +85,7 @@
     enable = true;
     host = "0.0.0.0";
     openFirewall = true;
-		package = "ollama-cuda";
+		package = pkgs.ollama-cuda;
   };
 
   # Virtualisation settings: podman and OCI container entries (open-webui)
