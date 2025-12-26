@@ -126,6 +126,18 @@ models:
       -c 4096
     ttl: 600
 
+  "ministral":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Ministral-3-8B-Instruct-2512-GGUF:Q6_K
+      -dev CUDA0
+      --jinja
+      --temp 0.1
+      -fa on
+      -ngl 99
+      -c 30720
+    ttl: 600
+
   "gpt-oss-20b-fast":
     cmd: |
       ${llama-server}
