@@ -6,7 +6,7 @@
     # Main package repository (unstable channel)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # Additional package channels for stable/testing packages
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-staging.url = "github:nixos/nixpkgs/staging-next";
     nixpkgs-tp.url = "github:techyporcupine/nixpkgs/patch-1";
     nixpkgs-master.url = "github:nixos/nixpkgs/master";
@@ -81,7 +81,11 @@
   };
 
   # System configurations and build outputs
-  outputs = {self, nixpkgs, ...} @ inputs: let
+  outputs = {
+    self,
+    nixpkgs,
+    ...
+  } @ inputs: let
     inherit (self) outputs;
     inherit (nixpkgs) lib;
 

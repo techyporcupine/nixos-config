@@ -13,7 +13,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.n8n = {
-      enable = true;
+      #enable = true;
       environment = {
         WEBHOOK_URL = "https://n8n.cb-tech.me/";
       };
