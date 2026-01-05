@@ -142,6 +142,9 @@
     pkgs.cups-brother-hll2350dw
   ];
 
+  # Enable power-profiles-daemon for power profile management
+  services.power-profiles-daemon.enable = true;
+
   # Enable Thunderbolt (USB4)
   services.hardware.bolt.enable = true;
 

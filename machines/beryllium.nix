@@ -124,6 +124,7 @@
       intel-vaapi-driver # i965 (legacy)
       libva-vdpau-driver
       libvdpau-va-gl
+      vpl-gpu-rt
     ];
     enable32Bit = true;
   };
