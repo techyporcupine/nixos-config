@@ -11,7 +11,9 @@ models:
       -hf Mungert/Qwen3-Embedding-0.6B-GGUF:Q6_K_M
       --pooling last
       --embedding
-      -c 512
+      -c 1024
+      -b 8192
+      -ub 1024
     ttl: 300
 
   "embeddinggemma":
@@ -19,7 +21,9 @@ models:
       ${llama-server}
       -hf unsloth/embeddinggemma-300m-GGUF:Q8_0
       --embedding
-      -c 512
+      -c 1024
+      -b 8192
+      -ub 1024
     ttl: 300
 
   "granite-small":
@@ -120,6 +124,18 @@ models:
       -ngl 99
       -ts 33,8
       -c 4096
+    ttl: 600
+
+  "ministral":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/Ministral-3-8B-Instruct-2512-GGUF:Q6_K
+      -dev CUDA0
+      --jinja
+      --temp 0.1
+      -fa on
+      -ngl 99
+      -c 30720
     ttl: 600
 
   "gpt-oss-20b-fast":

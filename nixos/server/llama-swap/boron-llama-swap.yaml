@@ -12,7 +12,9 @@ models:
       -ngl 999
       --pooling last
       --embedding
-      -c 512
+      -c 1024
+      -b 8192
+      -ub 1024
     ttl: 300
 
   embeddinggemma:
@@ -21,7 +23,9 @@ models:
       -hf unsloth/embeddinggemma-300m-GGUF:Q8_0
       -ngl 999
       --embedding
-      -c 512
+      -c 1024
+      -b 8192
+      -ub 1024
     ttl: 300
 
   gemma-3n-e4b:
