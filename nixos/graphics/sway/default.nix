@@ -123,6 +123,7 @@ in {
             {command = "hypridle";}
             {command = "udiskie";}
             {command = "wl-paste --watch cliphist store";}
+            {command = "dbus-update-activation-environment --all";}
           ];
           # Set default workspace to be workspace 1
           defaultWorkspace = "workspace number 1";
