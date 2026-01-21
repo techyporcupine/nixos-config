@@ -70,6 +70,7 @@
     virtualisation.enable = true;
     virtualisation.containers.enable = true;
     home-assistant.enable = true;
+    unifi.enable = true;
     immich.enable = true;
     backups.client.enable = true;
     jellyfin.enable = true;
