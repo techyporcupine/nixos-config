@@ -65,8 +65,6 @@ in {
     # Enable Sway window manager
     programs.sway = {
       enable = true;
-      # Use git version from nyx input
-      package = inputs.nyx.packages.${pkgs.system}.sway_git;
     };
 
     # Configure XDG desktop portals for Wayland
@@ -110,7 +108,6 @@ in {
 
       wayland.windowManager.sway = {
         enable = true;
-        package = inputs.nyx.packages.${pkgs.system}.sway_git;
         checkConfig = false;
         config = rec {
           modifier = "Mod4";

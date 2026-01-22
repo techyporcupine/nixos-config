@@ -79,7 +79,7 @@
     libhdhomerun
     hdhomerun-config-gui
     fw-ectool
-    blender-hip
+    pkgsRocm.blender
     tpm2-tss
     amdgpu_top
     krita
@@ -94,7 +94,7 @@
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
     remmina
-    esphome
+    master.esphome
     signal-desktop
     thunderbird
     master.opencode
@@ -120,7 +120,7 @@
   programs.obs-studio = {
     enable = true;
     plugins = with pkgs.obs-studio-plugins; [
-      distroav
+      #distroav
     ];
   };
 

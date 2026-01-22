@@ -49,12 +49,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Chaotic-AUR packages
-    nyx = {
-      url = "github:chaotic-cx/nyx";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # Latest versions of specific packages
     waybar = {
       url = "github:Alexays/Waybar/master";
@@ -200,7 +194,6 @@
         extraModules = [
           inputs.nixos-hardware.nixosModules.framework-13-7040-amd
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.nyx.nixosModules.default
         ];
       };
 
@@ -211,7 +204,6 @@
         extraModules = [
           inputs.nixos-hardware.nixosModules.framework-13-7040-amd
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.nyx.nixosModules.default
         ];
       };
 
@@ -226,7 +218,6 @@
         overlays = llamaOverlays;
         extraModules = [
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.nyx.nixosModules.default
         ];
       };
 
@@ -236,7 +227,6 @@
         overlays = llamaOverlays;
         extraModules = [
           inputs.lanzaboote.nixosModules.lanzaboote
-          inputs.nyx.nixosModules.default
         ];
       };
 
