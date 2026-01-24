@@ -18,6 +18,7 @@ in {
       settings = {
         server_name = "cb-tech.me";
         database.name = "sqlite3";
+        max_upload_size = "200M";
         listeners = [
           {
             port = 8118;
