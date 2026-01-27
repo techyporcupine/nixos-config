@@ -100,7 +100,7 @@ in {
       };
       services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8124";}];};
       services.z2m = {loadBalancer.servers = [{url = "http://localhost:8091";}];};
-      services.matter = {loadBalancer.servers = [{url = "http://localhost:8482";}];};
+      services.matter = {loadBalancer.servers = [{url = "http://localhost:8283";}];};
     };
     networking.firewall = {
       allowedTCPPorts = [
