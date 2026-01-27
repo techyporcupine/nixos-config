@@ -25,14 +25,13 @@ in {
           "--cap-add=NET_RAW"
         ];
       };
-      matter-hub = {
-        volumes = ["/home/${config.tp.username}/matter-hub:/data"];
-        image = "ghcr.io/t0bst4r/home-assistant-matter-hub:latest";
+      matterbridge = {
+        volumes = ["/home/${config.tp.username}/matterbridge:/root/Matterbridge" "/home/${config.tp.username}/.matterbridge:/root/.matterbridge"];
+        image = "luligu/matterbridge:latest";
         extraOptions = [
           "--network=host"
           "--pull=newer"
         ];
-        environmentFiles = [/var/secrets/matter-hub];
       };
     };
     services.matter-server = {
