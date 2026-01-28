@@ -98,6 +98,7 @@
     signal-desktop
     thunderbird
     master.opencode
+    unetbootin
 
     # Copter applications
     qgroundcontrol
