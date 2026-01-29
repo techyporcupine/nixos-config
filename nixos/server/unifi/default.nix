@@ -36,7 +36,7 @@ in {
           tls.certResolver = "cloudflare";
         };
       };
-      services.unifi = {loadBalancer.servers = [{url = "https://10.15.8.6:8443/";}];};
+      services.unifi = {loadBalancer.servers = [{url = "https://10.0.0.13:8443/";}];};
     };
   };
 }
