@@ -34,9 +34,6 @@ in {
         ];
       };
     };
-    services.matter-server = {
-      enable = true;
-    };
     services.mosquitto = {
       enable = true;
       listeners = [
