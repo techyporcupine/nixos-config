@@ -76,7 +76,7 @@ in {
             };
             internal-whitelist = {
               ipAllowList = {
-                sourceRange = ["10.0.0.0/24" "10.0.16.0/24" "10.0.24.0/24" "10.15.0.0/16" "2001:470:e251::/48" "172.16.0.0/16"];
+                sourceRange = ["10.0.0.0/24" "10.15.0.0/16" "172.16.0.0/16"];
               };
             };
             authentik = {
@@ -101,30 +101,6 @@ in {
             };
           };
           routers = {
-            printer = {
-              rule = "Host(`printer.local.cb-tech.me`)";
-              service = "printer";
-              entrypoints = ["websecure"];
-              middlewares = ["internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
-            hydra = {
-              rule = "Host(`hydra.local.cb-tech.me`)";
-              service = "hydra";
-              entrypoints = ["websecure"];
-              middlewares = ["internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
-            alli = {
-              rule = "Host(`alli.local.cb-tech.me`)";
-              service = "alli";
-              entrypoints = ["websecure"];
-              middlewares = ["internal-whitelist"];
-              tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-              tls.certResolver = "cloudflare";
-            };
             pve = {
               rule = "Host(`pve.local.cb-tech.me`)";
               service = "pve";
