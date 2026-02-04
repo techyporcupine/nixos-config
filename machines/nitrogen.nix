@@ -14,7 +14,7 @@
       permittedInsecurePackages = [
         "openssl-1.1.1w"
       ];
-			#packageOverrides = pkgs: {
+      #packageOverrides = pkgs: {
       #  vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
       #};
     };
@@ -109,6 +109,38 @@
             "--network=host"
           ];
         };
+        frigate = {
+          image = "ghcr.io/blakeblackshear/frigate:stable";
+          autoStart = true;
+          extraOptions = [
+            "--privileged"
+            "--shm-size=512m"
+            "--stop-timeout=30"
+            "--cap-add=CAP_PERFMON"
+          ];
+          # Map your hardware devices
+          devices = [
+            "/dev/dri/renderD128:/dev/dri/renderD128"
+          ];
+          # Map your ports
+          ports = [
+            "8971:8971"
+            "5000:5000"
+            "8554:8554"
+            "8555:8555/tcp"
+            "8555:8555/udp"
+          ];
+          # Set environment variables
+          environment = {
+            FRIGATE_RTSP_PASSWORD = "password";
+          };
+          # Map your volumes
+          volumes = [
+            "/etc/localtime:/etc/localtime:ro"
+            "/home/nitrogen/frigate/config:/config"
+            "/home/nitrogen/frigate/storage:/media/frigate"
+          ];
+        };
       };
     };
   };
@@ -123,13 +155,13 @@
   # Graphics-related packages (VA-API / VDPAU helpers)
   hardware.graphics = {
     enable = true;
-		# extraPackages = with pkgs; [
+    # extraPackages = with pkgs; [
     #   intel-media-driver # iHD
     #   vaapiIntel # i965 (legacy)
     #   vaapiVdpau
     #   libvdpau-va-gl
     # ];
-		# enable32Bit = true;
+    # enable32Bit = true;
   };
 
   # --- System footer: kernel/initrd/network defaults ---
