@@ -238,6 +238,37 @@ in {
       #jack.enable = true;  # Uncomment for pro audio (JACK) support
     };
 
+    security.sudo = {
+      enable = true;
+      extraRules = [
+        {
+          groups = ["wheel"];
+          commands = [
+            {
+              command = "/run/current-system/sw/bin/nixos-rebuild";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/nix/store/*/bin/switch-to-configuration";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/tmp/nh-os-*/result/bin/switch-to-configuration";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/tmp/nh-os-*/result/bin/install-grub.sh";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/nix/store/*/bin/install-grub.sh";
+              options = ["NOPASSWD"];
+            }
+          ];
+        }
+      ];
+    };
+
     # System-wide utility packages
     environment.systemPackages = with pkgs; [
       home-manager
