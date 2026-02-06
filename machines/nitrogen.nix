@@ -147,6 +147,12 @@
 
   nixpkgs.config.cudaSupport = true;
 
+  fileSystems."/mnt/Storage" = {
+    device = "/dev/disk/by-label/Storage";
+    fsType = "ext4";
+    options = ["sync"];
+  };
+
   boot.loader.systemd-boot.enable = true;
 
   # Initrd + boot (enable systemd initrd for early userspace hooks)
