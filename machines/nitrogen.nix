@@ -138,7 +138,7 @@
           volumes = [
             "/etc/localtime:/etc/localtime:ro"
             "/home/nitrogen/frigate/config:/config"
-            "/home/nitrogen/frigate/storage:/media/frigate"
+            "/mnt/Storage/frigate/media:/media/frigate"
           ];
         };
       };
