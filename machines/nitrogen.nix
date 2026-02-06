@@ -70,7 +70,7 @@
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
-    #llama-cpp-cuda-native-llguidance
+    llama-cpp-cuda-native-llguidance
   ];
 
   # Local overlays (adds project-specific package overlays)
