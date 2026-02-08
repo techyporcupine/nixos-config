@@ -60,7 +60,15 @@
       10300
       8080
       11434
+      # frigate web
       8971
+      # rtsp/webrtc
+      8554
+      8555
+    ];
+    allowedUDPPorts = [
+      # webrtc
+      8555
     ];
   };
 
