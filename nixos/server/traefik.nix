@@ -109,13 +109,6 @@ in {
               tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
               tls.certResolver = "cloudflare";
             };
-            mesh = {
-              rule = "Host(`mesh.cb-tech.me`)";
-              service = "mesh";
-              entrypoints = ["websecure"];
-              tls.domains = [{main = "mesh.cb-tech.me";}];
-              tls.certResolver = "cloudflare";
-            };
             llm = {
               rule = "Host(`llm.local.cb-tech.me`)";
               service = "llm";
@@ -124,22 +117,10 @@ in {
               tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
               tls.certResolver = "cloudflare";
             };
-            zipline = {
-              rule = "Host(`z.cb-tech.me`)";
-              service = "zipline";
-              entrypoints = ["websecure"];
-              tls.domains = [{main = "z.cb-tech.me";}];
-              tls.certResolver = "cloudflare";
-            };
           };
           services = {
-            printer = {loadBalancer.servers = [{url = "http://10.0.0.30/";}];};
-            hydra = {loadBalancer.servers = [{url = "http://10.0.0.30:7125";}];};
-            alli = {loadBalancer.servers = [{url = "http://10.0.0.30:7126";}];};
             pve = {loadBalancer.servers = [{url = "https://10.0.0.6:8006/";}];};
-            mesh = {loadBalancer.servers = [{url = "http://10.15.24.10:5920/";}];};
             llm = {loadBalancer.servers = [{url = "http://10.0.0.11:8080/";}];};
-            zipline = {loadBalancer.servers = [{url = "http://10.0.0.14:3000";}];};
           };
         };
       };
