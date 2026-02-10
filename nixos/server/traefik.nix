@@ -117,10 +117,18 @@ in {
               tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
               tls.certResolver = "cloudflare";
             };
+            mesh = {
+              rule = "Host(`mesh.cb-tech.me`)";
+              service = "mesh";
+              entrypoints = ["websecure"];
+              tls.domains = [{main = "mesh.cb-tech.me";}];
+              tls.certResolver = "cloudflare";
+            };
           };
           services = {
             pve = {loadBalancer.servers = [{url = "https://10.0.0.6:8006/";}];};
             llm = {loadBalancer.servers = [{url = "http://10.0.0.11:8080/";}];};
+            mesh = {loadBalancer.servers = [{url = "http://10.15.8.10:5920/";}];};
           };
         };
       };
