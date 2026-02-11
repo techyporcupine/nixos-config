@@ -38,6 +38,16 @@ models:
       --temp 0.0
     ttl: 600
 
+  "glm-4.7-flash":
+    cmd: |
+      ${llama-server}
+      -hf unsloth/GLM-4.7-Flash-REAP-23B-A3B-GGUF:Q4_K_M
+      --jinja
+      -c 32768
+      --temp 1.0
+      --top-p 0.95
+    ttl: 600
+
   "qwen3-30b-fast":
     cmd: |
       ${llama-server}

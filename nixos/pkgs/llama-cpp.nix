@@ -29,6 +29,16 @@
       NIX_CXXSTDLIB_COMPILE = (old.NIX_CXXSTDLIB_COMPILE or "") + " -O3 -march=native -mtune=native";
     });
 
+  # Helper function to enable HTTPS support for HF downloads
+  # Note: LLAMA_CURL is deprecated in recent llama.cpp versions in favor of
+  # LLAMA_OPENSSL which enables HTTPS support in the internal httplib.
+  withHttps = pkg:
+    pkg.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [prev.pkg-config];
+      buildInputs = (old.buildInputs or []) ++ [prev.openssl];
+      cmakeFlags = (old.cmakeFlags or []) ++ ["-DLLAMA_OPENSSL=ON" "-DLLAMA_HTTPLIB=ON"];
+    });
+
   # Build llguidance as a proper Rust package
   # NOTE: When llama.cpp updates, you may need to update the rev and hashes below
   # Run: misc/update-llguidance.sh to automatically update this
@@ -97,15 +107,15 @@ in {
   # --- Base Packages (Portable builds) ---
 
   # 1. Base CPU-only package from the upstream flake's overlay.
-  llama-cpp-cpu = llamaPackages.llama-cpp;
+  llama-cpp-cpu = withHttps llamaPackages.llama-cpp;
 
   # 2. Base Vulkan-accelerated package.
-  llama-cpp-vulkan = final.llama-cpp-cpu.override {useVulkan = true; useRocm = false; };
+  llama-cpp-vulkan = withHttps (llamaPackages.llama-cpp.override {useVulkan = true; useRocm = false; });
 
   # 3. Base CUDA-accelerated package.
   # Build directly from the CPU package to ensure we reuse the main nixpkgs
   # configuration, including allowUnfree, instead of the upstream CUDA instance.
-  llama-cpp-cuda = llamaPackages.llama-cpp.override {useCuda = true; useRocm = false; useVulkan = false; };
+  llama-cpp-cuda = withHttps (llamaPackages.llama-cpp.override {useCuda = true; useRocm = false; useVulkan = false; });
 
   # --- Native-Optimized Packages ---
 

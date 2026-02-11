@@ -158,7 +158,21 @@
   fileSystems."/mnt/Storage" = {
     device = "/dev/disk/by-label/Storage";
     fsType = "ext4";
-    options = ["sync"];
+    options = [
+      "defaults"
+      "noatime" # Don't update "last accessed" timestamps
+      "nobarrier" # Skip the "wait for platter" signal (huge speed boost)
+      "commit=30" # Group writes into 5-minute chunks
+      "data=writeback" # Don't journal the data, only the file structure
+    ];
+  };
+
+  boot.kernel.sysctl = {
+    # Keep the 8GB RAM free for system/apps
+    "vm.dirty_background_ratio" = 1;
+    "vm.dirty_ratio" = 5;
+    # Optimize for large sequential writes
+    "vm.swappiness" = 10;
   };
 
   boot.loader.systemd-boot.enable = true;
