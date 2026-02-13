@@ -1,3 +1,5 @@
+healthCheckTimeout: 500
+
 macros:
   "llama-server": |
     /run/current-system/sw/bin/llama-server
