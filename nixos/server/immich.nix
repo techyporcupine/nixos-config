@@ -32,5 +32,13 @@ in {
       };
       services.immich = {loadBalancer.servers = [{url = "http://localhost:2283";}];};
     };
+    networking.firewall = {
+      interfaces."ens18" = {
+        allowedTCPPorts = [
+          # Temp ports
+          2283
+        ];
+      };
+    };
   };
 }

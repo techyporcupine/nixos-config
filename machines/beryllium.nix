@@ -87,7 +87,7 @@
     librenms.enable = true;
     matrix.enable = true;
     authentik.enable = true;
-    n8n.enable = true;
+    n8n.enable = false;
   };
 
   # Local Caddy instance for static site on port 18085

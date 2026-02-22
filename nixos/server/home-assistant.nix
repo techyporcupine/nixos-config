@@ -111,6 +111,9 @@ in {
           8091
           # Matter
           5540
+
+          # Temp ports
+          8124
         ];
         allowedUDPPorts = [
           # Homekit
