@@ -36,5 +36,10 @@ in {
       };
       services.vaultwarden = {loadBalancer.servers = [{url = "http://localhost:${toString config.services.vaultwarden.config.ROCKET_PORT}";}];};
     };
+    networking.firewall = {
+      allowedTCPPorts = [
+        18222
+      ];
+    };
   };
 }
