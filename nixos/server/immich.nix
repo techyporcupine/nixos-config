@@ -17,6 +17,7 @@ in {
       package = pkgs.master.immich;
       machine-learning.enable = true;
       environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
+      environment.IMMICH_HOST = "0.0.0.0";
     };
     users.users.immich.extraGroups = ["video" "render"];
 
