@@ -20,7 +20,7 @@ in {
         DOMAIN = "https://vault.cb-tech.me";
         SIGNUPS_ALLOWED = false;
 
-        ROCKET_ADDRESS = "::1";
+        ROCKET_ADDRESS = "10.15.8.6";
         ROCKET_PORT = 18222;
       };
     };
