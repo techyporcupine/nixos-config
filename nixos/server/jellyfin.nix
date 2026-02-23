@@ -27,5 +27,12 @@ in {
       };
       services.jellyfin = {loadBalancer.servers = [{url = "http://localhost:8096";}];};
     };
+    networking.firewall = {
+      interfaces."ens18" = {
+        allowedTCPPorts = [
+          8096
+        ];
+      };
+    };
   };
 }

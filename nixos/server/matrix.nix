@@ -22,7 +22,7 @@ in {
         listeners = [
           {
             port = 8118;
-            bind_addresses = ["::1"];
+            bind_addresses = ["0.0.0.0"];
             type = "http";
             tls = false;
             x_forwarded = true;
@@ -49,6 +49,13 @@ in {
         };
       };
       services.matrix = {loadBalancer.servers = [{url = "http://localhost:8118";}];};
+    };
+    networking.firewall = {
+      interfaces."ens18" = {
+        allowedTCPPorts = [
+          8118
+        ];
+      };
     };
   };
 }
