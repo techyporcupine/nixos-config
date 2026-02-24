@@ -119,7 +119,7 @@
           ];
         };
         frigate = {
-          image = "ghcr.io/blakeblackshear/frigate:0.17.0-rc2";
+          image = "ghcr.io/blakeblackshear/frigate:0.17.0-rc3";
           autoStart = true;
           extraOptions = [
             "--privileged"
