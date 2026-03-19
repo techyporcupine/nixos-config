@@ -277,7 +277,7 @@ in {
       pciutils
       unzip
       htop
-      xorg.xhost
+      xhost
       sshfs
       nmap
       btop

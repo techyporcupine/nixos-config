@@ -67,7 +67,8 @@
   tp.hm.programs.git.settings.user.email = "git@cb-tech.me";
 
   # Per-host firewall exceptions (default: none)
-  networking.firewall.allowedTCPPorts = [];
+  # KOreader port 9090
+  networking.firewall.allowedTCPPorts = [9090];
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
@@ -88,7 +89,7 @@
     eog
     qbittorrent
     handbrake
-    #calibre
+    calibre
     darktable
     inkscape
     # inputs.companion-satellite.packages.${pkgs.system}.default
@@ -99,6 +100,8 @@
     thunderbird
     master.opencode
     unetbootin
+    arduino-ide
+    jetbrains.pycharm
 
     # Copter applications
     qgroundcontrol
@@ -180,12 +183,14 @@
     options cfg80211 ieee80211_regdom=US
   '';
 
+  networking.networkmanager.wifi.powersave = false;
+
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 
   # Set to hibernate after some time
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=2days
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "2days";
+  };
 
   # --- System footer: kernel/initrd/network defaults ---
   # These options set kernel/initrd modules, default networking behavior, and host platform.

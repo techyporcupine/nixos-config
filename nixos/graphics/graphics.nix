@@ -18,9 +18,9 @@ in {
     environment.systemPackages = with pkgs; [
       firefox-bin
       spotify
-      xorg.xeyes
+      xeyes
       vlc
-      helvum
+      crosspipe
       gimp
       slack
       (vscode-with-extensions.override {
