@@ -45,7 +45,7 @@ in {
       gnome-logs # System log viewer
       cheese # Webcam application
       gnome-connections # Remote desktop client
-      inputs.hyprpaper.packages.${system}.hyprpaper # Wallpaper utility
+      swaybg # Wallpaper utility
       inputs.hypridle.packages.${system}.hypridle # Idle daemon
       hyprlock # Screen locker
       hyprpicker # Color picker
@@ -80,11 +80,6 @@ in {
 
     tp.hm = {
       # Files to copy to a location in the home directory
-      xdg.configFile."hyprpaper" = {
-        enable = true;
-        source = ../hypr/hyprpaper.conf;
-        target = "hypr/hyprpaper.conf";
-      };
       xdg.configFile."hypridle" = {
         enable = true;
         source = ../hypr/hypridle.conf;
@@ -116,7 +111,7 @@ in {
           startup = [
             # Launch some applications on start
             {command = "firefox";}
-            {command = "hyprpaper";}
+            {command = "swaybg -i ~/.config/hypr/wallpapers/swissBG.jpg -m fill";}
             {command = "hypridle";}
             {command = "udiskie";}
             {command = "wl-paste --watch cliphist store";}
