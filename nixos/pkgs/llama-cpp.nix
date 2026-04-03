@@ -83,24 +83,21 @@
       cmakeFlags = (old.cmakeFlags or []) ++ ["-DLLAMA_LLGUIDANCE=ON"];
 
       postPatch = (old.postPatch or "") + ''
-        # Replace ExternalProject_Add with our pre-built llguidance
-        substituteInPlace common/CMakeLists.txt \
-          --replace-fail 'if (LLAMA_LLGUIDANCE)' \
-                         'if (LLAMA_LLGUIDANCE)
-    # Use pre-built llguidance from Nix
-    set(LLGUIDANCE_PATH ${llguidance}/lib)
-    add_library(llguidance STATIC IMPORTED)
-    set_target_properties(llguidance PROPERTIES IMPORTED_LOCATION ''${LLGUIDANCE_PATH}/libllguidance.a)
-    target_include_directories(''${TARGET} PRIVATE ${llguidance}/include)
-    set(LLAMA_COMMON_EXTRA_LIBS ''${LLAMA_COMMON_EXTRA_LIBS} llguidance)
-    target_compile_definitions(''${TARGET} PUBLIC LLAMA_USE_LLGUIDANCE)
-if (FALSE) # Disable the ExternalProject_Add'
-
-        # Close the if(FALSE) block
-        substituteInPlace common/CMakeLists.txt \
-          --replace-fail 'endif ()' \
-                         'endif() # FALSE
-endif () # LLAMA_LLGUIDANCE'
+        # Replace the entire LLAMA_LLGUIDANCE block with one using pre-built llguidance from Nix
+        sed -i '/^if (LLAMA_LLGUIDANCE)/,/^endif()/{
+          /^if (LLAMA_LLGUIDANCE)/c\
+if (LLAMA_LLGUIDANCE)\
+    # Use pre-built llguidance from Nix\
+    add_library(llguidance STATIC IMPORTED)\
+    set_target_properties(llguidance PROPERTIES IMPORTED_LOCATION ${llguidance}/lib/libllguidance.a)\
+    target_include_directories(''${TARGET} PRIVATE ${llguidance}/include)\
+    target_link_libraries(''${TARGET} PRIVATE llguidance)\
+    target_compile_definitions(''${TARGET} PUBLIC LLAMA_USE_LLGUIDANCE)\
+    if (WIN32)\
+        target_link_libraries(''${TARGET} PRIVATE ws2_32 userenv ntdll bcrypt)\
+    endif()
+          /^if (LLAMA_LLGUIDANCE)/!{/^endif()/!d}
+        }' common/CMakeLists.txt
       '';
     });
 in {
