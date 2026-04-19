@@ -47,7 +47,7 @@
 
   # Hosted services and client declarations for this host
   tp.server = {
-    llama-swap.enable = true;
+    llama-server.enable = true;
     beszel = {
       client = {
         enable = true;

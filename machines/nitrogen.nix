@@ -43,7 +43,10 @@
 
   # Server/client services
   tp.server = {
-    llama-swap.enable = true;
+    llama-server = {
+      enable = true;
+      package = pkgs.llama-cpp-cuda-native-llguidance;
+    };
     beszel = {
       client = {
         enable = true;

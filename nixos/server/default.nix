@@ -16,7 +16,7 @@
     ./matrix.nix
     ./librenms.nix
     ./authentik.nix
-    ./llama-swap
+    ./llama-server
     ./zipline.nix
     ./n8n.nix
   ];
