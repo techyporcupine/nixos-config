@@ -38,7 +38,7 @@ in {
     tp.hm.xdg.configFile = {
       "llama-models.ini" = {
         enable = true;
-        source = config.tp.hm.lib.file.mkOutOfStoreSymlink "${config.tp.hm.home.homeDirectory}/devel/caleb-nix/nixos/server/llama-server/${config.networking.hostName}-models.ini";
+        source = config.tp.hm.lib.file.mkOutOfStoreSymlink "${config.tp.hm.home.homeDirectory}/nixos-config/nixos/server/llama-server/${config.networking.hostName}-models.ini";
         target = "llama-cpp/models.ini";
       };
     };
