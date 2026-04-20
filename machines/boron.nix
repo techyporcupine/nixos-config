@@ -81,12 +81,12 @@
   ];
 
   # Ollama daemon for local LLM hosting
-  services.ollama = {
-    enable = true;
-    host = "0.0.0.0";
-    openFirewall = true;
-		package = pkgs.ollama-cuda;
-  };
+  # services.ollama = {
+  #   enable = true;
+  #   host = "0.0.0.0";
+  #   openFirewall = true;
+		# package = pkgs.ollama-cuda;
+  # };
 
   # Virtualisation settings: podman and OCI container entries (open-webui)
   virtualisation = {
@@ -107,7 +107,7 @@
           volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
           autoStart = true;
           environment = {
-            OLLAMA_BASE_URL = "http://10.0.0.8:11434";
+            # OLLAMA_BASE_URL = "http://10.0.0.8:11434";
             WEBUI_AUTH = "False";
           };
           extraOptions = [

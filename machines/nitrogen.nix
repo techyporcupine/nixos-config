@@ -85,9 +85,9 @@
   ];
 
   # Local overlays (adds project-specific package overlays)
-  nixpkgs.overlays = [
-    (import ../nixos/pkgs/ollama-overlay.nix)
-  ];
+  # nixpkgs.overlays = [
+  #   (import ../nixos/pkgs/ollama-overlay.nix)
+  # ];
 
   # Virtualisation & containers (podman backend + OCI container entries)
   virtualisation = {
