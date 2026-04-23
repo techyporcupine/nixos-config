@@ -82,6 +82,7 @@
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
     llama-cpp-cuda-native-llguidance
+		python3Packages.huggingface-hub
   ];
 
   # Local overlays (adds project-specific package overlays)

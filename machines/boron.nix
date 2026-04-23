@@ -77,7 +77,8 @@
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
     llama-cpp-cuda-native-llguidance
-    handbrake
+		python3Packages.huggingface-hub
+    # handbrake
   ];
 
   # Ollama daemon for local LLM hosting
