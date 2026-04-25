@@ -284,7 +284,7 @@ in {
           "layer" = "top";
           "height" = 34;
           "spacing" = 2;
-          "output" = ["eDP-1"];
+          #"output" = ["eDP-1"];
           "modules-left" = ["sway/workspaces" "mpris"];
           "modules-center" = ["clock"];
           "modules-right" = ["privacy" "power-profiles-daemon" "idle_inhibitor" "tray" "pulseaudio" "backlight" "network" "temperature" "cpu" "memory" "battery"];

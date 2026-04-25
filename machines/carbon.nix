@@ -33,6 +33,7 @@
     enable = true;
     avahi = true; # mDNS
   };
+  networking.networkmanager.wifi.powersave = false;
 
   services.tailscale = {
     # Enable tailscale mesh network
@@ -75,7 +76,6 @@
     yt-dlp
     blisp
     nodejs
-    nodePackages_latest.pnpm
     hugo
     libhdhomerun
     hdhomerun-config-gui
@@ -102,6 +102,8 @@
     unetbootin
     arduino-ide
     jetbrains.pycharm
+    qrencode
+    gnome-network-displays
 
     # Copter applications
     qgroundcontrol
@@ -182,8 +184,6 @@
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom=US
   '';
-
-  networking.networkmanager.wifi.powersave = false;
 
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 

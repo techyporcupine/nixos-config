@@ -195,6 +195,8 @@ in {
             "${modifier}+Shift+8" = "move container to workspace number 8; workspace number 8";
             "${modifier}+Shift+9" = "move container to workspace number 9; workspace number 9";
             "${modifier}+Shift+0" = "move container to workspace number 10; workspace number 10";
+            "${modifier}+greater" = "move workspace to output right"; # Use mod + Shift because the greater than is accessed with shift, same for less than.
+            "${modifier}+less" = "move workspace to output left";
           };
         };
         # Extra config stuff that didn't have options in Nix
