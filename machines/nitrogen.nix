@@ -82,7 +82,7 @@
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
     llama-cpp-cuda-native-llguidance
-		python3Packages.huggingface-hub
+    python3Packages.huggingface-hub
   ];
 
   # Local overlays (adds project-specific package overlays)
@@ -123,7 +123,7 @@
           ];
         };
         frigate = {
-          image = "ghcr.io/blakeblackshear/frigate:0.17.0-rc3";
+          image = "ghcr.io/blakeblackshear/frigate:0.17.1";
           autoStart = true;
           extraOptions = [
             "--privileged"
