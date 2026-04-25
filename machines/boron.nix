@@ -47,7 +47,7 @@
 
   # Hosted services and client declarations for this host
   tp.server = {
-    llama-swap.enable = true;
+    llama-server.enable = true;
     beszel = {
       client = {
         enable = true;
@@ -77,16 +77,17 @@
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
     llama-cpp-cuda-native-llguidance
-    handbrake
+		python3Packages.huggingface-hub
+    # handbrake
   ];
 
   # Ollama daemon for local LLM hosting
-  services.ollama = {
-    enable = true;
-    host = "0.0.0.0";
-    openFirewall = true;
-		package = pkgs.ollama-cuda;
-  };
+  # services.ollama = {
+  #   enable = true;
+  #   host = "0.0.0.0";
+  #   openFirewall = true;
+		# package = pkgs.ollama-cuda;
+  # };
 
   # Virtualisation settings: podman and OCI container entries (open-webui)
   virtualisation = {
@@ -107,7 +108,7 @@
           volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
           autoStart = true;
           environment = {
-            OLLAMA_BASE_URL = "http://10.0.0.8:11434";
+            # OLLAMA_BASE_URL = "http://10.0.0.8:11434";
             WEBUI_AUTH = "False";
           };
           extraOptions = [
