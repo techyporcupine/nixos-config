@@ -82,7 +82,7 @@
       };
     };
     grafana = {
-      enable = true;
+      enable = false;
     };
     librenms.enable = true;
     matrix.enable = true;
