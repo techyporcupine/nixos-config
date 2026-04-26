@@ -29,7 +29,7 @@ in {
       wantedBy = ["default.target"];
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 0.0.0.0 --port 5349 --models-max 4";
+        ExecStart = "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 0.0.0.0 --port 5349 --models-max 1";
         Restart = "on-failure";
         RestartSec = "10s";
       };
