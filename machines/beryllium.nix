@@ -93,6 +93,7 @@
   power.ups = {
     enable = true;
     mode = "standalone";
+    package = pkgs.nut.override {withApcModbus = true;};
     # section: The upsd UPS declarations: ups.conf
     # this UPS device is named UPS-1.
     ups."smt1500" = {
