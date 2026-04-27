@@ -98,7 +98,7 @@
     # this UPS device is named UPS-1.
     ups."smt1500" = {
       # driver name from https://networkupstools.org/stable-hcl.html
-      driver = "usbhid-ups";
+      driver = "apc_modbus";
 
       # usbhid-ups driver always use value "auto"
       port = "auto";
