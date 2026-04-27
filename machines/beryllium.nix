@@ -100,7 +100,6 @@
       # driver name from https://networkupstools.org/stable-hcl.html
       driver = "apc_modbus";
 
-      vendorid = "051d";
       # usbhid-ups driver always use value "auto"
       port = "auto";
 
