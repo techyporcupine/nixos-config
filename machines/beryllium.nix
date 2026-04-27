@@ -90,15 +90,71 @@
     n8n.enable = false;
   };
 
-  # Local Caddy instance for static site on port 18085
-  services.caddy = {
+  power.ups = {
     enable = true;
-    extraConfig = ''
-      :18085 {
-          root * /var/www/static
-          file_server
-      }
-    '';
+    mode = "standalone";
+    # section: The upsd UPS declarations: ups.conf
+    # this UPS device is named UPS-1.
+    ups."smt1500" = {
+      # driver name from https://networkupstools.org/stable-hcl.html
+      driver = "usbhid-ups";
+
+      # usbhid-ups driver always use value "auto"
+      port = "auto";
+
+      directives = [
+        # "Restore power on AC" BIOS option needs power to be cut a few seconds to work;
+        # this is achieved by the offdelay and ondelay directives.
+
+        # in the last stages of system shutdown, "upsdrvctl shutdown" is called to tell UPS that
+        # after offdelay seconds, the UPS power must be cut, even if
+        # wall power returns.
+
+        # There is a danger that the system will take longer than the default 20 seconds to shut down.
+        # If that were to happen, the UPS shutdown would provoke a brutal system crash.
+        # We adjust offdelay, to solve this issue.
+        "offdelay = 120"
+
+        # UPS power is now cut regardless of wall power.  After (ondelay minus offdelay) seconds,
+        # if wall power returns, turn on UPS power.  The system has now been disconnected for a minimum of (ondelay minus offdelay) seconds,
+        # "Restore power on AC" should now power on the system.
+        # For reasons described above, ondelay value must be larger than offdelay value.
+        # We adjust ondelay, to ensure Restore power on AC option returns to Power Disconnected state.
+        "ondelay = 70"
+
+        # set value for battery.charge.low,
+        # upsmon initiate shutdown once this threshold is reached.
+        "lowbatt = 20"
+
+        # ignore it if the UPS reports a low battery condition
+        # without this, system will shutdown only when ups reports lb,
+        # not respecting lowbatt option
+        "ignorelb"
+      ];
+    };
+
+    upsd = {
+      listen = [
+        {
+          address = "127.0.0.1";
+          port = 3493;
+        }
+        {
+          address = "::1";
+          port = 3493;
+        }
+        {
+          address = "10.0.0.5";
+          port = 3493;
+        }
+      ];
+    };
+
+    users."admin" = {
+      # A file that contains just the password.
+      passwordFile = "/var/secrets/ups-passwd";
+      upsmon = "primary";
+    };
   };
 
   # Git identity for home-manager
