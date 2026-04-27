@@ -120,7 +120,7 @@
         # "Restore power on AC" should now power on the system.
         # For reasons described above, ondelay value must be larger than offdelay value.
         # We adjust ondelay, to ensure Restore power on AC option returns to Power Disconnected state.
-        "ondelay = 70"
+        "ondelay = 130"
 
         # set value for battery.charge.low,
         # upsmon initiate shutdown once this threshold is reached.
