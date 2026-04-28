@@ -102,6 +102,10 @@
 
       # usbhid-ups driver always use value "auto"
       port = "auto";
+      directives = [
+        "ignorelb"
+        "override.battery.charge.low = 10"
+      ];
     };
 
     upsd = {
