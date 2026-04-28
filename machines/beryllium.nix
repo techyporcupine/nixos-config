@@ -104,7 +104,7 @@
       port = "auto";
       directives = [
         "ignorelb"
-        "override.battery.charge.low = 10"
+        "override.battery.charge.low = 20"
       ];
     };
 
