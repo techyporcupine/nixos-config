@@ -134,7 +134,7 @@
     # section: The upsmon daemon configuration: upsmon.conf
     upsmon.monitor."smt1500" = {
       system = "smt1500@localhost";
-      powerValue = 1;
+      powerValue = 0;
       user = "admin";
       passwordFile = "/var/secrets/ups-passwd";
       type = "primary";
