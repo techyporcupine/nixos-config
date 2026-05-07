@@ -104,11 +104,14 @@
     jetbrains.pycharm
     qrencode
     gnome-network-displays
-
+    wireshark
+    anki
     # Copter applications
     qgroundcontrol
     mission-planner
   ];
+
+  programs.wireshark.enable = true;
 
   programs.kdeconnect.enable = true;
 
