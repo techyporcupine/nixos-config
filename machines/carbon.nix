@@ -106,6 +106,7 @@
     gnome-network-displays
     wireshark
     anki
+    bitwarden-desktop
     # Copter applications
     qgroundcontrol
     mission-planner
