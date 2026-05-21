@@ -29,46 +29,52 @@
       NIX_CXXSTDLIB_COMPILE = (old.NIX_CXXSTDLIB_COMPILE or "") + " -O3 -march=native -mtune=native";
     });
 
-  # Helper function to enable HTTPS support for HF downloads and embed the WebUI
+  # Compile the Web UI from source using the pinned llama-cpp input
+  # Relocate tools/ui to a nested path under source/ to keep Svelte/Vite's
+  # relative build path (../../build/tools/ui/dist) within the writable sandbox root.
+  llama-cpp-ui = prev.buildNpmPackage {
+    pname = "llama-cpp-ui";
+    version = inputs.llama-cpp.shortRev or "latest";
+
+    src = inputs.llama-cpp;
+
+    # Set sourceRoot to the unpacked source directory so stdenv's initial chmod succeeds.
+    # We then relocate the directory and update sourceRoot dynamically in postUnpack.
+    sourceRoot = "source";
+
+    postUnpack = ''
+      mkdir -p source/ui-build/tools
+      cp -r source/tools/ui source/ui-build/tools/
+      sourceRoot="source/ui-build/tools/ui"
+    '';
+
+    npmDepsHash = "sha256-Iyg8FpcTKf2UYHuK7mA3cTAqVaLcQPcS0YCa5Qf01Gc=";
+
+    npmBuildScript = "build";
+
+    installPhase = ''
+      mkdir -p $out
+      cp -r ../../build/tools/ui/dist/* $out/
+    '';
+  };
+
+  # Helper function to enable HTTPS support and embed the WebUI built from source
   # Note: LLAMA_CURL is deprecated in recent llama.cpp versions in favor of
   # LLAMA_OPENSSL which enables HTTPS support in the internal httplib.
   withHttps = pkg:
-    let
-      uiAssets = {
-        "index.html" = prev.fetchurl {
-          url = "https://huggingface.co/buckets/ggml-org/llama-ui/resolve/latest/index.html?download=true";
-          sha256 = "3ea56dac69456ecc2f31ad84d9e912155ae37f247a248d7f28107a22d6bc4af3";
-        };
-        "bundle.js" = prev.fetchurl {
-          url = "https://huggingface.co/buckets/ggml-org/llama-ui/resolve/latest/bundle.js?download=true";
-          sha256 = "c3f935c41f489d95e64c1ec4229f5bafffc000bf4e2aac8d3ea98be683d9f9e1";
-        };
-        "bundle.css" = prev.fetchurl {
-          url = "https://huggingface.co/buckets/ggml-org/llama-ui/resolve/latest/bundle.css?download=true";
-          sha256 = "02bfcb5fe93f75c39ccd7da36cc24fa21eecfdd1cfeee0ebe64d98ff26b27e93";
-        };
-        "loading.html" = prev.fetchurl {
-          url = "https://huggingface.co/buckets/ggml-org/llama-ui/resolve/latest/loading.html?download=true";
-          sha256 = "2500057e39ab81518d16b28f5d019f6107b58abb47b2a30d33862d9e7b703cdc";
-        };
-      };
-    in
-      pkg.overrideAttrs (old: {
-        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.pkg-config ];
-        buildInputs = (old.buildInputs or [ ]) ++ [ prev.openssl ];
-        cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-          "-DLLAMA_OPENSSL=ON"
-          "-DLLAMA_HTTPLIB=ON"
-          "-DLLAMA_BUILD_UI=ON"
-        ];
-        preConfigure = (old.preConfigure or "") + ''
-          mkdir -p build/tools/ui/dist
-          cp ${uiAssets."index.html"} build/tools/ui/dist/index.html
-          cp ${uiAssets."bundle.js"} build/tools/ui/dist/bundle.js
-          cp ${uiAssets."bundle.css"} build/tools/ui/dist/bundle.css
-          cp ${uiAssets."loading.html"} build/tools/ui/dist/loading.html
-        '';
-      });
+    pkg.overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.pkg-config ];
+      buildInputs = (old.buildInputs or [ ]) ++ [ prev.openssl ];
+      cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+        "-DLLAMA_OPENSSL=ON"
+        "-DLLAMA_HTTPLIB=ON"
+        "-DLLAMA_BUILD_UI=ON"
+      ];
+      preConfigure = (old.preConfigure or "") + ''
+        mkdir -p build/tools/ui/dist
+        cp -r ${llama-cpp-ui}/* build/tools/ui/dist/
+      '';
+    });
 
   # Build llguidance as a proper Rust package
   # NOTE: When llama.cpp updates, you may need to update the rev and hashes below
@@ -183,4 +189,5 @@ in {
   # For convenience, `pkgs.llama-cpp` will point to the most common optimized build.
   # Anyone building from source on their own machine likely wants this.
   llama-cpp = final.llama-cpp-cpu-native;
+  llama-cpp-ui = llama-cpp-ui;
 }
