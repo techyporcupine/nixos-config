@@ -38,14 +38,15 @@
 
     src = inputs.llama-cpp;
 
-    # Set sourceRoot to the unpacked source directory so stdenv's initial chmod succeeds.
-    # We then relocate the directory and update sourceRoot dynamically in postUnpack.
-    sourceRoot = "source";
+    # Set sourceRoot to the path containing package-lock.json so fetchNpmDeps succeeds.
+    sourceRoot = "source/tools/ui";
 
+    # In the main build, we relocate the directory inside postUnpack to a writable location under /build
+    # and update sourceRoot to keep Svelte/Vite's relative build path (../../build/tools/ui/dist) within that writable folder.
     postUnpack = ''
-      mkdir -p source/ui-build/tools
-      cp -r source/tools/ui source/ui-build/tools/
-      sourceRoot="source/ui-build/tools/ui"
+      mkdir -p /build/ui-build/tools
+      cp -r /build/source/tools/ui /build/ui-build/tools/
+      sourceRoot="/build/ui-build/tools/ui"
     '';
 
     npmDepsHash = "sha256-Iyg8FpcTKf2UYHuK7mA3cTAqVaLcQPcS0YCa5Qf01Gc=";
