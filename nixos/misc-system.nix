@@ -75,73 +75,81 @@ in {
     tp.hm.programs = {
       ssh = {
         enable = true;
+        enableDefaultConfig = false;
 
         # SSH client configuration for known hosts
-        matchBlocks = {
+        settings = {
           # Default settings for all hosts
           "*" = {
             # Auto-add keys to agent on first use (convenience)
-            addKeysToAgent = "yes";
+            AddKeysToAgent = "yes";
             # Set TERM to kitty for better remote terminal support
-            setEnv = {TERM = "kitty";};
+            SetEnv = {TERM = "kitty";};
+
+            # Standard home-manager defaults we want to keep
+            ForwardAgent = false;
+            Compression = false;
+            ServerAliveInterval = 0;
+            ServerAliveCountMax = 3;
+            HashKnownHosts = false;
+            UserKnownHostsFile = "~/.ssh/known_hosts";
+            ControlMaster = "no";
+            ControlPath = "~/.ssh/master-%r@%n:%p";
+            ControlPersist = "no";
           };
           "printers" = {
-            forwardAgent = true;
-            user = "printers";
-            hostname = "printers";
+            ForwardAgent = true;
+            User = "printers";
+            HostName = "printers";
           };
           # Home lab servers (named after elements)
           "beryllium" = {
-            forwardAgent = true;
-            user = "beryllium";
-            hostname = "10.0.0.5";
+            ForwardAgent = true;
+            User = "beryllium";
+            HostName = "10.0.0.5";
           };
           "helium" = {
-            forwardAgent = true;
-            user = "helium";
-            hostname = "2001:470:e251:1000::6"; # IPv6 address
+            ForwardAgent = true;
+            User = "helium";
+            HostName = "2001:470:e251:1000::6"; # IPv6 address
           };
           "heliumv4" = {
-            forwardAgent = true;
-            user = "helium";
-            hostname = "172.16.0.6"; # IPv4 fallback
+            ForwardAgent = true;
+            User = "helium";
+            HostName = "172.16.0.6"; # IPv4 fallback
           };
           "boron" = {
-            forwardAgent = true;
-            user = "boron";
-            hostname = "10.0.0.10";
+            ForwardAgent = true;
+            User = "boron";
+            HostName = "10.0.0.10";
           };
           "nitrogen" = {
-            forwardAgent = true;
-            user = "nitrogen";
-            hostname = "10.0.0.11";
+            ForwardAgent = true;
+            User = "nitrogen";
+            HostName = "10.0.0.11";
           };
           "lithium" = {
-            forwardAgent = true;
-            user = "lithium";
-            hostname = "10.0.0.14";
+            ForwardAgent = true;
+            User = "lithium";
+            HostName = "10.0.0.14";
           };
           # Cisco 3750X switch configs (legacy crypto for old hardware)
           "3750xmgmt" = {
-            hostname = "172.16.0.1";
-            user = "admin";
-            extraOptions = {
-              # Enable legacy algorithms (Cisco IOS only supports older SSH)
-              PubkeyAcceptedAlgorithms = "+ssh-rsa";
-              HostkeyAlgorithms = "+ssh-rsa";
-              Ciphers = "aes128-ctr";
-              KexAlgorithms = "+diffie-hellman-group1-sha1";
-            };
+            HostName = "172.16.0.1";
+            User = "admin";
+            # Enable legacy algorithms (Cisco IOS only supports older SSH)
+            PubkeyAcceptedAlgorithms = "+ssh-rsa";
+            HostkeyAlgorithms = "+ssh-rsa";
+            Ciphers = "aes128-ctr";
+            KexAlgorithms = "+diffie-hellman-group1-sha1";
           };
           "3750x" = {
-            hostname = "10.0.0.9";
-            user = "admin";
-            extraOptions = {
-              PubkeyAcceptedAlgorithms = "+ssh-rsa";
-              HostkeyAlgorithms = "+ssh-rsa";
-              Ciphers = "aes128-ctr";
-              KexAlgorithms = "+diffie-hellman-group1-sha1";
-            };
+            HostName = "10.0.0.9";
+            User = "admin";
+            PubkeyAcceptedAlgorithms = "+ssh-rsa";
+            HostkeyAlgorithms = "+ssh-rsa";
+            Ciphers = "aes128-ctr";
+            KexAlgorithms = "+diffie-hellman-group1-sha1";
           };
         };
       };
