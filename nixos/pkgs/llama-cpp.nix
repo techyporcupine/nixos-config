@@ -29,14 +29,52 @@
       NIX_CXXSTDLIB_COMPILE = (old.NIX_CXXSTDLIB_COMPILE or "") + " -O3 -march=native -mtune=native";
     });
 
-  # Helper function to enable HTTPS support for HF downloads
+  # Compile the Web UI from source using the pinned llama-cpp input
+  # Relocate tools/ui to a nested path under source/ to keep Svelte/Vite's
+  # relative build path (../../build/tools/ui/dist) within the writable sandbox root.
+  llama-cpp-ui = prev.buildNpmPackage {
+    pname = "llama-cpp-ui";
+    version = inputs.llama-cpp.shortRev or "latest";
+
+    src = inputs.llama-cpp;
+
+    # Set sourceRoot to the path containing package-lock.json so fetchNpmDeps succeeds.
+    sourceRoot = "source/tools/ui";
+
+    # In the main build, we relocate the directory inside postUnpack to a writable location under /build
+    # and update sourceRoot to keep Svelte/Vite's relative build path (../../build/tools/ui/dist) within that writable folder.
+    postUnpack = ''
+      mkdir -p /build/ui-build/tools
+      cp -r /build/source/tools/ui /build/ui-build/tools/
+      sourceRoot="/build/ui-build/tools/ui"
+    '';
+
+    npmDepsHash = "sha256-Iyg8FpcTKf2UYHuK7mA3cTAqVaLcQPcS0YCa5Qf01Gc=";
+
+    npmBuildScript = "build";
+
+    installPhase = ''
+      mkdir -p $out
+      cp -r ../../build/tools/ui/dist/* $out/
+    '';
+  };
+
+  # Helper function to enable HTTPS support and embed the WebUI built from source
   # Note: LLAMA_CURL is deprecated in recent llama.cpp versions in favor of
   # LLAMA_OPENSSL which enables HTTPS support in the internal httplib.
   withHttps = pkg:
     pkg.overrideAttrs (old: {
-      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [prev.pkg-config];
-      buildInputs = (old.buildInputs or []) ++ [prev.openssl];
-      cmakeFlags = (old.cmakeFlags or []) ++ ["-DLLAMA_OPENSSL=ON" "-DLLAMA_HTTPLIB=ON"];
+      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.pkg-config ];
+      buildInputs = (old.buildInputs or [ ]) ++ [ prev.openssl ];
+      cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+        "-DLLAMA_OPENSSL=ON"
+        "-DLLAMA_HTTPLIB=ON"
+        "-DLLAMA_BUILD_UI=ON"
+      ];
+      preConfigure = (old.preConfigure or "") + ''
+        mkdir -p build/tools/ui/dist
+        cp -r ${llama-cpp-ui}/* build/tools/ui/dist/
+      '';
     });
 
   # Build llguidance as a proper Rust package
@@ -152,4 +190,5 @@ in {
   # For convenience, `pkgs.llama-cpp` will point to the most common optimized build.
   # Anyone building from source on their own machine likely wants this.
   llama-cpp = final.llama-cpp-cpu-native;
+  llama-cpp-ui = llama-cpp-ui;
 }
