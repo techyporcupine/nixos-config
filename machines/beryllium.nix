@@ -62,8 +62,8 @@
 
   # Services hosted or enabled on this machine (many services live here)
   tp.server = {
-    minecraft.enable = true;
-    minecraft.broccoli-bloc = true;
+    minecraft.enable = false;
+    minecraft.broccoli-bloc = false;
     traefik.enable = true;
     vaultwarden.enable = true;
     uptime-kuma.enable = true;
