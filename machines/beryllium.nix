@@ -105,7 +105,6 @@
       directives = [
         "ignorelb"
         "override.battery.charge.low = 20"
-        "pollinterval = 15"
       ];
     };
 
