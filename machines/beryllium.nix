@@ -99,13 +99,13 @@
     ups."smt1500" = {
       # driver name from https://networkupstools.org/stable-hcl.html
       driver = "apc_modbus";
-      pollinterval = 5;
 
       # usbhid-ups driver always use value "auto"
       port = "auto";
       directives = [
         "ignorelb"
         "override.battery.charge.low = 20"
+        "pollinterval = 15"
       ];
     };
 
