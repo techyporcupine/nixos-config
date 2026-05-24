@@ -45,7 +45,6 @@
   tp.server = {
     llama-server = {
       enable = true;
-      package = pkgs.llama-cpp-cuda-native-llguidance;
     };
     beszel = {
       client = {
@@ -53,6 +52,19 @@
         sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINiQASN4BziJ9E1RwymKo5KKri6PBC4UP76YASLDZfrr";
       };
     };
+  };
+
+  # Hardware-parameterized LLM packages
+  services.franken-llama = {
+    enable = true;
+    acceleration = "cuda";
+    nativeCpu = true;
+    llguidance = true;
+
+    # To override the default b9305 version on this specific machine,
+    # define llamaCppTag and its Nix SHA256 hash below:
+    llamaCppTag = "b9305";
+    llamaCppHash = "sha256-TsleTV12rW+35OvHxkWJo42Lhp6FkSyozxiK71yjfRg=";
   };
 
   # Graphics (NVIDIA)
@@ -81,7 +93,7 @@
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
-    llama-cpp-cuda-native-llguidance
+    llama-cpp
     python3Packages.huggingface-hub
   ];
 

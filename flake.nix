@@ -37,11 +37,12 @@
       url = "github:NixOS/nixos-hardware/master";
     };
 
-    # Local LLM inference engine
-    llama-cpp = {
-      url = "github:ggml-org/llama.cpp/b9254";
+    # Custom llama-cpp packaging flake
+    franken-llama = {
+      url = "github:bowmanjd/franken-llama";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
 
     # Secure boot support
     lanzaboote = {
@@ -124,8 +125,7 @@
     llamaOverlays =
       baseOverlays
       ++ [
-        inputs.llama-cpp.overlays.default
-        (import ./nixos/pkgs/llama-cpp.nix {inherit inputs lib;})
+        inputs.franken-llama.overlays.default
       ];
 
     # Common modules for all systems
@@ -134,6 +134,7 @@
       ./nixos
       inputs.home-manager.nixosModules.home-manager
       inputs.catppuccin.nixosModules.catppuccin
+      inputs.franken-llama.nixosModules.default
     ];
 
     # Helper function to create system configurations
