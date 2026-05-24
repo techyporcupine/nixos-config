@@ -142,6 +142,24 @@
     },
     "flake-parts": {
       "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1778716662,
+        "narHash": "sha256-m1Yf0wZ8j1OHjTc2UwHwyQRSnNeSgLJOd7q5Y45hzi4=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "f7c1a2d347e4c52d5fb8d10cb4d94b5884e546fb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_2": {
+      "inputs": {
         "nixpkgs-lib": [
           "lanzaboote",
           "nixpkgs"
@@ -153,24 +171,6 @@
         "owner": "hercules-ci",
         "repo": "flake-parts",
         "rev": "2a55567fcf15b1b1c7ed712a2c6fadaec7412ea8",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
-    "flake-parts_2": {
-      "inputs": {
-        "nixpkgs-lib": "nixpkgs-lib"
-      },
-      "locked": {
-        "lastModified": 1778716662,
-        "narHash": "sha256-m1Yf0wZ8j1OHjTc2UwHwyQRSnNeSgLJOd7q5Y45hzi4=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "f7c1a2d347e4c52d5fb8d10cb4d94b5884e546fb",
         "type": "github"
       },
       "original": {
@@ -215,6 +215,27 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "franken-llama": {
+      "inputs": {
+        "llama-cpp": "llama-cpp",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779620309,
+        "narHash": "sha256-aMavIJNkFWlMuKKX+UnrZYfT7kvqroQfXPMi3MHgdng=",
+        "owner": "bowmanjd",
+        "repo": "franken-llama",
+        "rev": "8c9785f98f1ec73e910dd73b235c520ecc1db600",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bowmanjd",
+        "repo": "franken-llama",
         "type": "github"
       }
     },
@@ -626,7 +647,7 @@
       "inputs": {
         "crane": "crane",
         "flake-compat": "flake-compat",
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "flake-utils": "flake-utils",
         "nixpkgs": [
           "nixpkgs"
@@ -651,8 +672,9 @@
     },
     "llama-cpp": {
       "inputs": {
-        "flake-parts": "flake-parts_2",
+        "flake-parts": "flake-parts",
         "nixpkgs": [
+          "franken-llama",
           "nixpkgs"
         ]
       },
@@ -867,12 +889,12 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "disko": "disko",
+        "franken-llama": "franken-llama",
         "home-manager": "home-manager",
         "home-manager-stable": "home-manager-stable",
         "hypridle": "hypridle",
         "hyprpaper": "hyprpaper",
         "lanzaboote": "lanzaboote",
-        "llama-cpp": "llama-cpp",
         "nix-minecraft": "nix-minecraft",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",

@@ -56,6 +56,19 @@
     };
   };
 
+  # Hardware-parameterized LLM packages
+  services.franken-llama = {
+    enable = true;
+    acceleration = "cuda";
+    nativeCpu = true;
+    llguidance = true;
+
+    # To override the default b9305 version on this specific machine,
+    # define llamaCppTag and its Nix SHA256 hash below:
+    # llamaCppTag = "b8793";
+    # llamaCppHash = "sha256-somehash...";
+  };
+
   # Graphics (NVIDIA + PRIME for hybrid setups). Toggle per-host graphics/prime usage here.
   tp.graphics.nvidia.enable = true;
   tp.graphics.nvidia.prime = true;
@@ -76,7 +89,7 @@
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
-    llama-cpp-cuda-native-llguidance
+    llama-cpp
 		python3Packages.huggingface-hub
     # handbrake
   ];

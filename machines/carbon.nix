@@ -137,6 +137,14 @@
   hardware.amdgpu.opencl.enable = true;
   nixpkgs.config.rocmSupport = true;
 
+  # Hardware-parameterized LLM packages (commented out by default)
+  # services.franken-llama = {
+  #   enable = true;
+  #   acceleration = "rocm";
+  #   nativeCpu = true;
+  #   llguidance = false;
+  # };
+
   nixpkgs.config.permittedInsecurePackages = [
     "libsoup-2.74.3"
   ];

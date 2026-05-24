@@ -153,8 +153,16 @@
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
-    # llama-cpp-vulkan-native
+    # llama-cpp
   ];
+
+  # Hardware-parameterized LLM packages (commented out by default)
+  # services.franken-llama = {
+  #   enable = true;
+  #   acceleration = "vulkan";
+  #   nativeCpu = true;
+  #   llguidance = false;
+  # };
 
   # Bootloader + initrd
   boot.loader.systemd-boot.enable = true;
