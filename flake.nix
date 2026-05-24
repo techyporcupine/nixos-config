@@ -39,7 +39,7 @@
 
     # Custom llama-cpp packaging flake (local path for development)
     franken-llama = {
-      url = "path:/home/bowmanjd/devel/franken-llama";
+      url = "github:bowmanjd/franken-llama";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

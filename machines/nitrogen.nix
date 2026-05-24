@@ -101,6 +101,8 @@
   environment.systemPackages = with pkgs; [
     llama-cpp
     python3Packages.huggingface-hub
+    rocmPackages.rocminfo
+    rocmPackages.rocm-smi
   ];
 
   # Local overlays (adds project-specific package overlays)
