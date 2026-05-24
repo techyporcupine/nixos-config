@@ -55,11 +55,17 @@
   };
 
   # Hardware-parameterized LLM packages
+  # Dual GPU: NVIDIA RTX 3080 Ti (sm_86) + AMD Instinct MI50 (gfx906)
+  # Uses dynamic backend loading (GGML_BACKEND_DL) for runtime GPU selection
   services.franken-llama = {
     enable = true;
-    acceleration = "cuda";
+    acceleration = "dual";
     nativeCpu = true;
     llguidance = true;
+
+    # GPU architecture targets
+    cudaCapabilities = ["86"];   # RTX 3080 Ti (sm_86 / Ampere)
+    rocmTargets = ["gfx906"];    # MI50 (Vega 20)
 
     # To override the default b9305 version on this specific machine,
     # define llamaCppTag and its Nix SHA256 hash below:

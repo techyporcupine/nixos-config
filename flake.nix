@@ -37,9 +37,9 @@
       url = "github:NixOS/nixos-hardware/master";
     };
 
-    # Custom llama-cpp packaging flake
+    # Custom llama-cpp packaging flake (local path for development)
     franken-llama = {
-      url = "github:bowmanjd/franken-llama";
+      url = "path:/home/bowmanjd/devel/franken-llama";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -121,12 +121,11 @@
       overlay-master
     ];
 
-    # Overlays with llama-cpp support
-    llamaOverlays =
-      baseOverlays
-      ++ [
-        inputs.franken-llama.overlays.default
-      ];
+    # Overlays for hosts that may use llama-cpp
+    # Note: The franken-llama NixOS module (in commonModules) applies the
+    # configured overlay when services.franken-llama.enable = true.
+    # This list only includes base overlays; llama-cpp packages come from the module.
+    llamaOverlays = baseOverlays;
 
     # Common modules for all systems
     commonModules = [

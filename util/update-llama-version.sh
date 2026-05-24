@@ -5,6 +5,12 @@
 
 set -euo pipefail
 
+# Check for jq dependency
+if ! command -v jq &> /dev/null; then
+    echo "Error: jq is required but not installed" >&2
+    exit 1
+fi
+
 if [ "$#" -lt 2 ]; then
     echo "Usage: $0 <tag> <machine-or-path>"
     echo "Example: $0 b8793 nitrogen"
@@ -39,7 +45,7 @@ JSON_OUTPUT=$(nix store prefetch-file --unpack --json "$PREFETCH_URL" --extra-ex
     nix store prefetch-file --unpack --json "$PREFETCH_URL_ALT" --extra-experimental-features "nix-command flakes"
 })
 
-HASH=$(echo "$JSON_OUTPUT" | grep -oP '"hash":\s*"\K[^"]+')
+HASH=$(echo "$JSON_OUTPUT" | jq -r '.hash')
 
 if [ -z "$HASH" ]; then
     echo "Error: Failed to fetch SHA256 hash for revision $TAG" >&2
@@ -49,7 +55,20 @@ fi
 echo "Fetched hash: $HASH"
 echo "Updating $FILE..."
 
-# 3. Update the file using sed (Linux-compatible regex preserving leading indentation)
+# 3. Validate that the file contains the expected patterns
+if ! grep -qE 'llamaCppTag[[:space:]]*=' "$FILE"; then
+    echo "Error: llamaCppTag not found in $FILE" >&2
+    echo "Please add 'llamaCppTag = \"...\";' to the services.franken-llama block" >&2
+    exit 1
+fi
+
+if ! grep -qE 'llamaCppHash[[:space:]]*=' "$FILE"; then
+    echo "Error: llamaCppHash not found in $FILE" >&2
+    echo "Please add 'llamaCppHash = \"...\";' to the services.franken-llama block" >&2
+    exit 1
+fi
+
+# 4. Update the file using sed (Linux-compatible regex preserving leading indentation)
 sed -i -E 's|^([[:space:]]*)#?[[:space:]]*llamaCppTag[[:space:]]*=[[:space:]]*"[^"]*";|\1llamaCppTag = "'"$TAG"'";|' "$FILE"
 sed -i -E 's|^([[:space:]]*)#?[[:space:]]*llamaCppHash[[:space:]]*=[[:space:]]*"[^"]*";|\1llamaCppHash = "'"$HASH"'";|' "$FILE"
 

@@ -226,17 +226,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1779620309,
-        "narHash": "sha256-aMavIJNkFWlMuKKX+UnrZYfT7kvqroQfXPMi3MHgdng=",
-        "owner": "bowmanjd",
-        "repo": "franken-llama",
-        "rev": "8c9785f98f1ec73e910dd73b235c520ecc1db600",
-        "type": "github"
+        "lastModified": 1779642276,
+        "narHash": "sha256-Q4ILkM8BiRXcm8hqx/pRyDEpO79AZ2+kF9PQHpARHKU=",
+        "path": "/home/bowmanjd/devel/franken-llama",
+        "type": "path"
       },
       "original": {
-        "owner": "bowmanjd",
-        "repo": "franken-llama",
-        "type": "github"
+        "path": "/home/bowmanjd/devel/franken-llama",
+        "type": "path"
       }
     },
     "gitignore": {
