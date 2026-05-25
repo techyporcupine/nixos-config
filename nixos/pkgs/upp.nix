@@ -8,7 +8,11 @@ python3Packages.buildPythonApplication rec {
   pname = "upp";
   version = "0.2.4";
 
-  pyproject = false;
+  pyproject = true;
+
+  build-system = with python3Packages; [
+    setuptools
+  ];
 
   src = fetchFromGitHub {
     owner = "sibradzic";
