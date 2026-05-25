@@ -226,19 +226,11 @@
         ]
       },
       "locked": {
-<<<<<<< HEAD
         "lastModified": 1779682245,
         "narHash": "sha256-Ok3T15dPAkwX0vHvuSaELuWtoDmaxa2OGkcaMq4gEN0=",
         "owner": "bowmanjd",
         "repo": "franken-llama",
         "rev": "719cbca34acd6cd399430d367d70f50644158edc",
-=======
-        "lastModified": 1779664797,
-        "narHash": "sha256-/cg25q5pJRlaw7ZH5sf7sKccIaFsu951XRUCshHNbT4=",
-        "owner": "bowmanjd",
-        "repo": "franken-llama",
-        "rev": "6edfdbd802de85dbaf677998c8807329e4a303ac",
->>>>>>> 14dd4f1 (update franken-llama)
         "type": "github"
       },
       "original": {
