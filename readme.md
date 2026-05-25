@@ -29,6 +29,15 @@ Most of the config here is for my Framework 13 with an AMD Ryzen 5 7640U, so som
 
 11. You should be good! All done!!
 
+## Utilities
+
+### Update llama.cpp version
+
+```bash
+./util/update-llama-version.sh nitrogen           # auto-fetch latest tag
+./util/update-llama-version.sh b9310 nitrogen     # use specific tag
+```
+
 ## Disk Encryption and Secure Boot
 
 ### Secure boot

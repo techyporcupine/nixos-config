@@ -62,11 +62,7 @@
     acceleration = "cuda";
     nativeCpu = true;
     llguidance = true;
-
-    # To override the default b9305 version on this specific machine,
-    # define llamaCppTag and its Nix SHA256 hash below:
-    # llamaCppTag = "b8793";
-    # llamaCppHash = "sha256-somehash...";
+    cudaCapabilities = ["75"];  # T1200 Laptop GPU (Turing)
   };
 
   # Graphics (NVIDIA + PRIME for hybrid setups). Toggle per-host graphics/prime usage here.

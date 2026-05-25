@@ -5,30 +5,57 @@
 
 set -euo pipefail
 
+REPO_ROOT="$(git -C "${BASH_SOURCE[0]%/*}" rev-parse --show-toplevel)"
+
 # Check for jq dependency
 if ! command -v jq &> /dev/null; then
     echo "Error: jq is required but not installed" >&2
     exit 1
 fi
 
-if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 <tag> <machine-or-path>"
+if [ "$#" -lt 1 ]; then
+    echo "Usage: $0 [tag] <machine-or-path>"
     echo "Example: $0 b8793 nitrogen"
-    echo "Example: $0 b8793 machines/nitrogen.nix"
+    echo "Example: $0 nitrogen          # auto-fetch latest tag"
     exit 1
 fi
 
-TAG="$1"
-TARGET="$2"
+# Determine if first arg is a tag or machine target
+get_latest_tag() {
+    local tag=""
+    if command -v gh >/dev/null 2>&1; then
+        tag=$(gh release view --repo ggml-org/llama.cpp --json tagName --jq .tagName 2>/dev/null || true)
+    fi
+    if [ -z "$tag" ]; then
+        tag=$(git ls-remote --tags --sort='v:refname' https://github.com/ggml-org/llama.cpp.git | \
+              grep -o 'refs/tags/b[0-9]*' | tail -n 1 | cut -d'/' -f3)
+    fi
+    echo "$tag"
+}
+
+if [ "$#" -eq 1 ]; then
+    # Single arg: assume it's the machine, auto-fetch tag
+    TARGET="$1"
+    echo "Fetching latest llama.cpp tag..."
+    TAG=$(get_latest_tag)
+    if [ -z "$TAG" ]; then
+        echo "Error: Could not determine latest llama.cpp tag" >&2
+        exit 1
+    fi
+    echo "Latest tag: $TAG"
+else
+    TAG="$1"
+    TARGET="$2"
+fi
 
 # 1. Resolve the file path
 FILE=""
 if [ -f "$TARGET" ]; then
     FILE="$TARGET"
-elif [ -f "machines/${TARGET}" ]; then
-    FILE="machines/${TARGET}"
-elif [ -f "machines/${TARGET}.nix" ]; then
-    FILE="machines/${TARGET}.nix"
+elif [ -f "$REPO_ROOT/machines/${TARGET}" ]; then
+    FILE="$REPO_ROOT/machines/${TARGET}"
+elif [ -f "$REPO_ROOT/machines/${TARGET}.nix" ]; then
+    FILE="$REPO_ROOT/machines/${TARGET}.nix"
 else
     echo "Error: Could not resolve target file for '$TARGET'" >&2
     exit 1

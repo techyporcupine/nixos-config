@@ -69,8 +69,8 @@
 
     # To override the default b9305 version on this specific machine,
     # define llamaCppTag and its Nix SHA256 hash below:
-    llamaCppTag = "b9305";
-    llamaCppHash = "sha256-TsleTV12rW+35OvHxkWJo42Lhp6FkSyozxiK71yjfRg=";
+    llamaCppTag = "b9310";
+    llamaCppHash = "sha256-XJwh8bPrbhckZkwiS6i3tNGW5Ujeh7hqU3YL6HiS1Ro=";
   };
 
   # Graphics (NVIDIA)
@@ -104,11 +104,6 @@
     rocmPackages.rocminfo
     rocmPackages.rocm-smi
   ];
-
-  # Local overlays (adds project-specific package overlays)
-  # nixpkgs.overlays = [
-  #   (import ../nixos/pkgs/ollama-overlay.nix)
-  # ];
 
   # Virtualisation & containers (podman backend + OCI container entries)
   virtualisation = {
