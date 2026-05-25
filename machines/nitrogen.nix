@@ -78,9 +78,7 @@
 
   networking.firewall = {
     allowedTCPPorts = [
-      10300
       8080
-      11434
       # frigate web
       8971
       # rtsp/webrtc
@@ -103,6 +101,7 @@
     python3Packages.huggingface-hub
     rocmPackages.rocminfo
     rocmPackages.rocm-smi
+    (pkgs.callPackage ../nixos/pkgs/upp.nix {})
   ];
 
   # Virtualisation & containers (podman backend + OCI container entries)
