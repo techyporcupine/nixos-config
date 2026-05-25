@@ -83,24 +83,14 @@
     enable = true;
     
     # Declarative settings for both GPUs.
-    # Note: To use these, run `lact cli list-gpus` on your nitrogen server to retrieve
-    # your exact GPU PCI IDs, then replace the placeholder keys below and uncomment the block.
-    #
-    # settings = {
-    #   gpus = {
-    #     # Recommended settings for the NVIDIA RTX 3080 Ti
-    #     "<NVIDIA_RTX_3080_Ti_GPU_ID>" = {
-    #       power_cap = 250.0;        # Limit power draw from 350W to 250W
-    #       min_core_clock = 1200;    # Lock core graphics clock speed range
-    #       max_core_clock = 1350;    # Sweet spot for memory-bandwidth bound LLM inference
-    #     };
-    #     
-    #     # Recommended settings for the AMD Instinct MI50
-    #     "<AMD_Instinct_MI50_GPU_ID>" = {
-    #       # Add AMD specific clock/voltage adjustments here if desired
-    #     };
-    #   };
-    # };
+    settings = {
+      gpus = {
+        # Recommended settings for the NVIDIA RTX 3080 Ti
+        "10de:2208-10de:1535-0000:01:00.0" = {
+          power_cap = 250.0;        # Limit power draw from 350W to 250W (Strategy A)
+        };
+      };
+    };
   };
 
   networking.firewall = {
