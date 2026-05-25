@@ -64,7 +64,7 @@
     llguidance = true;
 
     # GPU architecture targets
-    cudaCapabilities = ["86"];   # RTX 3080 Ti (sm_86 / Ampere)
+    cudaCapabilities = ["75" "86"];   # GTX 1650 (sm_75 / Turing), RTX 3080 Ti (sm_86 / Ampere)
     rocmTargets = ["gfx906"];    # MI50 (Vega 20)
 
     # To override the default b9305 version on this specific machine,
