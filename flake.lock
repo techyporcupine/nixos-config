@@ -226,11 +226,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779626059,
-        "narHash": "sha256-slQ2rivgMVw0wkLkDSW9ycdUaB5BjUWbAZ7mbNncSU0=",
+        "lastModified": 1779664797,
+        "narHash": "sha256-/cg25q5pJRlaw7ZH5sf7sKccIaFsu951XRUCshHNbT4=",
         "owner": "bowmanjd",
         "repo": "franken-llama",
-        "rev": "fd9fdd70ac211976354e7b52c1d05cef8d36c0f3",
+        "rev": "6edfdbd802de85dbaf677998c8807329e4a303ac",
         "type": "github"
       },
       "original": {
