@@ -18,9 +18,13 @@ in {
     # Enable udisks for drive utils
     services.udisks2.enable = true;
 
-    # GDM for logging in
-    services = {
-      displayManager.gdm.enable = true;
+    # SDDM for logging in
+    services.displayManager.sddm = {
+      enable = true;
+
+      wayland = {
+        enable = true;
+      };
     };
 
     # Enable blueman for bluetooth managment

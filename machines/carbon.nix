@@ -69,41 +69,30 @@
 
   # Per-host firewall exceptions (default: none)
   # KOreader port 9090
-  networking.firewall.allowedTCPPorts = [9090];
+  networking.firewall.allowedTCPPorts = [9090 9300];
 
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
     yt-dlp
     blisp
     nodejs
-    hugo
-    libhdhomerun
-    hdhomerun-config-gui
     fw-ectool
     pkgsRocm.blender
     tpm2-tss
     amdgpu_top
-    krita
     distrobox
     kdePackages.kdenlive
-    eog
-    qbittorrent
     handbrake
     calibre
-    darktable
-    inkscape
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
     remmina
     master.esphome
     signal-desktop
-    thunderbird
     master.opencode
-    unetbootin
     arduino-ide
     jetbrains.pycharm
     qrencode
-    gnome-network-displays
     wireshark
     anki
     bitwarden-desktop
@@ -195,6 +184,7 @@
   hardware.wirelessRegulatoryDatabase = true;
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom=US
+    options mt7921e disable_aspm=y
   '';
 
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";

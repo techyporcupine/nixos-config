@@ -43,7 +43,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
     # Secure boot support
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
