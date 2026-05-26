@@ -84,6 +84,10 @@
     
     # Declarative settings for both GPUs.
     settings = {
+      daemon = {
+        log_level = "info";
+        admin_group = "wheel";
+      };
       gpus = {
         # Recommended settings for the NVIDIA RTX 3080 Ti
         "10DE:2208-10DE:1535-0000:01:00.0" = {
