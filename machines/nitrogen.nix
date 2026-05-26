@@ -122,6 +122,7 @@
     rocmPackages.rocm-smi
 		amdgpu_top
     (pkgs.callPackage ../nixos/pkgs/upp.nix {})
+    (pkgs.callPackage ../nixos/graphics/amd {})
   ];
 
   # Virtualisation & containers (podman backend + OCI container entries)
