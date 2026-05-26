@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -euo pipefail
 
 echo "=== Optimizing NVIDIA RTX 3080 Ti ==="
