@@ -86,7 +86,7 @@
     settings = {
       gpus = {
         # Recommended settings for the NVIDIA RTX 3080 Ti
-        "10de:2208-10de:1535-0000:01:00.0" = {
+        "10DE:2208-10DE:1535-0000:01:00.0" = {
           power_cap = 250.0;        # Limit power draw from 350W to 250W (Strategy A)
         };
       };
