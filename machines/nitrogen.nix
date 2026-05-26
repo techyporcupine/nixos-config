@@ -76,25 +76,22 @@
   # Graphics (NVIDIA)
   tp.graphics.nvidia.enable = true;
 
-  # Enable LACT (Linux GPU Configuration Tool) service for both NVIDIA & AMD GPUs.
-  # LACT (v0.9.0+) supports monitoring, power caps, and clock/voltage configuration
-  # for both your NVIDIA RTX 3080 Ti and AMD Instinct MI50 via a single daemon.
-  services.lact = {
-    enable = true;
-    
-    # Declarative settings for both GPUs.
-    settings = {
-      version = 5;
-      daemon = {
-        log_level = "info";
-        admin_group = "wheel";
-      };
-      gpus = {
-        # Recommended settings for the NVIDIA RTX 3080 Ti
-        "10DE:2208-10DE:1535-0000:01:00.0" = {
-          power_cap = 250.0;        # Limit power draw from 350W to 250W (Strategy A)
-        };
-      };
+  # Custom GPU Optimization Service for both NVIDIA RTX 3080 Ti and AMD Instinct MI50
+  systemd.services.gpu-optimization = {
+    description = "Optimize GPU power limits and performance settings";
+    wantedBy = [ "multi-user.target" ];
+
+    # Packaged tools made available to the service shell script environment
+    path = [
+      config.hardware.nvidia.package              # Provides nvidia-smi
+      pkgs.pciutils                               # Provides lspci
+      (pkgs.callPackage ../nixos/pkgs/upp.nix {}) # Provides sibradzic's upp tool
+    ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "/home/${config.tp.username}/nixos-config/nixos/graphics/gpu-optimize.sh";
     };
   };
 
@@ -123,6 +120,7 @@
     python3Packages.huggingface-hub
     rocmPackages.rocminfo
     rocmPackages.rocm-smi
+		amdgpu_top
     (pkgs.callPackage ../nixos/pkgs/upp.nix {})
   ];
 
