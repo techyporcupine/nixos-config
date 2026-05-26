@@ -84,6 +84,7 @@
     
     # Declarative settings for both GPUs.
     settings = {
+      version = 5;
       daemon = {
         log_level = "info";
         admin_group = "wheel";
