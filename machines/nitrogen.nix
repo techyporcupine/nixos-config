@@ -95,6 +95,20 @@
     };
   };
 
+  # GPU Fan Controller for AMD MI50 (reads temp, controls motherboard fan header)
+  systemd.services.gpu-fan-control = {
+    description = "AMD MI50 GPU Fan Controller";
+    after = [ "multi-user.target" ];
+    # wantedBy = [ "multi-user.target" ];  # uncomment to auto-start
+
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.callPackage ../nixos/graphics/gpu-fan-control {}}/bin/gpu-fan-control /home/${config.tp.username}/nixos-config/nixos/graphics/gpu-fan-control/gpu-fan-control.conf";
+      Restart = "always";
+      RestartSec = "5s";
+    };
+  };
+
   networking.firewall = {
     allowedTCPPorts = [
       8080
@@ -238,7 +252,7 @@
   # Tunable defaults for kernel/initrd modules and networking. Edit only when required for boot/device support.
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" "rtsx_usb_sdmmc"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = ["kvm-intel" "nct6775"];
   boot.extraModulePackages = [];
 
   # Default: enable DHCP on interfaces unless overridden per-interface
