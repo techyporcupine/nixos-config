@@ -181,8 +181,8 @@
             "--cap-add=CAP_PERFMON"
             "--device=/dev/kfd"
             "--device=/dev/dri"
-            "--group-add=render" # render group for GPU
-            "--group-add=video" # video group for GPU
+            "--group-add=303" # render group for GPU
+            "--group-add=26" # video group for GPU
           ];
           # Map your hardware devices
           devices = [
