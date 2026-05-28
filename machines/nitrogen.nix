@@ -173,7 +173,7 @@
         };
         frigate = let
           customRocblas = pkgs.rocmPackages.rocblas.override {
-            amdgpuTargets = ["gfx906"];
+            gpuTargets = ["gfx906"];
           };
         in {
           image = "ghcr.io/blakeblackshear/frigate:stable-rocm";
