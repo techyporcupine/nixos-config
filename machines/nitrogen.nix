@@ -171,7 +171,13 @@
             "--network=host"
           ];
         };
-        frigate = {
+        frigate = let
+          # Fetch NixOS 23.11 to access ROCm 5.7 where gfx906 is still supported natively
+          pkgs2311 = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz") {
+            system = pkgs.system;
+            config.allowUnfree = true;
+          };
+        in {
           image = "ghcr.io/blakeblackshear/frigate:stable-rocm";
           autoStart = true;
           extraOptions = [
@@ -199,14 +205,14 @@
           environment = {
             FRIGATE_RTSP_PASSWORD = "password";
             HSA_OVERRIDE_GFX_VERSION = "9.0.6";
-            ROCBLAS_TENSILE_LIBPATH = "${pkgs.rocmPackages_5.rocblas}/lib/rocblas/library";
+            ROCBLAS_TENSILE_LIBPATH = "${pkgs2311.rocmPackages_5.rocblas}/lib/rocblas/library";
           };
           # Map your volumes
           volumes = [
             "/etc/localtime:/etc/localtime:ro"
             "/home/nitrogen/frigate/config:/config"
             "/mnt/Storage/frigate/media:/media/frigate"
-            "${pkgs.rocmPackages_5.rocblas}/lib/rocblas/library:${pkgs.rocmPackages_5.rocblas}/lib/rocblas/library:ro"
+            "${pkgs2311.rocmPackages_5.rocblas}/lib/rocblas/library:${pkgs2311.rocmPackages_5.rocblas}/lib/rocblas/library:ro"
           ];
         };
       };
