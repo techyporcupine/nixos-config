@@ -199,12 +199,14 @@
           environment = {
             FRIGATE_RTSP_PASSWORD = "password";
             HSA_OVERRIDE_GFX_VERSION = "9.0.6";
+            ROCBLAS_TENSILE_LIBPATH = "${pkgs.rocmPackages_5.rocblas}/lib/rocblas/library";
           };
           # Map your volumes
           volumes = [
             "/etc/localtime:/etc/localtime:ro"
             "/home/nitrogen/frigate/config:/config"
             "/mnt/Storage/frigate/media:/media/frigate"
+            "${pkgs.rocmPackages_5.rocblas}/lib/rocblas/library:${pkgs.rocmPackages_5.rocblas}/lib/rocblas/library:ro"
           ];
         };
       };
