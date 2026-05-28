@@ -100,7 +100,7 @@
   systemd.services.gpu-fan-control = {
     description = "AMD MI50 GPU Fan Controller";
     after = ["multi-user.target"];
-    # wantedBy = [ "multi-user.target" ];  # uncomment to auto-start
+    wantedBy = [ "multi-user.target" ];  # uncomment to auto-start
 
     serviceConfig = {
       Type = "simple";
