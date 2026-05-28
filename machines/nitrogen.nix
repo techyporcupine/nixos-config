@@ -198,6 +198,7 @@
           # Set environment variables
           environment = {
             FRIGATE_RTSP_PASSWORD = "password";
+            HSA_OVERRIDE_GFX_VERSION = "9.0.6";
           };
           # Map your volumes
           volumes = [
