@@ -86,6 +86,7 @@
       config.hardware.nvidia.package # Provides nvidia-smi
       pkgs.pciutils # Provides lspci
       (pkgs.callPackage ../nixos/pkgs/upp.nix {}) # Provides sibradzic's upp tool
+      pkgs.gawk # Provides awk
     ];
 
     serviceConfig = {
