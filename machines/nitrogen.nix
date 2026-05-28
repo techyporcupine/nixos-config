@@ -172,11 +172,14 @@
           ];
         };
         frigate = let
-          # Fetch NixOS 23.11 to access ROCm 5.7 where gfx906 is still supported natively
-          pkgs2311 = import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-23.11.tar.gz") {
-            system = pkgs.system;
-            config.allowUnfree = true;
-          };
+          pkgs2311 =
+            import (builtins.fetchTarball {
+              url = "https://github.com/NixOS/nixpkgs/archive/84d981bae8b5e783b3b548de505b22880559515f.tar.gz";
+              sha256 = "0d6j5d31kzfla0x8f64ranp681dhd0hwxihbf3jjpb18cnddxag8";
+            }) {
+              system = pkgs.system;
+              config.allowUnfree = true;
+            };
         in {
           image = "ghcr.io/blakeblackshear/frigate:stable-rocm";
           autoStart = true;
