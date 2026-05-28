@@ -172,14 +172,9 @@
           ];
         };
         frigate = let
-          pkgs2311 =
-            import (builtins.fetchTarball {
-              url = "https://github.com/NixOS/nixpkgs/archive/84d981bae8b5e783b3b548de505b22880559515f.tar.gz";
-              sha256 = "0d6j5d31kzfla0x8f64ranp681dhd0hwxihbf3jjpb18cnddxag8";
-            }) {
-              system = pkgs.system;
-              config.allowUnfree = true;
-            };
+          customRocblas = pkgs.rocmPackages.rocblas.override {
+            amdgpuTargets = ["gfx906"];
+          };
         in {
           image = "ghcr.io/blakeblackshear/frigate:stable-rocm";
           autoStart = true;
@@ -208,14 +203,14 @@
           environment = {
             FRIGATE_RTSP_PASSWORD = "password";
             HSA_OVERRIDE_GFX_VERSION = "9.0.6";
-            ROCBLAS_TENSILE_LIBPATH = "${pkgs2311.rocmPackages_5.rocblas}/lib/rocblas/library";
+            ROCBLAS_TENSILE_LIBPATH = "${customRocblas}/lib/rocblas/library";
           };
           # Map your volumes
           volumes = [
             "/etc/localtime:/etc/localtime:ro"
             "/home/nitrogen/frigate/config:/config"
             "/mnt/Storage/frigate/media:/media/frigate"
-            "${pkgs2311.rocmPackages_5.rocblas}/lib/rocblas/library:${pkgs2311.rocmPackages_5.rocblas}/lib/rocblas/library:ro"
+            "${customRocblas}/lib/rocblas/library:${customRocblas}/lib/rocblas/library:ro"
           ];
         };
       };
