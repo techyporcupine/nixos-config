@@ -64,8 +64,8 @@
     llguidance = true;
 
     # GPU architecture targets
-    cudaCapabilities = ["75" "86"];   # GTX 1650 (sm_75 / Turing), RTX 3080 Ti (sm_86 / Ampere)
-    rocmTargets = ["gfx906"];    # MI50 (Vega 20)
+    cudaCapabilities = ["75" "86"]; # GTX 1650 (sm_75 / Turing), RTX 3080 Ti (sm_86 / Ampere)
+    rocmTargets = ["gfx906"]; # MI50 (Vega 20)
 
     # To override the default b9305 version on this specific machine,
     # define llamaCppTag and its Nix SHA256 hash below:
@@ -79,12 +79,12 @@
   # Custom GPU Optimization Service for both NVIDIA RTX 3080 Ti and AMD Instinct MI50
   systemd.services.gpu-optimization = {
     description = "Optimize GPU power limits and performance settings";
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
 
     # Packaged tools made available to the service shell script environment
     path = [
-      config.hardware.nvidia.package              # Provides nvidia-smi
-      pkgs.pciutils                               # Provides lspci
+      config.hardware.nvidia.package # Provides nvidia-smi
+      pkgs.pciutils # Provides lspci
       (pkgs.callPackage ../nixos/pkgs/upp.nix {}) # Provides sibradzic's upp tool
     ];
 
@@ -98,7 +98,7 @@
   # GPU Fan Controller for AMD MI50 (reads temp, controls motherboard fan header)
   systemd.services.gpu-fan-control = {
     description = "AMD MI50 GPU Fan Controller";
-    after = [ "multi-user.target" ];
+    after = ["multi-user.target"];
     # wantedBy = [ "multi-user.target" ];  # uncomment to auto-start
 
     serviceConfig = {
@@ -134,7 +134,7 @@
     python3Packages.huggingface-hub
     rocmPackages.rocminfo
     rocmPackages.rocm-smi
-		amdgpu_top
+    amdgpu_top
     (pkgs.callPackage ../nixos/pkgs/upp.nix {})
     (pkgs.callPackage ../nixos/graphics/amd {})
   ];
@@ -179,6 +179,10 @@
             "--shm-size=512m"
             "--stop-timeout=30"
             "--cap-add=CAP_PERFMON"
+            "--device=/dev/kfd"
+            "--device=/dev/dri"
+            "--group-add 303" # render group for GPU
+            "--group-add 26" # video group for GPU
           ];
           # Map your hardware devices
           devices = [
@@ -234,7 +238,7 @@
   boot.initrd.systemd.enable = true;
 
   # Enable AMDGPU Overdrive feature mask for overclocking/undervolting support on the AMD Instinct MI50
-  boot.kernelParams = [ "amdgpu.ppfeaturemask=0xfffd7fff" ];
+  boot.kernelParams = ["amdgpu.ppfeaturemask=0xfffd7fff"];
 
   # Graphics-related packages (VA-API / VDPAU helpers)
   hardware.graphics = {
@@ -262,5 +266,5 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-	hardware.enableRedistributableFirmware = lib.mkDefault true;
+  hardware.enableRedistributableFirmware = lib.mkDefault true;
 }
