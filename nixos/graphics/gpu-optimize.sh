@@ -9,10 +9,10 @@ echo "Setting RTX 3080 Ti power limit to 250W..."
 nvidia-smi -pl 250
 
 echo "=== Optimizing AMD Instinct MI50 ==="
-GPU_CLK=1775   # stock 1725 + 50
-MEM_CLK=1080   # stock 1000 + 80
-TDP=190
-TDC=180
+GPU_CLK=1850   # stock 1725 + 50
+MEM_CLK=1150   # stock 1000 + 80
+TDP=225
+TDC=190
 
 if ! command -v lspci &> /dev/null; then
   echo "Error: lspci command not found. Please ensure pciutils is in the service path." >&2
