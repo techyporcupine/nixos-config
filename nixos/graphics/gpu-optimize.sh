@@ -9,8 +9,8 @@ echo "Setting RTX 3080 Ti power limit to 250W..."
 nvidia-smi -pl 250
 
 echo "=== Optimizing AMD Instinct MI50 ==="
-GPU_CLK=1850   # stock 1725 + 50
-MEM_CLK=1150   # stock 1000 + 80
+GPU_CLK=1850
+MEM_CLK=1150
 TDP=225
 TDC=190
 
