@@ -41,7 +41,7 @@
     Rank = {
       BandModifier2_4GHz = 0.8;
       BandModifier5GHz = 1.0;
-      BandModifier6GHz = 1.2;
+      BandModifier6GHz = 1.3;
     };
   };
 
@@ -181,7 +181,7 @@
   boot.initrd.systemd.enable = true;
 
   boot = {
-    # Set resume offset for swapfile and turn off AMD ABM. Also do some AMD setting to try to get rid of screen flash.
+    # Set resume offset for swapfile and turn off AMD ABM.
     kernelParams = [
       "resume_offset=533760"
       "amdgpu.abmlevel=0"
