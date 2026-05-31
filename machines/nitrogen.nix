@@ -173,9 +173,12 @@
           ];
         };
         frigate = let
-          customRocblas = pkgs.rocmPackages.rocblas.override {
-            gpuTargets = ["gfx906"];
-          };
+          # Use standard cached rocblas since it already includes gfx906 targets.
+          # If a custom gfx906-only build is needed again, uncomment below:
+          # customRocblas = pkgs.rocmPackages.rocblas.override {
+          #   gpuTargets = ["gfx906"];
+          # };
+          customRocblas = pkgs.rocmPackages.rocblas;
         in {
           image = "ghcr.io/blakeblackshear/frigate:stable-rocm";
           autoStart = true;
