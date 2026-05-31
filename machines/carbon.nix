@@ -39,7 +39,7 @@
   # Tune IWD frequency band preferences
   networking.wireless.iwd.settings = {
     Rank = {
-      BandModifier2_4GHz = 0.8;
+      BandModifier2_4GHz = 0.7;
       BandModifier5GHz = 1.0;
       BandModifier6GHz = 1.3;
     };
