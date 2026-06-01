@@ -13,6 +13,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    networking.firewall.interfaces."ens18" = {
+      allowedTCPPorts = [
+        # OST
+        13002
+      ];
+    };
     virtualisation = {
       podman = {
         enable = true;
