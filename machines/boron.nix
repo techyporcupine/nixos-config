@@ -97,11 +97,14 @@
   # package = pkgs.ollama-cuda;
   # };
 
-  services.wyoming.faster-whisper.servers.boron = {
-    enable = true;
-    model = "medium.en";
-    language = "en";
-    uri = "tcp://0.0.0.0:10301";
+  services.wyoming.faster-whisper = {
+    package = pkgs.wyoming-faster-whisper {withCuda = false;};
+    servers.boron = {
+      enable = true;
+      model = "medium.en";
+      language = "en";
+      uri = "tcp://0.0.0.0:10301";
+    };
   };
 
   # Virtualisation settings: podman and OCI container entries (open-webui)
