@@ -143,8 +143,8 @@
             TTS_MODELS = "kokoro";
             TTS_BACKEND = "KOKORO_FASTAPI";
             TTS_VOICES = "af_heart";
-            TTS_STREAMING_MIN_WORDS = "3";
-            TTS_STREAMING_MAX_CHARS = "220";
+            TTS_STREAMING_MIN_WORDS = "5";
+            TTS_STREAMING_MAX_CHARS = "80";
           };
         };
       };
