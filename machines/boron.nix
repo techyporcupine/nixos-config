@@ -144,7 +144,7 @@
             TTS_BACKEND = "KOKORO_FASTAPI";
             TTS_SPEED = "1.1";
             TTS_STREAMING_MIN_WORDS = "5";
-            TTS_STREAMING_MAX_CHARS = "80";
+            TTS_STREAMING_MAX_CHARS = "70";
           };
         };
       };
