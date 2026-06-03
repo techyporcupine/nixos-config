@@ -72,8 +72,6 @@
   # Per-host firewall exceptions (add only needed ports)
   networking.firewall = {
     allowedTCPPorts = [
-      10200
-      10300
       8080
       11434
     ];
