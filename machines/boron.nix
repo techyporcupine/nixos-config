@@ -130,6 +130,19 @@
           autoStart = true;
           ports = ["0.0.0.0:8880:8880"];
         };
+        wyoming_openai = {
+          image = "ghcr.io/roryeckel/wyoming_openai:latest";
+          autoStart = true;
+          ports = ["0.0.0.0:10300:10300"];
+          environment = {
+            WYOMING_URI = "tcp://0.0.0.0:10300";
+            WYOMING_LOG_LEVEL = "INFO";
+            WYOMING_LANGUAGES = "en";
+            TTS_OPENAI_URL = "http://10.0.0.10:8880/v1";
+            TTS_MODELS = "kokoro";
+            TTS_BACKEND = "KOKORO_FASTAPI";
+          };
+        };
       };
     };
   };
