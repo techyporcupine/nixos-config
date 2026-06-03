@@ -97,10 +97,10 @@
   # package = pkgs.ollama-cuda;
   # };
 
-  nix.settings.max-jobs = 4;
+  nix.settings.max-jobs = 2;
   services.wyoming.faster-whisper = {
     servers.boron = {
-      enable = true;
+      enable = false;
       model = "medium.en";
       language = "en";
       uri = "tcp://0.0.0.0:10301";
