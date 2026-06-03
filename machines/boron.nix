@@ -74,6 +74,7 @@
     allowedTCPPorts = [
       8080
       11434
+      10301 # wyoming faster-whisper
     ];
   };
 
@@ -95,6 +96,13 @@
   #   openFirewall = true;
   # package = pkgs.ollama-cuda;
   # };
+
+  services.wyoming.faster-whisper.servers.boron = {
+    enable = true;
+    model = "medium.en";
+    language = "en";
+    uri = "tcp://0.0.0.0:10301";
+  };
 
   # Virtualisation settings: podman and OCI container entries (open-webui)
   virtualisation = {
