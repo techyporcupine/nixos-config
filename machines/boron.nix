@@ -100,7 +100,7 @@
   nix.settings.max-jobs = 2;
   services.wyoming.faster-whisper = {
     servers.boron = {
-      enable = false;
+      enable = true;
       model = "medium.en";
       language = "en";
       uri = "tcp://0.0.0.0:10301";
