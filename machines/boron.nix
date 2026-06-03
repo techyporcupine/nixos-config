@@ -98,7 +98,7 @@
   # };
 
   services.wyoming.faster-whisper = {
-    package = pkgs.wyoming-faster-whisper {withCuda = false;};
+    package = pkgs.wyoming-faster-whisper.override {cudaSupport = false;};
     servers.boron = {
       enable = true;
       model = "medium.en";
