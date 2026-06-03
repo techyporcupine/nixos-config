@@ -139,8 +139,8 @@
             WYOMING_LOG_LEVEL = "INFO";
             WYOMING_LANGUAGES = "en";
             TTS_OPENAI_URL = "http://10.0.0.10:8880/v1";
-            TTS_MODELS = "kokoro";
-            TTS_STREAMING_MODELS = "kokoro";
+            TTS_STREAMING_MODELS = "kokoro,tts-1,tts-1-hd";
+            TTS_MODELS = "kokoro,tts-1,tts-1-hd";
             TTS_BACKEND = "KOKORO_FASTAPI";
             TTS_VOICES = "af_heart";
             TTS_STREAMING_MIN_WORDS = "6";
