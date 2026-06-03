@@ -97,16 +97,6 @@
   # package = pkgs.ollama-cuda;
   # };
 
-  nix.settings.max-jobs = 2;
-  services.wyoming.faster-whisper = {
-    servers.boron = {
-      enable = true;
-      model = "medium.en";
-      language = "en";
-      uri = "tcp://0.0.0.0:10301";
-    };
-  };
-
   # Virtualisation settings: podman and OCI container entries (open-webui)
   virtualisation = {
     podman = {
@@ -154,6 +144,20 @@
             TTS_SPEED = "1.1";
             TTS_STREAMING_MIN_WORDS = "5";
             TTS_STREAMING_MAX_CHARS = "70";
+          };
+        };
+        faster-whisper = {
+          image = "lscr.io/linuxserver/faster-whisper:latest";
+          autoStart = true;
+          ports = ["0.0.0.0:10301:10300"];
+          volumes = ["/home/${config.tp.username}/whisper:/config"];
+          environment = {
+            PUID = "1000";
+            PGID = "1000";
+            TZ = "Etc/UTC";
+            WHISPER_BEAM = "5"; #optional
+            WHISPER_LANG = "en"; #optional
+            WHISPER_MODEL = "medium.en"; #optional
           };
         };
       };
