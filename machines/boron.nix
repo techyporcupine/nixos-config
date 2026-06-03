@@ -62,7 +62,7 @@
     acceleration = "cuda";
     nativeCpu = true;
     llguidance = true;
-    cudaCapabilities = ["75"];  # T1200 Laptop GPU (Turing)
+    cudaCapabilities = ["75"]; # T1200 Laptop GPU (Turing)
   };
 
   # Graphics (NVIDIA + PRIME for hybrid setups). Toggle per-host graphics/prime usage here.
@@ -86,7 +86,7 @@
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
     llama-cpp
-		python3Packages.huggingface-hub
+    python3Packages.huggingface-hub
     # handbrake
   ];
 
@@ -95,7 +95,7 @@
   #   enable = true;
   #   host = "0.0.0.0";
   #   openFirewall = true;
-		# package = pkgs.ollama-cuda;
+  # package = pkgs.ollama-cuda;
   # };
 
   # Virtualisation settings: podman and OCI container entries (open-webui)
@@ -124,6 +124,11 @@
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
             "--network=host"
           ];
+        };
+        kokoro = {
+          image = "ghcr.io/remsky/kokoro-fastapi-cpu:latest";
+          autoStart = true;
+          ports = ["0.0.0.0:8880:8880"];
         };
       };
     };
