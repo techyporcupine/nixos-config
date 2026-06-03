@@ -157,7 +157,7 @@
             TZ = "Etc/UTC";
             WHISPER_BEAM = "5"; #optional
             WHISPER_LANG = "en"; #optional
-            WHISPER_MODEL = "medium.en"; #optional
+            WHISPER_MODEL = "small.en"; #optional
           };
         };
       };
