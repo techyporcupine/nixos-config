@@ -100,7 +100,7 @@
   systemd.services.gpu-fan-control = {
     description = "AMD MI50 GPU Fan Controller";
     after = ["multi-user.target"];
-    wantedBy = [ "multi-user.target" ];  # uncomment to auto-start
+    wantedBy = ["multi-user.target"]; # uncomment to auto-start
 
     serviceConfig = {
       Type = "simple";
@@ -170,6 +170,17 @@
           extraOptions = [
             "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
             "--network=host"
+          ];
+        };
+        kokoro = {
+          image = "ghcr.io/remsky/kokoro-fastapi-cpu:latest";
+          autoStart = true;
+          ports = ["0.0.0.0:8880:8880"];
+          extraOptions = [
+            "--device=/dev/kfd"
+            "--device=/dev/dri"
+            "--group-add=303" # render group for GPU
+            "--group-add=26" # video group for GPU
           ];
         };
         frigate = let
