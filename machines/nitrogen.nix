@@ -173,7 +173,7 @@
           ];
         };
         kokoro = {
-          image = "ghcr.io/remsky/kokoro-fastapi-cpu:latest";
+          image = "ghcr.io/remsky/kokoro-fastapi-rocm:latest";
           autoStart = true;
           ports = ["0.0.0.0:8880:8880"];
           extraOptions = [
