@@ -137,7 +137,7 @@
             WYOMING_URI = "tcp://0.0.0.0:10300";
             WYOMING_LOG_LEVEL = "INFO";
             WYOMING_LANGUAGES = "en";
-            TTS_OPENAI_URL = "http://10.0.0.10:8880/v1";
+            TTS_OPENAI_URL = "http://10.0.0.11:8880/v1";
             TTS_STREAMING_MODELS = "kokoro";
             TTS_MODELS = "kokoro";
             TTS_BACKEND = "KOKORO_FASTAPI";
