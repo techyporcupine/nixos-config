@@ -12,7 +12,7 @@ echo "=== Optimizing AMD Instinct MI50 ==="
 GPU_CLK=1850
 MEM_CLK=1150
 TDP=225
-TDC=190
+TDC=200
 
 if ! command -v lspci &> /dev/null; then
   echo "Error: lspci command not found. Please ensure pciutils is in the service path." >&2
