@@ -201,16 +201,16 @@
             "--device=/dev/dri"
             "--group-add=303" # render group for GPU
             "--group-add=26" # video group for GPU
-            "--device=/dev/dri/renderD128:/dev/dri/renderD128"
           ];
           volumes = [
             "/home/${config.tp.username}/localai/models:/models"
             "/home/${config.tp.username}/localai/galleries:/galleries"
+            "${customRocblas}/lib/rocblas/library:${customRocblas}/lib/rocblas/library:ro"
           ];
           environment = {
             HSA_OVERRIDE_GFX_VERSION = "9.0.6"; # MI50 = gfx906 = 9.0.6
             ROCBLAS_TENSILE_LIBPATH = "${customRocblas}/lib/rocblas/library";
-            GPU_DEVICE_ORDINAL = "1"; # If you want to use only the AMD GPU, set to 1
+            HIP_VISIBLE_DEVICES = "0"; # Tell HIP to only look at the one GPU we passed
             DEBUG = "true";
             MODELS_PATH = "/models";
           };
