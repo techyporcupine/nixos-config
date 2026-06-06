@@ -203,7 +203,7 @@
           environment = {
             HSA_OVERRIDE_GFX_VERSION = "9.0.6"; # MI50 = gfx906 = 9.0.6
             GPU_DEVICE_ORDINAL = "1"; # If you want to use only the AMD GPU, set to 1
-            DEBUG = "false";
+            DEBUG = "true";
             MODELS_PATH = "/models";
           };
         };
