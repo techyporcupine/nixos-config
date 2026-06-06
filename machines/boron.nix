@@ -144,6 +144,9 @@
             TTS_SPEED = "1.1";
             TTS_STREAMING_MIN_WORDS = "5";
             TTS_STREAMING_MAX_CHARS = "70";
+            STT_OPENAI_URL = "http://localai:8080/v1";
+            STT_MODELS = "whisper-large-turbo";
+            STT_BACKEND = "LOCALAI";
           };
         };
         faster-whisper = {
