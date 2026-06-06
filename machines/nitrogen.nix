@@ -183,7 +183,14 @@
             "--group-add=26" # video group for GPU
           ];
         };
-        localai = {
+        localai = let
+          # Use standard cached rocblas since it already includes gfx906 targets.
+          # If a custom gfx906-only build is needed again, uncomment below:
+          # customRocblas = pkgs.rocmPackages.rocblas.override {
+          #   gpuTargets = ["gfx906"];
+          # };
+          customRocblas = pkgs.rocmPackages.rocblas;
+        in {
           image = "localai/localai:latest-gpu-hipblas";
           autoStart = true;
           ports = ["0.0.0.0:8888:8080"];
@@ -202,6 +209,7 @@
           ];
           environment = {
             HSA_OVERRIDE_GFX_VERSION = "9.0.6"; # MI50 = gfx906 = 9.0.6
+            ROCBLAS_TENSILE_LIBPATH = "${customRocblas}/lib/rocblas/library";
             GPU_DEVICE_ORDINAL = "1"; # If you want to use only the AMD GPU, set to 1
             DEBUG = "true";
             MODELS_PATH = "/models";
