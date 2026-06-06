@@ -198,8 +198,7 @@
           extraOptions = [
             "--pull=newer"
             "--device=/dev/kfd"
-            "--device=/dev/dri"
-            "--group-add=303" # render group for GPU
+            "--device=/dev/dri/renderD130:/dev/dri/renderD128" # Map ONLY the MI50            "--group-add=303" # render group for GPU
             "--group-add=26" # video group for GPU
           ];
           volumes = [
