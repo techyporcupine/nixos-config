@@ -183,37 +183,6 @@
             "--group-add=26" # video group for GPU
           ];
         };
-        localai = let
-          # Use standard cached rocblas since it already includes gfx906 targets.
-          # If a custom gfx906-only build is needed again, uncomment below:
-          # customRocblas = pkgs.rocmPackages.rocblas.override {
-          #   gpuTargets = ["gfx906"];
-          # };
-          customRocblas = pkgs.rocmPackages.rocblas;
-        in {
-          image = "localai/localai:latest-gpu-hipblas";
-          autoStart = true;
-          ports = ["0.0.0.0:8888:8080"];
-          # GPU device access (same pattern as frigate)
-          extraOptions = [
-            "--pull=newer"
-            "--device=/dev/kfd"
-            "--device=/dev/dri/renderD130:/dev/dri/renderD128" # Map ONLY the MI50            "--group-add=303" # render group for GPU
-            "--group-add=26" # video group for GPU
-          ];
-          volumes = [
-            "/home/${config.tp.username}/localai/models:/models"
-            "/home/${config.tp.username}/localai/galleries:/galleries"
-            "${customRocblas}/lib/rocblas/library:${customRocblas}/lib/rocblas/library:ro"
-          ];
-          environment = {
-            HSA_OVERRIDE_GFX_VERSION = "9.0.6"; # MI50 = gfx906 = 9.0.6
-            ROCBLAS_TENSILE_LIBPATH = "${customRocblas}/lib/rocblas/library";
-            HIP_VISIBLE_DEVICES = "0"; # Tell HIP to only look at the one GPU we passed
-            DEBUG = "true";
-            MODELS_PATH = "/models";
-          };
-        };
         frigate = let
           # Use standard cached rocblas since it already includes gfx906 targets.
           # If a custom gfx906-only build is needed again, uncomment below:
