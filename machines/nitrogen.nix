@@ -184,7 +184,7 @@
           ];
         };
         localai = {
-          image = "localai/localai:latest-amd64-gpu-rocm";
+          image = "localai/localai:latest-gpu-hipblas";
           autoStart = true;
           ports = ["0.0.0.0:8888:8000"];
           # GPU device access (same pattern as frigate)
