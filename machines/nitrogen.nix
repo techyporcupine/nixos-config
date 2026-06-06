@@ -183,36 +183,29 @@
             "--group-add=26" # video group for GPU
           ];
         };
-        insanely-fast-whisper-rocm = {
-          image = "ghcr.io/beecave-homelab/insanely-fast-whisper-rocm:main";
+        localai = {
+          image = "localai/localai:latest-amd64-gpu-rocm";
           autoStart = true;
-          # Device access for AMD GPU
+          ports = ["0.0.0.0:8888:8000"];
+          # GPU device access (same pattern as frigate)
           extraOptions = [
-            "--device=/dev/kfd:/dev/kfd"
-            "--device=/dev/dri:/dev/dri"
-            "--cap-add=SYS_PTRACE"
-            "--security-opt=seccomp=unconfined"
-            "--group-add=video"
-            "--ipc=host"
-            "--shm-size=8G"
-          ];
-          ports = [
-            "0.0.0.0:8888:8888" # API
-            "0.0.0.0:7860:7860" # WebUI
+            "--pull=newer"
+            "--device=/dev/kfd"
+            "--device=/dev/dri"
+            "--group-add=303" # render group for GPU
+            "--group-add=26" # video group for GPU
+            "--device=/dev/dri/renderD128:/dev/dri/renderD128"
           ];
           volumes = [
-            "/home/${config.tp.username}/.cache/huggingface/hub:/root/.cache/huggingface/hub"
+            "/home/${config.tp.username}/localai/models:/models"
+            "/home/${config.tp.username}/localai/galleries:/galleries"
           ];
-          # Environment file
-          environmentFiles = [
-            "/home/${config.tp.username}/whisper.env"
-          ];
-          # WebUI command
-          cmd = [
-            "python"
-            "-m"
-            "insanely_fast_whisper_rocm.webui"
-          ];
+          environment = {
+            HSA_OVERRIDE_GFX_VERSION = "9.0.6"; # MI50 = gfx906 = 9.0.6
+            GPU_DEVICE_ORDINAL = "1"; # If you want to use only the AMD GPU, set to 1
+            DEBUG = "false";
+            MODELS_PATH = "/models";
+          };
         };
         frigate = let
           # Use standard cached rocblas since it already includes gfx906 targets.
