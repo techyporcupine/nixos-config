@@ -183,6 +183,37 @@
             "--group-add=26" # video group for GPU
           ];
         };
+        insanely-fast-whisper-rocm = {
+          image = "ghcr.io/beecave-homelab/insanely-fast-whisper-rocm:main";
+          autoStart = true;
+          # Device access for AMD GPU
+          extraOptions = [
+            "--device=/dev/kfd:/dev/kfd"
+            "--device=/dev/dri:/dev/dri"
+            "--cap-add=SYS_PTRACE"
+            "--security-opt=seccomp=unconfined"
+            "--group-add=video"
+            "--ipc=host"
+            "--shm-size=8G"
+          ];
+          ports = [
+            "0.0.0.0:8888:8888" # API
+            "0.0.0.0:7860:7860" # WebUI
+          ];
+          volumes = [
+            "/home/${config.tp.username}/.cache/huggingface/hub:/root/.cache/huggingface/hub"
+          ];
+          # Environment file
+          environmentFiles = [
+            "/home/${config.tp.username}/whisper.env"
+          ];
+          # WebUI command
+          cmd = [
+            "python"
+            "-m"
+            "insanely_fast_whisper_rocm.webui"
+          ];
+        };
         frigate = let
           # Use standard cached rocblas since it already includes gfx906 targets.
           # If a custom gfx906-only build is needed again, uncomment below:
