@@ -145,7 +145,7 @@
   # };
 
   nixpkgs.config.permittedInsecurePackages = [
-    "libsoup-2.74.3"
+    "electron-39.8.10" # bitwarden
   ];
 
   # Enable PCSCD for Yubikey

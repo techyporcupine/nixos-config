@@ -15,7 +15,7 @@
     config = {
       # Allow specific insecure package (kept minimal)
       permittedInsecurePackages = [
-        "openssl-1.1.1w"
+        #"openssl-1.1.1w"
       ];
       # Local package overrides (e.g., driver tweaks)
       # packageOverrides = pkgs: {

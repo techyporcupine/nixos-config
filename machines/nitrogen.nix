@@ -12,7 +12,7 @@
   nixpkgs = {
     config = {
       permittedInsecurePackages = [
-        "openssl-1.1.1w"
+        #"openssl-1.1.1w"
       ];
       #packageOverrides = pkgs: {
       #  vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
