@@ -186,7 +186,7 @@
         localai = {
           image = "localai/localai:latest-gpu-hipblas";
           autoStart = true;
-          ports = ["0.0.0.0:8888:8000"];
+          ports = ["0.0.0.0:8888:8080"];
           # GPU device access (same pattern as frigate)
           extraOptions = [
             "--pull=newer"
