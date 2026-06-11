@@ -43,6 +43,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Kokoro TTS standalone flake
+    kokoro-flake = {
+      url = "github:bowmanjd/kokoro-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Secure boot support
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
@@ -118,6 +124,7 @@
       overlay-tp
       overlay-staging
       overlay-master
+      inputs.kokoro-flake.overlays.default
     ];
 
     # Overlays for hosts that may use llama-cpp
@@ -133,6 +140,7 @@
       inputs.home-manager.nixosModules.home-manager
       inputs.catppuccin.nixosModules.catppuccin
       inputs.franken-llama.nixosModules.default
+      inputs.kokoro-flake.nixosModules.default
     ];
 
     # Helper function to create system configurations

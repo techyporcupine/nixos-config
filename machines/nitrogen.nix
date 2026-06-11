@@ -172,17 +172,17 @@
             "--network=host"
           ];
         };
-        kokoro = {
-          image = "ghcr.io/remsky/kokoro-fastapi-rocm:latest";
-          autoStart = true;
-          ports = ["0.0.0.0:8880:8880"];
-          extraOptions = [
-            "--device=/dev/kfd"
-            "--device=/dev/dri"
-            "--group-add=303" # render group for GPU
-            "--group-add=26" # video group for GPU
-          ];
-        };
+        # kokoro = {
+        #   image = "ghcr.io/remsky/kokoro-fastapi-rocm:latest";
+        #   autoStart = true;
+        #   ports = ["0.0.0.0:8880:8880"];
+        #   extraOptions = [
+        #     "--device=/dev/kfd"
+        #     "--device=/dev/dri"
+        #     "--group-add=303" # render group for GPU
+        #     "--group-add=26" # video group for GPU
+        #   ];
+        # };
         frigate = let
           # Use standard cached rocblas since it already includes gfx906 targets.
           # If a custom gfx906-only build is needed again, uncomment below:
@@ -232,6 +232,14 @@
         };
       };
     };
+  };
+
+  # Native Kokoro TTS (replaces ghcr.io/remsky/kokoro-fastapi-rocm container)
+  services.kokoro = {
+    enable = true;
+    port = 8880;
+    useGpu = true;
+    openFirewall = true;
   };
 
   nixpkgs.config.cudaSupport = true;
