@@ -29,10 +29,13 @@ kokoro = {
 ## Key Discovery: nixpkgs Already Has Most Dependencies
 
 These packages exist in nixpkgs (as of 2025-06):
-- `python313Packages.kokoro` - Core TTS model (0-unstable-2025-06-16)
-- `python313Packages.misaki` - G2P/phonemization engine
-- `python313Packages.torchWithRocm` - PyTorch 2.12.0 with ROCm support
-- `python313Packages.fastapi`, `uvicorn`, `pydantic`, etc.
+- `python3Packages.kokoro` - Core TTS model (0-unstable-2025-06-16)
+- `python3Packages.misaki` - G2P/phonemization engine
+- `python3Packages.torchWithRocm` - PyTorch 2.12.0 with ROCm support
+- `python3Packages.fastapi`, `uvicorn`, `pydantic`, etc.
+- `python3Packages.huggingface-hub` - HuggingFace CLI for model downloads
+
+The server already has `huggingface-hub` installed (`hf` CLI), which can download models.
 
 ## Implementation Tasks
 
@@ -42,14 +45,14 @@ Create `nixos/pkgs/kokoro-fastapi/default.nix`:
 
 ```nix
 { lib
-, python313
+, python3
 , fetchFromGitHub
 , espeak-ng
 , ffmpeg
 }:
 
 let
-  python = python313.override {
+  python = python3.override {
     packageOverrides = self: super: {
       # Use ROCm-enabled PyTorch
       torch = super.torchWithRocm;
@@ -277,12 +280,12 @@ in
 }
 ```
 
-### Phase 3: Model Download Script
+### Phase 3: Model Download
 
-The Kokoro models need to be downloaded from HuggingFace. Create a helper script or use `fetchurl`:
+The Kokoro models need to be downloaded from HuggingFace. The server already has `huggingface-hub` installed (provides `hf` CLI).
 
+**Option A: Nix-managed (reproducible, cached in store)**
 ```nix
-# In the package or as a separate activation script
 kokoroModels = pkgs.fetchurl {
   url = "https://huggingface.co/hexgrad/Kokoro-82M/resolve/main/kokoro-v0_19.pth";
   hash = "sha256-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";  # TODO: compute
@@ -294,14 +297,41 @@ kokoroVoices = pkgs.fetchzip {
 };
 ```
 
-Or create a download script that runs on first boot:
-```bash
-#!/usr/bin/env bash
-# Download models if not present
-if [[ ! -f "$MODEL_DIR/kokoro-v0_19.pth" ]]; then
-  huggingface-cli download hexgrad/Kokoro-82M kokoro-v0_19.pth --local-dir "$MODEL_DIR"
-fi
+**Option B: Runtime download via hf CLI (simpler, allows updates)**
+
+Create a oneshot service that runs before the main service:
+```nix
+systemd.services.kokoro-models = {
+  description = "Download Kokoro TTS models";
+  before = [ "kokoro.service" ];
+  wantedBy = [ "kokoro.service" ];
+  
+  path = [ pkgs.python3Packages.huggingface-hub ];
+  
+  serviceConfig = {
+    Type = "oneshot";
+    User = "kokoro";
+    Group = "kokoro";
+    StateDirectory = "kokoro";
+  };
+  
+  script = ''
+    cd /var/lib/kokoro
+    
+    # Download model if not present
+    if [[ ! -f models/kokoro-v0_19.pth ]]; then
+      hf download hexgrad/Kokoro-82M kokoro-v0_19.pth --local-dir models
+    fi
+    
+    # Download voices if not present  
+    if [[ ! -d voices/v1_0 ]]; then
+      hf download hexgrad/Kokoro-82M voices --local-dir voices
+    fi
+  '';
+};
 ```
+
+**Recommendation:** Use Option B for flexibility - models can be updated without rebuilding the system, and `hf` handles caching/resumption automatically.
 
 ### Phase 4: Integration
 
@@ -381,6 +411,7 @@ Keep the container definition commented out in `nitrogen.nix` until the native s
 
 - Kokoro-FastAPI repo: https://github.com/remsky/Kokoro-FastAPI
 - Kokoro model: https://huggingface.co/hexgrad/Kokoro-82M
-- nixpkgs kokoro: `python313Packages.kokoro`
-- nixpkgs torchWithRocm: `python313Packages.torchWithRocm`
+- nixpkgs kokoro: `python3Packages.kokoro`
+- nixpkgs torchWithRocm: `python3Packages.torchWithRocm`
+- huggingface-hub CLI: `python3Packages.huggingface-hub` (provides `hf` command)
 - Existing franken-llama config: `services.franken-llama` in `machines/nitrogen.nix`
