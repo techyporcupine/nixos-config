@@ -124,7 +124,6 @@
       overlay-tp
       overlay-staging
       overlay-master
-      inputs.kokoro-flake.overlays.default
     ];
 
     # Overlays for hosts that may use llama-cpp
@@ -231,7 +230,7 @@
       # Server with LLM support
       nitrogen = mkSystem {
         hostname = "nitrogen";
-        overlays = llamaOverlays;
+        overlays = llamaOverlays ++ [inputs.kokoro-flake.overlays.default];
         extraModules = [
           inputs.lanzaboote.nixosModules.lanzaboote
         ];
