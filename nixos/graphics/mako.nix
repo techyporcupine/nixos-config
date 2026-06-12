@@ -25,6 +25,10 @@ in {
           ignore-timeout = false;
         };
       };
+      catppuccin = {
+        enable = true;
+        autoEnable = false;
+      };
       catppuccin.mako = {
         enable = true;
         accent = "green";
