@@ -30,6 +30,13 @@ in {
         # Enable flakes and new 'nix' command (required for modern workflows)
         experimental-features = ["nix-command" "flakes"];
 
+        # Default binary caches to query
+        substituters = [
+          "https://cache.nixos.org"
+          "https://hyprland.cachix.org"
+          "https://ai.cachix.org"
+        ];
+
         # Binary caches for Hyprland and AI packages (speeds up builds)
         trusted-substituters = ["https://hyprland.cachix.org" "https://ai.cachix.org"];
         # Public keys to verify binary cache signatures (security)
