@@ -669,11 +669,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781258385,
-        "narHash": "sha256-3aINNfE+BjJAP03Pox9G4RGc2vThNeTlx7EdSumyrkU=",
+        "lastModified": 1781262641,
+        "narHash": "sha256-1b6fSbO/AIdJipAC6PufgN+KOZMbjPvnWre54JWS+Dw=",
         "owner": "bowmanjd",
         "repo": "kokoro-flake",
-        "rev": "794046c7fd9f66811c90de833bb2c151bc3f7e88",
+        "rev": "f03d996558c1b3bbe9debba45a5a97938220c31f",
         "type": "github"
       },
       "original": {
@@ -803,11 +803,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1781261445,
-        "narHash": "sha256-Rzea4LwrPkox3RyncFt7PSwVD7xjSCjScmAktANbZEY=",
+        "lastModified": 1781262295,
+        "narHash": "sha256-hOW9EBPI6ofCGew09Ra7Sghd2Z2TosjAPuuxQSCGrB4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d3c262e8210d9289ad403c8ea4687a1ad4a651d1",
+        "rev": "49f4c9c293f53d091f1cdb85ec8fa45d62eeba01",
         "type": "github"
       },
       "original": {
