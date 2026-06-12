@@ -154,24 +154,24 @@
     oci-containers = {
       backend = "podman";
       containers = {
-        open-webui = {
-          image = "ghcr.io/open-webui/open-webui:main";
-          volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
-          autoStart = true;
-          environment = {
-            WEBUI_URL = "https://llm.local.cb-tech.me";
-            ENABLE_OAUTH_SIGNUP = "true";
-            OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
-            ENABLE_LOGIN_FORM = "false";
-            OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
-            OPENAI_API_KEY = "abc123";
-          };
-          environmentFiles = [/var/secrets/open-webui];
-          extraOptions = [
-            "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
-            "--network=host"
-          ];
-        };
+        # open-webui = {
+        #   image = "ghcr.io/open-webui/open-webui:main";
+        #   volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
+        #   autoStart = true;
+        #   environment = {
+        #     WEBUI_URL = "https://llm.local.cb-tech.me";
+        #     ENABLE_OAUTH_SIGNUP = "true";
+        #     OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
+        #     ENABLE_LOGIN_FORM = "false";
+        #     OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
+        #     OPENAI_API_KEY = "abc123";
+        #   };
+        #   environmentFiles = [/var/secrets/open-webui];
+        #   extraOptions = [
+        #     "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
+        #     "--network=host"
+        #   ];
+        # };
         # kokoro = {
         #   image = "ghcr.io/remsky/kokoro-fastapi-rocm:latest";
         #   autoStart = true;
