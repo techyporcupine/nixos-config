@@ -669,17 +669,14 @@
         ]
       },
       "locked": {
-        "lastModified": 1781267702,
-        "narHash": "sha256-7MQQx5f4zHklvEe22seNhkztOnny5I+uLMIRgm//Qgc=",
-        "owner": "bowmanjd",
-        "repo": "kokoro-flake",
-        "rev": "610c17fbf418071b31ff8c1254aed2d2a6968cae",
-        "type": "github"
+        "lastModified": 1781276621,
+        "narHash": "sha256-2Quclpjzext8OU50zbXFh7/93Rp7wj2JYcl1+Bp8vYQ=",
+        "path": "/home/jbowman/devel/kokoro-flake",
+        "type": "path"
       },
       "original": {
-        "owner": "bowmanjd",
-        "repo": "kokoro-flake",
-        "type": "github"
+        "path": "/home/jbowman/devel/kokoro-flake",
+        "type": "path"
       }
     },
     "lanzaboote": {
