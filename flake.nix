@@ -45,7 +45,7 @@
 
     # Kokoro TTS standalone flake
     kokoro-flake = {
-      url = "path:/home/jbowman/devel/kokoro-flake";
+      url = "github:bowmanjd/kokoro-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
