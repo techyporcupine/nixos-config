@@ -672,11 +672,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781345888,
-        "narHash": "sha256-UtouVK9K0fK87M2MCYyV4B/iXghZyITMee5KpoEL6jU=",
+        "lastModified": 1781346742,
+        "narHash": "sha256-GADsVgT8KlpHv0vOlwRO2Tinm2lZ+0FgZgHJDZjbI5Y=",
         "owner": "bowmanjd",
         "repo": "kokoro-flake",
-        "rev": "ed6f5d31aa98af047a7086d5e988ab47846cec2e",
+        "rev": "b41cb68a148554fdd70bc5a0e3d48502e8b98d1f",
         "type": "github"
       },
       "original": {
