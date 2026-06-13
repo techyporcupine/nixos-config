@@ -47,7 +47,14 @@
     kokoro-flake = {
       url = "github:bowmanjd/kokoro-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-torch.follows = "nixpkgs-torch";
     };
+
+    # Pinned nixpkgs for PyTorch ROCm builds — kept separate to avoid 2+ hour
+    # rebuilds every time the main nixpkgs is updated.
+    # To update torch: nix flake update nixpkgs-torch
+    # To update everything else: nix flake update --exclude nixpkgs-torch
+    nixpkgs-torch.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Secure boot support
     lanzaboote = {

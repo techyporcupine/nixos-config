@@ -865,6 +865,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-torch": {
+      "locked": {
+        "lastModified": 1781074563,
+        "narHash": "sha256-md8WlXOlfnIeHeOScMTTHFyf2d6iaTwPl2apR5EQ3P4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9ae611a455b90cf061d8f332b977e387bda8e1ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-tp": {
       "locked": {
         "lastModified": 1767816264,
@@ -954,6 +970,7 @@
         "nixpkgs-master": "nixpkgs-master",
         "nixpkgs-stable": "nixpkgs-stable_2",
         "nixpkgs-staging": "nixpkgs-staging",
+        "nixpkgs-torch": "nixpkgs-torch",
         "nixpkgs-tp": "nixpkgs-tp",
         "swayfx": "swayfx",
         "waybar": "waybar"
