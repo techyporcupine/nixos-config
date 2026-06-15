@@ -43,6 +43,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Kokoro TTS standalone flake
+    kokoro-flake = {
+      url = "github:bowmanjd/kokoro-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-torch.follows = "nixpkgs-torch";
+    };
+
+    # Pinned nixpkgs for PyTorch ROCm builds — kept separate to avoid 2+ hour
+    # rebuilds every time the main nixpkgs is updated.
+    # To update torch: change the commit hash below, then `nix flake update nixpkgs-torch`
+    nixpkgs-torch.url = "github:NixOS/nixpkgs/8c91a71d13451abc40eb9dae8910f972f979852f";
+
     # Secure boot support
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.1";
@@ -133,6 +145,7 @@
       inputs.home-manager.nixosModules.home-manager
       inputs.catppuccin.nixosModules.catppuccin
       inputs.franken-llama.nixosModules.default
+      inputs.kokoro-flake.nixosModules.default
     ];
 
     # Helper function to create system configurations
@@ -223,7 +236,7 @@
       # Server with LLM support
       nitrogen = mkSystem {
         hostname = "nitrogen";
-        overlays = llamaOverlays;
+        overlays = llamaOverlays ++ [inputs.kokoro-flake.overlays.default];
         extraModules = [
           inputs.lanzaboote.nixosModules.lanzaboote
         ];

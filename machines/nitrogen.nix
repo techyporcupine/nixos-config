@@ -34,6 +34,13 @@
     enable = true;
   };
 
+  # Disable desktop/unnecessary services on this headless server
+  services.pipewire.enable = lib.mkForce false;
+  security.rtkit.enable = lib.mkForce false;
+  hardware.bluetooth.enable = lib.mkForce false;
+  services.automatic-timezoned.enable = lib.mkForce false;
+  services.upower.enable = lib.mkForce false;
+
   # Networking
   networking.hostName = "nitrogen";
   tp.networking = {
@@ -154,35 +161,6 @@
     oci-containers = {
       backend = "podman";
       containers = {
-        open-webui = {
-          image = "ghcr.io/open-webui/open-webui:main";
-          volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
-          autoStart = true;
-          environment = {
-            WEBUI_URL = "https://llm.local.cb-tech.me";
-            ENABLE_OAUTH_SIGNUP = "true";
-            OAUTH_MERGE_ACCOUNTS_BY_EMAIL = "true";
-            ENABLE_LOGIN_FORM = "false";
-            OPENAI_API_BASE_URL = "http://127.0.0.1:5349/v1";
-            OPENAI_API_KEY = "abc123";
-          };
-          environmentFiles = [/var/secrets/open-webui];
-          extraOptions = [
-            "--pull=newer" # Pull if the image on the registry is newer than the one in the local containers storage
-            "--network=host"
-          ];
-        };
-        kokoro = {
-          image = "ghcr.io/remsky/kokoro-fastapi-rocm:latest";
-          autoStart = true;
-          ports = ["0.0.0.0:8880:8880"];
-          extraOptions = [
-            "--device=/dev/kfd"
-            "--device=/dev/dri"
-            "--group-add=303" # render group for GPU
-            "--group-add=26" # video group for GPU
-          ];
-        };
         frigate = let
           # Use standard cached rocblas since it already includes gfx906 targets.
           # If a custom gfx906-only build is needed again, uncomment below:
@@ -219,6 +197,8 @@
             FRIGATE_RTSP_PASSWORD = "password";
             HSA_OVERRIDE_GFX_VERSION = "9.0.6";
             ROCBLAS_TENSILE_LIBPATH = "${customRocblas}/lib/rocblas/library";
+            # Use AMD VA-API driver instead of probing for NVIDIA
+            LIBVA_DRIVER_NAME = "radeonsi";
           };
           # Map your volumes
           volumes = [
@@ -232,7 +212,16 @@
     };
   };
 
-  nixpkgs.config.cudaSupport = true;
+  # Native Kokoro TTS (replaces ghcr.io/remsky/kokoro-fastapi-rocm container)
+  services.kokoro = {
+    enable = true;
+    port = 8880;
+    useGpu = true;
+    openFirewall = true;
+  };
+
+  # Disable global CUDA support to prevent rebuilds of standard cached packages (opencv, ffmpeg)
+  nixpkgs.config.cudaSupport = false;
 
   fileSystems."/mnt/Storage" = {
     device = "/dev/disk/by-label/Storage";

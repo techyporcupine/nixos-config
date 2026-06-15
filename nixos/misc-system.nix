@@ -49,6 +49,10 @@ in {
     # Restart changed systemd user services instead of warning (smoother updates)
     tp.hm.systemd.user.startServices = "sd-switch";
 
+    # Silence catppuccin evaluation warnings (NixOS level)
+    catppuccin.enable = true;
+    catppuccin.autoEnable = false;
+
     # FWUPD: firmware update daemon (updates UEFI, peripherals via LVFS)
     services.fwupd.enable = true;
 
