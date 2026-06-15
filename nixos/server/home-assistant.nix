@@ -25,46 +25,6 @@ in {
           "--cap-add=NET_RAW"
         ];
       };
-      matterbridge = {
-        volumes = ["/home/${config.tp.username}/matterbridge:/root/Matterbridge" "/home/${config.tp.username}/.matterbridge:/root/.matterbridge"];
-        image = "luligu/matterbridge:latest";
-        extraOptions = [
-          "--network=host"
-          "--pull=newer"
-        ];
-      };
-    };
-    services.mosquitto = {
-      enable = true;
-      listeners = [
-        {
-          address = "0.0.0.0";
-          acl = ["pattern readwrite #"];
-          omitPasswordAuth = true;
-          settings.allow_anonymous = true;
-        }
-      ];
-    };
-    services.zigbee2mqtt = {
-      enable = true;
-      settings = {
-        homeassistant = lib.mkForce true;
-        serial = {
-          port = "/dev/serial/by-id/usb-Itead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_V2_24d5aba9cb12ef1183936db8bf9df066-if00-port0";
-          adapter = "ember";
-        };
-        mqtt = {
-          server = "mqtt://localhost:1883";
-        };
-        frontend = {
-          port = 8091;
-        };
-        advanced = {
-          transmit_power = 10;
-          channel = 26;
-        };
-        availability = true;
-      };
     };
     environment.systemPackages = with pkgs; [
       net-snmp
