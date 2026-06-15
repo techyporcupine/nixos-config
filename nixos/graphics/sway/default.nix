@@ -83,6 +83,8 @@ in {
     };
 
     tp.hm = {
+      # Enable Catppuccin
+
       # Files to copy to a location in the home directory
       xdg.configFile."hypridle" = {
         enable = true;

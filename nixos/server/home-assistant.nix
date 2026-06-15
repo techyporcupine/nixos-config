@@ -86,18 +86,9 @@ in {
           tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
           tls.certResolver = "cloudflare";
         };
-        matter = {
-          rule = "Host(`matter.local.cb-tech.me`)";
-          service = "matter";
-          entrypoints = ["websecure"];
-          middlewares = ["internal-whitelist"];
-          tls.domains = [{main = "local.cb-tech.me";} {sans = ["*.local.cb-tech.me"];}];
-          tls.certResolver = "cloudflare";
-        };
       };
       services.homeassistant = {loadBalancer.servers = [{url = "http://localhost:8124";}];};
       services.z2m = {loadBalancer.servers = [{url = "http://localhost:8091";}];};
-      services.matter = {loadBalancer.servers = [{url = "http://localhost:8283";}];};
     };
     networking.firewall = {
       allowedTCPPorts = [
