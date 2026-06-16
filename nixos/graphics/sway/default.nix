@@ -57,6 +57,7 @@ in {
       wl-clipboard # Wayland clipboard utilities
       stable.nwg-displays # Display configuration tool
       (flameshot.override {enableWlrSupport = true;}) # Screenshot tool
+      networkmanagerapplet
     ];
 
     security.pam.services.hyprlock = {
@@ -120,6 +121,7 @@ in {
             {command = "swaybg -i ~/.config/hypr/wallpapers/swissBG.jpg -m fill";}
             {command = "hypridle";}
             {command = "udiskie";}
+            {command = "nm-applet";}
             {command = "wl-paste --watch cliphist store";}
             {command = "dbus-update-activation-environment --all";}
           ];

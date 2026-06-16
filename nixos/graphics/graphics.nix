@@ -46,7 +46,6 @@ in {
       scrcpy
       yubioath-flutter
       webcord
-      networkmanagerapplet
     ];
 
     # Globally enable Wayland in electron apps
