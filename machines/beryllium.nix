@@ -154,6 +154,7 @@
   # Machine-specific packages
   environment.systemPackages = with pkgs; [
     # llama-cpp
+    nodejs
   ];
 
   # Hardware-parameterized LLM packages (commented out by default)
