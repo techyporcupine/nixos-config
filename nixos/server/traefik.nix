@@ -76,7 +76,7 @@ in {
             };
             internal-whitelist = {
               ipAllowList = {
-                sourceRange = ["10.0.0.0/24" "10.15.0.0/16" "172.16.0.0/16"];
+                sourceRange = ["10.15.0.0/16" "172.16.0.0/16"];
               };
             };
             authentik = {

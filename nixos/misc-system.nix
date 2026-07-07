@@ -104,38 +104,23 @@ in {
           "printers" = {
             ForwardAgent = true;
             User = "printers";
-            HostName = "printers";
+            HostName = "printers.internal";
           };
           # Home lab servers (named after elements)
           "beryllium" = {
             ForwardAgent = true;
             User = "beryllium";
-            HostName = "10.0.0.5";
-          };
-          "helium" = {
-            ForwardAgent = true;
-            User = "helium";
-            HostName = "2001:470:e251:1000::6"; # IPv6 address
-          };
-          "heliumv4" = {
-            ForwardAgent = true;
-            User = "helium";
-            HostName = "172.16.0.6"; # IPv4 fallback
+            HostName = "beryllium.internal";
           };
           "boron" = {
             ForwardAgent = true;
             User = "boron";
-            HostName = "10.0.0.10";
+            HostName = "boron.internal";
           };
           "nitrogen" = {
             ForwardAgent = true;
             User = "nitrogen";
-            HostName = "10.0.0.11";
-          };
-          "lithium" = {
-            ForwardAgent = true;
-            User = "lithium";
-            HostName = "10.0.0.14";
+            HostName = "nitrogen.internal";
           };
           # Cisco 3750X switch configs (legacy crypto for old hardware)
           "3750xmgmt" = {
@@ -148,7 +133,7 @@ in {
             KexAlgorithms = "+diffie-hellman-group1-sha1";
           };
           "3750x" = {
-            HostName = "10.0.0.9";
+            HostName = "10.15.0.9";
             User = "admin";
             PubkeyAcceptedAlgorithms = "+ssh-rsa";
             HostkeyAlgorithms = "+ssh-rsa";
