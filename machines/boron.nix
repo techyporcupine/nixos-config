@@ -116,7 +116,7 @@
           volumes = ["/home/${config.tp.username}/open-webui:/app/backend/data"];
           autoStart = true;
           environment = {
-            # OLLAMA_BASE_URL = "http://10.0.0.8:11434";
+            # OLLAMA_BASE_URL = "http://10.15.0.8:11434";
             WEBUI_AUTH = "False";
           };
           extraOptions = [
@@ -137,7 +137,7 @@
             WYOMING_URI = "tcp://0.0.0.0:10300";
             WYOMING_LOG_LEVEL = "INFO";
             WYOMING_LANGUAGES = "en";
-            TTS_OPENAI_URL = "http://10.0.0.11:8880/v1";
+            TTS_OPENAI_URL = "http://10.15.0.11:8880/v1";
             TTS_STREAMING_MODELS = "kokoro";
             TTS_MODELS = "kokoro";
             TTS_BACKEND = "KOKORO_FASTAPI";

@@ -126,8 +126,8 @@ in {
             };
           };
           services = {
-            pve = {loadBalancer.servers = [{url = "https://10.0.0.6:8006/";}];};
-            llm = {loadBalancer.servers = [{url = "http://10.0.0.11:8080/";}];};
+            pve = {loadBalancer.servers = [{url = "https://10.15.0.6:8006/";}];};
+            llm = {loadBalancer.servers = [{url = "http://10.15.0.11:8080/";}];};
             mesh = {loadBalancer.servers = [{url = "http://10.15.8.10:5920/";}];};
           };
         };

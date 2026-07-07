@@ -22,7 +22,7 @@ in {
           tls.certResolver = "cloudflare";
         };
       };
-      services.authentik = {loadBalancer.servers = [{url = "http://10.0.0.12:9000";}];};
+      services.authentik = {loadBalancer.servers = [{url = "http://10.15.0.12:9000";}];};
     };
   };
 }
