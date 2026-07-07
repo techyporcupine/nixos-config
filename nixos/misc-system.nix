@@ -101,26 +101,31 @@ in {
             ControlPath = "~/.ssh/master-%r@%n:%p";
             ControlPersist = "no";
           };
+          "docker1" = {
+            ForwardAgent = true;
+            User = "docker1";
+            HostName = "docker1";
+          };
           "printers" = {
             ForwardAgent = true;
             User = "printers";
-            HostName = "printers.internal";
+            HostName = "printers";
           };
           # Home lab servers (named after elements)
           "beryllium" = {
             ForwardAgent = true;
             User = "beryllium";
-            HostName = "beryllium.internal";
+            HostName = "beryllium";
           };
           "boron" = {
             ForwardAgent = true;
             User = "boron";
-            HostName = "boron.internal";
+            HostName = "boron";
           };
           "nitrogen" = {
             ForwardAgent = true;
             User = "nitrogen";
-            HostName = "nitrogen.internal";
+            HostName = "nitrogen";
           };
           # Cisco 3750X switch configs (legacy crypto for old hardware)
           "3750xmgmt" = {
