@@ -74,10 +74,6 @@
     cudaCapabilities = ["75" "86"]; # GTX 1650 (sm_75 / Turing), RTX 3080 Ti (sm_86 / Ampere)
     rocmTargets = ["gfx906"]; # MI50 (Vega 20)
 
-    # To override the default b9305 version on this specific machine,
-    # define llamaCppTag and its Nix SHA256 hash below:
-    llamaCppTag = "b9310";
-    llamaCppHash = "sha256-XJwh8bPrbhckZkwiS6i3tNGW5Ujeh7hqU3YL6HiS1Ro=";
   };
 
   # Graphics (NVIDIA)
