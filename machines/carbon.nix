@@ -92,7 +92,7 @@
     amdgpu_top
     distrobox
     kdePackages.kdenlive
-    handbrake
+    # handbrake
     calibre
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
