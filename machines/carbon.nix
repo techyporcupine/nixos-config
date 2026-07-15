@@ -105,10 +105,7 @@
     qrencode
     wireshark
     anki
-    bitwarden-desktop
-    # Copter applications
-    qgroundcontrol
-    mission-planner
+    ansible
   ];
 
   programs.wireshark.enable = true;
