@@ -93,7 +93,7 @@
     distrobox
     kdePackages.kdenlive
     # handbrake
-    calibre
+    # calibre
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
     remmina
