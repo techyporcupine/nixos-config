@@ -73,7 +73,6 @@
     # GPU architecture targets
     cudaCapabilities = ["75" "86"]; # GTX 1650 (sm_75 / Turing), RTX 3080 Ti (sm_86 / Ampere)
     rocmTargets = ["gfx906"]; # MI50 (Vega 20)
-
   };
 
   # Graphics (NVIDIA)
@@ -168,6 +167,7 @@
           image = "ghcr.io/blakeblackshear/frigate:stable-rocm";
           autoStart = true;
           extraOptions = [
+            "--pull=newer"
             "--privileged"
             "--shm-size=512m"
             "--stop-timeout=30"
