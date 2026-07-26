@@ -164,7 +164,7 @@
           # };
           customRocblas = pkgs.rocmPackages.rocblas;
         in {
-          image = "ghcr.io/blakeblackshear/frigate:stable-rocm";
+          image = "ghcr.io/blakeblackshear/frigate:0.18.0-beta1-rocm";
           autoStart = true;
           extraOptions = [
             "--pull=newer"
