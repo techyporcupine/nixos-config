@@ -104,28 +104,28 @@ in {
           "docker1" = {
             ForwardAgent = true;
             User = "docker1";
-            HostName = "docker1";
+            HostName = "docker1.internal";
           };
           "printers" = {
             ForwardAgent = true;
             User = "printers";
-            HostName = "printers";
+            HostName = "printers.internal";
           };
           # Home lab servers (named after elements)
           "beryllium" = {
             ForwardAgent = true;
             User = "beryllium";
-            HostName = "beryllium";
+            HostName = "beryllium.internal";
           };
           "boron" = {
             ForwardAgent = true;
             User = "boron";
-            HostName = "boron";
+            HostName = "boron.internal";
           };
           "nitrogen" = {
             ForwardAgent = true;
             User = "nitrogen";
-            HostName = "nitrogen";
+            HostName = "nitrogen.internal";
           };
           # Cisco 3750X switch configs (legacy crypto for old hardware)
           "3750xmgmt" = {
