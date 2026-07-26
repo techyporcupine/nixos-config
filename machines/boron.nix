@@ -124,11 +124,6 @@
             "--network=host"
           ];
         };
-        kokoro = {
-          image = "ghcr.io/remsky/kokoro-fastapi-cpu:latest";
-          autoStart = true;
-          ports = ["0.0.0.0:8880:8880"];
-        };
         wyoming_openai = {
           image = "ghcr.io/roryeckel/wyoming_openai:latest";
           autoStart = true;
