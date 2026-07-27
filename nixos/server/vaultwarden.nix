@@ -14,6 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     services.vaultwarden = {
       enable = true;
+      package = pkgs.master.vaultwarden;
       backupDir = "/var/backup/vaultwarden";
       environmentFile = /var/secrets/vaultwarden-env;
       config = {
