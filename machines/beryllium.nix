@@ -84,7 +84,7 @@
     grafana = {
       enable = false;
     };
-    librenms.enable = true;
+    librenms.enable = false;
     matrix.enable = true;
     authentik.enable = true;
     n8n.enable = false;
