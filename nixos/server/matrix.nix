@@ -23,6 +23,7 @@ in {
           "stun:stun.l.google.com:19302"
           "stun:stun.cloudflare.com:3478"
         ];
+        turn_shared_secret = "something-real-secret";
         listeners = [
           {
             port = 8118;
