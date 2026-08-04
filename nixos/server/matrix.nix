@@ -19,6 +19,10 @@ in {
         server_name = "cb-tech.me";
         database.name = "sqlite3";
         max_upload_size = "200M";
+        turn_uris = [
+          "stun:stun.l.google.com:19302"
+          "stun:stun.cloudflare.com:3478"
+        ];
         listeners = [
           {
             port = 8118;
