@@ -106,6 +106,7 @@
     wireshark
     anki
     ansible
+    commet-chat
   ];
 
   programs.wireshark.enable = true;

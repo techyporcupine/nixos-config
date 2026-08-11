@@ -118,7 +118,7 @@ in {
           startup = [
             # Launch some applications on start
             {command = "firefox";}
-            {command = "swaybg -i ~/.config/hypr/wallpapers/swissBG.jpg -m fill";}
+            {command = "swaybg -i ~/.config/hypr/wallpapers/ocean.jpg -m fill";}
             {command = "hypridle";}
             {command = "udiskie";}
             {command = "nm-applet";}
