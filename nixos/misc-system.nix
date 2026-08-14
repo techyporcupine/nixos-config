@@ -33,7 +33,11 @@ in {
       # Enable Bluetooth radio
       bluetooth.enable = true;
       # Enable experimental Bluetooth features (better LE Audio, codec support)
-      bluetooth.settings.General.Experimental = "true";
+      bluetooth.settings = {
+        General = {
+          Experimental = "true";
+        };
+      };
     };
 
     # Enable hardware graphics acceleration (OpenGL, Vulkan, VA-API)
