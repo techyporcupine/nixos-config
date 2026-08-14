@@ -8,11 +8,10 @@
   cfg = config.tp.graphics;
 in {
   options.tp.graphics = {
-    wofi = lib.mkEnableOption "Enable Wofi and Catppuccin theming for it";
+    wofi = lib.mkEnableOption "Enable Wofi and theming for it";
   };
 
   config = lib.mkIf cfg.wofi {
-    # Wofi application launcher settings
     tp.hm.programs.wofi = {
       enable = true;
       package = pkgs.wofi;
@@ -24,10 +23,10 @@ in {
         allow_markup = true;
       };
 
-      # Catppuccin handles the colors, but if you still want to force
-      # "Fira Code" and hide the scrollbar like your Rofi config,
-      # you can append those specific rules here.
+      # Read the downloaded Catppuccin CSS and append your custom overrides
       style = ''
+        ${builtins.readFile ./mocha.css}
+
         * {
           font-family: "Fira Code";
         }
@@ -36,12 +35,5 @@ in {
         }
       '';
     };
-
-    # Enable Catppuccin theming specifically for Wofi
-    tp.hm.catppuccin.wofi.enable = true;
-
-    # If you haven't already defined your global flavor in your Home Manager root,
-    # you can uncomment the line below to set it:
-    # tp.hm.catppuccin.flavor = "mocha";
   };
 }
