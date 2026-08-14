@@ -58,6 +58,7 @@ in {
       stable.nwg-displays # Display configuration tool
       (flameshot.override {enableWlrSupport = true;}) # Screenshot tool
       networkmanagerapplet
+      slurp
     ];
 
     security.pam.services.hyprlock = {
@@ -133,7 +134,7 @@ in {
             };
           };
           # Set command used to launch dmenu
-          menu = "zsh -c 'rofi -show drun'";
+          menu = "zsh -c 'wofi -show drun'";
           # Disable swaybar
           bars = [];
           # Window related settings

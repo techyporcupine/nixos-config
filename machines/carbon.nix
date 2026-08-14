@@ -60,7 +60,7 @@
     sway = true;
     mako = true;
     gtk = true;
-    rofi = true;
+    wofi = true;
     waybar = true;
     mangohud = true;
     # test if stuff breaks

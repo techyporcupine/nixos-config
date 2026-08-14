@@ -1,6 +1,6 @@
 {
   imports = [
-    ./rofi
+    ./wofi
     ./mangohud
     ./graphics.nix
     ./kitty.nix
