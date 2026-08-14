@@ -76,14 +76,23 @@ in {
     # Configure XDG desktop portals for Wayland
     xdg.portal = {
       enable = true;
-      # Enable wlroots portal
-      wlr.enable = true;
-      # Add GTK portal
+
+      wlr = {
+        enable = true;
+        settings = {
+          screencast = {
+            # Wofi needs to be treated as a dmenu-style chooser
+            chooser_type = "dmenu";
+            # Pass the absolute Nix store path to wofi and set it to dmenu mode
+            chooser_cmd = "${pkgs.wofi}/bin/wofi --show dmenu";
+          };
+        };
+      };
+
+      # Keep your existing fallbacks
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
-      # Prefer wlr, then gtk
       config.common.default = ["wlr" "gtk"];
     };
-
     tp.hm = {
       # Enable Catppuccin
 

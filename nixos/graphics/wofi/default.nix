@@ -25,7 +25,7 @@ in {
 
       # Read the downloaded Catppuccin CSS and append your custom overrides
       style = ''
-        ${builtins.readFile ./mocha.css}
+        ${builtins.readFile ./mocha-green.css}
 
         * {
           font-family: "Fira Code";
