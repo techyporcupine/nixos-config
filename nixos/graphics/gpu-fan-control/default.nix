@@ -9,7 +9,7 @@ rustPlatform.buildRustPackage {
 
   src = ./.;
 
-  cargoHash = "sha256-/gZO0FlCb0Jv1PnMMJwclpmjeGjhQJjTqrBQcxfXb7Y=";
+  cargoLock.lockFile = ./Cargo.lock;
 
   meta = with lib; {
     description = "Lightweight GPU temperature-based fan controller daemon";
