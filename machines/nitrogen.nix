@@ -52,6 +52,9 @@
   tp.server = {
     llama-server = {
       enable = true;
+      # fast is load-on-startup in the preset and has a fully static footprint;
+      # smart uses fit and must measure the cards only after fast has settled.
+      warmup = ["fast" "smart"];
     };
     beszel = {
       client = {
