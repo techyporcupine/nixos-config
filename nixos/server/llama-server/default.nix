@@ -9,32 +9,7 @@
   warmupScript = pkgs.writeShellApplication {
     name = "llama-warmup";
     runtimeInputs = [pkgs.curl pkgs.coreutils];
-    text = ''
-      endpoint="http://127.0.0.1:5349"
-
-      # wait for the router itself to answer before asking it for anything
-      for _ in $(seq 1 120); do
-        if curl -sf -m 5 -o /dev/null "$endpoint/v1/models"; then
-          break
-        fi
-        sleep 1
-      done
-
-      for model in ${lib.escapeShellArgs cfg.warmup}; do
-        echo "warming $model"
-        # a one-token completion blocks until the model is resident, so a
-        # successful response is exactly the readiness signal we sequence on.
-        # the loop body is serial, which is the whole point.
-        if curl -sf -m 900 -o /dev/null \
-          -H 'Content-Type: application/json' \
-          -d "{\"model\":\"$model\",\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}],\"max_tokens\":1,\"stream\":false}" \
-          "$endpoint/v1/chat/completions"; then
-          echo "$model ready"
-        else
-          echo "WARNING: $model failed to warm; continuing" >&2
-        fi
-      done
-    '';
+    text = builtins.readFile ./llama-warmup.sh;
   };
 in {
   options.tp.server = {
@@ -95,7 +70,7 @@ in {
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = lib.getExe warmupScript;
+        ExecStart = "${lib.getExe warmupScript} ${lib.escapeShellArgs cfg.warmup}";
       };
     };
 
