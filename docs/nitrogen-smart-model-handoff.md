@@ -1,15 +1,12 @@
-# nitrogen "smart" model: OOM fix, context tuning, perf regression — handoff
+# nitrogen "smart" model: OOM fix, context tuning, perf regression
 
-Written for a fresh agent with no prior context. Read this in full before touching
-`nixos/server/llama-server/nitrogen-models.ini` or `nixos/server/llama-server/default.nix`.
+Read this in full before touching
+`nixos/server/llama-server/nitrogen-models.ini` or
+`nixos/server/llama-server/default.nix`.
 
 ## Where things stand right now
 
-An active performance regression was just reverted. **The revert is committed to git but
-has NOT been deployed to the `nitrogen` host yet** — the user needs to `git pull` on
-nitrogen and restart `llama-server` there. Verify current deployed state before doing
-anything else (see "How to check current state" below); don't assume this doc is still
-accurate by the time you read it.
+An active performance regression was just reverted; see recent git history.
 
 ## The setup
 
@@ -57,7 +54,7 @@ confirmed against the journal:
    in the journal history, and it was `fast` that occasionally died instead of `smart`
    depending on which one won the race.
 
-Fixes applied (all still in place, all still correct as far as we know):
+Fixes applied (all still in place, likely still correct as far as we know):
 - `fitt = 2048` on `[smart]` (broadcast to both devices).
 - `no-mmproj-offload = true` on `[fast]` (keeps its projector on CPU, off `CUDA0`).
 - **Deterministic load ordering**: added `tp.server.llama-server.warmup` (a NixOS
@@ -92,7 +89,10 @@ simultaneous. `journalctl --user -u llama-server` boot log shows only one
 After the OOM fix, `--fit` (left to auto-choose `c` and `ts`, both unset in the ini)
 was landing on `n_ctx = 56576` for `smart` — using roughly the same total VRAM it had
 used at `n_ctx = 123136` in an earlier (racy, pre-fix) run, i.e. clearly not using
-available headroom well.
+available headroom well. (Note from user: check git history, as something seems
+off here. When things were last working well, we had context set to 65536. I'd
+still like to get higher context than that, but I do not recall regularly
+getting 123136, but maybe I am wrong; I guess logs don't lie)
 
 A one-shot `verbosity = 5` capture (see "How to run a verbose diagnostic capture"
 below) showed `--fit`'s actual search trace: it tries `n_ctx_train = 262144` and the
@@ -171,6 +171,10 @@ for throughput — especially given the interleaved attention/Mamba layer patter
 an unlucky cut point could force many more cross-device round-trips per forward pass
 than the split that happened to be chosen at ctx=56576.
 
+User believes the above hypothesis is ridiculous; please review. Clearly, when
+we set c = 131072, we began using system RAM instead of VRAM, plain and simple.
+Does this seem likely as an explanation?
+
 **What we do NOT have**: a verbosity=5 capture of the actual tensor-split chosen at
 ctx=131072 (default verbosity doesn't log per-layer offload placement), nor a directly
 measured tok/s baseline at ctx=56576 from before this specific change (the "~25 tok/s"
@@ -182,10 +186,8 @@ confirmed as the exact mechanism.
 `nixos/server/llama-server/nitrogen-models.ini`, reverting to auto-fit (back to the
 last CONFIRMED-reasonable-throughput config, ctx≈56576 — though note we never
 explicitly benchmarked tok/s at 56576 either; we're reverting because it's the last
-state the user reports as fine, not because we measured it ourselves). **This revert
-is committed but not yet deployed** — needs `git pull` + `systemctl --user restart
-llama-server` on nitrogen, then confirm both: (a) `smart`'s `/v1/models` reports
-`n_ctx` back around 56576, and (b) a real generation returns to acceptable tok/s.
+state the user reports as fine, not because we measured it ourselves).
+**User did push and restart, and speeds are back to the 20-25 tps expected.
 
 ## Recommended next steps (in order)
 
@@ -308,6 +310,11 @@ db4a890 refactor(llama-server): move warmup script out of the nix expression
 3b2a7bb fix(llama-server): stop smart OOMing on load, make startup deterministic
 ```
 
-Plus the not-yet-deployed revert of `4d07db6`'s `c = 131072` (see top of this doc —
 check `git log` yourself for the actual hash, since this doc may be stale by the time
-you read it).
+you read it.
+
+---
+
+A suggestion from the user: would it not simplify things to NOT do auto-fit on "smart" model? Find the right context-size, tensor-split so we have full control and can get a decently large context window exact without leaving wasted VRAM. Speed will benefit, because we can get as many tensors as possible on the faster CUDA0. And then we can get rid of all the pre-load one-shot service, and go back to load-on-startup = true
+
+Use your /bigbrain skill liberally to review findings, diagnoses, solutions, plans, etc.
