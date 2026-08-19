@@ -57,10 +57,17 @@ Directly tested on the standardized 250-token Python coding benchmark:
    - `ts = 33,32` (34 layers on CUDA0, 32 on ROCm0): 31.58 tok/s (eval: 7,885 ms) | CUDA0 free: 738 MiB | draft acceptance: 89.3%
    - `ts = 34,31` (35 layers on CUDA0, 31 on ROCm0): 32.73 tok/s (eval: 7,608 ms) | CUDA0 free: 476 MiB (< 700 MiB limit) | draft acceptance: 93.8%
 
-3. Empirical Takeaway:
-   - Shifting layers to CUDA0 increases throughput monotonically by ~0.56 tok/s per layer moved.
-   - `UD-Q4_K_XL` is ~4.8% to 8% slower than `Q5_K_M` despite smaller file size. The mixed-precision tensor layout in Unsloth dynamic quants incurs dequantization overhead on gfx906, while the large SSM recurrent state (~2.4 GB/token) remains uncompressed, limiting bandwidth reduction benefits.
-   - `Q5_K_M` at `ts = 30,35` remains the optimal configuration for throughput (33.16 tok/s) while preserving higher weight precision and compliant headroom (828 MiB free).
+3. Controlled Split Sweep on `UD-Q4_K_M` (`c = 65536`):
+   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): 32.50-32.91 tok/s (eval: 7,567 ms) | CUDA0 free: 2,594 MiB | draft acceptance: 90.1-93.8%
+   - `ts = 33,32` (34 layers on CUDA0, 32 on ROCm0): 32.25-33.61 tok/s (eval: 7,409 ms) | CUDA0 free: 1,790 MiB | draft acceptance: 86.5-93.8%
+   - `ts = 34,31` (35 layers on CUDA0, 31 on ROCm0): 32.37-32.57 tok/s (eval: 7,646 ms) | CUDA0 free: 1,552 MiB | draft acceptance: 85.1-88.6%
+   - `ts = 35,30` (36 layers on CUDA0, 30 on ROCm0): 34.09-34.16 tok/s (eval: 7,290 ms) | CUDA0 free: 1,204 MiB | draft acceptance: 93.0-93.8%
+   - `ts = 36,29` (37 layers on CUDA0, 29 on ROCm0): 32.69-33.69 tok/s (eval: 7,392 ms) | CUDA0 free: 964 MiB | draft acceptance: 88.6%
+
+4. Empirical Takeaway:
+   - Shifting layers to CUDA0 increases throughput monotonically up to 36 layers (ts = 35,30).
+   - `UD-Q4_K_M` avoids the mixed-precision dequantization overhead on gfx906 seen in `UD-Q4_K_XL`, achieving up to 34.16 tok/s.
+   - `UD-Q4_K_M` at `ts = 35,30` delivers a 13.4% throughput gain over `Q5_K_M` baseline (34.16 tok/s vs 30.06 tok/s) while preserving 1,204 MiB of free CUDA0 headroom.
 
 ## Optimization Decision Matrix & Ranked Levers
 
