@@ -94,7 +94,7 @@ Directly tested on the standardized 250-token Python coding benchmark:
 Add temporary `verbosity = 5` to `[*]` in `nitrogen-models.ini` to verify buffer allocations:
 ```bash
 git add nixos/server/llama-server/nitrogen-models.ini && git commit -m "diag: inspect quant buffer sizes" && git push
-ssh nitrogen 'cd ~/nixos-config && git pull && systemctl --user restart llama-server && systemctl --user restart llama-warmup'
+ssh nitrogen 'cd ~/nixos-config && git pull && systemctl --user restart llama-server'
 ssh nitrogen 'journalctl --user -u llama-server --no-pager -o cat --since "-2min" | grep -E "model buffer size|KV buffer size|RS buffer size|compute buffer size|offloaded.*layers"'
 ```
 Confirm: 66/66 layers offloaded to GPU, zero CPU model buffers, ≥700 MiB free on CUDA0. Then immediately remove `verbosity = 5`.
