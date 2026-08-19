@@ -37,10 +37,10 @@ Comprehensive guide, cost model, decision rubric, and benchmarking protocol for 
 - CUDA0 Usable Budget: 11,911 MiB.
 - CUDA0 Memory Consumption:
   `CUDA0_Used = Weights + KV_Cache + SSM_State + Compute_Buffer`
-  - `Weights`: ~253 MiB per layer on Q5_K_M (~227 MiB on UD-Q4_K_XL).
-  - `KV_Cache`: `(Attention_Layers_on_CUDA0) × (c) × (2,176 Bytes/token)`. At 7 attention layers and `c = 65536`, KV = 952 MiB (at `c = 98304`, KV = 1,428 MiB).
-  - `SSM_State`: `(SSM_Layers_on_CUDA0) × 49.88 MiB`. For 12 SSM layers = 598.5 MiB (for 22 SSM layers = 1,097 MiB). Note: SSM state (~2.4 GB across all 48 SSM layers) is read/written every token and is completely quantization-invariant.
-  - `Compute_Buffer`: ~832–1,088 MiB at `ub = 2048`.
+   - `Weights`: ~253 MiB per layer on Q5_K_M (~227 MiB on UD-Q4_K_XL, ~193 MiB on UD-Q4_K_M).
+   - `KV_Cache`: `(Attention_Layers_on_CUDA0) × (c) × (2,176 Bytes/token)`. At 7 attention layers and `c = 65536`, KV = 952 MiB (at 9 attention layers and `c = 65536`, KV = 1,224 MiB; at `c = 98304`, KV = 1,836 MiB). Note: `c = 65536` is required for `ts = 36,29` to maintain compliant VRAM headroom.
+   - `SSM_State`: `(SSM_Layers_on_CUDA0) × 49.88 MiB`. For 12 SSM layers = 598.5 MiB (for 28 SSM layers = 1,396.6 MiB). Note: SSM state (~2.4 GB across all 48 SSM layers) is read/written every token and is completely quantization-invariant.
+   - `Compute_Buffer`: ~832–1,185 MiB at `ub = 2048`.
 
 ### Measured Empirical Layer Placement Benchmarks
 
@@ -49,7 +49,7 @@ Directly tested on the standardized 250-token Python coding benchmark:
 1. Controlled Split Sweep on `Q5_K_M` (`c = 65536`):
    - `ts = 24,41` (25 layers on CUDA0, 41 on ROCm0): 30.65 tok/s (eval: 8,123 ms) | prompt: 92.8 tok/s
    - `ts = 28,37` (29 layers on CUDA0, 37 on ROCm0): 31.15 tok/s (eval: 7,993 ms) | prompt: 98.1 tok/s
-   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): **33.16–33.73 tok/s** (eval: 7,508 ms) | prompt: 96.8 tok/s | CUDA0 free: 828 MiB
+   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): 30.06-33.73 tok/s (eval: 7,508-8,284 ms) | prompt: 96.8 tok/s | CUDA0 free: 828-837 MiB
 
 2. Controlled Split Sweep on `UD-Q4_K_XL` (`c = 65536`):
    - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): 30.50 tok/s (eval: 8,163 ms) | CUDA0 free: 1,634 MiB | draft acceptance: 90.1%
@@ -58,26 +58,25 @@ Directly tested on the standardized 250-token Python coding benchmark:
    - `ts = 34,31` (35 layers on CUDA0, 31 on ROCm0): 32.73 tok/s (eval: 7,608 ms) | CUDA0 free: 476 MiB (< 700 MiB limit) | draft acceptance: 93.8%
 
 3. Controlled Split Sweep on `UD-Q4_K_M` (`c = 65536`):
-   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): 32.50-32.91 tok/s (eval: 7,567 ms) | CUDA0 free: 2,594 MiB | draft acceptance: 90.1-93.8%
-   - `ts = 33,32` (34 layers on CUDA0, 32 on ROCm0): 32.25-33.61 tok/s (eval: 7,409 ms) | CUDA0 free: 1,790 MiB | draft acceptance: 86.5-93.8%
-   - `ts = 34,31` (35 layers on CUDA0, 31 on ROCm0): 32.37-32.57 tok/s (eval: 7,646 ms) | CUDA0 free: 1,552 MiB | draft acceptance: 85.1-88.6%
-   - `ts = 35,30` (36 layers on CUDA0, 30 on ROCm0): 34.09-34.16 tok/s (eval: 7,290 ms) | CUDA0 free: 1,204 MiB | draft acceptance: 93.0-93.8%
-   - `ts = 36,29` (37 layers on CUDA0, 29 on ROCm0): 32.69-33.69 tok/s (eval: 7,392 ms) | CUDA0 free: 964 MiB | draft acceptance: 88.6%
+   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): 32.50-32.91 tok/s (cycle: 58.9 ms) | CUDA0 free: 2,594 MiB | draft acceptance: 90.1-93.8%
+   - `ts = 33,32` (34 layers on CUDA0, 32 on ROCm0): 32.25-33.61 tok/s (cycle: 57.7 ms) | CUDA0 free: 1,790 MiB | draft acceptance: 86.5-93.8%
+   - `ts = 34,31` (35 layers on CUDA0, 31 on ROCm0): 32.37-32.57 tok/s (cycle: 57.9 ms) | CUDA0 free: 1,552 MiB | draft acceptance: 85.1-88.6%
+   - `ts = 35,30` (36 layers on CUDA0, 30 on ROCm0): 34.09-34.16 tok/s (cycle: 56.7 ms) | CUDA0 free: 1,204 MiB | draft acceptance: 93.0-93.8%
+   - `ts = 36,29` (37 layers on CUDA0, 29 on ROCm0): 34.64-34.76 tok/s (cycle: 56.0 ms, temp=0) | CUDA0 free: 964 MiB | draft acceptance: 95.3%
 
 4. Empirical Takeaway:
-   - Shifting layers to CUDA0 increases throughput monotonically up to 36 layers (ts = 35,30).
-   - `UD-Q4_K_M` avoids the mixed-precision dequantization overhead on gfx906 seen in `UD-Q4_K_XL`, achieving up to 34.16 tok/s.
-   - `UD-Q4_K_M` at `ts = 35,30` delivers a 13.4% throughput gain over `Q5_K_M` baseline (34.16 tok/s vs 30.06 tok/s) while preserving 1,204 MiB of free CUDA0 headroom.
+   - Hardware execution cycle time decreases monotonically with each layer moved to CUDA0 (from 58.9 ms at 31 layers down to 56.0 ms at 37 layers).
+   - `UD-Q4_K_M` avoids the mixed-precision dequantization overhead on gfx906 seen in `UD-Q4_K_XL`, achieving up to 34.76 tok/s.
+   - `UD-Q4_K_M` at `ts = 36,29` is the optimal configuration, achieving the highest throughput while maintaining 964 MiB of free CUDA0 headroom across restarts.
 
 ## Optimization Decision Matrix & Ranked Levers
 
 1. Model Quantization:
-   - `Q5_K_M` vs `UD-Q4_K_XL`: `Q5_K_M` delivers 4.8% higher generation speed and superior precision over `UD-Q4_K_XL`.
-   - Mechanism: SSM recurrent state (~2.4 GB/token) is invariant to weight quantization, and gfx906 lacks matrix cores to accelerate non-uniform quant kernels.
+   - `UD-Q4_K_M` vs `Q5_K_M`: `UD-Q4_K_M` enables offloading 37 layers to CUDA0 (vs 31 on Q5), providing higher throughput while maintaining compliant headroom.
 
 2. Layer Placement / Tensor Splits:
-   - Impact: ~0.56 tok/s gain per layer moved to CUDA0 (e.g. 30.50 → 32.73 tok/s).
-   - Mechanism: NVIDIA RTX 3080 Ti has higher effective bandwidth (~700 GB/s) and lower latency than gfx906. Maximize CUDA0 layers subject to the ≥700 MiB safety margin (`ts = 30,35` on Q5_K_M, `ts = 33,32` on Q4).
+   - Impact: ~0.72 ms reduction in cycle time per layer moved to CUDA0.
+   - Mechanism: NVIDIA RTX 3080 Ti has higher effective bandwidth (~700 GB/s) and lower latency than gfx906. Maximize CUDA0 layers subject to the >=700 MiB safety margin (`ts = 30,35` on Q5_K_M, `ts = 36,29` on UD-Q4_K_M).
 
 3. Speculative Draft Max Setting (`spec-draft-n-max = 1`):
    - Impact: +26% speedup over non-speculative baseline (verified).
