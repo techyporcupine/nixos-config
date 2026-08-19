@@ -115,7 +115,7 @@ curl -s -m 120 http://127.0.0.1:5349/v1/chat/completions \
 ssh nitrogen 'journalctl --user -u llama-server --no-pager -o cat --since "-1min" | grep -E "print_timing|draft acceptance"'
 ```
 
-## Failure Mode Diagnostic Catalog
+## Failure Modes Observed
 
 - Generation drops to ~2.4 tok/s with low GPU utilization:
   - Cause: VRAM overflowed on CUDA0; buffers silently allocated in CPU RAM.
