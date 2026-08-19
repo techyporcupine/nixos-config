@@ -37,55 +37,49 @@ Comprehensive guide, cost model, decision rubric, and benchmarking protocol for 
 - CUDA0 Usable Budget: 11,911 MiB.
 - CUDA0 Memory Consumption:
   `CUDA0_Used = Weights + KV_Cache + SSM_State + Compute_Buffer`
-  - `Weights`: ~285 MiB per layer (measured ~7,614 MiB for 29 layers on Q5_K_M).
-  - `KV_Cache`: `(Attention_Layers_on_CUDA0) × (c) × (2,176 Bytes/token)`. At 7 attention layers and `c = 98304`, KV = 1,428 MiB.
-  - `SSM_State`: `(SSM_Layers_on_CUDA0) × 49.88 MiB`. For 22 SSM layers = 1,097 MiB.
-  - `Compute_Buffer`: ~1,088 MiB at `ub = 2048`.
+  - `Weights`: ~253 MiB per layer on Q5_K_M (~227 MiB on UD-Q4_K_XL).
+  - `KV_Cache`: `(Attention_Layers_on_CUDA0) × (c) × (2,176 Bytes/token)`. At 7 attention layers and `c = 65536`, KV = 952 MiB (at `c = 98304`, KV = 1,428 MiB).
+  - `SSM_State`: `(SSM_Layers_on_CUDA0) × 49.88 MiB`. For 12 SSM layers = 598.5 MiB (for 22 SSM layers = 1,097 MiB). Note: SSM state (~2.4 GB across all 48 SSM layers) is read/written every token and is completely quantization-invariant.
+  - `Compute_Buffer`: ~832–1,088 MiB at `ub = 2048`.
 
 ### Measured Empirical Layer Placement Benchmarks
 
 Directly tested on the standardized 250-token Python coding benchmark:
 
-1. Controlled Split Sweep at `c = 65536`:
+1. Controlled Split Sweep on `Q5_K_M` (`c = 65536`):
    - `ts = 24,41` (25 layers on CUDA0, 41 on ROCm0): 30.65 tok/s (eval: 8,123 ms) | prompt: 92.8 tok/s
    - `ts = 28,37` (29 layers on CUDA0, 37 on ROCm0): 31.15 tok/s (eval: 7,993 ms) | prompt: 98.1 tok/s
-   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): **33.73 tok/s** (eval: 7,381 ms, peak 34.5 tok/s) | prompt: 102.3 tok/s | CUDA0 free: 828 MiB
-   - `ts = 31,34` (32 layers on CUDA0, 34 on ROCm0): 32.26 tok/s (eval: 7,717 ms) | prompt: 101.1 tok/s | CUDA0 free: 430 MiB
+   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): **33.16–33.73 tok/s** (eval: 7,508 ms) | prompt: 96.8 tok/s | CUDA0 free: 828 MiB
 
-2. Across Context Sizes:
-   - `c = 65536`, `ts = 30,35` (31 layers on CUDA0): **33.73 tok/s** (828 MiB free margin).
-   - `c = 81920`, `ts = 29,36` (30 layers on CUDA0): **32.35 tok/s** (744 MiB free margin).
-   - `c = 98304`, `ts = 28,37` (29 layers on CUDA0): **32.85 tok/s** (684 MiB free margin).
+2. Controlled Split Sweep on `UD-Q4_K_XL` (`c = 65536`):
+   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): 30.50 tok/s (eval: 8,163 ms) | CUDA0 free: 1,634 MiB | draft acceptance: 90.1%
+   - `ts = 32,33` (33 layers on CUDA0, 33 on ROCm0): 31.41 tok/s (eval: 7,928 ms) | CUDA0 free: 1,002 MiB | draft acceptance: 90.1%
+   - `ts = 33,32` (34 layers on CUDA0, 32 on ROCm0): 31.58 tok/s (eval: 7,885 ms) | CUDA0 free: 738 MiB | draft acceptance: 89.3%
+   - `ts = 34,31` (35 layers on CUDA0, 31 on ROCm0): 32.73 tok/s (eval: 7,608 ms) | CUDA0 free: 476 MiB (< 700 MiB limit) | draft acceptance: 93.8%
 
 3. Empirical Takeaway:
-   - Shifting layers to CUDA0 increases decode throughput and prompt evaluation speed up to `ts = 30,35` (31 layers).
-   - Past 31 layers (`ts = 31,34`), layer 31 brings an 8th attention KV cache layer onto CUDA0, reducing free headroom to 430 MiB without further throughput gain.
-   - `ts = 30,35` at `c = 65536` achieves the fastest generation speed (**33.73 tok/s**) with substantial safety margin (828 MiB free).
-   - `ts = 28,37` at `c = 98304` achieves ~32.8 tok/s with 50% larger context.
+   - Shifting layers to CUDA0 increases throughput monotonically by ~0.56 tok/s per layer moved.
+   - `UD-Q4_K_XL` is ~4.8% to 8% slower than `Q5_K_M` despite smaller file size. The mixed-precision tensor layout in Unsloth dynamic quants incurs dequantization overhead on gfx906, while the large SSM recurrent state (~2.4 GB/token) remains uncompressed, limiting bandwidth reduction benefits.
+   - `Q5_K_M` at `ts = 30,35` remains the optimal configuration for throughput (33.16 tok/s) while preserving higher weight precision and compliant headroom (828 MiB free).
 
 ## Optimization Decision Matrix & Ranked Levers
 
-1. Model Quantization (`Q5_K_M` → `UD-Q4_K_XL`):
-   - Impact: +17% to +25% generation speed (~40+ tok/s), frees ~3.1 GB total VRAM.
-   - Mechanism: Reduces memory traffic per token from 18.6 GB to ~15.5 GB; Q4_K has better optimized kernels on gfx906.
-   - Confidence: High.
+1. Model Quantization:
+   - `Q5_K_M` vs `UD-Q4_K_XL`: `Q5_K_M` delivers 4.8% higher generation speed and superior precision over `UD-Q4_K_XL`.
+   - Mechanism: SSM recurrent state (~2.4 GB/token) is invariant to weight quantization, and gfx906 lacks matrix cores to accelerate non-uniform quant kernels.
 
-2. Prompt Cache & Prefix Reuse:
-   - Impact: 10x–100x reduction in perceived latency on multi-turn coding sessions.
-   - Mechanism: Reuses KV cache for stable prompt prefixes; eliminates 3–5 minute prefill stalls at 20k–30k context.
-   - Confidence: High.
+2. Layer Placement / Tensor Splits:
+   - Impact: ~0.56 tok/s gain per layer moved to CUDA0 (e.g. 30.50 → 32.73 tok/s).
+   - Mechanism: NVIDIA RTX 3080 Ti has higher effective bandwidth (~700 GB/s) and lower latency than gfx906. Maximize CUDA0 layers subject to the ≥700 MiB safety margin (`ts = 30,35` on Q5_K_M, `ts = 33,32` on Q4).
 
 3. Speculative Draft Max Setting (`spec-draft-n-max = 1`):
-   - Impact: +26% speedup over non-speculative baseline (already verified).
+   - Impact: +26% speedup over non-speculative baseline (verified).
    - Mechanism: Eliminates cross-GPU synchronization penalty of 3rd draft token.
    - Confidence: High.
 
-4. GPU-Native Sampler Chain (`top-k = 20, top-p = 0.95, min-p = 0.05`):
-   - Impact: Verified optimal alignment with MTP draft head (95%+ acceptance).
-   - Confidence: High.
-
-5. Layer Shuffling (`ts = ±1 layer`):
-   - Impact: ±0.18% (negligible). Use only to satisfy VRAM headroom constraints for target context size.
+4. Prompt Cache & Prefix Reuse:
+   - Impact: 10x–100x reduction in perceived latency on multi-turn coding sessions.
+   - Mechanism: Reuses KV cache for stable prompt prefixes; eliminates prefill stalls.
    - Confidence: High.
 
 ## Testing Protocol for New Quants & Changes
