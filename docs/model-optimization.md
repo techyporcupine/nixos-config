@@ -42,12 +42,26 @@ Comprehensive guide, cost model, decision rubric, and benchmarking protocol for 
   - `SSM_State`: `(SSM_Layers_on_CUDA0) × 49.88 MiB`. For 22 SSM layers = 1,097 MiB.
   - `Compute_Buffer`: ~1,088 MiB at `ub = 2048`.
 
-### The Layer Shift vs. Context Exchange Rate
-Moving 1 layer from ROCm0 to CUDA0 saves only `285 MiB × (1/560 − 1/700 GB/s) = 0.106 ms` (~0.18% of a 59 ms cycle).
-However, 1 layer takes ~335 MiB on CUDA0, which consumes the equivalent of ~23,000 tokens of context.
+### Measured Empirical Layer Placement Benchmarks
 
-- Trading context for CUDA0 layers is an anti-pattern (e.g. dropping from 98k to 49k context to gain 3 layers yields only +0.5% speed).
-- The correct optimization trade is the opposite: shifting 1–2 layers to ROCm0 (e.g. `ts = 26,39`) drops an attention layer from CUDA0, freeing enough VRAM to reach `c = 131072` with >780 MiB safety headroom at virtually zero speed loss (-0.5%).
+Directly tested on the standardized 250-token Python coding benchmark:
+
+1. Controlled Split Sweep at `c = 65536`:
+   - `ts = 24,41` (25 layers on CUDA0, 41 on ROCm0): 30.65 tok/s (eval: 8,123 ms) | prompt: 92.8 tok/s
+   - `ts = 28,37` (29 layers on CUDA0, 37 on ROCm0): 31.15 tok/s (eval: 7,993 ms) | prompt: 98.1 tok/s
+   - `ts = 30,35` (31 layers on CUDA0, 35 on ROCm0): **33.73 tok/s** (eval: 7,381 ms, peak 34.5 tok/s) | prompt: 102.3 tok/s | CUDA0 free: 828 MiB
+   - `ts = 31,34` (32 layers on CUDA0, 34 on ROCm0): 32.26 tok/s (eval: 7,717 ms) | prompt: 101.1 tok/s | CUDA0 free: 430 MiB
+
+2. Across Context Sizes:
+   - `c = 65536`, `ts = 30,35` (31 layers on CUDA0): **33.73 tok/s** (828 MiB free margin).
+   - `c = 81920`, `ts = 29,36` (30 layers on CUDA0): **32.35 tok/s** (744 MiB free margin).
+   - `c = 98304`, `ts = 28,37` (29 layers on CUDA0): **32.85 tok/s** (684 MiB free margin).
+
+3. Empirical Takeaway:
+   - Shifting layers to CUDA0 increases decode throughput and prompt evaluation speed up to `ts = 30,35` (31 layers).
+   - Past 31 layers (`ts = 31,34`), layer 31 brings an 8th attention KV cache layer onto CUDA0, reducing free headroom to 430 MiB without further throughput gain.
+   - `ts = 30,35` at `c = 65536` achieves the fastest generation speed (**33.73 tok/s**) with substantial safety margin (828 MiB free).
+   - `ts = 28,37` at `c = 98304` achieves ~32.8 tok/s with 50% larger context.
 
 ## Optimization Decision Matrix & Ranked Levers
 
