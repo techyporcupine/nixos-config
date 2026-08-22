@@ -12,12 +12,12 @@ Comprehensive guide, cost model, decision rubric, and benchmarking protocol for 
   - 16 self-attention layers with KV cache (`full_attention_interval = 4`: layers 3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47, 51, 55, 59, 63).
   - 48 SSM recurrent layers with fixed O(1) state per sequence (~50 MiB/layer), invariant to context length.
 
-### Current Validated Baseline (Commit `4b114f3`)
-- Configuration: `hf = unsloth/Qwen3.8-27B-GGUF:Q5_K_M`, `c = 98304`, `ts = 28,37`, `spec-type = draft-mtp`, `spec-draft-n-max = 1`, `min-p = 0.05`, `top-k = 20`, `top-p = 0.95`, `fit = off`, `ngl = 99`.
-- Generation throughput: ~32.8–33.3 tok/s (eval time: ~7,580 ms / 250 tokens).
-- Prompt evaluation: ~105 tok/s.
-- Draft acceptance: 94.5%–96.0% (mean length: 1.95 tokens/cycle).
-- Performance ceiling: At Q5_K_M with dual-GPU split, theoretical bandwidth limit is ~35 tok/s. Parametric fine-tuning cannot exceed this ceiling.
+### Current Validated Baseline
+- Configuration: `hf = unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_M`, `c = 131072`, `ts = 32,33`, `spec-type = draft-mtp`, `spec-draft-n-max = 1`, `min-p = 0.00`, `top-k = 20`, `top-p = 0.95`, `fit = off`, `ngl = 99`.
+- Generation throughput: ~33.0–35.4 tok/s (eval time: ~7,026–7,544 ms / 250 tokens).
+- Prompt evaluation: ~90–95 tok/s.
+- Draft acceptance: 82.4%–88.6% (mean length: 1.82–1.89 tokens/cycle).
+- CUDA0 memory: ~11,495 MiB used (793 MiB free margin).
 
 ## Core Rules & Invariants
 
@@ -64,10 +64,16 @@ Directly tested on the standardized 250-token Python coding benchmark:
    - `ts = 35,30` (36 layers on CUDA0, 30 on ROCm0): 34.09-34.16 tok/s (cycle: 56.7 ms) | CUDA0 free: 1,204 MiB | draft acceptance: 93.0-93.8%
    - `ts = 36,29` (37 layers on CUDA0, 29 on ROCm0): 34.64-34.76 tok/s (cycle: 56.0 ms, temp=0) | CUDA0 free: 964 MiB | draft acceptance: 95.3%
 
-4. Empirical Takeaway:
+4. Context Scaling Sweep on `UD-Q4_K_M`:
+   - `c = 65536, ts = 36,29`: 34.64-36.32 tok/s (eval: 6,855 ms) | CUDA0 free: 1,331 MiB
+   - `c = 98304, ts = 35,30`: 32.89-34.82 tok/s (eval: 7,151-7,569 ms) | CUDA0 free: 713 MiB
+   - `c = 131072, ts = 32,33`: 33.00-35.44 tok/s (eval: 7,026-7,544 ms) | CUDA0 free: 793 MiB | draft acceptance: 82.4-88.6%
+   - `c = 163840, ts = 28,37`: 32.02 tok/s (eval: 7,776 ms) | CUDA0 free: 1,235 MiB
+
+5. Empirical Takeaway:
    - Hardware execution cycle time decreases monotonically with each layer moved to CUDA0 (from 58.9 ms at 31 layers down to 56.0 ms at 37 layers).
-   - `UD-Q4_K_M` avoids the mixed-precision dequantization overhead on gfx906 seen in `UD-Q4_K_XL`, achieving up to 34.76 tok/s.
-   - `UD-Q4_K_M` at `ts = 36,29` is the optimal configuration, achieving the highest throughput while maintaining 964 MiB of free CUDA0 headroom across restarts.
+   - `UD-Q4_K_M` avoids mixed-precision dequantization overhead on gfx906, achieving 33-36 tok/s across configurations.
+   - For maximum context with high throughput, `UD-Q4_K_M` at `c = 131072, ts = 32,33` delivers 128k context at ~33–35.4 tok/s while safely maintaining 793 MiB of free CUDA0 headroom.
 
 ## Optimization Decision Matrix & Ranked Levers
 
