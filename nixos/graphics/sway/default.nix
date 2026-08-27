@@ -15,6 +15,22 @@ in {
     # Enable policykit for reasons
     security.polkit.enable = true;
 
+    systemd = {
+      user.services.polkit-gnome-authentication-agent-1 = {
+        description = "polkit-gnome-authentication-agent-1";
+        wantedBy = ["graphical-session.target"];
+        wants = ["graphical-session.target"];
+        after = ["graphical-session.target"];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+      };
+    };
+
     # Enable udisks for drive utils
     services.udisks2.enable = true;
 
@@ -143,7 +159,7 @@ in {
             };
           };
           # Set command used to launch dmenu
-          menu = "zsh -c 'wofi -show drun'";
+          menu = "wofi";
           # Disable swaybar
           bars = [];
           # Window related settings
@@ -175,7 +191,7 @@ in {
           keybindings = {
             "${modifier}+Q" = "kill";
             "${modifier}+Space" = "exec ${menu}";
-            "${modifier}+V" = "exec cliphist list | rofi -dmenu | cliphist decode | wl-copy";
+            "${modifier}+V" = "exec cliphist list | wofi -dmenu | cliphist decode | wl-copy";
             "${modifier}+M" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
             "${modifier}+L" = "exec loginctl lock-session";
             "${modifier}+W" = "floating toggle";

@@ -33,6 +33,8 @@
     enable = true;
     avahi = true; # mDNS
   };
+
+  services.lldpd.enable = true;
   networking.networkmanager.wifi.powersave = false;
   #networking.networkmanager.wifi.backend = "iwd";
 
@@ -107,6 +109,7 @@
     anki
     ansible
     commet-chat
+    ventoy-full-qt
   ];
 
   programs.wireshark.enable = true;
@@ -144,6 +147,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-39.8.10" # bitwarden
+    "ventoy-qt5-1.1.12"
   ];
 
   # Enable PCSCD for Yubikey
