@@ -40,7 +40,7 @@ in {
       zed-editor
       chromium
       super-slicer-beta
-      libreoffice-fresh
+      libreoffice-stable
       audacity
       pavucontrol
       scrcpy
