@@ -53,19 +53,7 @@
     useRoutingFeatures = "client";
   };
 
-  services.netbird.clients.wt0 = {
-    # Port used to listen to wireguard connections
-    port = 51821;
-
-    # Set this to true if you want the GUI client
-    ui.enable = true;
-
-    # This opens ports required for direct connection without a relay
-    openFirewall = true;
-
-    # This opens necessary firewall ports in the Netbird client's network interface
-    openInternalFirewall = true;
-  };
+  services.netbird.enable = true;
 
   tp.server.virtualisation.enable = true;
 
@@ -134,6 +122,9 @@
   virtualisation.libvirtd.enable = true;
 
   programs.ydotool.enable = true;
+
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = ["user-with-access-to-virtualbox"];
 
   users.users.${config.tp.username} = {
     extraGroups = ["ydotool"];
