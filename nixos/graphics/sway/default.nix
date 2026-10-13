@@ -75,6 +75,7 @@ in {
       (flameshot.override {enableWlrSupport = true;}) # Screenshot tool
       networkmanagerapplet
       slurp
+      pbpctrl # pixel buds pro control
     ];
 
     security.pam.services.hyprlock = {
@@ -207,6 +208,7 @@ in {
             "XF86AudioPause" = "exec playerctl pause";
             "XF86AudioNext" = "exec playerctl next";
             "XF86AudioPrev" = "exec playerctl previous";
+            "XF86AudioMedia" = "exec pbpctrl -d B8:F4:A4:AF:E4:C9 set anc cycle-next"; # pixel bud ANC cycle
 
             # Workspace mods
             "${modifier}+1" = "workspace number 1";

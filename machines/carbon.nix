@@ -114,6 +114,29 @@
     ventoy-full-qt
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      moodle = prev.moodle.overrideAttrs (oldAttrs: rec {
+        version = "5.0.0"; # Specify your target 4.x version
+        src = prev.fetchFromGitHub {
+          owner = "moodle";
+          repo = "moodle";
+          rev = "v${version}";
+          hash = "sha256-QaMf0IQu7vx8sLl4zQMBpgjxd1AJyPyWiUSYvWFHC8o=";
+        };
+      });
+    })
+  ];
+
+  services.moodle.enable = false;
+  services.moodle = {
+    # Override the virtual host to listen on a custom port (e.g., 8080)
+    virtualHost = {
+      hostName = "localhost";
+    };
+    initialPassword = "changeme";
+  };
+
   programs.wireshark.enable = true;
 
   programs.kdeconnect.enable = true;
@@ -129,6 +152,7 @@
   users.users.${config.tp.username} = {
     extraGroups = ["ydotool"];
   };
+  programs.nix-ld.enable = true;
 
   virtualisation.spiceUSBRedirection.enable = true;
 

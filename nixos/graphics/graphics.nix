@@ -40,6 +40,7 @@ in {
       zed-editor
       chromium
       super-slicer-beta
+      prusa-slicer
       libreoffice-stable
       audacity
       pavucontrol
