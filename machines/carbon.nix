@@ -112,6 +112,8 @@
     ansible
     commet-chat
     ventoy-full-qt
+
+    # python packages
     (python3.withPackages (ps:
       with ps; [
         pygame
