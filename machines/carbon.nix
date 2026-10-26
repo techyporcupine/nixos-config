@@ -112,6 +112,11 @@
     ansible
     commet-chat
     ventoy-full-qt
+    (python3.withPackages (ps:
+      with ps; [
+        pygame
+        pandas
+      ]))
   ];
 
   nixpkgs.overlays = [

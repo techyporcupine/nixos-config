@@ -170,6 +170,8 @@ in {
           c = "clear";
           tsu = "sudo tailscale up --accept-routes"; # Start Tailscale VPN
           tsd = "sudo tailscale down"; # Stop Tailscale VPN
+          wg-up = ''nmcli connection down wg >/dev/null 2>&1; PORT=$((51000 + RANDOM % 900)); nmcli connection modify wg wireguard.listen-port $PORT && python3 -c 'import socket,sys; s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM); s.bind(("",int(sys.argv[1]))); s.sendto(bytes.fromhex("000100002112a4420102030405060708090a0b0c"),("wg.cb-tech.me",51820)); s.close()' $PORT && nmcli connection up wg'';
+          wg-down = "nmcli connection down wg";
         };
         # Show grayed-out suggestions from history as you type
         autosuggestion.enable = true;
@@ -288,7 +290,6 @@ in {
       nmap
       btop
       ffmpeg_6
-      python3
       android-tools
       lshw
       usbutils
