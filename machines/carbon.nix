@@ -183,7 +183,7 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-39.8.10" # bitwarden
-    "ventoy-qt5-1.1.17"
+    "ventoy-qt5-1.1.18"
   ];
 
   # Enable PCSCD for Yubikey
@@ -215,8 +215,6 @@
   #   pkiBundle = "/etc/secureboot";
   # };
 
-  # Set up TPM Decryption
-  boot.initrd.systemd.enable = true;
 
   boot = {
     # Set resume offset for swapfile and turn off AMD ABM.

@@ -16,7 +16,7 @@ in {
       enable = true;
       package = pkgs.staging.vaultwarden;
       backupDir = "/var/backup/vaultwarden";
-      environmentFile = /var/secrets/vaultwarden-env;
+      environmentFile = "/var/secrets/vaultwarden-env";
       config = {
         DOMAIN = "https://vault.cb-tech.me";
         SIGNUPS_ALLOWED = false;

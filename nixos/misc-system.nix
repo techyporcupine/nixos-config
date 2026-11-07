@@ -257,6 +257,18 @@ in {
               options = ["NOPASSWD"];
             }
             {
+              command = "/nix/store/*/bin/nix-env -p /nix/var/nix/profiles/system --set /nix/store/*";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/env -i * systemd-run -E LOCALE_ARCHIVE -E NIXOS_INSTALL_BOOTLOADER -E NIXOS_NO_CHECK --collect --no-ask-password --pipe --quiet --service-type=exec --unit=nixos-rebuild-switch-to-configuration /nix/store/*/bin/switch-to-configuration *";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/env -i * /nix/store/*/bin/switch-to-configuration *";
+              options = ["NOPASSWD"];
+            }
+            {
               command = "/nix/store/*/bin/switch-to-configuration";
               options = ["NOPASSWD"];
             }
@@ -270,6 +282,14 @@ in {
             }
             {
               command = "/nix/store/*/bin/install-grub.sh";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/reboot";
+              options = ["NOPASSWD"];
+            }
+            {
+              command = "/run/current-system/sw/bin/systemctl reboot";
               options = ["NOPASSWD"];
             }
           ];
