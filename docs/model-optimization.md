@@ -75,6 +75,30 @@ Directly tested on the standardized 250-token Python coding benchmark:
    - `UD-Q4_K_M` avoids mixed-precision dequantization overhead on gfx906, achieving 33-36 tok/s across configurations.
    - For maximum context with high throughput, `UD-Q4_K_M` at `c = 131072, ts = 32,33` delivers 128k context at ~33–35.4 tok/s while safely maintaining 793 MiB of free CUDA0 headroom.
 
+## llama.cpp Build Comparison (2026-11-07)
+
+Same presets as live (`reasoning-effort = low`), service stopped, each build run as its own router on port 5350. Generation is the median of 5 runs (`smart`) or 3 runs (`fast`) of the standard 250-token prompt; prefill is a ~3.8k-token prompt with `cache_prompt = false`. Scripts and raw JSON live in `~/mx-bench` on nitrogen.
+
+Builds compared:
+- `b10453`: the live build (nixpkgs 2026-08-16, CUDA 12.9, ROCm 7.2.3).
+- `v0.9.0`: upstream via franken-llama main (caleb-nix nixpkgs 2026-10-11, CUDA 13.4, ROCm 7.2.3). Same derivation as franken-llama `main`.
+- `mx`: mx-llama.cpp fork `b11757` (`cdc81dae`), same toolchain as `v0.9.0`.
+
+Results (second number is a repeat run at the end, to show drift):
+- `smart` generation: `b10453` 33.7, `v0.9.0` 41.5 / 39.1, `mx` 39.9 / 37.8, `mx --no-repack` 40.5, `mx` + `LLAMA_ENABLE_MTP_OPT=1` 38.3 tok/s.
+- `smart` prefill: `b10453` 309, `v0.9.0` 389 / 379, `mx` 348 / 352, `mx --no-repack` 353, `mx` + MTP opt 346 tok/s.
+- `fast` generation: `b10453` 47.6, `v0.9.0` 52.4 / 48.2, `mx` 47.6 / 50.6, `mx --no-repack` 49.7, `mx` + MTP opt 47.6 tok/s.
+- `fast` prefill: `b10453` 613, `v0.9.0` 705 / 685, `mx` 720 / 698, `mx --no-repack` 745, `mx` + MTP opt 701 tok/s.
+- Draft acceptance 80-86% on every build.
+- CUDA0 used: `b10453` 11,507 MiB (781 free), `v0.9.0` 11,334 MiB (954 free), `mx` 11,356 MiB (932 free). Free here means 12,288 minus used, the same measure as the 793 MiB baseline above.
+- Greedy `smart` output (temp 0, seed 1) is byte-identical across `b10453`, `v0.9.0` and `mx --no-repack`; the gfx906 weight repack changes it, as the fork documents.
+
+Conclusions:
+- Upgrading to upstream `v0.9.0` is the real win: about +16-23% `smart` generation and +23-26% `smart` prefill over `b10453`, with more CUDA0 headroom.
+- The `mx` fork gives no gain over `v0.9.0` on this layer split. `smart` is 3-4% slower on generation and about 9% slower on prefill; `fast` changes are within noise. The weight repack does not help here (`--no-repack` is as fast or faster), and `LLAMA_ENABLE_MTP_OPT=1` does not help either.
+- `mx` with defaults crashes loading `smart`: `GGML_ASSERT(ptr == pool_addr + pool_used)` in `ggml_cuda_q8_1_cache_acquire` on the 3080 Ti. `GGML_CUDA_Q8_1_CACHE=0` avoids it, and all `mx` numbers above use it. The fork is only validated on gfx906.
+- CUDA 13.4 builds run on the current 595.91 driver (CUDA 13.2) through minor version compatibility, so no reboot was needed to test.
+
 ## Optimization Decision Matrix & Ranked Levers
 
 1. Model Quantization:
