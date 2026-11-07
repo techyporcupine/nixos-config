@@ -98,6 +98,7 @@ Conclusions:
 - The `mx` fork gives no gain over `v0.9.0` on this layer split. `smart` is 3-4% slower on generation and about 9% slower on prefill; `fast` changes are within noise. The weight repack does not help here (`--no-repack` is as fast or faster), and `LLAMA_ENABLE_MTP_OPT=1` does not help either.
 - `mx` with defaults crashes loading `smart`: `GGML_ASSERT(ptr == pool_addr + pool_used)` in `ggml_cuda_q8_1_cache_acquire` on the 3080 Ti. `GGML_CUDA_Q8_1_CACHE=0` avoids it, and all `mx` numbers above use it. The fork is only validated on gfx906.
 - CUDA 13.4 builds run on the current 595.91 driver (CUDA 13.2) through minor version compatibility, so no reboot was needed to test.
+- Deployment verification (2026-11-07): Upstream v0.9.0 deployed to production under NixOS (Linux 7.3.1, NVIDIA driver 595.112.07, ROCm 7.2.4). Post-reboot live router on port 5349 verified: `smart` achieved 42.36 tok/s (86.4% MTP draft acceptance), `fast` achieved 53.96 tok/s, and CUDA0 maintains 11,314 MiB used (974 MiB free headroom).
 
 ## Optimization Decision Matrix & Ranked Levers
 
