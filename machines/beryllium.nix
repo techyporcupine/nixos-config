@@ -168,8 +168,6 @@
   # Bootloader + initrd
   boot.loader.systemd-boot.enable = true;
 
-  # Initrd + bootloader
-  boot.initrd.systemd.enable = true;
 
   # Graphics-related packages (VA-API / VDPAU helpers)
   hardware.graphics = {

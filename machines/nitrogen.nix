@@ -241,8 +241,6 @@
 
   boot.loader.systemd-boot.enable = true;
 
-  # Initrd + boot (enable systemd initrd for early userspace hooks)
-  boot.initrd.systemd.enable = true;
 
   # Enable AMDGPU Overdrive feature mask for overclocking/undervolting support on the AMD Instinct MI50
   boot.kernelParams = ["amdgpu.ppfeaturemask=0xfffd7fff"];
