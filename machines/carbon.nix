@@ -118,6 +118,7 @@
       with ps; [
         pygame
         pandas
+        requests
       ]))
   ];
 
