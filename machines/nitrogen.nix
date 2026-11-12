@@ -120,6 +120,9 @@
       # rtsp/webrtc
       8554
       8555
+      # wyoming
+      10300
+      10301
     ];
     allowedUDPPorts = [
       # webrtc
@@ -204,6 +207,37 @@
             "${customRocblas}/lib/rocblas/library:${customRocblas}/lib/rocblas/library:ro"
           ];
         };
+        wyoming_openai = {
+          image = "ghcr.io/roryeckel/wyoming_openai:latest";
+          autoStart = true;
+          ports = ["0.0.0.0:10300:10300"];
+          environment = {
+            WYOMING_URI = "tcp://0.0.0.0:10300";
+            WYOMING_LOG_LEVEL = "INFO";
+            WYOMING_LANGUAGES = "en";
+            TTS_OPENAI_URL = "http://10.15.0.11:8880/v1";
+            TTS_STREAMING_MODELS = "kokoro";
+            TTS_MODELS = "kokoro";
+            TTS_BACKEND = "KOKORO_FASTAPI";
+            TTS_SPEED = "1.1";
+            TTS_STREAMING_MIN_WORDS = "5";
+            TTS_STREAMING_MAX_CHARS = "70";
+          };
+        };
+        faster-whisper = {
+          image = "lscr.io/linuxserver/faster-whisper:latest";
+          autoStart = true;
+          ports = ["0.0.0.0:10301:10300"];
+          volumes = ["/home/${config.tp.username}/whisper:/config"];
+          environment = {
+            PUID = "1000";
+            PGID = "1000";
+            TZ = "Etc/UTC";
+            WHISPER_BEAM = "5"; #optional
+            WHISPER_LANG = "en"; #optional
+            WHISPER_MODEL = "small.en"; #optional
+          };
+        };
       };
     };
   };
@@ -240,7 +274,6 @@
   };
 
   boot.loader.systemd-boot.enable = true;
-
 
   # Enable AMDGPU Overdrive feature mask for overclocking/undervolting support on the AMD Instinct MI50
   boot.kernelParams = ["amdgpu.ppfeaturemask=0xfffd7fff"];
