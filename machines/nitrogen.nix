@@ -123,6 +123,7 @@
       # wyoming
       10300
       10301
+      10302
     ];
     allowedUDPPorts = [
       # webrtc
@@ -241,7 +242,7 @@
         stt-nemo = {
           image = "ghcr.io/tboby/wyoming-onnx-asr:latest";
           autoStart = true;
-          ports = ["0.0.0.0:10303:10300"];
+          ports = ["0.0.0.0:10302:10300"];
           volumes = ["/home/${config.tp.username}/nemo:/data"];
           cmd = [
             "--uri"
