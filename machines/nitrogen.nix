@@ -247,6 +247,8 @@
           cmd = [
             "--uri"
             "tcp://0.0.0.0:10300"
+            "--model-en"
+            "nemo-parakeet-tdt-0.6b-v3"
             "--model-multilingual"
             "nemo-parakeet-tdt-0.6b-v3"
             "--model-dir"
