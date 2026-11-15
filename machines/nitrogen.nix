@@ -219,7 +219,7 @@
             TTS_STREAMING_MODELS = "kokoro";
             TTS_MODELS = "kokoro";
             TTS_BACKEND = "KOKORO_FASTAPI";
-            TTS_SPEED = "1.1";
+            TTS_SPEED = "1.2";
             TTS_STREAMING_MIN_WORDS = "5";
             TTS_STREAMING_MAX_CHARS = "70";
           };
@@ -237,6 +237,22 @@
             WHISPER_LANG = "en"; #optional
             WHISPER_MODEL = "small.en"; #optional
           };
+        };
+        stt-nemo = {
+          image = "ghcr.io/tboby/wyoming-onnx-asr:latest";
+          autoStart = true;
+          ports = ["0.0.0.0:10303:10300"];
+          volumes = ["/home/${config.tp.username}/nemo:/data"];
+          args = [
+            "--uri"
+            "tcp://0.0.0.0:10300"
+            "--model-multilingual"
+            "nemo-parakeet-tdt-0.6b-v3"
+            "--model-dir"
+            "/data"
+            "--device"
+            "cpu"
+          ];
         };
       };
     };
