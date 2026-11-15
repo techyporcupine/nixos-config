@@ -243,7 +243,7 @@
           autoStart = true;
           ports = ["0.0.0.0:10303:10300"];
           volumes = ["/home/${config.tp.username}/nemo:/data"];
-          args = [
+          cmd = [
             "--uri"
             "tcp://0.0.0.0:10300"
             "--model-multilingual"
