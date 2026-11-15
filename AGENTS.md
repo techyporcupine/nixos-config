@@ -9,7 +9,6 @@ flake.nix                 # Inputs, overlays, mkSystem helper, nixosConfiguratio
 readme.md                 # Install, secure boot, disk encryption, and hardware notes
 machines/<host>.nix       # Per-host config (beryllium, boron, carbon, helium, lithium, nitrogen)
 disko/<host>-disko.nix    # Declarative Disko partitioning (+ placeholder-disko.nix)
-util/update-llama-version.sh # Pins llamaCppTag/llamaCppHash in a machine's franken-llama block
 nixos/                    # Shared modules imported by all hosts via nixos/default.nix
 ├── core modules          # misc-nix.nix, misc-system.nix, user.nix, networking.nix, disks.nix, gaming.nix, rtl-sdr.nix
 ├── graphics/             # SwayFX/Wayland desktop (sway/, wofi/, hypr/, theming) & GPU tuning (nvidia.nix, amd/, gpu-fan-control/, gpu-optimize.sh)
