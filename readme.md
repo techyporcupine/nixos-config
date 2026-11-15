@@ -33,9 +33,10 @@ Most of the config here is for my Framework 13 with an AMD Ryzen 5 7640U, so som
 
 ### Update llama.cpp version
 
+The llama.cpp version is pinned in the franken-llama flake. Bump it there (with its `util/update-llama-version.sh`), push, then pull it in here:
+
 ```bash
-./util/update-llama-version.sh nitrogen           # auto-fetch latest tag
-./util/update-llama-version.sh b9310 nitrogen     # use specific tag
+nix flake update franken-llama
 ```
 
 ## Disk Encryption and Secure Boot
