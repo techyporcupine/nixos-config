@@ -105,7 +105,7 @@
     signal-desktop
     master.opencode
     arduino-ide
-    jetbrains.pycharm
+    #jetbrains.pycharm
     qrencode
     wireshark
     anki
@@ -119,6 +119,7 @@
         pygame
         pandas
         requests
+        beautifulsoup4
       ]))
   ];
 
@@ -215,7 +216,6 @@
   #   enable = true;
   #   pkiBundle = "/etc/secureboot";
   # };
-
 
   boot = {
     # Set resume offset for swapfile and turn off AMD ABM.
