@@ -90,6 +90,16 @@
     n8n.enable = false;
   };
 
+  services.wyoming.openwakeword = {
+    enable = true;
+    uri = "tcp://0.0.0.0:10400";
+    threshold = 0.5;
+    triggerLevel = 1;
+    refractorySeconds = 2;
+    customModelsDirectories = ["/home/${config.tp.username}/openwakewordmodels"];
+    extraArgs = [];
+  };
+
   power.ups = {
     enable = true;
     mode = "standalone";
@@ -167,7 +177,6 @@
 
   # Bootloader + initrd
   boot.loader.systemd-boot.enable = true;
-
 
   # Graphics-related packages (VA-API / VDPAU helpers)
   hardware.graphics = {

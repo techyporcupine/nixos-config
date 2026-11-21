@@ -24,18 +24,27 @@ in {
       gimp
       slack
       (vscode-with-extensions.override {
-        vscodeExtensions = with vscode-extensions; [
-          bbenoist.nix
-          ms-python.python
-          ms-vscode-remote.remote-ssh
-          catppuccin.catppuccin-vsc
-          catppuccin.catppuccin-vsc-icons
-          esbenp.prettier-vscode
-          kamadorueda.alejandra
-          continue.continue
-          github.copilot
-          github.copilot-chat
-        ];
+        vscodeExtensions = with vscode-extensions;
+          [
+            bbenoist.nix
+            ms-python.python
+            ms-vscode-remote.remote-ssh
+            catppuccin.catppuccin-vsc
+            catppuccin.catppuccin-vsc-icons
+            esbenp.prettier-vscode
+            kamadorueda.alejandra
+            continue.continue
+            github.copilot
+            github.copilot-chat
+          ]
+          ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+            {
+              name = "Pymakr";
+              publisher = "pycom";
+              version = "2.22.5";
+              sha256 = "sha256-gRvTbeXhvYtcnwaLOULawlUtRCxc9YG0sdVN9ihjKbk=";
+            }
+          ];
       })
       zed-editor
       chromium
