@@ -154,6 +154,7 @@
   networking.firewall = {
     allowedTCPPorts = [
       3493
+      10400 # openwakeword
     ];
   };
 
