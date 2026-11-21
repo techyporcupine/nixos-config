@@ -23,6 +23,11 @@
   # User account
   tp.username = "nitrogen";
   tp.fullName = "nitrogen";
+  # Jailed AI agent sessions (leash) on Jonathan's laptops; one key per laptop.
+  users.users.nitrogen.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILC9ekqrKsOueknJeWSFJsZQ3MuLuRK4ZJA6ETWF2h5J leash-lappy386-nitrogen"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILXgxorqtGMdNCfyKr5zjt8XwGPFmBMJOP4rBJGDf9Ii leash-work-nitrogen"
+  ];
 
   # Boot & disks
   tp.disks = {
