@@ -57,6 +57,10 @@
   tp.server = {
     llama-server = {
       enable = true;
+      smartProxy = {
+        enable = true;
+        candidates = ["smart" "medium"];
+      };
     };
     beszel = {
       client = {
