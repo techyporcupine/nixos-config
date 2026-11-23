@@ -59,7 +59,7 @@
       enable = true;
       smartProxy = {
         enable = true;
-        candidates = ["smart" "medium"];
+        candidates = ["smart" "inkling" "medium"];
       };
     };
     beszel = {
@@ -78,6 +78,7 @@
     acceleration = "dual";
     nativeCpu = true;
     llguidance = true;
+    unslothInkling2 = true;
 
     # GPU architecture targets
     cudaCapabilities = ["75" "86"]; # GTX 1650 (sm_75 / Turing), RTX 3080 Ti (sm_86 / Ampere)
