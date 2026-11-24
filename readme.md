@@ -39,6 +39,18 @@ The llama.cpp version is pinned in the franken-llama flake. Bump it there (with 
 nix flake update franken-llama
 ```
 
+### Switch nitrogen's `smart` model
+
+On nitrogen, clients that request the `smart` model get whichever candidate is loaded (the 27B or the mid-range MoE), so they never trigger a swap. To change which one that is:
+
+```bash
+curl -X POST http://nitrogen:5349/smart-proxy/switch -d '{"model":"smart"}'   # big, slow, smartest
+curl -X POST http://nitrogen:5349/smart-proxy/switch -d '{"model":"medium"}'  # fast everyday MoE
+curl http://nitrogen:5349/smart-proxy/status
+```
+
+See `nixos/server/llama-server/smart-proxy/README.md` for how it works.
+
 ## Disk Encryption and Secure Boot
 
 ### Secure boot

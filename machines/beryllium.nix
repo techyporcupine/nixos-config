@@ -24,6 +24,11 @@
   # User account
   tp.username = "beryllium";
   tp.fullName = "beryllium";
+  # Jailed AI agent sessions (leash) on Jonathan's laptops; one key per laptop.
+  users.users.beryllium.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEja5Mk0/oTHPU+FPLk1AFVn3NoCtOKUY/Z+S36OPSNj leash-lappy386-beryllium"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDZ1/7R6qhhedFd8aaIH1wWKcN/QlqIz03DHpbXYV+LX leash-work-beryllium"
+  ];
 
   # Boot & disks
   tp.disks = {

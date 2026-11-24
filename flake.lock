@@ -244,11 +244,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794052533,
-        "narHash": "sha256-Qw4P6K9CgZUj1ThMZZlCnrD/b1kuqpDJ1fLE8G1pCfE=",
+        "lastModified": 1795463344,
+        "narHash": "sha256-L3QE2wMzbFMXemDoMxzzF62U4y/PD+MgvNd463uEPwk=",
         "owner": "bowmanjd",
         "repo": "franken-llama",
-        "rev": "7654a590232ca9f65a9987e9720ce1f9360dc754",
+        "rev": "08af33d556c347f3f63eee60f23fdadd4822a8ec",
         "type": "github"
       },
       "original": {
@@ -286,11 +286,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794963576,
-        "narHash": "sha256-+CPrP74GDJ63f7bgEFC9Av4hbxc7K9WUNv1ZVRifRe8=",
+        "lastModified": 1795366757,
+        "narHash": "sha256-Tp4Kh4R7ID1f2mMCDlb2PiFQ/DZZsnXB2u2juWN+TT4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2b13c9cb3aa20653e6f8ee0b7f8331a53ea9b0a9",
+        "rev": "3b8140d21fa0a70b1b38c2ed29853dfe686234a6",
         "type": "github"
       },
       "original": {
@@ -721,16 +721,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1793793986,
-        "narHash": "sha256-6LqtpfqTAbYUr/wPPBAM/dXHv3LDTg+1A81k/cFcAjY=",
+        "lastModified": 1795428321,
+        "narHash": "sha256-NOoGrWOoTVVEtzr2hGjGQzh1LRgIXiiKa77IzwJnp9Y=",
         "owner": "ggml-org",
         "repo": "llama.cpp",
-        "rev": "cd959bae99ff4bed22bef2604f45241c09bbb8c8",
+        "rev": "7d9b931df9bb7c689f067a7fed23e7f5253951f6",
         "type": "github"
       },
       "original": {
         "owner": "ggml-org",
-        "ref": "v0.9.0",
+        "ref": "b12653",
         "repo": "llama.cpp",
         "type": "github"
       }
@@ -744,11 +744,11 @@
         "systems": "systems_5"
       },
       "locked": {
-        "lastModified": 1795157502,
-        "narHash": "sha256-6Nr01aA2VLztxHLpRRSPbDk+rGH2/NRuw7hbTqLMHjw=",
+        "lastModified": 1795328210,
+        "narHash": "sha256-q7Kjji2d9YvD52oLmK0yED61qCqFyjmVbR3ItbOfgo8=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "c01e4bdbf3e8c76429fa178e179ece6cde3e2100",
+        "rev": "e4d91c02ea21e59b1569cb6774dc129b37bb0a1c",
         "type": "github"
       },
       "original": {
@@ -806,11 +806,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1795233905,
-        "narHash": "sha256-HOzRmUN8MJKcPrhoG/R++UHGWQP5wbJ9Krlx/ocOzJY=",
+        "lastModified": 1795371335,
+        "narHash": "sha256-oa2P5WZer1A4wuhatl92JyHHEjrrOdIyuvTuI5LUi9Q=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "8d2b0d9c1ed45f32ca8a12bc4591329c19c9edd5",
+        "rev": "619c39f6eac5d1ed6b8f073a9414baf7034b2356",
         "type": "github"
       },
       "original": {
@@ -854,11 +854,11 @@
     },
     "nixpkgs-staging": {
       "locked": {
-        "lastModified": 1795231337,
-        "narHash": "sha256-WtOov/R2j4cjQ8LgmIEIpWouSrzTcwIh88aJYERouGI=",
+        "lastModified": 1795370785,
+        "narHash": "sha256-ZasnR6sC9im+zrmOzz/2iJ0jcTrVrZeMSFENdXLu8Jk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9a0ab7d760211016db2ef6cc327592ce7164772d",
+        "rev": "d4adfd7a5db6ec472996185afbca7636bf2800ec",
         "type": "github"
       },
       "original": {
@@ -915,11 +915,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1795085501,
-        "narHash": "sha256-S5keGWzaKpuXo9MNoIC2FfTIuTyTnx8P4NhYJMEsTLI=",
+        "lastModified": 1795234589,
+        "narHash": "sha256-f/VVvxf5RsQgWVhUtefoca5ktVg0DA2bnkMOcmSnozo=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0bb8272318b4ca41bf0edc6224df3e3e3046b70d",
+        "rev": "2786a2a72088ecf32aea5b3ec52099e6a7cff78f",
         "type": "github"
       },
       "original": {
@@ -1040,11 +1040,11 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1794612643,
-        "narHash": "sha256-gIbvWM8e37wHbX/ZCqJbPhR2BRdBb02PPEMYa81WT6w=",
+        "lastModified": 1795362553,
+        "narHash": "sha256-Su6DTsbvD93QB0bCq1Roz7Li4Ir4Vc4gdv8ZFngCduU=",
         "ref": "refs/heads/master",
-        "rev": "98429c6f98f77b08b10e8cedd780966a4fe446fc",
-        "revCount": 7163,
+        "rev": "1037364684b6bd09a99f711f23574c9937179d4e",
+        "revCount": 7165,
         "type": "git",
         "url": "https://github.com/WillPower3309/swayfx"
       },
@@ -1166,11 +1166,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794988633,
-        "narHash": "sha256-wSW8BGSv+cM7ojPMThybFQzCBzG2IUmqYAXt/E0beb4=",
+        "lastModified": 1795279542,
+        "narHash": "sha256-L4qVNrfO5scVKQKbVIhCKZicf60jcDk01+YUA3lvV9A=",
         "owner": "Alexays",
         "repo": "Waybar",
-        "rev": "11c771ef072c6c5f7114b4c4ab57147c9ed5aa18",
+        "rev": "b4f03e633b4dafd902034db31e079cd9b3f182b2",
         "type": "github"
       },
       "original": {

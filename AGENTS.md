@@ -22,7 +22,7 @@ nixos/                    # Shared modules imported by all hosts via nixos/defau
 - **`tp.hm` alias**: Defined in `nixos/user.nix`; resolves to `config.home-manager.users.<username>` for inline home-manager config. Catppuccin `homeModules` only load when `homeManagerUser` is set in `flake.nix` (`carbon`).
 - **`tp.server.*` & Traefik**: Server modules typically pair the service with `services.traefik.dynamicConfigOptions` routes and firewall ports.
 - **Overlays**: `flake.nix` exposes `pkgs.stable.*`, `pkgs.tp.*`, `pkgs.staging.*`, and `pkgs.master.*` across all hosts (`nitrogen` also adds `inputs.kokoro-flake.overlays.default`).
-- **AI / LLM stack**: `franken-llama` (`services.franken-llama`, supporting `"cuda"` or `"dual"` CUDA+ROCm) and `kokoro-flake` (`services.kokoro`) are in `commonModules`. `tp.server.llama-server` loads `nixos/server/llama-server/<host>-models.ini`.
+- **AI / LLM stack**: `franken-llama` (`services.franken-llama`, supporting `"cuda"` or `"dual"` CUDA+ROCm) and `kokoro-flake` (`services.kokoro`) are in `commonModules`. `tp.server.llama-server` loads `nixos/server/llama-server/<host>-models.ini`. Its optional `smartProxy` (Go, in `nixos/server/llama-server/smart-proxy/`, enabled on `nitrogen`) takes over port 5349 and routes the `smart` alias to whichever candidate model is loaded; see its README.
 - **Deploy**: `nh os switch ./` (`programs.nh` in `nixos/misc-nix.nix` runs daily GC with 2d retention).
 
 ## Hosts
