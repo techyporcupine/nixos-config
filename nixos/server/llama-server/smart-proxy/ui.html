@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>smart-proxy</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --fg: #181c20;
+    --muted: #5c6670;
+    --border: #dcdfe4;
+    --accent: #2563eb;
+    --accent-fg: #ffffff;
+    --ok-bg: #dcfce7;
+    --ok-fg: #166534;
+    --warn-bg: #fef3c7;
+    --warn-fg: #92400e;
+    --info-bg: #e0f2fe;
+    --info-fg: #075985;
+    --off-bg: #eef0f3;
+    --off-fg: #5c6670;
+    --err-bg: #fee2e2;
+    --err-fg: #991b1b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111418;
+      --card: #1a1f26;
+      --fg: #edf0f3;
+      --muted: #98a2ad;
+      --border: #2c3440;
+      --accent: #3b82f6;
+      --accent-fg: #ffffff;
+      --ok-bg: #14532d;
+      --ok-fg: #bbf7d0;
+      --warn-bg: #78350f;
+      --warn-fg: #fde68a;
+      --info-bg: #0c4a6e;
+      --info-fg: #bae6fd;
+      --off-bg: #252c36;
+      --off-fg: #98a2ad;
+      --err-bg: #7f1d1d;
+      --err-fg: #fecaca;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 24px 16px 48px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    line-height: 1.45;
+  }
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    display: grid;
+    gap: 16px;
+  }
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px 16px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 650;
+  }
+  h2 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  p { margin: 0; }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.9rem;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  .routing {
+    font-size: 1rem;
+  }
+  .code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+    padding: 1px 6px;
+    border-radius: 5px;
+    background: var(--off-bg);
+  }
+  .muted {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  .banner {
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    display: none;
+  }
+  .banner.show { display: block; }
+  .banner.info { background: var(--info-bg); color: var(--info-fg); }
+  .banner.error { background: var(--err-bg); color: var(--err-fg); }
+  .list {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .row-left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .model-name {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+    word-break: break-all;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 999px;
+    text-transform: lowercase;
+  }
+  .badge-loaded { background: var(--ok-bg); color: var(--ok-fg); }
+  .badge-loading { background: var(--warn-bg); color: var(--warn-fg); }
+  .badge-sleeping { background: var(--info-bg); color: var(--info-fg); }
+  .badge-unloaded { background: var(--off-bg); color: var(--off-fg); }
+  .tag {
+    font-size: 0.76rem;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 1px 7px;
+  }
+  button {
+    font: inherit;
+    font-size: 0.88rem;
+    font-weight: 550;
+    padding: 6px 12px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--fg);
+    cursor: pointer;
+  }
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-fg);
+  }
+  button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  details summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    user-select: none;
+  }
+  .footer-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Model Switcher</h1>
+    <nav class="links">
+      <a href="/">Chat UI (proxy)</a>
+      <a id="direct-link" href="#" hidden>Direct llama-server UI</a>
+    </nav>
+  </header>
+
+  <section class="card">
+    <div class="summary">
+      <div class="routing" id="routing-summary">Loading status...</div>
+      <div class="footer-meta">
+        <span class="muted" id="updated-at"></span>
+        <button type="button" id="refresh-btn">Refresh</button>
+      </div>
+    </div>
+  </section>
+
+  <div id="banner" class="banner" role="status"></div>
+
+  <section class="card">
+    <h2>Large model candidates</h2>
+    <p class="muted">Only one large model fits on the GPUs at a time. Switching unloads the current one first, then loads your selection.</p>
+    <div class="list" id="candidates-list"></div>
+  </section>
+
+  <section class="card">
+    <h2>Other loaded models</h2>
+    <p class="muted">Non-candidate models currently held in memory by llama-server.</p>
+    <div class="list" id="other-loaded-list"></div>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary>All models reported by llama-server</summary>
+      <div class="list" id="all-models-list"></div>
+    </details>
+  </section>
+</main>
+
+<script>
+(() => {
+  const routingSummary = document.getElementById("routing-summary");
+  const updatedAt = document.getElementById("updated-at");
+  const refreshBtn = document.getElementById("refresh-btn");
+  const directLink = document.getElementById("direct-link");
+  const banner = document.getElementById("banner");
+  const candidatesList = document.getElementById("candidates-list");
+  const otherLoadedList = document.getElementById("other-loaded-list");
+  const allModelsList = document.getElementById("all-models-list");
+
+  let busy = false;
+  let pollTimer = null;
+  let pendingTarget = null;
+
+  function showBanner(kind, text) {
+    if (!text) {
+      banner.className = "banner";
+      banner.textContent = "";
+      return;
+    }
+    banner.className = "banner show " + kind;
+    banner.textContent = text;
+  }
+
+  function statusBadge(status) {
+    const val = status || "unloaded";
+    const span = document.createElement("span");
+    const cls = ["loaded", "loading", "sleeping", "unloaded"].includes(val) ? val : "unloaded";
+    span.className = "badge badge-" + cls;
+    span.textContent = val;
+    return span;
+  }
+
+  function makeTag(text) {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = text;
+    return span;
+  }
+
+  function schedulePoll(fast) {
+    clearTimeout(pollTimer);
+    pollTimer = setTimeout(fetchStatus, fast ? 1000 : 5000);
+  }
+
+  async function switchModel(model) {
+    busy = true;
+    pendingTarget = model;
+    showBanner("info", "Switching to " + model + ": unloading other candidates and starting load...");
+    renderDisabled(true);
+    try {
+      const resp = await fetch("/smart-proxy/switch", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model }),
+      });
+      if (!resp.ok) {
+        const msg = (await resp.text()).trim() || resp.statusText;
+        pendingTarget = null;
+        showBanner("error", "Switch to " + model + " failed: " + msg);
+      } else {
+        showBanner("info", "Loading " + model + "... waiting for llama-server to finish.");
+      }
+    } catch (err) {
+      pendingTarget = null;
+      showBanner("error", "Switch request failed: " + err.message);
+    } finally {
+      busy = false;
+      await fetchStatus();
+    }
+  }
+
+  async function routerAction(path, model, verb) {
+    busy = true;
+    showBanner("info", verb + " " + model + "...");
+    renderDisabled(true);
+    try {
+      const resp = await fetch(path, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model }),
+      });
+      if (!resp.ok) {
+        const msg = (await resp.text()).trim() || resp.statusText;
+        showBanner("error", verb + " " + model + " failed: " + msg);
+      } else {
+        showBanner("info", verb + " requested for " + model + ".");
+      }
+    } catch (err) {
+      showBanner("error", verb + " request failed: " + err.message);
+    } finally {
+      busy = false;
+      await fetchStatus();
+    }
+  }
+
+  function renderDisabled(disabled) {
+    for (const btn of document.querySelectorAll("button[data-action]")) {
+      btn.disabled = disabled;
+    }
+  }
+
+  function render(data) {
+    const order = Array.isArray(data.order) ? data.order : Object.keys(data.candidates || {});
+    const candSet = new Set(order);
+    const models = data.models || {};
+    const anyOtherUp = (name) => order.some((c) => {
+      if (c === name) return false;
+      const st = data.candidates[c] || "unloaded";
+      return st === "loaded" || st === "loading" || st === "sleeping";
+    });
+
+    if (data.upstream_port) {
+      directLink.href = location.protocol + "//" + location.hostname + ":" + data.upstream_port + "/";
+      directLink.textContent = "Direct llama-server UI (:" + data.upstream_port + ")";
+      directLink.hidden = false;
+    }
+
+    routingSummary.textContent = "";
+    routingSummary.append("Requests for ");
+    const aliasEl = document.createElement("span");
+    aliasEl.className = "code";
+    aliasEl.textContent = data.alias;
+    routingSummary.append(aliasEl, " route to ");
+    const targetEl = document.createElement("span");
+    targetEl.className = "code";
+    targetEl.textContent = data.target;
+    routingSummary.append(targetEl, " ");
+    routingSummary.append(statusBadge(data.candidates[data.target] || models[data.target] || "unloaded"));
+    if (data.switching) {
+      routingSummary.append(" ", makeTag("switching"));
+    }
+
+    updatedAt.textContent = "Updated " + new Date().toLocaleTimeString();
+
+    if (pendingTarget) {
+      const st = data.candidates[pendingTarget] || "unloaded";
+      if (st === "loaded") {
+        pendingTarget = null;
+        showBanner("", "");
+      } else if (st === "loading" || data.switching) {
+        showBanner("info", "Loading " + pendingTarget + "...");
+      } else if (!busy) {
+        pendingTarget = null;
+        showBanner("error", pendingTarget + " is unloaded (load may have failed — check nitrogen logs).");
+      }
+    }
+
+    candidatesList.textContent = "";
+    for (const name of order) {
+      const st = data.candidates[name] || "unloaded";
+      const row = document.createElement("div");
+      row.className = "row";
+
+      const left = document.createElement("div");
+      left.className = "row-left";
+      const label = document.createElement("span");
+      label.className = "model-name";
+      label.textContent = name;
+      left.append(label, statusBadge(st));
+      if (name === data.target) left.append(makeTag("active target"));
+      if (name === data.fallback) left.append(makeTag("fallback"));
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.dataset.action = "switch";
+      const isSoleLoaded = st === "loaded" && !anyOtherUp(name);
+      if (isSoleLoaded) {
+        btn.textContent = "Active";
+        btn.disabled = true;
+      } else if (st === "loading") {
+        btn.textContent = "Loading...";
+        btn.disabled = true;
+      } else {
+        btn.className = "primary";
+        btn.textContent = "Switch";
+        btn.disabled = busy || data.switching;
+        btn.addEventListener("click", () => switchModel(name));
+      }
+
+      row.append(left, btn);
+      candidatesList.append(row);
+    }
+
+    const otherLoaded = Object.entries(models)
+      .filter(([id, st]) => !candSet.has(id) && st && st !== "unloaded")
+      .sort(([a], [b]) => a.localeCompare(b));
+
+    otherLoadedList.textContent = "";
+    if (otherLoaded.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "muted";
+      empty.textContent = "None.";
+      otherLoadedList.append(empty);
+    } else {
+      for (const [id, st] of otherLoaded) {
+        const row = document.createElement("div");
+        row.className = "row";
+        const left = document.createElement("div");
+        left.className = "row-left";
+        const label = document.createElement("span");
+        label.className = "model-name";
+        label.textContent = id;
+        left.append(label, statusBadge(st));
+
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.dataset.action = "unload";
+        btn.textContent = "Unload";
+        btn.disabled = busy;
+        btn.addEventListener("click", () => routerAction("/models/unload", id, "Unloading"));
+
+        row.append(left, btn);
+        otherLoadedList.append(row);
+      }
+    }
+
+    const allEntries = Object.entries(models).sort(([a], [b]) => a.localeCompare(b));
+    allModelsList.textContent = "";
+    for (const [id, st] of allEntries) {
+      const row = document.createElement("div");
+      row.className = "row";
+      const left = document.createElement("div");
+      left.className = "row-left";
+      const label = document.createElement("span");
+      label.className = "model-name";
+      label.textContent = id;
+      left.append(label, statusBadge(st));
+      if (candSet.has(id)) left.append(makeTag("candidate"));
+      row.append(left);
+
+      if (!candSet.has(id)) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.dataset.action = "router";
+        if (st && st !== "unloaded") {
+          btn.textContent = "Unload";
+          btn.disabled = busy;
+          btn.addEventListener("click", () => routerAction("/models/unload", id, "Unloading"));
+        } else {
+          btn.textContent = "Load";
+          btn.disabled = busy;
+          btn.addEventListener("click", () => routerAction("/models/load", id, "Loading"));
+        }
+        row.append(btn);
+      }
+      allModelsList.append(row);
+    }
+
+    const anyLoading = data.switching || Object.values(models).some((st) => st === "loading");
+    schedulePoll(anyLoading);
+  }
+
+  async function fetchStatus() {
+    clearTimeout(pollTimer);
+    try {
+      const resp = await fetch("/smart-proxy/status", { cache: "no-store" });
+      if (!resp.ok) throw new Error(resp.status + " " + resp.statusText);
+      const data = await resp.json();
+      render(data);
+    } catch (err) {
+      showBanner("error", "Could not reach smart-proxy: " + err.message);
+      schedulePoll(false);
+    }
+  }
+
+  refreshBtn.addEventListener("click", () => fetchStatus());
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) fetchStatus();
+  });
+  fetchStatus();
+})();
+</script>
+</body>
+</html>

@@ -7,7 +7,8 @@
   cfg = config.tp.server.llama-server;
   proxy = cfg.smartProxy;
   routerPort = 5349;
-  # With the proxy on, the router moves to localhost and the proxy takes its public port.
+  # With the proxy on, the proxy takes port 5349 and the router moves to 5350,
+  # which stays open on the LAN for direct access without alias rewriting.
   internalPort = 5350;
   smart-proxy = pkgs.buildGoModule {
     pname = "smart-proxy";
@@ -71,7 +72,7 @@ in {
       }
     ];
 
-    networking.firewall.allowedTCPPorts = [routerPort];
+    networking.firewall.allowedTCPPorts = [routerPort] ++ lib.optionals proxy.enable [internalPort];
 
     users.users.${config.tp.username}.linger = true;
 
@@ -84,7 +85,7 @@ in {
         Type = "simple";
         ExecStart =
           if proxy.enable
-          then "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 127.0.0.1 --port ${toString internalPort} --models-max 4"
+          then "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 0.0.0.0 --port ${toString internalPort} --models-max 4"
           else "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 0.0.0.0 --port ${toString routerPort} --models-max 4";
         Restart = "on-failure";
         RestartSec = "10s";

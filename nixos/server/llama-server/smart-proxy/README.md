@@ -8,7 +8,7 @@ Nitrogen's GPUs hold one large model at a time. Most days that model is a fast m
 
 ## Request handling
 
-The proxy listens on port 5349, the router's former public port. The router itself moves to `127.0.0.1:5350`. Requests reach the router unchanged, with two exceptions, both limited to requests for `smart`:
+The proxy listens on port 5349, the router's former public port. The router itself moves to `0.0.0.0:5350` (reachable on the LAN if you want to open `llama-server` directly without alias rewriting), and the proxy connects to it on `127.0.0.1:5350`. Requests reach the router unchanged, with two exceptions, both limited to requests for `smart`:
 
 - The model name `smart` is replaced with the name of the target model. This applies to the top-level `model` field of a JSON body and to a `model=` query parameter.
 - Parameter values listed in the param map for that target are substituted (see below).
@@ -22,6 +22,8 @@ The target is the first candidate in priority order that is loaded. If none is l
 The proxy learns model status from the router's `/models/sse` event stream and keeps the current target in memory. Requests therefore cost no extra round trip to the router. On every connection to the stream, the proxy also reads `/models` once to catch up. If the connection drops, the proxy keeps the last known status and reconnects with backoff.
 
 ## Switching models
+
+Open `http://nitrogen:5349/smart-proxy/` in a browser for a one-click switcher and live view of what the router has loaded, or call the endpoints directly:
 
 ```
 curl -X POST http://nitrogen:5349/smart-proxy/switch -d '{"model":"smart"}'

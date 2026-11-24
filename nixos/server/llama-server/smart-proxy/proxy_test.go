@@ -291,3 +291,61 @@ func TestParamMapSkipsOtherTargetsAndNamedModels(t *testing.T) {
 		t.Fatalf("named-model request changed: %s", fr.lastBody)
 	}
 }
+
+func TestAdminUIAndStatus(t *testing.T) {
+	_, _, front := setup(t, map[string]string{"fast": "loaded", "smart": "unloaded", "medium": "loaded"})
+
+	client := &http.Client{
+		CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
+	}
+	resp, err := client.Get(front.URL + "/smart-proxy")
+	if err != nil {
+		t.Fatal(err)
+	}
+	resp.Body.Close()
+	if resp.StatusCode != http.StatusFound || resp.Header.Get("Location") != "/smart-proxy/" {
+		t.Fatalf("redirect = %d %q, want 302 /smart-proxy/", resp.StatusCode, resp.Header.Get("Location"))
+	}
+
+	resp, err = http.Get(front.URL + "/smart-proxy/")
+	if err != nil {
+		t.Fatal(err)
+	}
+	html, _ := io.ReadAll(resp.Body)
+	resp.Body.Close()
+	if resp.StatusCode != http.StatusOK || !strings.Contains(resp.Header.Get("Content-Type"), "text/html") {
+		t.Fatalf("ui = %d %q", resp.StatusCode, resp.Header.Get("Content-Type"))
+	}
+	if !bytes.Contains(html, []byte("/smart-proxy/switch")) {
+		t.Fatalf("ui missing switch endpoint")
+	}
+
+	resp, err = http.Get(front.URL + "/smart-proxy/status")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var st struct {
+		Alias        string            `json:"alias"`
+		Target       string            `json:"target"`
+		Order        []string          `json:"order"`
+		Candidates   map[string]string `json:"candidates"`
+		Models       map[string]string `json:"models"`
+		UpstreamPort string            `json:"upstream_port"`
+	}
+	if err := json.NewDecoder(resp.Body).Decode(&st); err != nil {
+		t.Fatal(err)
+	}
+	resp.Body.Close()
+	if st.Alias != "smart" || st.Target != "medium" {
+		t.Fatalf("status alias/target = %q/%q", st.Alias, st.Target)
+	}
+	if len(st.Order) != 2 || st.Order[0] != "smart" || st.Order[1] != "medium" {
+		t.Fatalf("status order = %v", st.Order)
+	}
+	if st.Models["fast"] != "loaded" || st.Candidates["medium"] != "loaded" {
+		t.Fatalf("status models = %v, candidates = %v", st.Models, st.Candidates)
+	}
+	if st.UpstreamPort == "" {
+		t.Fatal("expected upstream_port to be set")
+	}
+}

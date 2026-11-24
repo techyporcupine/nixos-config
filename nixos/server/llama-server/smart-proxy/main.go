@@ -7,6 +7,7 @@ package main
 import (
 	"bytes"
 	"context"
+	_ "embed"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -26,26 +27,31 @@ import (
 
 const adminPrefix = "/smart-proxy/"
 
+//go:embed ui.html
+var uiHTML []byte
+
 // paramMap holds, per target model, a value substitution table for each
 // parameter path: model -> "reasoning.effort" -> {"xhigh": "high"}.
 type paramMap map[string]map[string]map[string]json.RawMessage
 
 type proxy struct {
-	alias       string
-	aliasQuoted []byte
-	tracker     *tracker
-	params      paramMap
-	rp          *httputil.ReverseProxy
+	alias        string
+	aliasQuoted  []byte
+	upstreamPort string
+	tracker      *tracker
+	params       paramMap
+	rp           *httputil.ReverseProxy
 }
 
 func newProxy(upstream *url.URL, alias string, t *tracker, params paramMap) *proxy {
 	transport := http.DefaultTransport.(*http.Transport).Clone()
 	transport.MaxIdleConnsPerHost = 64
 	return &proxy{
-		alias:       alias,
-		aliasQuoted: []byte(strconv.Quote(alias)),
-		tracker:     t,
-		params:      params,
+		alias:        alias,
+		aliasQuoted:  []byte(strconv.Quote(alias)),
+		upstreamPort: upstream.Port(),
+		tracker:      t,
+		params:       params,
 		rp: &httputil.ReverseProxy{
 			Rewrite: func(r *httputil.ProxyRequest) {
 				r.SetURL(upstream)
@@ -64,6 +70,10 @@ func isManagementPath(path string) bool {
 }
 
 func (p *proxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == strings.TrimSuffix(adminPrefix, "/") {
+		http.Redirect(w, r, adminPrefix, http.StatusFound)
+		return
+	}
 	if strings.HasPrefix(r.URL.Path, adminPrefix) {
 		p.admin(w, r)
 		return
@@ -210,18 +220,31 @@ func writeJSON(w http.ResponseWriter, code int, v any) {
 
 func (p *proxy) admin(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
+	case adminPrefix:
+		if r.Method != http.MethodGet && r.Method != http.MethodHead {
+			http.Error(w, "use GET", http.StatusMethodNotAllowed)
+			return
+		}
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.Header().Set("Cache-Control", "no-store")
+		w.Write(uiHTML)
+
 	case adminPrefix + "status":
 		status, _ := p.tracker.snapshotStatus()
 		candidates := map[string]string{}
 		for _, c := range p.tracker.candidates {
 			candidates[c] = status[c]
 		}
+		w.Header().Set("Cache-Control", "no-store")
 		writeJSON(w, http.StatusOK, map[string]any{
-			"alias":      p.alias,
-			"target":     *p.tracker.target.Load(),
-			"fallback":   p.tracker.fallback,
-			"candidates": candidates,
-			"switching":  p.tracker.gate.Load() != nil,
+			"alias":         p.alias,
+			"target":        *p.tracker.target.Load(),
+			"fallback":      p.tracker.fallback,
+			"order":         p.tracker.candidates,
+			"candidates":    candidates,
+			"models":        status,
+			"switching":     p.tracker.gate.Load() != nil,
+			"upstream_port": p.upstreamPort,
 		})
 
 	case adminPrefix + "switch":
