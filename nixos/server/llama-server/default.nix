@@ -83,10 +83,11 @@ in {
       wantedBy = ["default.target"];
       serviceConfig = {
         Type = "simple";
-        ExecStart =
+        ExecStart = "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 0.0.0.0 --port ${toString (
           if proxy.enable
-          then "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 0.0.0.0 --port ${toString internalPort} --models-max 4"
-          else "${cfg.package}/bin/llama-server --models-preset %E/llama-cpp/models.ini --host 0.0.0.0 --port ${toString routerPort} --models-max 4";
+          then internalPort
+          else routerPort
+        )}";
         Restart = "on-failure";
         RestartSec = "10s";
       };
