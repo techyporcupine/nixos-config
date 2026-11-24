@@ -97,7 +97,7 @@
     distrobox
     kdePackages.kdenlive
     # handbrake
-    # calibre
+    calibre-no-speech
     # inputs.companion-satellite.packages.${pkgs.system}.default
     packet
     remmina
@@ -120,6 +120,8 @@
         pandas
         requests
         beautifulsoup4
+        plotly
+        matplotlib
       ]))
   ];
 
