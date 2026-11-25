@@ -207,8 +207,9 @@
             FRIGATE_RTSP_PASSWORD = "password";
             HSA_OVERRIDE_GFX_VERSION = "9.0.6";
             ROCBLAS_TENSILE_LIBPATH = "${customRocblas}/lib/rocblas/library";
-            # Use AMD VA-API driver instead of probing for NVIDIA
-            LIBVA_DRIVER_NAME = "radeonsi";
+            # Decode on the Intel iGPU. Video jobs on the MI50 get timed out
+            # and reset while LLM prefill keeps that card busy.
+            LIBVA_DRIVER_NAME = "iHD";
           };
           # Map your volumes
           volumes = [
