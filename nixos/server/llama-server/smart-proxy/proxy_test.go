@@ -240,6 +240,9 @@ func TestSwitchUnloadsThenLoads(t *testing.T) {
 }
 
 var testParams = paramMap{
+	"smart": {
+		"chat_template_kwargs.reasoning_effort": {"minimal": json.RawMessage(`"low"`)},
+	},
 	"medium": {
 		"reasoning_effort": {"xhigh": json.RawMessage(`"high"`), "max": json.RawMessage(`"high"`)},
 		"reasoning.effort": {"xhigh": json.RawMessage(`"high"`)},
@@ -283,6 +286,19 @@ func TestParamMapSkipsOtherTargetsAndNamedModels(t *testing.T) {
 	post(t, front.URL, "/v1/chat/completions", `{"model":"smart","reasoning_effort":"xhigh"}`)
 	if !bytes.Contains(fr.lastBody, []byte(`"xhigh"`)) {
 		t.Fatalf("mapping for medium applied to smart: %s", fr.lastBody)
+	}
+
+	post(t, front.URL, "/v1/chat/completions", `{"model":"smart","chat_template_kwargs":{"enable_thinking":true,"reasoning_effort":"minimal","preserve_thinking":true}}`)
+	var chatKwargs struct {
+		ChatTemplateKwargs struct {
+			EnableThinking   bool   `json:"enable_thinking"`
+			ReasoningEffort  string `json:"reasoning_effort"`
+			PreserveThinking bool   `json:"preserve_thinking"`
+		} `json:"chat_template_kwargs"`
+	}
+	json.Unmarshal(fr.lastBody, &chatKwargs)
+	if chatKwargs.ChatTemplateKwargs.ReasoningEffort != "low" || !chatKwargs.ChatTemplateKwargs.EnableThinking || !chatKwargs.ChatTemplateKwargs.PreserveThinking {
+		t.Fatalf("chat_template_kwargs body = %s", fr.lastBody)
 	}
 
 	body := `{"model":"medium","reasoning_effort":"xhigh"}`

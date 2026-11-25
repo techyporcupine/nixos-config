@@ -60,6 +60,21 @@
       smartProxy = {
         enable = true;
         candidates = ["smart" "inkling" "medium"];
+        # Qwen 3.8 27B's template only accepts low, medium, high (-> xhigh), and xhigh.
+        paramMap.smart = {
+          "chat_template_kwargs.reasoning_effort" = {
+            minimal = "low";
+            max = "xhigh";
+          };
+          reasoning_effort = {
+            minimal = "low";
+            max = "xhigh";
+          };
+          "reasoning.effort" = {
+            minimal = "low";
+            max = "xhigh";
+          };
+        };
       };
     };
     beszel = {
