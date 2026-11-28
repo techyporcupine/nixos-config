@@ -196,6 +196,7 @@
           image = "ghcr.io/blakeblackshear/frigate:0.18.2-rocm";
           autoStart = true;
           extraOptions = [
+            "--network=host"
             "--pull=newer"
             "--privileged"
             "--shm-size=512m"
@@ -211,12 +212,12 @@
             "/dev/dri/renderD128:/dev/dri/renderD128"
           ];
           # Map your ports
-          ports = [
-            "8971:8971"
-            "8554:8554"
-            "8555:8555/tcp"
-            "8555:8555/udp"
-          ];
+          #ports = [
+          #  "8971:8971"
+          #  "8554:8554"
+          #  "8555:8555/tcp"
+          #  "8555:8555/udp"
+          #];
           # Set environment variables
           environment = {
             FRIGATE_RTSP_PASSWORD = "password";
